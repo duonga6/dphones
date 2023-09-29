@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+    List<Product>? products = ViewBag.Products as List<Product>;
+}
+
+<div class="product-container">
+    <div class="product_grid">
+        @if (products != null)
+        {
+            foreach (var item in products)
+            {
+                var srcImg = item.MainPhoto != null ? item.Photos?.Where(p => p.Id == item.MainPhoto).Select(p =>
+                p.Name).FirstOrDefault() : "no-image.png";
+                <div class="item">
+                    <div class="card w-100">
+                        <div class="card-img p-2 d-flex align-items-center">
+                            <img src="/files/Products/@srcImg" class="card-img-top rounded-1" alt="...">
+                        </div>
+                        <div class="card-body d-flex flex-column pt-2">
+                            <div class="card-title">
+                                <span class="">@item.Name</span>
+                            </div>
+                            <div class="product-info mb-auto">
+                                <div class="product-info-item">
+                                    @if (item.Ram != null)
+                                    {
+                                        <i class="fa-solid fa-memory"></i>
+                                        @(item.Ram.Value + " GB")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+
+                                    @if (item.Rom != null)
+                                    {
+                                        <i class="fa-solid fa-hard-drive"></i>
+                                        @(item.Rom.Value + " GB")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (item.ScreenSize != null)
+                                    {
+                                        <i class="fa-solid fa-mobile-screen"></i>
+                                        @(item.ScreenSize.Value + "\"")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (item.Battery != null)
+                                    {
+                                        <i class="fa-solid fa-battery-three-quarters"></i>
+                                        @(item.Battery.Value + " mAh")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (item.Chipset != null)
+                                    {
+                                        <i class="fa-solid fa-microchip"></i>
+                                        @(item.Chipset)
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-price d-flex justify-content-between px-2 mb-2">
+                                <span class="selling-price primary-text">@item.SellingPrice.ToString("N0", new
+                            CultureInfo("de"))<sup>đ</sup></span>
+                                <del class="old-price text-dark opacity-50">1.000 đ</del>
+                            </div>
+                            <div class="product-rating d-flex">
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate fa-solid fa-star"></i>
+                                <i class="star-rate fa-solid fa-star"></i>
+                                <i class="star-rate fa-solid fa-star"></i>
+                                <i class="star-rate fa-solid fa-star"></i>
+                            </div>
+                            <div class="add-to-cart-btn ">
+                                <i class="add-to-cart-icon text-white fa-solid fa-cart-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @{
+        var pagingModel = new PagingModel()
+            {
+                CountPage = ViewBag.CountPage,
+                CurrentPage = ViewBag.CurrentPage,
+                GenerateUrl = p => Url.Action("Index", "Home", new { p }) ?? ""
+            };
+    }
+    <div class="home-pagination">
+        <partial name="_Paging" model="@pagingModel"></partial>
+    </div>
+</div>

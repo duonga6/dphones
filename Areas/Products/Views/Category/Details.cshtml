@@ -1,0 +1,33 @@
+@model Category
+
+@{
+    ViewData["Title"] = "Chi tiết danh mục";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <dt class="col-md-6">Tên danh mục</dt>
+                    <dd class="col-md-6">@Model.Name</dd>
+                </div>
+                <div class="row">
+                    <dt class="col-md-6">Địa chỉ Url</dt>
+                    <dd class="col-md-6">@Model.Slug</dd>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <dt>Mô tả</dt>
+                        <dd>@Model.Description</dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a asp-action="Index" asp-controller="Category" asp-area="Products" class="btn btn-primary mt-3">Quay lại danh
+            sách</a>
+    </div>
+</div>

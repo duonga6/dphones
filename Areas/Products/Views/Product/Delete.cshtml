@@ -1,0 +1,17 @@
+@model Product
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <p>Bạn có chắc muốn xóa sản phẩm này không</p>
+        <form method="post">
+            <button type="submit" class="btn btn-danger">Đồng ý</button>
+            <a class="btn btn-primary" asp-action="Index" asp-controller="Product" asp-area="Products">Quay lại</a>
+        </form>
+    </div>
+</div>

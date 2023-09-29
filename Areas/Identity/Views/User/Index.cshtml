@@ -1,0 +1,111 @@
+@model UserIndexModel
+
+@{
+    ViewData["Title"] = "Quản lý User";
+}
+<div class="admin-manager-user h-100">
+    <div class="card table-user-manager mb-4 h-100">
+        <div class="card-header table-heading">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"]
+        </div>
+        <div class="card-body table-content mb-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-2">Tên đăng nhập</th>
+                        <th class="col-4">Email</th>
+                        <th class="col-4">Vai trò</th>
+                        <th class="col-2">Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.User != null)
+                    {
+                        foreach (var item in Model.User)
+                        {
+                            <tr>
+                                <td>@item.UserName</td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        @item.Email
+                                        @if (item.EmailConfirmed)
+                                        {
+                                            <a data-bs-toggle="tooltip" title="" data-bs-original-title="Đã xác thực">
+                                                <i class="text-success fa-regular fa-circle-check"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a data-bs-toggle="tooltip" title="" data-bs-original-title="Chưa xác thực">
+                                                <i class="text-warning fa-solid fa-circle-exclamation"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="role-container d-flex justify-content-between">
+                                        <div class="role-list">
+                                            @if (item.Roles is not null)
+                                            {
+                                                var styleText = "";
+                                                foreach (var role in item.Roles)
+                                                {
+                                                    if (role == RoleName.Administrator)
+                                                    {
+                                                        styleText = "text-success";
+                                                    }
+                                                    else if (role == RoleName.Editor)
+                                                    {
+                                                        styleText = "text-info";
+                                                    }
+                                                    else
+                                                    {
+                                                        styleText = "";
+                                                    }
+                                                    <p class="role-item fw-bold mb-0 @(styleText)">@role</p>
+                                                }
+                                            }
+                                        </div>
+                                        <a class="btn btn-sm" asp-action="AddRole" asp-controller="User" asp-area="Identity"
+                                            asp-route-userid="@item.Id" data-bs-toggle="tooltip" title=""
+                                            data-bs-original-title="Cập nhật">
+                                            <i class="text-primary fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a asp-action="SetPassword" asp-controller="User" asp-area="Identity"
+                                        asp-route-userid="@item.Id" class="btn btn-warning btn-sm">Reset mật khẩu <i
+                                            class="fa-solid fa-key"></i></a>
+                                    
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @{
+                var pageModel = new PagingModel()
+                {
+                    CountPage = ViewBag.CountPage,
+                    CurrentPage = ViewBag.CurrentPage,
+                    GenerateUrl = p => Url.Action("Index", "User", new {area = "Identity", p}) ?? ""
+                };
+            }
+            <partial name="_Paging" model="@pageModel" />
+            <partial name="_AlertMessage" />
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        })
+    </script>
+}

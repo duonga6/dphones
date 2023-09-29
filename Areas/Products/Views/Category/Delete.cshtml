@@ -1,0 +1,17 @@
+@model Category
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post" asp-route-Id="@Model.Id">
+            <p>Bạn có chắc xóa danh mục này không ?</p>
+            <button class="btn btn-danger" type="submit">Đồng ý</button>
+            <a class="btn btn-primary" asp-action="Index" asp-controller="Category" asp-area="Products">Quay lại</a>
+        </form>
+    </div>
+</div>

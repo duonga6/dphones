@@ -1,0 +1,17 @@
+@model IdentityUserClaim<string>
+@{
+    ViewData["Title"] = "Xóa Claim";
+}
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post" asp-route-claimId="@Model.Id">
+            <p>Bạn có chắc xóa claim này không ?</p>
+            <button type="submit" class="btn btn-danger">Đồng ý</button>
+        </form>
+    </div>
+</div>

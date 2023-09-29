@@ -1,0 +1,41 @@
+@model AddClaimModel
+@{
+    ViewData["Title"] = "Thêm Claim";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        @ViewData["Title"] cho user @ViewBag.User.UserName
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" asp-route-userid="@ViewBag.User.Id">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-group mb-2">
+                        <label class="form-label" asp-for="ClaimType"></label>
+                        <input class="form-control" asp-for="ClaimType" />
+                        <span class="text-danger" asp-validation-for="ClaimType"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label class="form-label" asp-for="ClaimValue"></label>
+                        <input class="form-control" asp-for="ClaimValue" />
+                        <span class="text-danger" asp-validation-for="ClaimValue"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <a asp-action="AddRole" asp-controller="User" asp-area="Identity"
+                            asp-route-userid="@ViewBag.User.Id" class="btn btn-primary">Quay lại danh sách</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <partial name="_AlertMessage" />
+</div>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

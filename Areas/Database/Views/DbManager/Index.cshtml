@@ -1,0 +1,54 @@
+@using Microsoft.EntityFrameworkCore
+
+@inject AppDbContext dbContext
+
+@{
+    ViewData["Title"] = "Thông tin Database";
+    var connect = dbContext.Database.GetDbConnection();
+    var dbname = connect.Database;
+    var canconnect = dbContext.Database.CanConnect();
+}
+
+<partial name="_AlertMessage" />
+
+<h2>@ViewData["Title"]</h2>
+<p>Database name: @dbname</p>
+<p>Source: @connect.DataSource</p>
+<p>State: @connect.State</p>
+<hr>
+<h2>Migrations</h2>
+@foreach(var item in dbContext.Database.GetAppliedMigrations())
+{
+    <p>@item</p>
+}
+@foreach(var item in dbContext.Database.GetPendingMigrations())
+{
+    <p>@item (pending)</p>
+}
+
+@if(dbContext.Database.GetPendingMigrations().Any())
+{
+    <a class="btn btn-primary" href="#">Cập nhật Database</a>
+}
+
+@if(!canconnect)
+{
+    <p class="alert alert-info">Không thể kết nối Database</p>
+}
+else
+{
+    <hr>
+    <h2>Các bảng</h2>
+    await dbContext.Database.OpenConnectionAsync();
+    var table = dbContext.Database.GetDbConnection().GetSchema("Tables");
+    <ul>
+        @foreach(System.Data.DataRow item in table.Rows)
+        {
+            <li>@item["TABLE_NAME"]</li>
+        }
+    </ul>
+
+    <a class="btn btn-success" asp-action="SeedData" asp-controller="DbManager" asp-area="Database">Seed Data</a>
+    <a class="btn btn-danger" href="#">Xóa Database</a>
+
+}

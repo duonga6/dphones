@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Authorization
+
+@inject IAuthorizationService Authorization
+
+@{
+    var result = await Authorization.AuthorizeAsync(this.User, "ViewMenuAdmin");
+}
+
+@if (result.Succeeded)
+{
+    <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+            <a class="nav-link btn" asp-action="Index" asp-controller="AdminCP" asp-area="AdminCP"><i class="fa-solid fa-gear"></i> Manager</a>
+        </li>
+    </ul>
+}

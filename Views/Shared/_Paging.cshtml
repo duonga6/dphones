@@ -1,0 +1,116 @@
+@model PagingModel
+
+@{
+    int currentPage = Model.CurrentPage;
+    int countPage = Model.CountPage;
+    Func<int?, string> generateUrl = Model.GenerateUrl;
+
+    if (currentPage > countPage)
+        return;
+
+    if (countPage <= 1)
+        return;
+
+    int? preview = null;
+    int? next = null;
+
+    if (currentPage > 1)
+        preview = currentPage - 1;
+    
+    if (currentPage < countPage)
+        next = currentPage + 1;
+
+    List<int> pageRange = new();
+
+    int delta = 5;
+    int remain = delta * 2;
+
+    pageRange.Add(currentPage);
+
+    for (int i = 1; i <= delta; i++)
+    {
+        if (currentPage + i <= countPage)
+        {
+            pageRange.Add(currentPage + i);
+            remain--;
+        }
+
+        if (currentPage - i >= 1)
+        {
+            pageRange.Insert(0, currentPage - i);
+            remain--;
+        }
+    }
+
+    if (remain > 0)
+    {
+        if (pageRange[0] == 1 && pageRange.Last() < countPage)
+        {
+            for (int i = 1; i <= remain; i++)
+            {
+                pageRange.Add(pageRange.Last() + 1);
+            }
+        }
+        else
+        {
+            for (int i = 1; i <= remain; i++)
+            {
+                if (pageRange.First() - 1 > 1)
+                    pageRange.Insert(0, pageRange.First() - 1);
+            }
+        }
+    }
+    
+}
+
+<ul class="pagination">
+    @if (preview == null)
+    {
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="page-item">
+            <a href="@generateUrl(preview)" class="page-link">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+        </li>
+    }
+
+    @foreach (var item in pageRange)
+    {
+        if (item != currentPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@generateUrl(item)">@item</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item active">
+                <a href="#" class="page-link">@item</a>
+            </li>
+        }
+    }
+
+    @if (next == null)
+    {
+        <li class="page-item disabled">
+            <a href="#" class="page-link" tabindex="-1" aria-disabled="true">
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="page-item">
+            <a href="@generateUrl(next)" class="page-link">
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </li>
+    }
+</ul>

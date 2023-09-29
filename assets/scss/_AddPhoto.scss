@@ -1,0 +1,80 @@
+.product-add-photo {
+    min-height: 400px;
+    .product-photo-container {
+        
+        .main-photo-container {
+
+            .show-main-photo {
+                width: 300px;
+                position: relative;
+
+                &:hover {
+                    #main-photo-img {
+                        opacity: .8;
+                    }
+
+                    .btn-delete-main-photo {
+                        visibility: visible;
+                    }
+                }
+
+                #main-photo-img  {
+                    width: 100%;
+                    object-fit: contain;
+                    transition: all .1s ease-in;
+                    border-radius: 8px;
+                    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+                }
+
+                .btn-delete-main-photo {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    visibility: hidden;
+                    transition: visibility .1s ease-in;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .sub-photo-container {
+
+            .show-sub-photo {
+                width: 100%;
+                padding: 0;
+                list-style: none;
+                margin-top: 12px;
+
+                .sub-photo-item {
+                    position: relative;
+
+                    &:hover {
+                        #sub-photo-img {
+                            opacity: .8;
+                        }
+
+                        .btn-delete-sub-photo {
+                            visibility: visible;
+                        }
+                    }
+
+                    #sub-photo-img {
+                        width: 100%;
+                        object-fit: contain;
+                        border-radius: 8px;
+                        transition: opacity .1s ease-in;
+                        border: 1px solid rgba($color: #000000, $alpha: 0.1);
+                    }
+
+                    .btn-delete-sub-photo {
+                        position: absolute;
+                        top: 10px;
+                        right: 20px;
+                        transition: visibility .1s ease-in;
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+}

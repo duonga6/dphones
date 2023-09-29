@@ -1,0 +1,42 @@
+.header-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden; 
+    margin-right: 4px;
+
+    img {
+        width: 60px;
+        object-fit: contain;
+    }
+}
+
+.header-item {
+    height: 48px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($color: rgb(248, 249, 250), $alpha: 0.25);
+    }
+}
+
+.home-header-logo {
+    width: 180px;
+}
+
+.header-search-container {
+
+    width: 300px;
+    position: relative;
+    .header-search-input {
+        border-radius: 20px;
+        border: none;
+    }
+
+
+    .header-search-btn {
+        position: absolute;
+        right: 8px;
+        top: 0;
+    }
+}

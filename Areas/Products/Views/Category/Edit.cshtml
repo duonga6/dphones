@@ -1,0 +1,45 @@
+@model Category
+@{
+    ViewData["Title"] = "Sửa danh mục";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" asp-route-Id="@Model.Id">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <input asp-for="Id" hidden />
+                    <div class="form-group mb-4">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label asp-for="Slug" class="form-label"></label>
+                        <input asp-for="Slug" class="form-control" />
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" cols="30" rows="10" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Cập nhật</button>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Category" asp-area="Products">
+                            Quay lại</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

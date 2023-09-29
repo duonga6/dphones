@@ -1,0 +1,139 @@
+@model CreateProductModel
+@{
+    ViewData["Title"] = "Thêm mới sản phẩm";
+}
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa-solid fa-table"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="Code" class="form-label"></label>
+                        <input asp-for="Code" class="form-control">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="CategoryId" class="form-label"></label>
+                        <select asp-for="CategoryId" asp-items="@ViewBag.Category" class="w-100"></select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="BrandId" class="form-label"></label>
+                        <select asp-for="BrandId" asp-items="@ViewBag.Brand" class="w-100 form-select"></select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Slug" class="form-label"></label>
+                        <input asp-for="Slug" class="form-control">
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PurchasePrice" class="form-label"></label>
+                        <input asp-for="PurchasePrice" class="form-control">
+                        <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="SellingPrice" class="form-label"></label>
+                        <input asp-for="SellingPrice" class="form-control">
+                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Ram" class="form-label"></label>
+                        <input asp-for="Ram" class="form-control">
+                        <span asp-validation-for="Ram" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="Rom" class="form-label"></label>
+                        <input asp-for="Rom" class="form-control">
+                        <span asp-validation-for="Rom" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Battery" class="form-label"></label>
+                        <input asp-for="Battery" class="form-control">
+                        <span asp-validation-for="Battery" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="OS" class="form-label"></label>
+                        <input asp-for="OS" class="form-control">
+                        <span asp-validation-for="OS" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Chipset" class="form-label"></label>
+                        <input asp-for="Chipset" class="form-control">
+                        <span asp-validation-for="Chipset" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="ScreenSize" class="form-label"></label>
+                        <input asp-for="ScreenSize" class="form-control">
+                        <span asp-validation-for="ScreenSize" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Charger" class="form-label"></label>
+                        <input asp-for="Charger" class="form-control">
+                        <span asp-validation-for="Charger" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="EntryDate" class="form-label"></label>
+                        <input asp-for="EntryDate" class="form-control" type="date">
+                        <span asp-validation-for="EntryDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="ReleaseDate" class="form-label"></label>
+                        <input asp-for="ReleaseDate" class="form-control" type="date">
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label asp-for="SIM" class="form-label"></label>
+                        <textarea asp-for="SIM" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="SIM" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Camera" class="form-label"></label>
+                        <textarea asp-for="Camera" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Camera" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Quantity" class="form-label"></label>
+                        <input asp-for="Quantity" class="form-control">
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-4">
+                        <input asp-for="Published" class="form-check-input" checked>
+                        <label asp-for="Published" class="form-check-label"></label>
+                        <span asp-validation-for="Published" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mt-4">
+                    <button class="btn btn-success" type="submit">Tiếp tục</button>
+                    <a class="btn btn-primary" asp-action="Index" asp-controller="Product" asp-area="Products">Quay
+                        lại</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    @* <partial name="_MultipleSelect" model="@("CategoryId")"></partial>
+    <partial name="_MultipleSelect" model="@("BrandId")"></partial> *@
+    <partial name="_ValidationScriptsPartial" />
+}

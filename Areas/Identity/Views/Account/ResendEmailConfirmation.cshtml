@@ -1,0 +1,23 @@
+@model ResendEmailModel
+@{
+    ViewData["Title"] = "Gửi lại email xác thực";
+}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h4 class="text-center text-dark fw-semibold">Gửi lại email xác thực</h4>
+        <img src="~/images/logo-color.png" style="width: 100%; height: 100px; object-fit: cover;">
+        <form method="post" asp-action="ResendEmailConfirmation" asp-controller="Account" asp-area="Identity">
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" aria-required="true" />
+                <label asp-for="Email" class="form-label primary-text opacity-100"></label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn primary-bg text-white">Gửi lại</button>
+            <div asp-validation-summary="All" class="text-success mt-2"></div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

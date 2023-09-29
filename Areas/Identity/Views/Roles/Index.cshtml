@@ -1,0 +1,51 @@
+@model List<RoleModel>
+
+@{
+    ViewData["Title"] = "Quản lý Role";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        @ViewData["Title"]
+        <a class="btn btn-primary btn-sm rounded-circle ms-2" asp-action="Create" asp-controller="Roles" asp-area="Identity">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-3 w-25 text-center">
+            <thead>
+                <tr>
+                    <th>
+                        Tên Role (vai trò)
+                    </th>
+                    <th>
+                        Tác vụ
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+
+                    <td>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a class="text-decoration-none" asp-action="Edit" asp-controller="Roles" asp-area="Identity"
+                                asp-route-roleid="@item.Id">
+                                <i class="text-primary fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a class="ms-3" asp-action="Delete" asp-controller="Roles" asp-area="Identity"
+                                asp-route-roleid="@item.Id">
+                                <i class="text-danger fa-solid fa-trash-can"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+        <partial name="_AlertMessage" />
+    </div>
+</div>

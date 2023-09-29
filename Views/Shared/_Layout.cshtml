@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - App</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/App.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 primary-bg">
+            <div class="container-xxl py-1">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+                    <ul class="navbar-nav align-items-center">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Home">
+                                <img src="~/images/logo-white.png" class="home-header-logo">
+                            </a>
+                        </li>
+                        <li class="nav-item ms-4">
+                            <div class="header-item rounded bg-light bg-opacity-25 p-1 d-flex align-items-center">
+                                <div class="ps-2 pe-1 d-flex align-items-center">
+                                    <i class="text-white fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="ps-1 pe-2">
+                                    <p class="mb-0 text-white" style="font-size: 12px;">Xem giá tại</p>
+                                    <p class="mb-0 text-center text-white fw-semibold">Hà Nội</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="d-flex header-search-container ms-4 me-2 flex-grow-1">
+                        <input class="header-search-input form-control me-2 px-3" type="search"
+                            placeholder="Bạn cần tìm gì... ?" aria-label="Search">
+                        <button class="btn header-search-btn" type="submit">
+                            <i class="primary-text fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                    <div class="d-flex  justify-content-end">
+                        <ul class="navbar-nav align-items-center">
+                            <li class="nav-item ms-2">
+                                <div class="header-item rounded bg-light bg-opacity-25 p-1 d-flex align-items-center">
+                                    <div class="ps-2 pe-1 d-flex align-items-center">
+                                        <i class="text-white fa-solid fa-phone"></i>
+                                    </div>
+                                    <div class="ps-1 pe-2">
+                                        <p class="mb-0 text-white" style="font-size: 12px;">Gọi mua hàng</p>
+                                        <p class="mb-0 text-center text-white fw-semibold">1800.1789</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <div class="header-item rounded p-1 d-flex align-items-center">
+                                    <div class="ps-2 d-flex align-items-center">
+                                        <i class="text-white fa-solid fa-cart-shopping"></i>
+                                    </div>
+                                    <div class="ps-2 pe-2">
+                                        <p class="mb-0 text-white text-center lh-lg">Giỏ hàng</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <div class="header-item rounded p-1 d-flex align-items-center">
+                                    <div class="ps-2 d-flex align-items-center">
+                                        <i class="text-white fa-solid fa-truck-arrow-right"></i>
+                                    </div>
+                                    <div class="ps-2 pe-2">
+                                        <p class="mb-0 text-white text-center lh-sm">Tra cứu <br> đơn hàng</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <partial name="_MenuAdmin"></partial>
+                        <partial name="_LoginPartial"></partial>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

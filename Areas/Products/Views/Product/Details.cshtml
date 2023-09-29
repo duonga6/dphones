@@ -1,0 +1,155 @@
+@model Product
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<div class="card">
+    <div class="card-header">
+        Chi tiết sản phẩm
+    </div>
+    <div class="card-body">
+        <div class="product-manager-detail">
+            <h4>@Model.Name</h4>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="product-manager-detail-main-photo">
+
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <ul class="product-manager-detail-sub-photo row">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <dt class="col-4">Mã sản phẩm</dt>
+                        <dd class="col-8">@Model.Code</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Url</dt>
+                        <dd class="col-8">@Model.Slug</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Giá nhập</dt>
+                        <dd class="col-8">@Model.PurchasePrice</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Giá bán</dt>
+                        <dd class="col-8">@Model.SellingPrice</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Màn hình</dt>
+                        <dd class="col-8">@Model.ScreenSize Inches</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Camera</dt>
+                        <dd class="col-8">@Model.Camera</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Vi xử lý</dt>
+                        <dd class="col-8">@Model.Chipset</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Ram</dt>
+                        <dd class="col-8">@Model.Ram</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Rom</dt>
+                        <dd class="col-8">@Model.Rom</dd>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <dt class="col-4">Dung lượng pin</dt>
+                        <dd class="col-8">@Model.Battery mAh</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Công suất sạc</dt>
+                        <dd class="col-8">@Model.Charger W</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">SIM</dt>
+                        <dd class="col-8">@Model.SIM</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">HDH</dt>
+                        <dd class="col-8">@Model.OS</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Số lượng</dt>
+                        <dd class="col-8">@Model.Quantity</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Đã bán</dt>
+                        <dd class="col-8">@Model.Sold</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Ngày nhập</dt>
+                        <dd class="col-8">@Model.EntryDate</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Ngày sản xuất</dt>
+                        <dd class="col-8">@Model.ReleaseDate</dd>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <div class="card-body">
+                        <dt>Mô tả</dt>
+                        @Model.Description
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-primary mt-4" asp-action="Index" asp-controller="Product" asp-area="Products">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        const mainPhoto = $(".product-manager-detail-main-photo");
+        const subPhoto = $(".product-manager-detail-sub-photo");
+
+        const LoadPhoto = function () {
+            var formData = new FormData();
+            formData.append("Id", @Model.Id);
+            $.ajax({
+                url: '@Url.Action("GetPhoto", "Product")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if (data.mainPhoto != null) {
+                        const html = `<img src="/files/Products/${data.mainPhoto.filename}" class="product-manager-detail-main-photo-img img-fluid">`;
+                        mainPhoto.append(html);
+                    }
+
+                    if (data.subPhoto.length > 0) {
+                        let html = '';
+                        data.subPhoto.forEach(item => {
+                            html += `
+                                            <li class="product-manager-detail-sub-photo-item col-md-4 mb-2">
+                                                <img src="/files/Products/${item.filename}" class="product-manager-detail-sub-photo-img">
+                                            </li>
+                                        `;
+                        });
+                        subPhoto.append(html);
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            LoadPhoto();
+        })
+    </script>
+}

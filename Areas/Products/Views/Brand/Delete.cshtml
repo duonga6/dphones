@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Xác nhận xóa";
+}
+
+<h4>@ViewData["Title"]</h4>
+<hr>
+<form method="post">
+    <p>Bạn có chắc muốn xóa hãng @ViewBag.Brand.Name không ?</p>
+    <button type="submit" class="btn btn-danger">Đồng ý</button>
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Brand" asp-area="Products">Quay lại</a>
+</form>

@@ -1,0 +1,320 @@
+@model CreateProductModel
+@{
+    ViewData["Title"] = "Chính sửa sản phẩm";
+}
+
+<div class="card">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="Code" class="form-label"></label>
+                        <input asp-for="Code" class="form-control">
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="CategoryId" class="form-label"></label>
+                        <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="w-100"></select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="BrandId" class="form-label"></label>
+                        <select asp-for="BrandId" asp-items="@ViewBag.Brands" class="w-100 form-select"></select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Slug" class="form-label"></label>
+                        <input asp-for="Slug" class="form-control">
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="PurchasePrice" class="form-label"></label>
+                        <input asp-for="PurchasePrice" class="form-control">
+                        <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="SellingPrice" class="form-label"></label>
+                        <input asp-for="SellingPrice" class="form-control">
+                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Ram" class="form-label"></label>
+                        <input asp-for="Ram" class="form-control">
+                        <span asp-validation-for="Ram" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="Rom" class="form-label"></label>
+                        <input asp-for="Rom" class="form-control">
+                        <span asp-validation-for="Rom" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Battery" class="form-label"></label>
+                        <input asp-for="Battery" class="form-control">
+                        <span asp-validation-for="Battery" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="OS" class="form-label"></label>
+                        <input asp-for="OS" class="form-control">
+                        <span asp-validation-for="OS" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Chipset" class="form-label"></label>
+                        <input asp-for="Chipset" class="form-control">
+                        <span asp-validation-for="Chipset" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="ScreenSize" class="form-label"></label>
+                        <input asp-for="ScreenSize" class="form-control">
+                        <span asp-validation-for="ScreenSize" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Charger" class="form-label"></label>
+                        <input asp-for="Charger" class="form-control">
+                        <span asp-validation-for="Charger" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="EntryDate" class="form-label"></label>
+                        <input asp-for="EntryDate" class="form-control" type="date">
+                        <span asp-validation-for="EntryDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="ReleaseDate" class="form-label"></label>
+                        <input asp-for="ReleaseDate" class="form-control" type="date">
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label asp-for="SIM" class="form-label"></label>
+                        <textarea asp-for="SIM" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="SIM" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Camera" class="form-label"></label>
+                        <textarea asp-for="Camera" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Camera" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label asp-for="Quantity" class="form-label"></label>
+                        <input asp-for="Quantity" class="form-control">
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-4">
+                        <input asp-for="Published" class="form-check-input" checked>
+                        <label asp-for="Published" class="form-check-label"></label>
+                        <span asp-validation-for="Published" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-add-photo d-flex flex-column mt-4">
+                <div class="row product-photo-container">
+                    <div class="main-photo-container col-md-4">
+                        <div class="main-photo-input-container">
+                            <span class="form-label">Hình ảnh hiển thị</span>
+                            <br>
+                            <span class="btn btn-success mt-2" id="main-photo-btn">Upload <i
+                                    class="fa-solid fa-plus"></i></span>
+                            <input type="file" name="MainPhoto" id="main-photo-input" hidden>
+                        </div>
+                        <div class="show-main-photo mt-4">
+
+                        </div>
+                    </div>
+                    <div class="sub-photo-container col-md-8">
+                        <div class="sub-photo-input-container">
+                            <span class="form-label">Hình ảnh khác</span>
+                            <br>
+                            <span class="btn btn-success mt-2" id="sub-photo-btn">Upload <i
+                                    class="fa-solid fa-plus"></i></span>
+                            <input type="file" name="SubPhoto" id="sub-photo-input" hidden>
+                        </div>
+                        <ul class="show-sub-photo row">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <button class="btn btn-success" type="submit">Lưu lại</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        const btnAddMainPhoto = $("#main-photo-btn");
+        const inputMainPhoto = $("#main-photo-input");
+        const showMainPhoto = $(".show-main-photo");
+
+        const btnAddSubPhoto = $("#sub-photo-btn");
+        const inputSubPhoto = $("#sub-photo-input");
+        const showSubPhoto = $(".show-sub-photo")
+
+        // Mở Input khi chọn thêm ảnh
+        btnAddMainPhoto.click(function () {
+            inputMainPhoto.click();
+        });
+
+        btnAddSubPhoto.click(function () {
+            inputSubPhoto.click();
+        })
+
+        // Tải ảnh main lên server
+        const UploadPhoto = function (type = 'main') {
+            let file;
+            if (type == 'sub')
+                file = document.getElementById("sub-photo-input").files;
+            else
+                file = document.getElementById("main-photo-input").files;
+
+            if (file == null) alert("abc");
+            const formData = new FormData();
+            formData.append("Id", @Model.Id);
+            formData.append("FileUpload", file[0]);
+            formData.append("type", type);
+
+            $.ajax({
+                url: '@Url.Action("UploadImage", "Product")',
+                data: formData,
+                type: 'POST',
+                processData: false,
+                cache: false,
+                contentType: false,
+                success: function (data) {
+                    LoadImage();
+                }
+            })
+        }
+
+        // Xóa ảnh
+        const DeletePhoto = function (Id, type = 'main') {
+            const formData = new FormData();
+            formData.append("Id", Id);
+            formData.append("productid", @Model.Id);
+            formData.append("type", type);
+
+            $.ajax({
+                url: '@Url.Action("DeleteImage", "Product")',
+                data: formData,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function () {
+                    LoadImage();
+                }
+            })
+        }
+
+        // Thêm sự kiện click cho nút xóa ảnh
+        const SetDeleteMainPhoto = function () {
+            $(".btn-delete-main-photo").click(function () {
+                DeletePhoto($(this).data("id"));
+                ResetInput();
+                LoadImage();
+            });
+        }
+
+        const SetDeleteSubPhoto = function () {
+            $(".btn-delete-sub-photo").click(function () {
+                DeletePhoto($(this).data("id"), 'sub');
+                ResetInput();
+                LoadImage();
+            });
+        }
+
+        // Reset input 
+        const ResetInput = function () {
+            inputMainPhoto.val('');
+            inputSubPhoto.val('');
+        }
+
+        // LoadImage
+        const LoadImage = function () {
+            var formData = new FormData();
+            formData.append("Id", @Model.Id);
+
+            $.ajax({
+                url: '@Url.Action("GetPhoto", "Product")',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                    if (data.mainPhoto != null) {
+                        const html = `
+                                                                    <img src="/files/Products/${data.mainPhoto.filename}" id="main-photo-img">
+                                                                    <span data-id="${data.mainPhoto.id}" class="btn btn-danger btn-delete-main-photo"><i class="fa-solid fa-xmark"></i></span>
+                                                                `;
+                        showMainPhoto.empty();
+                        showMainPhoto.append(html);
+                        showMainPhoto.show();
+                        btnAddMainPhoto.hide();
+                        SetDeleteMainPhoto();
+                    }
+                    else {
+                        showMainPhoto.empty().hide();
+                        btnAddMainPhoto.show();
+                    }
+
+                    if (data.subPhoto.length > 0) {
+                        let html = '';
+                        data.subPhoto.forEach(item => {
+                            html += `
+                                                        <li class="sub-photo-item col-md-4 mb-2">
+                                                            <img src="/files/Products/${item.filename}" id="sub-photo-img">
+                                                            <span data-id="${item.id}" class="btn btn-danger btn-delete-sub-photo"><i class="fa-solid fa-xmark"></i></span>
+                                                        </li>
+                                                    `;
+                            showSubPhoto.empty();
+                            showSubPhoto.append(html);
+                            SetDeleteSubPhoto();
+                        });
+                    } else {
+                        showSubPhoto.empty();
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            LoadImage();
+            showMainPhoto.hide();
+
+            inputMainPhoto.on('input', function () {
+                UploadPhoto();
+                ResetInput();
+            })
+
+            inputSubPhoto.on('input', function () {
+                UploadPhoto('sub');
+                ResetInput();
+            })
+
+
+        });
+    </script>
+    <partial name="_MultipleSelect" model="@("CategoryId")"></partial>
+    <partial name="_ValidationScriptsPartial" />
+}

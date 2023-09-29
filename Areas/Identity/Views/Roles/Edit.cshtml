@@ -1,0 +1,69 @@
+@model EditRoleModel
+@{
+    ViewData["Title"] = "Chỉnh sửa Role";
+}
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-group mb-4">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                    <div class="form-group mb-4">
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Roles" asp-area="Identity">Quay
+                            lại danh sách</a>
+                    </div>
+                </form>
+                @if (Model.Claims != null)
+                {
+                    <p>Các đặc tính của Role (Claim): </p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Kiểu Claim</th>
+                            <th>Giá trị</th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model.Claims)
+                        {
+                            <tr>
+                                <td>@item.ClaimType</td>
+                                <td>@item.ClaimValue</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a class="text-primary text-decoration-none" asp-action="EditClaim"
+                                            asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="text-danger text-decoration-none ms-2" asp-action="DeleteClaim"
+                                            asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                <a class="btn btn-success" asp-action="AddRoleClaim" asp-controller="Roles" asp-area="Identity"
+                    asp-route-roleid="@Model.RoleId">Thêm Claim</a>
+            </div>
+        </div>
+
+        <partial name="_AlertMessage"></partial>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,38 @@
+@model Brand
+@{
+    ViewData["Title"] = "Chính sửa hãng";
+}
+
+<h4>@ViewData["Title"]</h4>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-4">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="5" cols="10" ></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Slug" class="form-label"></label>
+                <input asp-for="Slug" class="form-control"/>
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+                <a class="btn btn-primary" asp-action="Index" asp-controller="Brand" asp-area="Products">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"></partial>
+}

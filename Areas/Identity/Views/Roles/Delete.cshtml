@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Xóa Role";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-route-roleid="@Model.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <h5>Bạn có chắc muốn xóa role <span class="text-success">@Model.Name</span> không?</h5>
+            <button type="submit" class="btn btn-danger mb-4 mt-2">Đồng ý</button>
+        </form>
+        <a class="btn btn-primary" asp-action="Index" asp-controller="Roles" asp-area="Identity">Quay lại danh sách</a>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

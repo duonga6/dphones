@@ -1,0 +1,11 @@
+@model EditClaimModel
+@{
+    ViewData["Title"] = "Xóa Claim";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr>
+<p>Bạn có chắc muốn xóa Claim @Model.ClaimType không?</p>
+<form method="post" asp-route-claimid="@Model.Id">
+    <button class="btn btn-danger">Đồng ý</button>
+</form>

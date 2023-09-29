@@ -1,0 +1,149 @@
+@using System.Globalization;
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+
+<div class="card h-100">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="left-header">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"] (@ViewBag.TotalProduct)
+            <a class="btn btn-primary btn-sm rounded-circle ms-2" asp-action="Create" asp-controller="Product"
+                asp-area="Products">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+        <div class="right-header d-flex align-items-center">
+            <div class="form-group row align-items-center me-3">
+                <div class="col-auto gx-2">
+                    <label class="form-label mb-0">Sắp xếp theo</label>
+                </div>
+                <div class="col-auto gx-2 d-flex justify-content-center align-items-center">
+                    <div class="dropdown">
+                        <a class="btn btn-sm dropdown-toggle" href="#" role="button"
+                            style="border: 1px solid #ced4da; background-color: #fff;" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            @switch (Context.Request.Query["sort"])
+                            {
+                                case "name":
+                                    @("Tên sản phẩm")
+                                    break;
+                                case "sellprice":
+                                    @("Giá bán")
+                                    break;
+                                case "sold":
+                                    @("Đã bán")
+                                    break;
+                                default:
+                                    @("Ngày nhập kho")
+                                    break;
+                            }
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href='@Url.Action("Index", "Product", new {area = "Products", s = Context.Request.Query["s"], sort = "entrydate"})'>Ngày
+                                    nhập kho</a></li>
+                            <li><a class="dropdown-item"
+                                    href='@Url.Action("Index", "Product", new {area = "Products", s = Context.Request.Query["s"], sort = "name"})'>Tên
+                                    sản phẩm</a></li>
+                            <li><a class="dropdown-item"
+                                    href='@Url.Action("Index", "Product", new {area = "Products", s = Context.Request.Query["s"], sort = "sellprice"})'>Giá
+                                    bán</a></li>
+                            <li><a class="dropdown-item"
+                                    href='@Url.Action("Index", "Product", new {area = "Products", s = Context.Request.Query["s"], sort = "sold"})'>Đã
+                                    bán</a></li>
+                        </ul>
+                    </div>
+                    <div style="font-size: 12px;">
+                        @{
+                            string orderSort = ViewBag.OrderSort == "desc" ? "asc" : "desc";
+                        }
+                        <a class="text-dark sort-order d-flex flex-column ms-3 text-decoration-none" href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>    
+                            <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {@("text-primary")}'></i>
+                            <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {@("text-primary")}'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <form method="get">
+                <div class="input-group-sm d-flex justify-content-center align-items-center">
+                    <input class="form-control" type="text" name="s" placeholder="Nhập từ khóa tìm kiếm...."
+                        value="@Context.Request.Query["s"]">
+                    <button class="btn ms-1" type="submit">
+                        <i class="text-primary fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+            <a class="ms-1" asp-action="Index" asp-controller="Product" asp-area="Products">
+                <i class="text-danger fa-solid fa-xmark"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Context.Request.Query["s"]))
+        {
+            <span class="mb-1">Kết quả tìm kiếm cho: <span class="fw-semibold">@Context.Request.Query["s"]</span></span>
+        }
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.Code)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.EntryDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.SellingPrice)</th>
+                    <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                    <th>@Html.DisplayNameFor(model => model.Sold)</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>@item.Code</td>
+                        <td>
+                            <a class="text-decoration-none" asp-action="Details" asp-controller="Product"
+                                asp-area="Products" asp-route-Id="@item.Id">
+                                @item.Name
+                            </a>
+                        </td>
+                        <td>@item.EntryDate.ToShortDateString()</td>
+                        <td>@item.SellingPrice.ToString("N0", new CultureInfo("de"))</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Sold</td>
+                        <td>
+                            <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
+                                asp-area="Products" asp-route-Id="@item.Id">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a class="text-danger ms-2" asp-action="Delete" asp-controller="Product" asp-area="Products"
+                                asp-route-Id="@item.Id">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @{
+            var pagingModel = new PagingModel()
+            {
+                CurrentPage = ViewBag.CurrentPage,
+                CountPage = ViewBag.TotalPage,
+                GenerateUrl = p => Url.Action("Index", "Product", new { area = "Products", p, s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = Context.Request.Query["sortOrder"]}) ?? ""
+            };
+        }
+        <partial name="_Paging" model="@pagingModel"></partial>
+        <partial name="_AlertMessage"></partial>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+
+    </script>
+}
