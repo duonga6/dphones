@@ -11,9 +11,9 @@ namespace App.Models.Products
 
         public required string Name {set;get;}
 
-        public int ProductId {set;get;}
+        public int? ProductId {set;get;}
 
         [ForeignKey("ProductId")]
-        public required Product Product {set;get;}
+        public Product? Product {set;get;}
     }
 }

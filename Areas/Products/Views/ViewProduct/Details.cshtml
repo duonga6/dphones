@@ -1,0 +1,66 @@
+@model Product
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-details-container">
+    <div class="product-heading">
+        <p>@Model.Name</p>
+    </div>
+    <div class="product-info row">
+        <div class="col-md-4">
+            <div class="photo-slide mt-2">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators flex-wrap mx-2 my-0">
+                        @{
+                            if (Model.Photos != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model.Photos)
+                                {
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                    class="sm-photo-btn @if(item.Id == Model.MainPhoto) @("active")" aria-current="true" aria-label="Hình ảnh @i">
+                                        <div class="sm-photo-box">
+                                            <img src="/files/Products/@item.Name" class="sm-photo d-block w-100" alt="...">
+                                        </div>
+                                    </button>
+                                    i++;
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="carousel-inner">
+                        @{
+                            if (Model.Photos != null)
+                            {
+                                foreach (var item in Model.Photos)
+                                {
+                                    <div class="carousel-item @if(item.Id == Model.MainPhoto) @("active")">
+                                        <img src="/files/Products/@item.Name" class="d-block w-100" alt="...">
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="product-price d-flex align-items-center mt-3">
+                <p class="sell-price mb-0 primary-text fw-semibold">@Model.SellingPrice.ToString("N0", new CultureInfo("de"))<sup>đ</sup></p>
+                <del class="old-price ms-3 text-dark opacity-50 fw-semibold">20.000<sup>đ</sup></del>
+            </div>
+            
+        </div>
+    </div>
+</div>

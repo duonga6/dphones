@@ -62,8 +62,9 @@ body {
 }
 
 @import "header";
-@import "AddPhoto";
-@import "ProductDetails";
-@import "UserManager";
+@import "AdminCP/AddPhoto";
+@import "AdminCP/ProductDetails";
+@import "AdminCP/UserManager";
 @import "login";
 @import "HomeProduct";
+@import "ProductDetails";

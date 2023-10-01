@@ -1,0 +1,24 @@
+.product-manager-detail {
+
+    .product-manager-detail-main-photo {
+
+        .product-manager-detail-main-photo-img {
+            border-radius: 8px;
+            border: 1px solid rgba($color: #000000, $alpha: 0.1);
+        }
+    }
+
+    .product-manager-detail-sub-photo {
+        list-style: none;
+        width: 100%;
+
+        .product-manager-detail-sub-photo-item {
+            .product-manager-detail-sub-photo-img {
+                object-fit: contain;
+                width: 100%;
+                border-radius: 8px;
+                border: 1px solid rgba($color: #000000, $alpha: 0.1);
+            }
+        }
+    }
+}

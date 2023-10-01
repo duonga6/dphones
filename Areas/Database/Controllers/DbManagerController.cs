@@ -85,8 +85,6 @@ namespace App.Areas.Database.Controllers
             fakerProduct.RuleFor(p => p.ScreenSize, f => double.Round(f.Random.Double(4, 8), 1));
             fakerProduct.RuleFor(p => p.Camera, f => f.Lorem.Sentence(4, 8));
             fakerProduct.RuleFor(p => p.Chipset, f => f.Lorem.Sentence(1, 2));
-            fakerProduct.RuleFor(p => p.Ram, f => f.Random.Int(3, 12));
-            fakerProduct.RuleFor(p => p.Rom, f => f.Random.Int(32, 1024));
             fakerProduct.RuleFor(p => p.Battery, f => f.Random.Int(3125, 8000));
             fakerProduct.RuleFor(p => p.Charger, f => f.Random.Int(15, 180));
             fakerProduct.RuleFor(p => p.SIM, f => f.Lorem.Sentence(3, 7));

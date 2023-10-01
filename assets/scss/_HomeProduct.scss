@@ -34,15 +34,17 @@
                     font-weight: 500;
                     height: 48px;
 
-                    span {
+                    a {
                         margin-bottom: 4px;
                         display: -webkit-box;
                         -webkit-line-clamp: 2;
                         -webkit-box-orient: vertical;
                         overflow: hidden;
+                        color: #333;
+                        text-decoration: none;
                     }
 
-                    &>span:hover {
+                    &>a:hover {
                         color: #C70039;
                         cursor: pointer;
                     }

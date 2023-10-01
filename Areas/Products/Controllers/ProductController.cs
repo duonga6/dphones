@@ -93,33 +93,29 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpPost, ActionName(nameof(Create))]
-        public IActionResult CreateAsync([Bind("Code, Name, Slug, PurchasePrice, SellingPrice, ScreenSize, Camera, Chipset, Ram, Rom, Battery, Charger, SIM, OS, Description, Quantity, Published, EntryDate, ReleaseDate, BrandId, CategoryId")] CreateProductModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAsync(CreateProductModel model)
         {
+            var category = _context.Categories.ToList();
+            var brand = _context.Brands.ToList();
+            ViewBag.Category = new MultiSelectList(category, "Id", "Name");
+            ViewBag.Brand = new SelectList(brand, "Id", "Name");
 
-            model.Slug ??= AppUtilities.GenerateSlug(model.Name);
-            if (_context.Products.Where(p => p.Slug == model.Slug).Any())
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "Địa chỉ Url này đã được dùng, hãy chọn địa chỉ khác");
+                ModelState.AddModelError(string.Empty, "XXX");
                 return View();
             }
 
-            _context.Products.Add(model);
-            _context.SaveChanges();
+            model.Slug ??= AppUtilities.GenerateSlug(model.Name);
 
-            if (model.CategoryId != null)
+            if (_context.Products.Any(p => p.Slug == model.Slug))
             {
-                foreach (var item in model.CategoryId)
-                {
-                    _context.ProductCategories.Add(new ProductCategory()
-                    {
-                        CategoryId = item,
-                        ProductId = model.Id
-                    });
-                }
+                ModelState.AddModelError(string.Empty, "Url nãy đã tồn tại, hãy chọn url khác");
+                return View();
             }
-            _context.SaveChanges();
-            StatusMessage = "Thêm sản phẩm thành công";
-            return RedirectToAction(nameof(AddPhoto), new { Id = model.Id });
+
+            return Json(model);
         }
 
         [HttpGet("{Id}")]
@@ -160,9 +156,7 @@ namespace App.Areas.Products.Controllers
                 Published = product.Published,
                 PurchasePrice = product.PurchasePrice,
                 Quantity = product.Quantity,
-                Ram = product.Ram,
                 ReleaseDate = product.ReleaseDate,
-                Rom = product.Rom,
                 ScreenSize = product.ScreenSize,
                 SellingPrice = product.SellingPrice,
                 SIM = product.SIM,
@@ -215,9 +209,7 @@ namespace App.Areas.Products.Controllers
                 productUpdate.Published = model.Published;
                 productUpdate.PurchasePrice = model.PurchasePrice;
                 productUpdate.Quantity = model.Quantity;
-                productUpdate.Ram = model.Ram;
                 productUpdate.ReleaseDate = model.ReleaseDate;
-                productUpdate.Rom = model.Rom;
                 productUpdate.ScreenSize = model.ScreenSize;
                 productUpdate.SellingPrice = model.SellingPrice;
                 productUpdate.SIM = model.SIM;

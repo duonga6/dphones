@@ -47,13 +47,13 @@ namespace App.Models.Products
         [Display(Name = "Vi xử lý")]
         public string? Chipset {set;get;}
 
-        [Display(Name = "RAM")]
-        [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        public double? Ram {set;get;}
+        // [Display(Name = "RAM")]
+        // [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
+        // public double? Ram {set;get;}
 
-        [Display(Name = "ROM")]
-        [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        public double? Rom {set;get;}
+        // [Display(Name = "ROM")]
+        // [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
+        // public double? Rom {set;get;}
         
         [Display(Name = "Dung lượng pin")]
         [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
@@ -104,5 +104,7 @@ namespace App.Models.Products
 
         // Category
         public List<ProductCategory> ProductCategories {set;get;} = new();
+
+        public List<Color> Colors {set;get;} = new();
     }
 }

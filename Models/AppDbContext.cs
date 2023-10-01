@@ -47,9 +47,9 @@ namespace App.Models
                     c.CategoryId,
                     c.ProductId
                 });
-
-                
             });
+
+            
 
         }
 
@@ -59,5 +59,8 @@ namespace App.Models
         public required DbSet<ProductPhoto> ProductPhotos {set;get;}
         public required DbSet<Brand> Brands {set;get;}
         public required DbSet<ProductCategory> ProductCategories {set;get;}
+
+        public required DbSet<Color> Colors {set;get;}
+        public required DbSet<Capacity> Capacities {set;get;}
     }
 }
