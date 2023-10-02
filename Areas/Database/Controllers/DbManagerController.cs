@@ -80,8 +80,6 @@ namespace App.Areas.Database.Controllers
             fakerProduct.RuleFor(p => p.Code, f => f.Random.Replace("***-***-**"));
             fakerProduct.RuleFor(p => p.Name, f => f.Lorem.Sentence(1, 2).Trim('.'));
             fakerProduct.RuleFor(p => p.Slug, f => f.Random.Replace("*-***-**-***-***").ToLower());
-            fakerProduct.RuleFor(p => p.PurchasePrice, f => decimal.Round(f.Random.Decimal(20, 340), 0) * 100000);
-            fakerProduct.RuleFor(p => p.SellingPrice, f => decimal.Round(f.Random.Decimal(30, 440), 0) * 100000);
             fakerProduct.RuleFor(p => p.ScreenSize, f => double.Round(f.Random.Double(4, 8), 1));
             fakerProduct.RuleFor(p => p.Camera, f => f.Lorem.Sentence(4, 8));
             fakerProduct.RuleFor(p => p.Chipset, f => f.Lorem.Sentence(1, 2));
@@ -90,7 +88,6 @@ namespace App.Areas.Database.Controllers
             fakerProduct.RuleFor(p => p.SIM, f => f.Lorem.Sentence(3, 7));
             fakerProduct.RuleFor(p => p.OS, f => f.Lorem.Sentence(3, 7));
             fakerProduct.RuleFor(p => p.Description, f => f.Lorem.Paragraph(4) + "[FakeData]");
-            fakerProduct.RuleFor(p => p.Quantity, f => f.Random.Int(1, 100));
             fakerProduct.RuleFor(p => p.Sold, f => f.Random.Int(0, 10));
             fakerProduct.RuleFor(p => p.Published, f => true);
             fakerProduct.RuleFor(p => p.ReleaseDate, f => f.Date.Between(new DateTime(2020, 1, 1), new DateTime(2024, 1, 1)));

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using App.Models.Products;
+using App.Utilities;
 
 namespace App.Areas.Products.Models
 {
@@ -17,12 +18,13 @@ namespace App.Areas.Products.Models
 
     public class ColorExtend : Color
     {
-        [FileExtensions(Extensions = "png, jpg, jpeg, webp")]
+        [AllowedExtensions(new string[] { ".jpg", ".png", ".webp", "jpeg" })]
         public IFormFile? ImageFile {set;get;}
     }
 
     public class UploadFile
     {
+        [AllowedExtensions(new string[] { ".jpg", ".png", ".webp", "jpeg" })]
         public IFormFile? FileUpload {set;get;}
     }
 }

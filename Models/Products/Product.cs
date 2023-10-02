@@ -24,19 +24,6 @@ namespace App.Models.Products
         [RegularExpression(@"^[a-z0-9-]*$", ErrorMessage = "{0} chỉ chứa các ký tự a-z, 0-9, \"-\"")]
         public string? Slug {set;get;}
 
-        [Display(Name = "Giá nhập")]
-        [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        [Required(ErrorMessage = "{0} không được trống")]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal PurchasePrice {set;get;}
-
-        [Display(Name = "Giá bán")]
-        [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        [Required(ErrorMessage = "{0} không được trống")]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal SellingPrice {set;get;}
-
-
         [Display(Name = "Kích thước màn hình")]
         [Range(0, 20, ErrorMessage = "{0} không hợp lệ")]
         public double? ScreenSize {set;get;}
@@ -46,14 +33,6 @@ namespace App.Models.Products
 
         [Display(Name = "Vi xử lý")]
         public string? Chipset {set;get;}
-
-        // [Display(Name = "RAM")]
-        // [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        // public double? Ram {set;get;}
-
-        // [Display(Name = "ROM")]
-        // [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
-        // public double? Rom {set;get;}
         
         [Display(Name = "Dung lượng pin")]
         [Range(0, int.MaxValue, ErrorMessage = "{0} không hợp lệ")]
@@ -71,9 +50,6 @@ namespace App.Models.Products
 
         [Display(Name = "Mô tả")]
         public string? Description {set;get;}
-
-        [Display(Name = "Số lượng")]
-        public int Quantity {set;get;}
 
         [Display(Name = "Đã bán")]
         public int Sold {set;get;}

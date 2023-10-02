@@ -1,6 +1,10 @@
 @model CreateProductModel
 @{
     ViewData["Title"] = "Chính sửa sản phẩm";
+    var mainPhoto = Model.Photos?.Where(p => p.Id == Model.MainPhoto).FirstOrDefault();
+    var subPhoto = Model.Photos?.Where(p => p.Id != Model.MainPhoto).ToList();
+
+    var colorList = new List<ColorExtend>();
 }
 
 <div class="card">
@@ -8,7 +12,7 @@
         @ViewData["Title"]
     </div>
     <div class="card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-3">
@@ -34,16 +38,6 @@
                         <label asp-for="Slug" class="form-label"></label>
                         <input asp-for="Slug" class="form-control">
                         <span asp-validation-for="Slug" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="PurchasePrice" class="form-label"></label>
-                        <input asp-for="PurchasePrice" class="form-control">
-                        <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="SellingPrice" class="form-label"></label>
-                        <input asp-for="SellingPrice" class="form-control">
-                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -99,11 +93,6 @@
                         <textarea asp-for="Description" class="form-control" rows="5"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="Quantity" class="form-label"></label>
-                        <input asp-for="Quantity" class="form-control">
-                        <span asp-validation-for="Quantity" class="text-danger"></span>
-                    </div>
                     <div class="form-group mt-4">
                         <input asp-for="Published" class="form-check-input" checked>
                         <label asp-for="Published" class="form-check-label"></label>
@@ -118,25 +107,193 @@
                         <div class="main-photo-input-container">
                             <span class="form-label">Hình ảnh hiển thị</span>
                             <br>
-                            <span class="btn btn-success mt-2" id="main-photo-btn">Upload <i
-                                    class="fa-solid fa-plus"></i></span>
-                            <input type="file" name="MainPhoto" id="main-photo-input" hidden>
+                            <div id="btn-add-main-photo" @if (mainPhoto != null)
+                            {
+                                <text>style="display: none"</text>
+                            }>
+                                <label for="main-photo-input" class="btn btn-success mt-2" id="main-photo-btn">Upload
+                                    <i class="fa-solid fa-plus"></i></label>
+                                <input type="file" name="newPrimaryPhoto.FileUpload" id="main-photo-input" hidden
+                                    oninput="changeMainPhoto(this)">
+                            </div>
                         </div>
-                        <div class="show-main-photo mt-4">
-
+                        <div class="show-main-photo mt-4 position-relative" @if (mainPhoto == null)
+                        {
+                            <text>
+                                style="display:none"</text>
+                        }>
+                            <img src="/files/Products/@mainPhoto?.Name" id="main-photo-img">
+                            <span data-id="@mainPhoto?.Id"
+                                class="btn btn-danger position-absolute top-0 end-0 mt-1 me-1"
+                                onclick="deleteMainPhoto(@mainPhoto?.Id)">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
                         </div>
                     </div>
                     <div class="sub-photo-container col-md-8">
                         <div class="sub-photo-input-container">
                             <span class="form-label">Hình ảnh khác</span>
                             <br>
-                            <span class="btn btn-success mt-2" id="sub-photo-btn">Upload <i
-                                    class="fa-solid fa-plus"></i></span>
-                            <input type="file" name="SubPhoto" id="sub-photo-input" hidden>
+                            <div id="btn-add-sub-photo">
+                                <label for="sub-photo-input-0" class="btn btn-success mt-2" id="sub-photo-btn">Upload <i
+                                        class="fa-solid fa-plus"></i></label>
+                                <input type="hidden" name="newSubPhoto.Index" value="0">
+                                <input type="file" name="newSubPhoto[0].FileUpload" id="sub-photo-input-0" hidden
+                                    data-id="0" oninput="changeSubPhoto(this)">
+                            </div>
                         </div>
                         <ul class="show-sub-photo row">
-
+                            @if (subPhoto != null)
+                            {
+                                foreach (var item in subPhoto)
+                                {
+                                    <li class="sub-photo-item col-md-4 mb-2 position-relative">
+                                        <img src="/files/Products/@item.Name" id="sub-photo-img">
+                                        <span data-id="@item.Id" class="btn btn-danger position-absolute top-0 end-0 mt-1 me-3"
+                                            onclick="chadeleteSubPhoto(this, @item.Id)">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </span>
+                                    </li>
+                                }
+                            }
                         </ul>
+                    </div>
+                    <div class="data-product-img" hidden>
+                        <div class="main">
+                            @if (mainPhoto != null)
+                            {
+                                <input id="currentMainPhoto" type="text" name="currentMainPhoto" value="@mainPhoto.Id">
+                            }
+                        </div>
+                        <div class="sub">
+                            @if (subPhoto != null)
+                            {
+                                foreach (var item in subPhoto)
+                                {
+                                    <input class="currentSubPhoto" type="text" name="currentSubPhoto" value="@item.Id">
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group mb-2" id="color-container">
+                        <p>
+                            Màu sắc
+                            <span class="btn btn-primary btn-sm ms-2" id="add-color">
+                                <i class="fa-solid fa-plus"></i>
+                            </span>
+                        </p>
+                        @if (Model.Colors != null)
+                        {
+                            int index = 0;
+                            foreach (var item in Model.ProductColor)
+                            {
+                                <div class="card color-group" data-index="@index">
+                                    <div class="card-header position-relative">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label asp-for="@item.Name" class="form-label"></label>
+                                                        <input asp-for="@item.Name" class="form-control">
+                                                        <span asp-validation-for="@item.Name" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label asp-for="@item.Code" class="form-label"></label>
+                                                        <input asp-for="@item.Code" class="form-control form-control-color"
+                                                            type="color">
+                                                        <span asp-validation-for="@item.Code" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="color-image mt-2">
+                                                    <label asp-for="ProductColor[0].ImageFile"
+                                                        class="btn btn-success btn-sm btn-choose-img">Thêm ảnh</label>
+                                                    <input asp-for="ProductColor[0].ImageFile" class="color-input-img" hidden
+                                                        accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
+                                                    <div class="color-img-show-container w-75 position-relative"
+                                                        style="display: none;">
+                                                        <img class="color-img-show w-100 mt-2" src=""
+                                                            style="object-fit: contain;">
+                                                        <span
+                                                            class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
+                                                            onclick="removeColorImg(this)">
+                                                            <i class="fa-solid fa-xmark"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if (item.Capacities != null)
+                                            {
+                                                foreach (var op in item.Capacities)
+                                                {
+                                                    <div class="col-md-8">
+                                                        <div class="option-group">
+                                                            <div>
+                                                                Options
+                                                                <span class="btn btn-primary btn-sm ms-2" id="add-options"
+                                                                    onclick="addOption(this)">
+                                                                    <i class="fa-solid fa-plus"></i>
+                                                                </span>
+                                                            </div>
+                                                            <div class="row option-item" data-id="0">
+                                                                <div class="col-md-2">
+                                                                    <label asp-for="@op.Ram"
+                                                                        class="form-label"></label>
+                                                                    <input asp-for="ProductColor[0].Capacities[0].Ram"
+                                                                        class="form-control">
+                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Ram"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label asp-for="ProductColor[0].Capacities[0].Rom"
+                                                                        class="form-label"></label>
+                                                                    <input asp-for="ProductColor[0].Capacities[0].Rom"
+                                                                        class="form-control">
+                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Rom"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label asp-for="ProductColor[0].Capacities[0].Quantity"
+                                                                        class="form-label"></label>
+                                                                    <input asp-for="ProductColor[0].Capacities[0].Quantity"
+                                                                        class="form-control">
+                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Quantity"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                                        class="form-label"></label>
+                                                                    <input asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                                        class="form-control">
+                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                                        class="form-label"></label>
+                                                                    <input asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                                        class="form-control">
+                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].SellPrice"
+                                                                        class="text-danger"></span>
+                                                                </div>
+                                                                <div class="col-md-2 mb-1 mt-auto">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                index++;
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -152,158 +309,78 @@
 @section Scripts
     {
     <script>
-        const btnAddMainPhoto = $("#main-photo-btn");
-        const inputMainPhoto = $("#main-photo-input");
+        const btnAddMainPhoto = $("#btn-add-main-photo");
         const showMainPhoto = $(".show-main-photo");
+        const mainImg = $("#main-photo-img");
+        const inputMainPhoto = $("#main-photo-input");
 
-        const btnAddSubPhoto = $("#sub-photo-btn");
-        const inputSubPhoto = $("#sub-photo-input");
-        const showSubPhoto = $(".show-sub-photo")
+        const showSubPhoto = $(".show-sub-photo");
+        const btnAddSubPhoto = $("#btn-add-sub-photo");
 
-        // Mở Input khi chọn thêm ảnh
-        btnAddMainPhoto.click(function () {
-            inputMainPhoto.click();
-        });
-
-        btnAddSubPhoto.click(function () {
-            inputSubPhoto.click();
-        })
-
-        // Tải ảnh main lên server
-        const UploadPhoto = function (type = 'main') {
-            let file;
-            if (type == 'sub')
-                file = document.getElementById("sub-photo-input").files;
-            else
-                file = document.getElementById("main-photo-input").files;
-
-            if (file == null) alert("abc");
-            const formData = new FormData();
-            formData.append("Id", @Model.Id);
-            formData.append("FileUpload", file[0]);
-            formData.append("type", type);
-
-            $.ajax({
-                url: '@Url.Action("UploadImage", "Product")',
-                data: formData,
-                type: 'POST',
-                processData: false,
-                cache: false,
-                contentType: false,
-                success: function (data) {
-                    LoadImage();
-                }
-            })
-        }
-
-        // Xóa ảnh
-        const DeletePhoto = function (Id, type = 'main') {
-            const formData = new FormData();
-            formData.append("Id", Id);
-            formData.append("productid", @Model.Id);
-            formData.append("type", type);
-
-            $.ajax({
-                url: '@Url.Action("DeleteImage", "Product")',
-                data: formData,
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function () {
-                    LoadImage();
-                }
-            })
-        }
-
-        // Thêm sự kiện click cho nút xóa ảnh
-        const SetDeleteMainPhoto = function () {
-            $(".btn-delete-main-photo").click(function () {
-                DeletePhoto($(this).data("id"));
-                ResetInput();
-                LoadImage();
-            });
-        }
-
-        const SetDeleteSubPhoto = function () {
-            $(".btn-delete-sub-photo").click(function () {
-                DeletePhoto($(this).data("id"), 'sub');
-                ResetInput();
-                LoadImage();
-            });
-        }
-
-        // Reset input 
-        const ResetInput = function () {
-            inputMainPhoto.val('');
-            inputSubPhoto.val('');
-        }
-
-        // LoadImage
-        const LoadImage = function () {
-            var formData = new FormData();
-            formData.append("Id", @Model.Id);
-
-            $.ajax({
-                url: '@Url.Action("GetPhoto", "Product")',
-                type: 'post',
-                data: formData,
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (data) {
-                    if (data.mainPhoto != null) {
-                        const html = `
-                                                                    <img src="/files/Products/${data.mainPhoto.filename}" id="main-photo-img">
-                                                                    <span data-id="${data.mainPhoto.id}" class="btn btn-danger btn-delete-main-photo"><i class="fa-solid fa-xmark"></i></span>
-                                                                `;
-                        showMainPhoto.empty();
-                        showMainPhoto.append(html);
-                        showMainPhoto.show();
-                        btnAddMainPhoto.hide();
-                        SetDeleteMainPhoto();
-                    }
-                    else {
-                        showMainPhoto.empty().hide();
-                        btnAddMainPhoto.show();
-                    }
-
-                    if (data.subPhoto.length > 0) {
-                        let html = '';
-                        data.subPhoto.forEach(item => {
-                            html += `
-                                                        <li class="sub-photo-item col-md-4 mb-2">
-                                                            <img src="/files/Products/${item.filename}" id="sub-photo-img">
-                                                            <span data-id="${item.id}" class="btn btn-danger btn-delete-sub-photo"><i class="fa-solid fa-xmark"></i></span>
-                                                        </li>
-                                                    `;
-                            showSubPhoto.empty();
-                            showSubPhoto.append(html);
-                            SetDeleteSubPhoto();
-                        });
-                    } else {
-                        showSubPhoto.empty();
-                    }
-                }
-            })
-        }
-
-        $(document).ready(function () {
-            LoadImage();
+        const deleteMainPhoto = function (id = null) {
+            $(".data-product-img .main #currentMainPhoto").remove();
+            btnAddMainPhoto.show();
             showMainPhoto.hide();
+            inputMainPhoto.val("");
+        }
 
-            inputMainPhoto.on('input', function () {
-                UploadPhoto();
-                ResetInput();
+        const changeMainPhoto = function (element) {
+            mainImg.attr("src", URL.createObjectURL(element.files[0]));
+            showMainPhoto.show();
+            btnAddMainPhoto.hide();
+        }
+
+        const chadeleteSubPhoto = function (element, id) {
+            $(".data-product-img .sub .currentSubPhoto").each((index, e) => {
+                if ($(e).val() == id)
+                    $(e).remove();
+            });
+
+            $(element).closest(".sub-photo-item").remove();
+        }
+
+        const changeSubPhoto = function (element) {
+            // show ảnh
+            const lastIndexInput = btnAddSubPhoto.children("input[type='file']").last().data("id");
+            const showImgHtml = `
+                        <li class="sub-photo-item col-md-4 mb-2 position-relative" data-id="${lastIndexInput}">
+                            <img src="${URL.createObjectURL(element.files[0])}" id="sub-photo-img">
+                            <span class="btn btn-danger position-absolute top-0 end-0 mt-1 me-3" onclick="deleteNewSubPhoto(this)">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </li>
+                    `;
+            showSubPhoto.append(showImgHtml);
+
+
+            // thêm phần tử input cho subphoto
+            const nexIndexInput = lastIndexInput + 1;
+            const inputElement = `
+                        <input type="hidden" name="newSubPhoto.Index" value="${nexIndexInput}">
+                        <input type="file" name="newSubPhoto[${nexIndexInput}].FileUpload" id="sub-photo-input-${nexIndexInput}" data-id="${nexIndexInput}" hidden oninput="changeSubPhoto(this)">
+                    `;
+            btnAddSubPhoto.append(inputElement);
+            btnAddSubPhoto.children("#sub-photo-btn").attr("for", `sub-photo-input-${nexIndexInput}`);
+        }
+
+        const deleteNewSubPhoto = function (element) {
+            const currentItemShow = $(element).closest(".sub-photo-item");
+            const indexItem = currentItemShow.data("id");
+            // xóa ảnh show
+            showSubPhoto.children(".sub-photo-item").each((index, e) => {
+                if ($(e).data("id") == indexItem) {
+                    $(e).remove();
+                }
+            });
+
+            // xóa thẻ input có ảnh bị xóa
+            btnAddSubPhoto.children("input[type='file']").each((index, e) => {
+                if ($(e).data("id") == indexItem) {
+                    $(e).remove();
+                }
             })
+        }
 
-            inputSubPhoto.on('input', function () {
-                UploadPhoto('sub');
-                ResetInput();
-            })
-
-
-        });
     </script>
     <partial name="_MultipleSelect" model="@("CategoryId")"></partial>
     <partial name="_ValidationScriptsPartial" />

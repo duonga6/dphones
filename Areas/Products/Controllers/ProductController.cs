@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using System.Transactions;
 using App.Areas.Products.Models;
 using App.Data;
 using App.Models;
@@ -6,6 +8,7 @@ using App.Models.Products;
 using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,9 +52,6 @@ namespace App.Areas.Products.Controllers
                 case "name":
                     products = sortOrder == "asc" ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name);
                     break;
-                case "sellprice":
-                    products = sortOrder == "asc" ? products.OrderBy(p => p.SellingPrice) : products.OrderByDescending(p => p.SellingPrice);
-                    break;
                 case "sold":
                     products = sortOrder == "asc" ? products.OrderBy(p => p.Sold) : products.OrderByDescending(p => p.Sold);
                     break;
@@ -94,7 +94,7 @@ namespace App.Areas.Products.Controllers
 
         [HttpPost, ActionName(nameof(Create))]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateAsync(CreateProductModel model)
+        public async Task<IActionResult> CreateAsync(CreateProductModel model)
         {
             var category = _context.Categories.ToList();
             var brand = _context.Brands.ToList();
@@ -103,7 +103,6 @@ namespace App.Areas.Products.Controllers
 
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "XXX");
                 return View();
             }
 
@@ -115,7 +114,147 @@ namespace App.Areas.Products.Controllers
                 return View();
             }
 
-            return Json(model);
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    var newProduct = new Product()
+                    {
+                        Name = model.Name,
+                        Battery = model.Battery,
+                        BrandId = model.BrandId,
+                        Camera = model.Camera,
+                        Charger = model.Charger,
+                        Chipset = model.Chipset,
+                        Code = model.Code,
+                        Description = model.Description,
+                        EntryDate = model.EntryDate,
+                        OS = model.OS,
+                        Published = model.Published,
+                        ReleaseDate = model.ReleaseDate,
+                        ScreenSize = model.ScreenSize,
+                        SIM = model.SIM,
+                        Slug = model.Slug,
+                    };
+
+                    await _context.Products.AddAsync(newProduct);
+                    await _context.SaveChangesAsync();
+
+                    if (model.CategoryId != null)
+                    {
+                        foreach (var item in model.CategoryId)
+                        {
+                            await _context.ProductCategories.AddAsync(new ProductCategory
+                            {
+                                CategoryId = item,
+                                ProductId = newProduct.Id
+                            });
+                        }
+                    }
+
+                    if (model.ProductColor != null)
+                    {
+                        foreach (var item in model.ProductColor)
+                        {
+                            var newColor = new Color()
+                            {
+                                Name = item.Name,
+                                Code = item.Code,
+                                ProductId = newProduct.Id
+                            };
+
+                            if (item.ImageFile != null && item.ImageFile.Length > 0)
+                            {
+                                var file = item.ImageFile;
+                                string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+                                string filename = currentTime + "-" + newProduct.Slug + Path.GetExtension(file.FileName);
+                                string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+                                using var fileStream = new FileStream(filepath, FileMode.Create);
+                                await file.CopyToAsync(fileStream);
+                                newColor.Image = filename;
+                            }
+
+                            await _context.Colors.AddAsync(newColor);
+                            await _context.SaveChangesAsync();
+
+                            if (item.Capacities != null)
+                            {
+                                foreach (var cap in item.Capacities)
+                                {
+                                    var newCapa = new Capacity()
+                                    {
+                                        Ram = cap.Ram,
+                                        Rom = cap.Rom,
+                                        Quantity = cap.Quantity,
+                                        ColorId = newColor.Id,
+                                        EntryPrice = cap.EntryPrice,
+                                        SellPrice = cap.SellPrice
+                                    };
+
+                                    await _context.Capacities.AddAsync(newCapa);
+                                }
+                            }
+                        }
+                    }
+
+                    if (model.PrimaryImage != null && model.PrimaryImage.Length > 0)
+                    {
+                        var file = model.PrimaryImage;
+                        string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+                        string filename = currentTime + "-" + newProduct.Slug + Path.GetExtension(file.FileName);
+                        string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+                        using var fileStream = new FileStream(filepath, FileMode.Create);
+                        await file.CopyToAsync(fileStream);
+
+                        var productPhoto = new ProductPhoto()
+                        {
+                            Name = filename,
+                            ProductId = newProduct.Id
+                        };
+
+                        await _context.ProductPhotos.AddAsync(productPhoto);
+                        await _context.SaveChangesAsync();
+                        newProduct.MainPhoto = productPhoto.Id;
+                    }
+
+                    if (model.SubImage != null)
+                    {
+                        foreach (var item in model.SubImage)
+                        {
+                            if (item != null && item.FileUpload != null && item.FileUpload.Length > 0)
+                            {
+                                var file = item.FileUpload;
+                                string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+                                string filename = currentTime + "-" + newProduct.Slug + Path.GetExtension(file.FileName);
+                                string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+                                using var fileStream = new FileStream(filepath, FileMode.Create);
+                                await file.CopyToAsync(fileStream);
+
+                                _context.ProductPhotos.Add(new ProductPhoto()
+                                {
+                                    Name = filename,
+                                    ProductId = newProduct.Id
+                                });
+                            }
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+
+                    scope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    StatusMessage = "Thêm thất bại. Có lỗi khi thêm: " + ex.ToString();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            StatusMessage = "Thêm thành công";
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet("{Id}")]
@@ -135,11 +274,27 @@ namespace App.Areas.Products.Controllers
         public IActionResult Edit(int Id)
         {
             var product = _context.Products.Where(p => p.Id == Id)
+                                            .Include(p => p.Photos)
                                             .Include(p => p.Brand)
+                                            .Include(p => p.Colors)
+                                            .ThenInclude(c => c.Capacities)
                                             .Include(p => p.ProductCategories)
                                             .ThenInclude(p => p.Category)
                                             .FirstOrDefault();
+
+
             if (product == null) return NotFound();
+
+            var photoColor = new List<ColorExtend>();
+            product.Colors.ForEach(e => {
+                photoColor.Add( new ColorExtend {
+                    Id = e.Id,
+                    Capacities = e.Capacities,
+                    Code = e.Code,
+                    Image = e.Image,
+                    Name = e.Name,
+                });
+            });
 
             CreateProductModel model = new()
             {
@@ -154,97 +309,253 @@ namespace App.Areas.Products.Controllers
                 Id = product.Id,
                 OS = product.OS,
                 Published = product.Published,
-                PurchasePrice = product.PurchasePrice,
-                Quantity = product.Quantity,
                 ReleaseDate = product.ReleaseDate,
                 ScreenSize = product.ScreenSize,
-                SellingPrice = product.SellingPrice,
                 SIM = product.SIM,
                 Slug = product.Slug,
                 Brand = product.Brand,
                 BrandId = product.BrandId,
-                CategoryId = product.ProductCategories.Select(p => p.CategoryId).ToArray()
+                CategoryId = product.ProductCategories.Select(p => p.CategoryId).ToArray(),
+                Colors = product.Colors,
+                Photos = product.Photos,
+                MainPhoto = product.MainPhoto,
+                ProductColor = photoColor
             };
 
             var category = _context.Categories.ToList();
             ViewBag.Categories = new MultiSelectList(category, "Id", "Name");
             var brand = _context.Brands.ToList();
             ViewBag.Brands = new SelectList(brand, "Id", "Name");
+
             return View(model);
         }
 
-        [HttpPost("{Id}"), ActionName(nameof(Edit))]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditAsync(int Id, [Bind("Code, Name, Slug, PurchasePrice, SellingPrice, ScreenSize, Camera, Chipset, Ram, Rom, Battery, Charger, SIM, OS, Description, Quantity, Published, EntryDate, ReleaseDate, BrandId, CategoryId")] CreateProductModel model)
+        public class UploadFile
         {
+            public IFormFile? FileUpload { set; get; }
+        }
+
+        [HttpPost("{Id:int}"), ActionName(nameof(Edit))]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAsync(int Id, CreateProductModel model, UploadFile newPrimaryPhoto, List<UploadFile> newSubPhoto, List<int> currentSubPhoto, int? currentMainPhoto)
+        {
+            var productUpdate = _context.Products.Where(p => p.Id == Id)
+                                            .Include(p => p.Photos)
+                                            .Include(p => p.Brand)
+                                            .Include(p => p.Colors)
+                                            .ThenInclude(c => c.Capacities)
+                                            .Include(p => p.ProductCategories)
+                                            .ThenInclude(p => p.Category)
+                                            .FirstOrDefault();
+
+            if (productUpdate == null) return NotFound();
+            
             var category = _context.Categories.ToList();
             ViewBag.Categories = new MultiSelectList(category, "Id", "Name");
-
             var brand = _context.Brands.ToList();
             ViewBag.Brands = new SelectList(brand, "Id", "Name");
 
-            if (!ModelState.IsValid) return View();
+            model.Photos = productUpdate.Photos;
 
-            var productUpdate = _context.Products.Where(p => p.Id == Id).Include(p => p.ProductCategories).FirstOrDefault();
-            if (productUpdate == null) return NotFound();
+            if (!ModelState.IsValid) return View(model);
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name);
-            if (_context.Products.Where(p => p.Slug == model.Slug && p.Id == model.Id).Any())
+
+            if (_context.Products.FirstOrDefault(p => p.Slug == model.Slug && p.Id != Id) != null)
             {
-                ModelState.AddModelError(string.Empty, "Địa chỉ Url này đã được dùng, hãy chọn địa chỉ khác");
-                return View();
+                ModelState.AddModelError(string.Empty, "Url này đã sử dụng, hãy dùng url khác");
+                return View(model);
             }
 
-            try
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                productUpdate.Name = model.Name;
-                productUpdate.Battery = model.Battery;
-                productUpdate.Camera = model.Camera;
-                productUpdate.Charger = model.Charger;
-                productUpdate.Chipset = model.Chipset;
-                productUpdate.Code = model.Code;
-                productUpdate.Description = model.Description;
-                productUpdate.EntryDate = model.EntryDate;
-                productUpdate.OS = model.OS;
-                productUpdate.Published = model.Published;
-                productUpdate.PurchasePrice = model.PurchasePrice;
-                productUpdate.Quantity = model.Quantity;
-                productUpdate.ReleaseDate = model.ReleaseDate;
-                productUpdate.ScreenSize = model.ScreenSize;
-                productUpdate.SellingPrice = model.SellingPrice;
-                productUpdate.SIM = model.SIM;
-                productUpdate.Slug = model.Slug;
-                productUpdate.BrandId = model.BrandId;
-
-                var oldCate = productUpdate.ProductCategories.Select(p => p);
-                var newCate = model.CategoryId;
-                newCate ??= new int[] { };
-
-                var addCate = newCate.Where(c => !oldCate.Where(ct => ct.CategoryId == c).Any());
-                var removeCate = oldCate.Where(p => !newCate.Contains(p.CategoryId));
-
-                _context.ProductCategories.RemoveRange(removeCate);
-
-                foreach (var item in addCate)
+                try
                 {
-                    _context.ProductCategories.Add(new ProductCategory
+                    // Cập nhật thông tin cơ bản
+                    productUpdate.Code = model.Code;
+                    productUpdate.Name = model.Name;
+                    productUpdate.BrandId = model.BrandId;
+                    productUpdate.Slug = model.Slug;
+                    productUpdate.Battery = model.Battery;
+                    productUpdate.OS = model.OS;
+                    productUpdate.Chipset = model.Chipset;
+                    productUpdate.ScreenSize = model.ScreenSize;
+                    productUpdate.Charger = model.Charger;
+                    productUpdate.EntryDate = model.EntryDate;
+                    productUpdate.ReleaseDate = model.ReleaseDate;
+                    productUpdate.SIM = model.SIM;
+                    productUpdate.Camera = model.Camera;
+                    productUpdate.Description = model.Description;
+                    productUpdate.Published = model.Published;
+
+                    // Xóa ảnh chính
+                    if (currentMainPhoto == null)
                     {
-                        CategoryId = item,
-                        ProductId = Id
-                    });
+                        var oldPhoto = productUpdate.Photos?.Where(p => p.Id == productUpdate.MainPhoto).FirstOrDefault();
+                        if (oldPhoto != null)
+                        {
+                            productUpdate.MainPhoto = null;
+                            DeleteImgFile(oldPhoto.Name);
+                        }
+                    }
+
+                    // Thêm ảnh chính
+                    if (newPrimaryPhoto != null && newPrimaryPhoto.FileUpload != null && newPrimaryPhoto.FileUpload.Length > 0)
+                    {
+                        var file = newPrimaryPhoto.FileUpload;
+                        string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+                        string filename = currentTime + "_" + productUpdate.Slug + Path.GetExtension(file.FileName);
+                        string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+                        using var fileStream = new FileStream(filepath, FileMode.Create);
+                        await file.CopyToAsync(fileStream);
+
+
+                        var newPhoto = new ProductPhoto()
+                        {
+                            Name = filename,
+                            ProductId = productUpdate.Id
+                        };
+
+                        await _context.ProductPhotos.AddAsync(newPhoto);
+                        await _context.SaveChangesAsync();
+
+                        productUpdate.MainPhoto = newPhoto.Id;
+                    }
+
+                    // Xóa ảnh phụ
+                    var removePhoto = productUpdate.Photos?.Where(p => p.Id != productUpdate.MainPhoto && (currentSubPhoto == null || !currentSubPhoto.Contains(p.Id))).ToList();
+                    if (removePhoto != null)
+                    {
+                        _context.ProductPhotos.RemoveRange(removePhoto);
+                        removePhoto.ForEach(item => {
+                            DeleteImgFile(item.Name);
+                        });
+                    }
+                    // Thêm ảnh phụ
+                    if (newSubPhoto != null)
+                    {
+                        foreach (var item in newSubPhoto)
+                        {
+                            if (item != null && item.FileUpload != null && item.FileUpload.Length > 0)
+                            {
+                                var file = item.FileUpload;
+                                string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+                                string filename = currentTime + "_" + productUpdate.Slug + Path.GetExtension(file.FileName);
+                                string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+                                using var fileStream = new FileStream(filepath, FileMode.Create);
+                                await file.CopyToAsync(fileStream);
+
+                                _context.ProductPhotos.Add(new ProductPhoto
+                                {
+                                    Name = filename,
+                                    ProductId = productUpdate.Id
+                                });
+                            }
+                        }
+                    }
+
+                    // Cập nhật danh mục
+
+                    var oldCate = productUpdate.ProductCategories.ToList();
+                    var newCate = model.CategoryId;
+
+                    var addCate = newCate?.Where(c => !oldCate.Where(ca => ca.CategoryId == c).Any());
+                    var removeCate = oldCate.Where(c => newCate != null && !newCate.Contains(c.CategoryId));
+
+                    if (removeCate != null)
+                        _context.ProductCategories.RemoveRange(removeCate);
+                    
+                    if (addCate != null)
+                    {
+                        foreach (var item in addCate)
+                        {
+                            _context.ProductCategories.Add(new ProductCategory{
+                                CategoryId = item,
+                                Product = productUpdate
+                            });
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    scope.Complete();
                 }
-
-                _context.SaveChanges();
-
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Products.Any(p => p.Id == Id))
-                    return NotFound();
+                catch (Exception ex)
+                {
+                    StatusMessage = "Có lỗi khi thêm: " + ex.ToString();
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             StatusMessage = "Cập nhật thành công";
             return RedirectToAction(nameof(Index));
+
+
+            // return Json(new
+            // {
+            //     model,
+            //     newPrimaryPhoto,
+            //     newSubPhoto,
+            //     currentSubPhoto
+            // });
+        }
+
+        [HttpGet("{Id}")]
+        public IActionResult Delete(int Id)
+        {
+            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost("{Id}"), ActionName(nameof(Delete))]
+        public async Task<IActionResult> DeleteAsync(int Id)
+        {
+            var product = await _context.Products.Where(p => p.Id == Id)
+                                            .Include(p => p.ProductCategories)
+                                            .Include(p => p.Photos)
+                                            .Include(p => p.Colors)
+                                            .ThenInclude(c => c.Capacities)
+                                            .FirstOrDefaultAsync();
+
+            if (product == null) return NotFound();
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
+            List<string> filenames = new();
+
+            product.Photos?.ForEach(p => filenames.Add(p.Name));
+
+            product.Colors?.ForEach(c =>
+            {
+                if (c != null && c.Image != null)
+                    filenames.Add(c.Image);
+            });
+
+            filenames.ForEach(f =>
+            {
+                if (f != null)
+                {
+                    DeleteImgFile(f);
+                }
+            });
+
+
+
+            StatusMessage = "Xóa thành công";
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void DeleteImgFile(string filename)
+        {
+            string filepath = Path.Combine("Uploads", "Products", filename);
+            if (System.IO.File.Exists(filepath))
+            {
+                System.IO.File.Delete(filepath);
+            }
         }
 
         [HttpGet]
@@ -260,32 +571,6 @@ namespace App.Areas.Products.Controllers
             ViewBag.Product = product;
 
             return View();
-        }
-
-        [HttpGet("{Id}")]
-        public IActionResult Delete(int Id)
-        {
-            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
-            if (product == null) return NotFound();
-
-            return View(product);
-        }
-
-        [HttpPost("{Id}"), ActionName(nameof(Delete))]
-        public async Task<IActionResult> DeleteAsync(int Id)
-        {
-            var product = await _context.Products.Where(p => p.Id == Id).FirstOrDefaultAsync();
-            if (product == null) return NotFound();
-
-            var photos = await _context.ProductPhotos.Where(p => p.ProductId == Id).ToListAsync();
-            if (photos != null) _context.ProductPhotos.RemoveRange(photos);
-
-            _context.Products.Remove(product);
-
-            await _context.SaveChangesAsync();
-
-            StatusMessage = "Xóa thành công";
-            return RedirectToAction(nameof(Index));
         }
 
         public class UploadOneFile

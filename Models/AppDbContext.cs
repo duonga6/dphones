@@ -49,8 +49,6 @@ namespace App.Models
                 });
             });
 
-            
-
         }
 
         public required DbSet<Product> Products {set;get;}

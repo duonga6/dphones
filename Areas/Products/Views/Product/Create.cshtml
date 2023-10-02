@@ -36,16 +36,6 @@
                         <input asp-for="Slug" class="form-control">
                         <span asp-validation-for="Slug" class="text-danger"></span>
                     </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="PurchasePrice" class="form-label"></label>
-                        <input asp-for="PurchasePrice" class="form-control">
-                        <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-                    </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="SellingPrice" class="form-label"></label>
-                        <input asp-for="SellingPrice" class="form-control">
-                        <span asp-validation-for="SellingPrice" class="text-danger"></span>
-                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group mb-2">
@@ -108,7 +98,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-5">
+                <div class="col-md">
                     <div class="form-group mb-2" id="color-container">
                         <p>
                             Màu sắc
@@ -119,7 +109,7 @@
                         <div class="card color-group" data-index="0">
                             <div class="card-header position-relative">
                                 <div class="row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label asp-for="ProductColor[0].Name" class="form-label"></label>
@@ -152,7 +142,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
                                         <div class="option-group">
                                             <div>
                                                 Options
@@ -162,7 +152,7 @@
                                                 </span>
                                             </div>
                                             <div class="row option-item" data-id="0">
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <label asp-for="ProductColor[0].Capacities[0].Ram"
                                                         class="form-label"></label>
                                                     <input asp-for="ProductColor[0].Capacities[0].Ram"
@@ -170,7 +160,7 @@
                                                     <span asp-validation-for="ProductColor[0].Capacities[0].Ram"
                                                         class="text-danger"></span>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <label asp-for="ProductColor[0].Capacities[0].Rom"
                                                         class="form-label"></label>
                                                     <input asp-for="ProductColor[0].Capacities[0].Rom"
@@ -178,7 +168,7 @@
                                                     <span asp-validation-for="ProductColor[0].Capacities[0].Rom"
                                                         class="text-danger"></span>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <label asp-for="ProductColor[0].Capacities[0].Quantity"
                                                         class="form-label"></label>
                                                     <input asp-for="ProductColor[0].Capacities[0].Quantity"
@@ -186,7 +176,23 @@
                                                     <span asp-validation-for="ProductColor[0].Capacities[0].Quantity"
                                                         class="text-danger"></span>
                                                 </div>
-                                                <div class="col-md-3 mb-1 mt-auto">
+                                                <div class="col-md-2">
+                                                    <label asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                        class="form-label"></label>
+                                                    <input asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                        class="form-control">
+                                                    <span asp-validation-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                        class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                        class="form-label"></label>
+                                                    <input asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                        class="form-control">
+                                                    <span asp-validation-for="ProductColor[0].Capacities[0].SellPrice"
+                                                        class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-2 mb-1 mt-auto">
                                                     @* <span class="btn btn-danger btn-sm" id="delete-option"
                                                     onclick="deleteOption(this)">
                                                     <i class="fa-solid fa-minus"></i>
@@ -223,6 +229,7 @@
                 <div class="sub-img-container w-100">
                     <div class="sub-img-item mb-3" data-id="0">
                         <label asp-for="SubImage[0].FileUpload" class="btn btn-primary btn-sm btn-choose-sub-img">Thêm ảnh</label>
+                        <input type="hidden" name="SubImage.Index" value="0">
                         <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
                         <div class="sub-img-show w-50 position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
@@ -256,22 +263,32 @@
             const colorIndex = ($(element).closest(".color-group").data("index"));
             const html = `
                                         <div class="row option-item" data-id="${optionIndex}">
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Ram">Ram</label>
                                                 <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="ProductColor_${colorIndex}__Capacities_${optionIndex}__Ram" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram" value=""><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram">
                                                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram" data-valmsg-replace="true"></span>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Rom">Rom</label>
                                                 <input class="form-control" type="number" data-val="true" data-val-required="The Rom field is required." id="ProductColor_${colorIndex}__Capacities_${optionIndex}__Rom" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].Rom" value=""><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[${optionIndex}].Rom">
                                                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Rom" data-valmsg-replace="true"></span>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Quantity">Số lượng</label>
                                                 <input class="form-control" type="number" data-val="true" data-val-required="The Số lượng field is required." id="ProductColor_${colorIndex}__Capacities_${optionIndex}__Quantity" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity" value=""><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity">
                                                 <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity" data-valmsg-replace="true"></span>
                                             </div>
-                                            <div class="col-md-3 mb-1 mt-auto">
+                                            <div class="col-md-2">
+                                                <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__EntryPrice">Giá nhập vào</label>
+                                                <input class="form-control" type="text" data-val="true" data-val-number="The field Giá nhập vào must be a number." data-val-required="Giá nhập vào không được trống" id="ProductColor_${colorIndex}__Capacities_${optionIndex}__EntryPrice" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].EntryPrice" value="">
+                                                <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].EntryPrice" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__SellPrice">Giá bán ra</label>
+                                                <input class="form-control" type="text" data-val="true" data-val-number="The field Giá bán ra must be a number." data-val-required="Giá bán ra không được trống" id="ProductColor_${colorIndex}__Capacities_${optionIndex}__SellPrice" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].SellPrice" value="">
+                                                <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].SellPrice" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-md-2 mb-1 mt-auto">
                                                 <span class="btn btn-danger btn-sm" id="delete-option" onclick="deleteOption(this)">
                                                     <i class="fa-solid fa-minus"></i>
                                                 </span>
@@ -297,7 +314,7 @@
                                         <div class="card mt-2 color-group" data-index="${colorIndex}">
                                             <div class="card-header position-relative">
                                                 <div class="row">
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label class="form-label" for="ProductColor_${colorIndex}__Name">Tên màu</label>
@@ -321,7 +338,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-7">
+                                                    <div class="col-md-8">
                                                         <div class="option-group">
                                                             <div>
                                                                 Options
@@ -330,22 +347,32 @@
                                                                 </span>
                                                             </div>
                                                             <div class="row option-item" data-id="0">
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__Ram">Ram</label>
                                                                     <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="ProductColor_${colorIndex}__Capacities_0__Ram" name="ProductColor[${colorIndex}].Capacities[0].Ram" required><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[0].Ram">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].Ram" data-valmsg-replace="true"></span>
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__Rom">Rom</label>
                                                                     <input class="form-control" type="number" data-val="true" data-val-required="The Rom field is required." id="ProductColor_${colorIndex}__Capacities_0__Rom" name="ProductColor[${colorIndex}].Capacities[0].Rom" required><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[0].Rom">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].Rom" data-valmsg-replace="true"></span>
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__Quantity">Số lượng</label>
                                                                     <input class="form-control" type="number" data-val="true" data-val-required="The Số lượng field is required." id="ProductColor_${colorIndex}__Capacities_0__Quantity" name="ProductColor[${colorIndex}].Capacities[0].Quantity" required><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[0].Quantity">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].Quantity" data-valmsg-replace="true"></span>
                                                                 </div>
-                                                                <div class="col-md-3 mb-1 mt-auto">
+                                                                <div class="col-md-2">
+                                                                    <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__EntryPrice">Giá nhập vào</label>
+                                                                    <input class="form-control valid" type="text" data-val="true" data-val-number="The field Giá nhập vào must be a number." data-val-required="Giá nhập vào không được trống" id="ProductColor_${colorIndex}__Capacities_0__EntryPrice" name="ProductColor[${colorIndex}].Capacities[0].EntryPrice" value="" aria-describedby="ProductColor_${colorIndex}__Capacities_0__EntryPrice-error" aria-invalid="false">
+                                                                    <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].EntryPrice" data-valmsg-replace="true"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__SellPrice">Giá bán ra</label>
+                                                                    <input class="form-control valid" type="text" data-val="true" data-val-number="The field Giá bán ra must be a number." data-val-required="Giá bán ra không được trống" id="ProductColor_${colorIndex}__Capacities_0__SellPrice" name="ProductColor[${colorIndex}].Capacities[0].SellPrice" value="" aria-describedby="ProductColor_${colorIndex}__Capacities_0__SellPrice-error" aria-invalid="false">
+                                                                    <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].SellPrice" data-valmsg-replace="true"></span>
+                                                                </div>
+                                                                <div class="col-md-2 mb-1 mt-auto">
 
                                                                 </div>
                                                             </div>
@@ -446,7 +473,8 @@
             const html = `
                     <div class="sub-img-item mb-3" data-id="${Id}">
                         <label class="btn btn-primary btn-sm btn-choose-sub-img" for="SubImage_${Id}__FileUpload">Thêm ảnh</label>
-                        <input hidden="" class="sub-input" oninput="changeSubImg(this)" type="file" id="SubImage_${Id}__FileUpload" name="SubImage[${Id}].FileUpload">
+                        <input type="hidden" name="SubImage.Index" value="${Id}">
+                        <input hidden class="sub-input" oninput="changeSubImg(this)" type="file" id="SubImage_${Id}__FileUpload" name="SubImage[${Id}].FileUpload">
                         <div class="sub-img-show w-50 position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
                             <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1" onclick="removeSubImg(this)">

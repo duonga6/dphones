@@ -5,7 +5,7 @@
 namespace App.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductUpdate : Migration
+    public partial class UpdatePriceProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -13,10 +13,6 @@ namespace App.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Product_Category_CategoryId",
                 table: "Product");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProductPhoto_Product_ProductId",
-                table: "ProductPhoto");
 
             migrationBuilder.DropIndex(
                 name: "IX_Product_CategoryId",
@@ -27,6 +23,14 @@ namespace App.Migrations
                 table: "Product");
 
             migrationBuilder.DropColumn(
+                name: "PurchasePrice",
+                table: "Product");
+
+            migrationBuilder.DropColumn(
+                name: "Quantity",
+                table: "Product");
+
+            migrationBuilder.DropColumn(
                 name: "Ram",
                 table: "Product");
 
@@ -34,13 +38,9 @@ namespace App.Migrations
                 name: "Rom",
                 table: "Product");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProductId",
-                table: "ProductPhoto",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
+            migrationBuilder.DropColumn(
+                name: "SellingPrice",
+                table: "Product");
 
             migrationBuilder.CreateTable(
                 name: "Colors",
@@ -73,6 +73,8 @@ namespace App.Migrations
                     Ram = table.Column<int>(type: "int", nullable: false),
                     Rom = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    EntryPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SellPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ColorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -95,43 +97,36 @@ namespace App.Migrations
                 name: "IX_Colors_ProductId",
                 table: "Colors",
                 column: "ProductId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProductPhoto_Product_ProductId",
-                table: "ProductPhoto",
-                column: "ProductId",
-                principalTable: "Product",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProductPhoto_Product_ProductId",
-                table: "ProductPhoto");
-
             migrationBuilder.DropTable(
                 name: "Capacities");
 
             migrationBuilder.DropTable(
                 name: "Colors");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProductId",
-                table: "ProductPhoto",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
-
             migrationBuilder.AddColumn<int>(
                 name: "CategoryId",
                 table: "Product",
                 type: "int",
                 nullable: true);
+
+            migrationBuilder.AddColumn<decimal>(
+                name: "PurchasePrice",
+                table: "Product",
+                type: "decimal(18,2)",
+                nullable: false,
+                defaultValue: 0m);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Quantity",
+                table: "Product",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.AddColumn<double>(
                 name: "Ram",
@@ -145,6 +140,13 @@ namespace App.Migrations
                 type: "float",
                 nullable: true);
 
+            migrationBuilder.AddColumn<decimal>(
+                name: "SellingPrice",
+                table: "Product",
+                type: "decimal(18,2)",
+                nullable: false,
+                defaultValue: 0m);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",
                 table: "Product",
@@ -156,14 +158,6 @@ namespace App.Migrations
                 column: "CategoryId",
                 principalTable: "Category",
                 principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProductPhoto_Product_ProductId",
-                table: "ProductPhoto",
-                column: "ProductId",
-                principalTable: "Product",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
     }
 }
