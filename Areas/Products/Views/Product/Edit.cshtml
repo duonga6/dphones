@@ -3,8 +3,7 @@
     ViewData["Title"] = "Chính sửa sản phẩm";
     var mainPhoto = Model.Photos?.Where(p => p.Id == Model.MainPhoto).FirstOrDefault();
     var subPhoto = Model.Photos?.Where(p => p.Id != Model.MainPhoto).ToList();
-
-    var colorList = new List<ColorExtend>();
+    @* Layout = "/Views/Shared/_Layout.cshtml"; *@
 }
 
 <div class="card">
@@ -13,7 +12,7 @@
     </div>
     <div class="card-body">
         <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group mb-2">
@@ -88,11 +87,6 @@
                         <textarea asp-for="Camera" class="form-control" rows="3"></textarea>
                         <span asp-validation-for="Camera" class="text-danger"></span>
                     </div>
-                    <div class="form-group mb-2">
-                        <label asp-for="Description" class="form-label"></label>
-                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
                     <div class="form-group mt-4">
                         <input asp-for="Published" class="form-check-input" checked>
                         <label asp-for="Published" class="form-check-label"></label>
@@ -101,6 +95,7 @@
                 </div>
             </div>
 
+            @* Photo *@
             <div class="product-add-photo d-flex flex-column mt-4">
                 <div class="row product-photo-container">
                     <div class="main-photo-container col-md-4">
@@ -178,46 +173,71 @@
                 </div>
             </div>
 
+            @* Color *@
             <div class="row">
                 <div class="col-md">
                     <div class="form-group mb-2" id="color-container">
                         <p>
                             Màu sắc
-                            <span class="btn btn-primary btn-sm ms-2" id="add-color">
+                            <span class="btn btn-primary btn-sm ms-2" onclick="addColor(this)">
                                 <i class="fa-solid fa-plus"></i>
                             </span>
                         </p>
                         @if (Model.Colors != null)
                         {
                             int index = 0;
-                            foreach (var item in Model.ProductColor)
+                            foreach (var item in Model.Colors)
                             {
-                                <div class="card color-group" data-index="@index">
+                                <div class="card color-group mb-3" data-id="@index">
                                     <div class="card-header position-relative">
+                                        @if(index > 0)
+                                        {
+                                            <span class="btn btn-danger btn-sm position-absolute top-0 end-0 me-1 mt-1" onclick="deleteColor(this, @index)">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </span>
+                                        }
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="row">
+                                                    <input type="hidden" name="colorList.Index" value="@index">
+                                                    <input type="hidden" name="colorList[@index].Id" value="@item.Id">
                                                     <div class="col-md-6">
-                                                        <label asp-for="@item.Name" class="form-label"></label>
-                                                        <input asp-for="@item.Name" class="form-control">
-                                                        <span asp-validation-for="@item.Name" class="text-danger"></span>
+                                                        <label for="colorList[@index].Name" class="form-label">Tên màu</label>
+                                                        <input id="colorList[@index].Name" name="colorList[@index].Name"
+                                                            value="@item.Name" class="form-control">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label asp-for="@item.Code" class="form-label"></label>
-                                                        <input asp-for="@item.Code" class="form-control form-control-color"
+                                                        <label for="colorList[@index].Code" class="form-label">Mã màu</label>
+                                                        <input id="colorList[@index].Code" name="colorList[@index].Code"
+                                                            value="@item.Code" class="form-control form-control-color"
                                                             type="color">
-                                                        <span asp-validation-for="@item.Code" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="color-image mt-2">
-                                                    <label asp-for="ProductColor[0].ImageFile"
-                                                        class="btn btn-success btn-sm btn-choose-img">Thêm ảnh</label>
-                                                    <input asp-for="ProductColor[0].ImageFile" class="color-input-img" hidden
+                                                    <input type="hidden" name="colorList[@index].Image" value="@item.Image">
+                                                    <label for="colorList[@index].ImageFile"
+                                                        class="btn btn-success btn-sm btn-choose-img"
+                                                        @if(item.Image != null)
+                                                        {
+                                                            <text>style="display: none;"</text>
+                                                        }
+                                                        >Thêm ảnh</label>
+                                                    <input type="file" id="colorList[@index].ImageFile"
+                                                        name="colorList[@index].ImageFile" class="color-input-img" hidden
                                                         accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
                                                     <div class="color-img-show-container w-75 position-relative"
-                                                        style="display: none;">
-                                                        <img class="color-img-show w-100 mt-2" src=""
-                                                            style="object-fit: contain;">
+                                                        @if(item.Image == null)
+                                                        {
+                                                            <text>style="display: none;"</text>
+                                                        }
+                                                        >
+                                                        <img class="color-img-show w-100 mt-2"  
+                                                            style="object-fit: contain;"
+                                                            @if(item.Image != null)
+                                                            {
+                                                                <text>src="/files/Products/@item.Image"</text>
+                                                            }
+                                                        >
                                                         <span
                                                             class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
                                                             onclick="removeColorImg(this)">
@@ -226,68 +246,73 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @if (item.Capacities != null)
-                                            {
-                                                foreach (var op in item.Capacities)
-                                                {
-                                                    <div class="col-md-8">
-                                                        <div class="option-group">
-                                                            <div>
-                                                                Options
-                                                                <span class="btn btn-primary btn-sm ms-2" id="add-options"
-                                                                    onclick="addOption(this)">
-                                                                    <i class="fa-solid fa-plus"></i>
-                                                                </span>
-                                                            </div>
-                                                            <div class="row option-item" data-id="0">
+
+                                            <div class="col-md-8">
+                                                <div class="option-group">
+                                                    <div>
+                                                        Options
+                                                        <span class="btn btn-primary btn-sm ms-2" id="add-options"
+                                                            onclick="addOption(this)" data-id="@index">
+                                                            <i class="fa-solid fa-plus"></i>
+                                                        </span>
+                                                    </div>
+                                                    @if (item.Capacities != null)
+                                                    {
+                                                        int opIndex = 0;
+                                                        foreach (var op in item.Capacities)
+                                                        {
+                                                            <div class="row option-item" data-id="@opIndex">
+                                                                <input type="hidden" name="colorList[@index].Capacities.Index" value="@opIndex">
+                                                                <input type="hidden" name="colorList[@index].Capacities[@opIndex].Id" value="@op.Id">
                                                                 <div class="col-md-2">
-                                                                    <label asp-for="@op.Ram"
-                                                                        class="form-label"></label>
-                                                                    <input asp-for="ProductColor[0].Capacities[0].Ram"
-                                                                        class="form-control">
-                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Ram"
-                                                                        class="text-danger"></span>
+                                                                    <label for="colorList[@index].Capacities[@opIndex].Ram"
+                                                                        class="form-label">Ram</label>
+                                                                    <input required id="colorList[@index].Capacities[@opIndex].Ram"
+                                                                        name="colorList[@index].Capacities[@opIndex].Ram"
+                                                                        value="@op.Ram" class="form-control">
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <label asp-for="ProductColor[0].Capacities[0].Rom"
-                                                                        class="form-label"></label>
-                                                                    <input asp-for="ProductColor[0].Capacities[0].Rom"
-                                                                        class="form-control">
-                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Rom"
-                                                                        class="text-danger"></span>
+                                                                    <label for="colorList[@index].Capacities[@opIndex].Rom"
+                                                                        class="form-label">Rom</label>
+                                                                    <input required id="colorList[@index].Capacities[@opIndex].Rom"
+                                                                        name="colorList[@index].Capacities[@opIndex].Rom"
+                                                                        value="@op.Rom" class="form-control">
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <label asp-for="ProductColor[0].Capacities[0].Quantity"
-                                                                        class="form-label"></label>
-                                                                    <input asp-for="ProductColor[0].Capacities[0].Quantity"
-                                                                        class="form-control">
-                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Quantity"
-                                                                        class="text-danger"></span>
+                                                                    <label for="colorList[@index].Capacities[@opIndex].Quantity"
+                                                                        class="form-label">Số lượng</label>
+                                                                    <input required id="colorList[@index].Capacities[@opIndex].Quantity"
+                                                                        name="colorList[@index].Capacities[@opIndex].Quantity"
+                                                                        value="@op.Quantity" class="form-control">
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <label asp-for="ProductColor[0].Capacities[0].EntryPrice"
-                                                                        class="form-label"></label>
-                                                                    <input asp-for="ProductColor[0].Capacities[0].EntryPrice"
-                                                                        class="form-control">
-                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].EntryPrice"
-                                                                        class="text-danger"></span>
+                                                                    <label for="colorList[@index].Capacities[@opIndex].EntryPrice"
+                                                                        class="form-label">Giá nhập vào</label>
+                                                                    <input required id="colorList[@index].Capacities[@opIndex].EntryPrice"
+                                                                        name="colorList[@index].Capacities[@opIndex].EntryPrice"
+                                                                        value="@op.EntryPrice.ToString("#")" class="form-control">
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <label asp-for="ProductColor[0].Capacities[0].SellPrice"
-                                                                        class="form-label"></label>
-                                                                    <input asp-for="ProductColor[0].Capacities[0].SellPrice"
-                                                                        class="form-control">
-                                                                    <span asp-validation-for="ProductColor[0].Capacities[0].SellPrice"
-                                                                        class="text-danger"></span>
+                                                                    <label for="colorList[@index].Capacities[@opIndex].SellPrice"
+                                                                        class="form-label">Giá bán ra</label>
+                                                                    <input required id="colorList[@index].Capacities[@opIndex].SellPrice"
+                                                                        name="colorList[@index].Capacities[@opIndex].SellPrice"
+                                                                        value="@op.SellPrice.ToString("#")" class="form-control">
                                                                 </div>
                                                                 <div class="col-md-2 mb-1 mt-auto">
-
+                                                                    @if(opIndex > 0)
+                                                                    {
+                                                                        <span class="btn btn-danger btn-sm" id="delete-option" onclick="deleteOption(this)">
+                                                                            <i class="fa-solid fa-minus"></i>
+                                                                        </span>
+                                                                    }
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            }
+                                                            opIndex++;
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -295,6 +320,13 @@
                             }
                         }
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md form-group mb-2">
+                    <label class="form-label">Mô tả</label>
+                    <textarea rows="5" asp-for="Description" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -308,6 +340,17 @@
 
 @section Scripts
     {
+    <script src="~/lib/summernote/summernote-lite.min.js"></script>
+    <link href="~/lib/summernote/summernote-lite.min.css" rel="stylesheet">
+
+    <script>
+        $(document).ready(function() {
+            $('#Description').summernote({
+                minHeight: 600
+            });
+        });
+    </script>
+
     <script>
         const btnAddMainPhoto = $("#btn-add-main-photo");
         const showMainPhoto = $(".show-main-photo");
@@ -343,22 +386,22 @@
             // show ảnh
             const lastIndexInput = btnAddSubPhoto.children("input[type='file']").last().data("id");
             const showImgHtml = `
-                        <li class="sub-photo-item col-md-4 mb-2 position-relative" data-id="${lastIndexInput}">
-                            <img src="${URL.createObjectURL(element.files[0])}" id="sub-photo-img">
-                            <span class="btn btn-danger position-absolute top-0 end-0 mt-1 me-3" onclick="deleteNewSubPhoto(this)">
-                                <i class="fa-solid fa-xmark"></i>
-                            </span>
-                        </li>
-                    `;
+                            <li class="sub-photo-item col-md-4 mb-2 position-relative" data-id="${lastIndexInput}">
+                                <img src="${URL.createObjectURL(element.files[0])}" id="sub-photo-img">
+                                <span class="btn btn-danger position-absolute top-0 end-0 mt-1 me-3" onclick="deleteNewSubPhoto(this)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </span>
+                            </li>
+                        `;
             showSubPhoto.append(showImgHtml);
 
 
             // thêm phần tử input cho subphoto
             const nexIndexInput = lastIndexInput + 1;
             const inputElement = `
-                        <input type="hidden" name="newSubPhoto.Index" value="${nexIndexInput}">
-                        <input type="file" name="newSubPhoto[${nexIndexInput}].FileUpload" id="sub-photo-input-${nexIndexInput}" data-id="${nexIndexInput}" hidden oninput="changeSubPhoto(this)">
-                    `;
+                            <input type="hidden" name="newSubPhoto.Index" value="${nexIndexInput}">
+                            <input type="file" name="newSubPhoto[${nexIndexInput}].FileUpload" id="sub-photo-input-${nexIndexInput}" data-id="${nexIndexInput}" hidden oninput="changeSubPhoto(this)">
+                        `;
             btnAddSubPhoto.append(inputElement);
             btnAddSubPhoto.children("#sub-photo-btn").attr("for", `sub-photo-input-${nexIndexInput}`);
         }
@@ -378,6 +421,207 @@
                 if ($(e).data("id") == indexItem) {
                     $(e).remove();
                 }
+            })
+        }
+
+        // Xử lý Color
+        // - Thêm ảnh cho color
+        const changeColorImg = function (element) {
+            const showImgContainer = $(element).siblings(".color-img-show-container");
+            const imgShow = showImgContainer.children(".color-img-show");
+            const btnChooseImg = $(element).siblings(".btn-choose-img");
+
+            imgShow.attr("src", URL.createObjectURL(element.files[0]));
+            btnChooseImg.hide();
+            showImgContainer.show();
+        }
+        // - Xóa ảnh color
+        const removeColorImg = function(element) {
+            const showImgContainer = $(element).closest(".color-img-show-container");
+            const btnChooseImg = showImgContainer.siblings(".btn-choose-img");
+            const inputImg = showImgContainer.siblings("input[type='file']");
+
+            btnChooseImg.show();
+            showImgContainer.hide();
+            inputImg.val("");
+
+            $(element).closest(".color-image").children("input[type='hidden']").val("");
+        }
+
+        // -Thêm option
+        const addOption = function(element) {
+            const nextIndex = $(element).closest(".option-group").children(".option-item").last().data("id") + 1;
+            const colorIndex = $(element).data("id");
+            const optionHtml = `
+                <div class="row option-item" data-id="${nextIndex}">
+                    <input type="hidden" name="colorList[${colorIndex}].Capacities.Index" value="${nextIndex}">
+                    <input type="hidden" name="colorList[${colorIndex}].Capacities[${nextIndex}].Id" value="-1">
+                    <div class="col-md-2">
+                        <label for="colorList[${colorIndex}].Capacities[${nextIndex}].Ram"
+                            class="form-label">Ram</label>
+                        <input required id="colorList[${colorIndex}].Capacities[${nextIndex}].Ram"
+                            name="colorList[${colorIndex}].Capacities[${nextIndex}].Ram"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="colorList[${colorIndex}].Capacities[${nextIndex}].Rom"
+                            class="form-label">Rom</label>
+                        <input required id="colorList[${colorIndex}].Capacities[${nextIndex}].Rom"
+                            name="colorList[${colorIndex}].Capacities[${nextIndex}].Rom"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="colorList[${colorIndex}].Capacities[${nextIndex}].Quantity"
+                            class="form-label">Số lượng</label>
+                        <input required id="colorList[${colorIndex}].Capacities[${nextIndex}].Quantity"
+                            name="colorList[${colorIndex}].Capacities[${nextIndex}].Quantity"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="colorList[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
+                            class="form-label">Giá nhập vào</label>
+                        <input required id="colorList[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
+                            name="colorList[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="colorList[${colorIndex}].Capacities[${nextIndex}].SellPrice"
+                            class="form-label">Giá bán ra</label>
+                        <input required id="colorList[${colorIndex}].Capacities[${nextIndex}].SellPrice"
+                            name="colorList[${colorIndex}].Capacities[${nextIndex}].SellPrice"
+                            class="form-control">
+                    </div>
+                    <div class="col-md-2 mb-1 mt-auto">
+                        <span class="btn btn-danger btn-sm" id="delete-option" onclick="deleteOption(this)" data-id="${nextIndex}">
+                            <i class="fa-solid fa-minus"></i>
+                        </span>
+                    </div>
+                </div>
+            `;
+            $(element).closest(".option-group").append(optionHtml);
+        }
+
+        // -Xóa option
+        const deleteOption = function(element) {
+            $(element).closest(".option-item").remove();
+        }
+
+        // -Thêm color
+        const addColor = function(element)
+        {
+            let nextIndex = $("#color-container .color-group").last().data("id") + 1;
+            if (isNaN(nextIndex))   nextIndex = 0;
+            const colorHtml = `
+                <div class="card color-group mb-3" data-id="${nextIndex}">
+                    <div class="card-header position-relative">
+                        <span class="btn btn-danger btn-sm position-absolute top-0 end-0 me-1 mt-1" onclick="deleteColor(this)">
+                            <i class="fa-solid fa-xmark"></i>
+                        </span>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <input type="hidden" name="colorList.Index" value="${nextIndex}">
+                                    <input type="hidden" name="colorList[${nextIndex}].Id" value="-1">
+                                    <div class="col-md-6">
+                                        <label for="colorList[${nextIndex}].Name" class="form-label">Tên màu</label>
+                                        <input id="colorList[${nextIndex}].Name" name="colorList[${nextIndex}].Name"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="colorList[${nextIndex}].Code" class="form-label">Mã màu</label>
+                                        <input id="colorList[${nextIndex}].Code" name="colorList[${nextIndex}].Code"
+                                            value="" class="form-control form-control-color"
+                                            type="color">
+                                    </div>
+                                </div>
+                                <div class="color-image mt-2">
+                                    <input type="hidden" name="colorList[${nextIndex}].Image" value="">
+                                    <label for="colorList[${nextIndex}].ImageFile"
+                                        class="btn btn-success btn-sm btn-choose-img"
+                                        >Thêm ảnh</label>
+                                    <input type="file" id="colorList[${nextIndex}].ImageFile"
+                                        name="colorList[${nextIndex}].ImageFile" class="color-input-img" hidden
+                                        accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
+                                    <div class="color-img-show-container w-75 position-relative"
+                                        style="display: none;"
+                                        >
+                                        <img class="color-img-show w-100 mt-2"  
+                                            style="object-fit: contain;">
+                                        <span
+                                            class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
+                                            onclick="removeColorImg(this)">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="option-group">
+                                    <div>
+                                        Options
+                                        <span class="btn btn-primary btn-sm ms-2" id="add-options"
+                                            onclick="addOption(this)" data-id="${nextIndex}">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </span>
+                                    </div>
+                                    <div class="row option-item" data-id="0">
+                                        <input type="hidden" name="colorList[${nextIndex}].Capacities.Index" value="0">
+                                        <input type="hidden" name="colorList[${nextIndex}].Capacities[0].Id" value="-1">
+                                        <div class="col-md-2">
+                                            <label for="colorList[${nextIndex}].Capacities[0].Ram"
+                                                class="form-label">Ram</label>
+                                            <input required id="colorList[${nextIndex}].Capacities[0].Ram"
+                                                name="colorList[${nextIndex}].Capacities[0].Ram"
+                                                value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="colorList[${nextIndex}].Capacities[0].Rom"
+                                                class="form-label">Rom</label>
+                                            <input required id="colorList[${nextIndex}].Capacities[0].Rom"
+                                                name="colorList[${nextIndex}].Capacities[0].Rom"
+                                                value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="colorList${nextIndex}].Capacities[0].Quantity"
+                                                class="form-label">Số lượng</label>
+                                            <input required id="colorList[${nextIndex}].Capacities[0].Quantity"
+                                                name="colorList[${nextIndex}].Capacities[0].Quantity"
+                                                value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="colorList[${nextIndex}].Capacities[0].EntryPrice"
+                                                class="form-label">Giá nhập vào</label>
+                                            <input required id="colorList[${nextIndex}].Capacities[0].EntryPrice"
+                                                name="colorList[${nextIndex}].Capacities[0].EntryPrice"
+                                                value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="colorList[${nextIndex}].Capacities[0].SellPrice"
+                                                class="form-label">Giá bán ra</label>
+                                            <input required id="colorList[${nextIndex}].Capacities[0].SellPrice"
+                                                name="colorList[${nextIndex}].Capacities[0].SellPrice"
+                                                value="" class="form-control">
+                                        </div>
+                                        <div class="col-md-2 mb-1 mt-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $("#color-container").append(colorHtml);
+        }
+
+        // -Xóa color
+        const deleteColor = function(element, id)
+        {
+            $("#color-container .color-group").each((index, elem) => {
+                if ($(elem).data("id") == id)
+                    $(elem).remove();
             })
         }
 

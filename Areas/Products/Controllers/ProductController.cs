@@ -96,6 +96,7 @@ namespace App.Areas.Products.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(CreateProductModel model)
         {
+            // return Json(model);
             var category = _context.Categories.ToList();
             var brand = _context.Brands.ToList();
             ViewBag.Category = new MultiSelectList(category, "Id", "Name");
@@ -286,8 +287,10 @@ namespace App.Areas.Products.Controllers
             if (product == null) return NotFound();
 
             var photoColor = new List<ColorExtend>();
-            product.Colors.ForEach(e => {
-                photoColor.Add( new ColorExtend {
+            product.Colors.ForEach(e =>
+            {
+                photoColor.Add(new ColorExtend
+                {
                     Id = e.Id,
                     Capacities = e.Capacities,
                     Code = e.Code,
@@ -337,8 +340,19 @@ namespace App.Areas.Products.Controllers
 
         [HttpPost("{Id:int}"), ActionName(nameof(Edit))]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAsync(int Id, CreateProductModel model, UploadFile newPrimaryPhoto, List<UploadFile> newSubPhoto, List<int> currentSubPhoto, int? currentMainPhoto)
+        public async Task<IActionResult> EditAsync(int Id, CreateProductModel model, UploadFile newPrimaryPhoto, List<UploadFile> newSubPhoto, List<int> currentSubPhoto, int? currentMainPhoto, List<ColorExtend> colorList)
         {
+
+            // return Json(new
+            // {
+            //     model,
+            //     newPrimaryPhoto,
+            //     newSubPhoto,
+            //     currentSubPhoto,
+            //     currentMainPhoto,
+            //     colorList
+            // });
+
             var productUpdate = _context.Products.Where(p => p.Id == Id)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Brand)
@@ -349,7 +363,7 @@ namespace App.Areas.Products.Controllers
                                             .FirstOrDefault();
 
             if (productUpdate == null) return NotFound();
-            
+
             var category = _context.Categories.ToList();
             ViewBag.Categories = new MultiSelectList(category, "Id", "Name");
             var brand = _context.Brands.ToList();
@@ -428,7 +442,8 @@ namespace App.Areas.Products.Controllers
                     if (removePhoto != null)
                     {
                         _context.ProductPhotos.RemoveRange(removePhoto);
-                        removePhoto.ForEach(item => {
+                        removePhoto.ForEach(item =>
+                        {
                             DeleteImgFile(item.Name);
                         });
                     }
@@ -466,15 +481,199 @@ namespace App.Areas.Products.Controllers
 
                     if (removeCate != null)
                         _context.ProductCategories.RemoveRange(removeCate);
-                    
+
                     if (addCate != null)
                     {
                         foreach (var item in addCate)
                         {
-                            _context.ProductCategories.Add(new ProductCategory{
+                            _context.ProductCategories.Add(new ProductCategory
+                            {
                                 CategoryId = item,
                                 Product = productUpdate
                             });
+                        }
+                    }
+
+                    // Xử lý color và capacity
+                    // if (colorList != null)
+                    // {
+                    //     var oldColor = productUpdate.Colors;
+                    //     var newColor = colorList;
+
+                    //     if (oldColor != null)
+                    //     {
+                    //         _context.Colors.RemoveRange(oldColor);
+                    //         foreach (var item in oldColor)
+                    //         {
+                    //             if (item.Image != null && (newColor == null || !newColor.Where(c => c.Image == item.Image).Any()))
+                    //                 DeleteImgFile(item.Image);
+                    //         }
+                    //     }
+
+                    //     if (newColor != null)
+                    //     {
+                    //         foreach (var item in newColor)
+                    //         {
+                    //             var addColor = new Color
+                    //             {
+                    //                 Name = item.Name,
+                    //                 Code = item.Code,
+                    //                 ProductId = productUpdate.Id,
+                    //                 Image = item.Image
+                    //             };
+
+                    //             if (item.ImageFile != null && item.ImageFile.Length > 0)
+                    //             {
+                    //                 string filename = await SaveImgFile(item.ImageFile, productUpdate.Slug);
+                    //                 addColor.Image = filename;
+                    //             }
+
+                    //             await _context.Colors.AddAsync(addColor);
+                    //             await _context.SaveChangesAsync();
+
+                    //             if (item.Capacities != null)
+                    //             {
+                    //                 foreach (var cpa in item.Capacities)
+                    //                 {
+                    //                     var addCapacity = new Capacity {
+                    //                         Ram = cpa.Ram,
+                    //                         Rom = cpa.Rom,
+                    //                         Quantity = cpa.Quantity,
+                    //                         EntryPrice = cpa.EntryPrice,
+                    //                         SellPrice = cpa.SellPrice,
+                    //                         ColorId = addColor.Id
+                    //                     };
+
+                    //                     await _context.Capacities.AddAsync(addCapacity);
+                    //                 }
+                    //             }
+
+                    //         }
+                    //     }
+                    // }
+
+                    if (colorList != null)
+                    {
+                        var oldColor = productUpdate.Colors;
+                        var newColor = colorList;
+
+                        var removeColor = oldColor.Where(c => !newColor.Where(x => x.Id == c.Id).Any()).ToList();
+                        var addColor = newColor.Where(c => !oldColor.Where(x => x.Id == c.Id).Any()).ToList();
+                        var modifierColor = oldColor.Where(c => newColor.Where(x => x.Id == c.Id).Any()).ToList();
+
+                        if (removeColor != null)
+                        {
+                            foreach (var item in removeColor)
+                            {
+                                _context.Capacities.RemoveRange(item.Capacities);
+                                if (item.Image != null && (newColor == null || !newColor.Where(c => c.Image == item.Image).Any()))
+                                {
+                                    DeleteImgFile(item.Image);
+                                }
+                            }
+                            _context.Colors.RemoveRange(removeColor);
+                        }
+
+                        if (addColor != null)
+                        {
+                            foreach (var item in addColor)
+                            {
+                                var addNewColor = new Color
+                                {
+                                    Name = item.Name,
+                                    Code = item.Code,
+                                    ProductId = productUpdate.Id
+                                };
+
+                                if (item.ImageFile != null && item.ImageFile.Length > 0)
+                                {
+                                    string filename = await SaveImgFile(item.ImageFile, productUpdate.Slug);
+                                    addNewColor.Image = filename;
+                                }
+
+                                await _context.Colors.AddAsync(addNewColor);
+                                await _context.SaveChangesAsync();
+
+                                if (item.Capacities != null)
+                                {
+                                    foreach (var capa in item.Capacities)
+                                    {
+                                        var addNewCapa = new Capacity 
+                                        {
+                                            Ram = capa.Ram,
+                                            Rom = capa.Rom,
+                                            Quantity = capa.Quantity,
+                                            EntryPrice = capa.EntryPrice,
+                                            SellPrice = capa.SellPrice,
+                                            ColorId = addNewColor.Id
+                                        };
+
+                                        await _context.Capacities.AddAsync(addNewCapa);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (modifierColor != null)
+                        {
+                            foreach (var item in modifierColor)
+                            {
+                                var updateColor = newColor?.FirstOrDefault(c => c.Id == item.Id) ?? throw new Exception("Lỗi ở modifierColor");
+                                // Update thông tin cơ bản
+                                item.Name = updateColor.Name;
+                                item.Code = updateColor.Code;
+
+                                // Update Capacity
+                                var oldCapa = item.Capacities;
+                                var newCapa = updateColor.Capacities;
+
+                                var removeCapa = oldCapa.Where(c => newCapa.FirstOrDefault(x => x.Id == c.Id) == null);
+                                var modifierCapa = oldCapa.Where(c => newCapa.FirstOrDefault(x => x.Id == c.Id) != null);
+                                var addCapa = newCapa.Where(c => oldCapa.FirstOrDefault(x => x.Id == c.Id) == null);
+
+                                _context.Capacities.RemoveRange(removeCapa);
+                                if (addCapa != null)
+                                {
+                                    foreach (var capa in addCapa)
+                                    {
+                                        _context.Capacities.Add( new Capacity
+                                        {
+                                            Ram = capa.Ram,
+                                            Rom = capa.Rom,
+                                            Quantity = capa.Quantity,
+                                            EntryPrice = capa.EntryPrice,
+                                            SellPrice = capa.SellPrice,
+                                            ColorId = item.Id
+                                        });
+                                    }
+                                }
+
+                                if (modifierCapa != null)
+                                {
+                                    foreach (var capa in modifierCapa)
+                                    {
+                                        var updateCapa = newCapa.FirstOrDefault(c => c.Id == capa.Id) ?? throw new Exception("Lỗi ở modifierCapa");
+                                        capa.Ram = updateCapa.Ram;
+                                        capa.Rom = updateCapa.Rom;
+                                        capa.Quantity = updateCapa.Quantity;
+                                        capa.EntryPrice = updateCapa.EntryPrice;
+                                        capa.SellPrice = updateCapa.SellPrice;
+                                    }
+                                }
+
+                                if (updateColor.Image == null && updateColor.ImageFile == null)
+                                {
+                                    if (item.Image != null) DeleteImgFile(item.Image);
+                                    item.Image = null;
+                                }
+                                
+                                if (updateColor.ImageFile != null && updateColor.ImageFile.Length > 0)
+                                {
+                                    string filename = await SaveImgFile(updateColor.ImageFile, productUpdate.Slug);
+                                    if (item.Image != null) DeleteImgFile(item.Image);
+                                    item.Image = filename;
+                                }
+                            }
                         }
                     }
 
@@ -483,7 +682,7 @@ namespace App.Areas.Products.Controllers
                 }
                 catch (Exception ex)
                 {
-                    StatusMessage = "Có lỗi khi thêm: " + ex.ToString();
+                    StatusMessage = "Có lỗi khi cập nhật: " + ex.ToString();
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -492,13 +691,6 @@ namespace App.Areas.Products.Controllers
             return RedirectToAction(nameof(Index));
 
 
-            // return Json(new
-            // {
-            //     model,
-            //     newPrimaryPhoto,
-            //     newSubPhoto,
-            //     currentSubPhoto
-            // });
         }
 
         [HttpGet("{Id}")]
@@ -556,6 +748,18 @@ namespace App.Areas.Products.Controllers
             {
                 System.IO.File.Delete(filepath);
             }
+        }
+
+        private async Task<string> SaveImgFile(IFormFile file, string middleName = "")
+        {
+            string currentTime = Regex.Replace(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), "[- :.]", "");
+            string filename = currentTime + "_" + middleName + Path.GetExtension(file.FileName);
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Products", filename);
+
+            using var fileStream = new FileStream(filepath, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+
+            return filename;
         }
 
         [HttpGet]
