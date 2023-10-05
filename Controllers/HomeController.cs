@@ -22,7 +22,11 @@ public class HomeController : Controller
 
     public IActionResult Index([FromQuery(Name = "p")]int currentPage)
     {
-        var products = _context.Products.Include(p => p.Photos).OrderByDescending(p => p.EntryDate).AsQueryable();
+        var products = _context.Products.Include(p => p.Photos)
+                                        .Include(p => p.Colors)
+                                        .ThenInclude(c => c.Capacities)
+                                        .OrderByDescending(p => p.EntryDate)
+                                        .AsSplitQuery();
 
         int countPage = (int)Math.Ceiling((double)products.Count() / ITEM_PER_PAGE);
 

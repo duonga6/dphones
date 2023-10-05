@@ -22,10 +22,21 @@
                             </div>
                             <div class="product-info mb-auto">
                                 <div class="product-info-item">
-                                    
+                                    @{
+                                        var capa = item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault();
+                                        if (capa != null)
+                                        {
+                                            <i class="fa-solid fa-memory"></i>
+                                            @(capa.Ram + " GB")
+                                        }
+                                    }
                                 </div>
                                 <div class="product-info-item">
-
+                                    @if (capa != null)
+                                    {
+                                        <i class="fa-solid fa-hard-drive"></i>
+                                        @(capa.Rom + " GB")
+                                    }        
                                 </div>
                                 <div class="product-info-item">
                                     @if (item.ScreenSize != null)
@@ -50,8 +61,8 @@
                                 </div>
                             </div>
                             <div class="card-price d-flex justify-content-between px-2 mb-2">
-                                <span class="selling-price primary-text">1000<sup>đ</sup></span>
-                                <del class="old-price text-dark opacity-50">1.000 đ</del>
+                                <span class="selling-price primary-text">@(capa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
+                                <del class="old-price text-dark opacity-50"></del>
                             </div>
                             <div class="product-rating d-flex">
                                 <i class="star-rate active fa-solid fa-star"></i>

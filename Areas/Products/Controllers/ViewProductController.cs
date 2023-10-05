@@ -19,7 +19,13 @@ namespace App.Areas.Products.Controllers
         [Route("/{slug}")]
         public IActionResult Details(string slug)
         {
-            var product = _context.Products.Where(p => p.Slug == slug).Include(p => p.Photos).FirstOrDefault();
+            var product = _context.Products.Where(p => p.Slug == slug)
+                                            .Include(p => p.Photos)
+                                            .Include(p => p.Colors)
+                                            .ThenInclude(c => c.Capacities)
+                                            .AsSplitQuery()
+                                            .FirstOrDefault();
+
             if (product == null)    return NotFound();
 
 

@@ -5,31 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="./lib/summernote/summernote-bs5.css" rel="stylesheet">
-    <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
-
 </head>
 
 <body>
-    <div id="summernote"></div>
-    <script src="./lib/jquery/dist/jquery.min.js"></script>
-    <script src="./lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./lib/summernote/summernote-bs5.js"></script>
+    
+    <input type="file" id="choose-file" oninput="changeImage(this)">
+    <div id="result">
+        <img src="./images/logo-color.png" alt="" id="img-result">
+    </div>
+    <link rel="stylesheet" href="./lib/cropperjs/cropper.css">
 
+    <script src="./lib/cropperjs/cropper.js"></script>
+    
     <script>
-        $(document).ready(function () {
-            $("#summernote").summernote();
+        var img = document.getElementById("img-result");
+
+        const cropper = new Cropper(img, {
             
-            $("button#btnToggleStyle").on("click", function (e) {
-                e.preventDefault();
-                var styleEle = $("style#fixed");
-                if (styleEle.length == 0)
-                    $("<style id=\"fixed\">.note-editor .dropdown-toggle::after { all: unset; } .note-editor .note-dropdown-menu { box-sizing: content-box; } .note-editor .note-modal-footer { box-sizing: content-box; }</style>")
-                        .prependTo("body");
-                else
-                    styleEle.remove();
-            });
-        })
+        });
+
+        const changeImage = function(e) {
+            var reader = new FileReader();
+            reader.onload = function() {
+
+            }
+        }
     </script>
 </body>
 

@@ -9,11 +9,11 @@ namespace App.Areas.Products.Models
         [Display(Name = "Danh mục")]
         public int[]? CategoryId {set;get;}
 
-        public List<ColorExtend> ProductColor {set;get;} = new();
+        public List<ColorExtend>? ProductColor {set;get;}
 
-        public IFormFile? PrimaryImage {set;get;}
+        public ProductPhotoWithFile? PrimaryImage {set;get;}
 
-        public List<UploadFile> SubImage {set;get;} = new();
+        public List<ProductPhotoWithFile>? SubImage {set;get;}
     }
 
     public class ColorExtend : Color
@@ -22,9 +22,27 @@ namespace App.Areas.Products.Models
         public IFormFile? ImageFile {set;get;}
     }
 
-    public class UploadFile
+    public class ProductPhotoWithFile : ProductPhoto
     {
         [AllowedExtensions(new string[] { ".jpg", ".png", ".webp", "jpeg" })]
         public IFormFile? FileUpload {set;get;}
+
+        public ProductPhotoWithFile() {
+            Name = "";
+        }
     }
 }
+
+
+/*
+
+    Gửi đến
+    + Có ảnh: file != null
+        -Thêm: id == null
+        -Cập nhật: id != null
+
+    + Không có ảnh: file == null
+        - Xóa: id == null
+        - Giữ nguyên: id != null
+
+*/

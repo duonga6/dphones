@@ -365,6 +365,38 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropper\\cropper.css",
+      "PackagePath": "staticwebassets\\lib\\cropper\\cropper.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropper\\cropper.js",
+      "PackagePath": "staticwebassets\\lib\\cropper\\cropper.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropper\\cropper.min.css",
+      "PackagePath": "staticwebassets\\lib\\cropper\\cropper.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropper\\cropper.min.js",
+      "PackagePath": "staticwebassets\\lib\\cropper\\cropper.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropperjs\\cropper.css",
+      "PackagePath": "staticwebassets\\lib\\cropperjs\\cropper.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropperjs\\cropper.js",
+      "PackagePath": "staticwebassets\\lib\\cropperjs\\cropper.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropperjs\\cropper.min.css",
+      "PackagePath": "staticwebassets\\lib\\cropperjs\\cropper.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\cropperjs\\cropper.min.js",
+      "PackagePath": "staticwebassets\\lib\\cropperjs\\cropper.min.js"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\font-awesome\\css\\all.css",
       "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\all.css"
     },
@@ -2217,752 +2249,480 @@
       "PackagePath": "staticwebassets\\lib\\jqueryui\\themes\\vader\\theme.min.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.css",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.css"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-af.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-af.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.js",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ar.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ar.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.min.css",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.min.css"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-bg.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-bg.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.min.css.map",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.min.css.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-bn.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-bn.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.min.js",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-bs.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-bs.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.min.js.map",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.min.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ca.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ca.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\multiple-select\\multiple-select.png",
-      "PackagePath": "staticwebassets\\lib\\multiple-select\\multiple-select.png"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-cs.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-cs.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\font\\summernote.eot",
-      "PackagePath": "staticwebassets\\lib\\summernote\\font\\summernote.eot"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-cy.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-cy.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\font\\summernote.ttf",
-      "PackagePath": "staticwebassets\\lib\\summernote\\font\\summernote.ttf"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-da.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-da.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\font\\summernote.woff",
-      "PackagePath": "staticwebassets\\lib\\summernote\\font\\summernote.woff"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-de.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-de.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\font\\summernote.woff2",
-      "PackagePath": "staticwebassets\\lib\\summernote\\font\\summernote.woff2"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-el.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-el.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ar-AR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ar-AR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-en.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-en.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ar-AR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ar-AR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-es.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-es.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ar-AR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ar-AR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-et.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-et.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-az-AZ.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-az-AZ.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-fa.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-fa.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-az-AZ.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-az-AZ.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-fi.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-fi.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-az-AZ.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-az-AZ.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-fil.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-fil.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bg-BG.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bg-BG.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-fj.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-fj.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bg-BG.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bg-BG.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-fr.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-fr.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bg-BG.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bg-BG.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ga.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ga.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bn-BD.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bn-BD.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-gu.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-gu.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bn-BD.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bn-BD.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-he.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-he.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-bn-BD.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-bn-BD.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-hi.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-hi.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ca-ES.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ca-ES.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-hr.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-hr.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ca-ES.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ca-ES.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ht.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ht.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ca-ES.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ca-ES.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-hu.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-hu.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-cs-CZ.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-cs-CZ.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-id.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-id.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-cs-CZ.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-cs-CZ.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-is.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-is.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-cs-CZ.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-cs-CZ.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-it.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-it.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-da-DK.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-da-DK.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ja.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ja.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-da-DK.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-da-DK.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-kn.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-kn.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-da-DK.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-da-DK.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ko.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ko.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-CH.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-CH.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-lt.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-lt.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-CH.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-CH.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-lv.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-lv.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-CH.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-CH.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-mg.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-mg.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-DE.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-DE.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-mi.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-mi.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-DE.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-DE.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ml.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ml.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-de-DE.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-de-DE.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-mr.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-mr.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-el-GR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-el-GR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ms.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ms.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-el-GR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-el-GR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-mt.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-mt.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-el-GR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-el-GR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-mww.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-mww.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-en-US.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-en-US.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-nb.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-nb.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-en-US.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-en-US.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-nl.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-nl.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-en-US.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-en-US.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-otq.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-otq.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-ES.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-ES.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-pa.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-pa.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-ES.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-ES.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-pl.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-pl.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-ES.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-ES.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-pt-pt.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-pt-pt.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-EU.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-EU.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-pt.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-pt.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-EU.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-EU.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ro.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ro.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-es-EU.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-es-EU.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ru.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ru.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fa-IR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fa-IR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sk.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sk.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fa-IR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fa-IR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sl.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sl.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fa-IR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fa-IR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sm.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sm.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fi-FI.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fi-FI.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sr-Cyrl.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sr-Cyrl.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fi-FI.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fi-FI.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sr-Latn.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sr-Latn.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fi-FI.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fi-FI.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sv.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sv.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fr-FR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fr-FR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-sw.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-sw.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fr-FR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fr-FR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ta.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ta.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-fr-FR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-fr-FR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-te.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-te.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-gl-ES.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-gl-ES.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-th.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-th.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-gl-ES.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-gl-ES.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-tlh-Latn.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-tlh-Latn.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-gl-ES.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-gl-ES.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-tlh-Piqd.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-tlh-Piqd.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-he-IL.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-he-IL.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-to.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-to.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-he-IL.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-he-IL.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-tr.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-tr.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-he-IL.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-he-IL.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ty.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ty.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hr-HR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hr-HR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-uk.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-uk.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hr-HR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hr-HR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-ur.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-ur.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hr-HR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hr-HR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-vi.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-vi.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hu-HU.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hu-HU.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-yua.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-yua.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hu-HU.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hu-HU.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-zh-Hans.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-zh-Hans.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-hu-HU.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-hu-HU.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-zh-Hant.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang-zh-Hant.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-id-ID.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-id-ID.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\lang\\rte-lang.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-id-ID.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-id-ID.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\-combine-plugin.txt",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\-combine-plugin.txt"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-id-ID.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-id-ID.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\all_plugins.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\all_plugins.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-it-IT.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-it-IT.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\html2pdf.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\html2pdf.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-it-IT.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-it-IT.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\imageeditor.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\imageeditor.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-it-IT.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-it-IT.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\insertcode.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\insertcode.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ja-JP.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ja-JP.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\insertemoji.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\insertemoji.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ja-JP.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ja-JP.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\insertgallery.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\insertgallery.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ja-JP.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ja-JP.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\inserttemplate.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\inserttemplate.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ko-KR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ko-KR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\samples\\insertcode_v1.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\samples\\insertcode_v1.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ko-KR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ko-KR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\fabric.min.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\fabric.min.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ko-KR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ko-KR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\note.txt",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\note.txt"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LT.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LT.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-a.svg",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-a.svg"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LT.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LT.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-b.svg",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-b.svg"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LT.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LT.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-c.svg",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-c.svg"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LV.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LV.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-d.svg",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\svg\\icon-d.svg"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LV.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LV.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\tui-code-snippet.min.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\tui-code-snippet.min.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-lt-LV.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-lt-LV.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\tui-color-picker.min.css",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\tui-color-picker.min.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-mn-MN.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-mn-MN.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\tui-color-picker.min.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\tui-color-picker.min.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-mn-MN.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-mn-MN.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\tui-image-editor.min.css",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\tui-image-editor.min.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-mn-MN.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-mn-MN.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\plugins\\tui.image-editor\\tui-image-editor.min.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\plugins\\tui.image-editor\\tui-image-editor.min.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nb-NO.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nb-NO.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\rte.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\rte.js"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nb-NO.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nb-NO.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\rte_theme_default.css",
+      "PackagePath": "staticwebassets\\richtexteditor\\rte_theme_default.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nb-NO.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nb-NO.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\colorpicker_more_ns.htm",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\colorpicker_more_ns.htm"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nl-NL.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nl-NL.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\help.htm",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\help.htm"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nl-NL.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nl-NL.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\1x1.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\1x1.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-nl-NL.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-nl-NL.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_Color.cur",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_Color.cur"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pl-PL.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pl-PL.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_GradientPositionDark.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_GradientPositionDark.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pl-PL.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pl-PL.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_GradientPositionLight.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_GradientPositionLight.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pl-PL.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pl-PL.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_VerticalPosition.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_VerticalPosition.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-BR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-BR.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_WebSafe.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_WebSafe.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-BR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-BR.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpie_gradients.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpie_gradients.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-BR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-BR.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_Color.cur",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_Color.cur"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-PT.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-PT.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_ColorSpace1.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_ColorSpace1.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-PT.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-PT.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_ColorSpace2.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_ColorSpace2.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-pt-PT.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-pt-PT.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_GradientPositionDark.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_GradientPositionDark.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ro-RO.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ro-RO.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_GradientPositionLight.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_GradientPositionLight.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ro-RO.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ro-RO.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_Vertical1.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_Vertical1.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ro-RO.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ro-RO.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_Vertical2.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_Vertical2.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ru-RU.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ru-RU.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_VerticalPosition.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_VerticalPosition.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ru-RU.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ru-RU.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_WebSafe.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_WebSafe.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ru-RU.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ru-RU.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_gradients.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_gradients.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sk-SK.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sk-SK.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\cpns_hue2.png",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\cpns_hue2.png"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sk-SK.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sk-SK.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\formbn.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\formbn.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sk-SK.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sk-SK.min.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\images\\multiclavier.gif",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\images\\multiclavier.gif"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sl-SI.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sl-SI.js"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\richtexteditor_content.css",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\richtexteditor_content.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sl-SI.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sl-SI.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\richtexteditor_preview.css",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\richtexteditor_preview.css"
     },
     {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sl-SI.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sl-SI.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS-Latin.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS-Latin.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS-Latin.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS-Latin.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS-Latin.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS-Latin.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sr-RS.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sr-RS.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sv-SE.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sv-SE.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sv-SE.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sv-SE.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-sv-SE.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-sv-SE.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ta-IN.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ta-IN.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ta-IN.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ta-IN.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-ta-IN.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-ta-IN.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-th-TH.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-th-TH.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-th-TH.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-th-TH.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-th-TH.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-th-TH.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-tr-TR.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-tr-TR.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-tr-TR.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-tr-TR.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-tr-TR.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-tr-TR.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uk-UA.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uk-UA.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uk-UA.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uk-UA.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uk-UA.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uk-UA.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uz-UZ.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uz-UZ.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uz-UZ.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uz-UZ.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-uz-UZ.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-uz-UZ.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-vi-VN.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-vi-VN.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-vi-VN.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-vi-VN.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-vi-VN.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-vi-VN.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-CN.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-CN.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-CN.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-CN.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-CN.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-CN.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-TW.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-TW.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-TW.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-TW.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\lang\\summernote-zh-TW.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\lang\\summernote-zh-TW.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.min.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.min.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\databasic\\summernote-ext-databasic.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\hello\\summernote-ext-hello.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\hello\\summernote-ext-hello.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\hello\\summernote-ext-hello.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\hello\\summernote-ext-hello.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\specialchars\\summernote-ext-specialchars.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\specialchars\\summernote-ext-specialchars.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\plugin\\specialchars\\summernote-ext-specialchars.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\plugin\\specialchars\\summernote-ext-specialchars.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.css.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.css.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.min.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.min.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs4.min.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs4.min.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.css.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.css.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.min.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.min.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-bs5.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-bs5.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.css.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.css.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.min.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.min.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote-lite.min.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote-lite.min.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.css.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.css.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.js.map"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.min.css",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.min.css"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.min.js",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.min.js"
-    },
-    {
-      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\summernote\\summernote.min.js.map",
-      "PackagePath": "staticwebassets\\lib\\summernote\\summernote.min.js.map"
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\runtime\\richtexteditor_preview.js",
+      "PackagePath": "staticwebassets\\richtexteditor\\runtime\\richtexteditor_preview.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\test.html",

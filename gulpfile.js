@@ -15,5 +15,5 @@ gulp.task('default', function () {
 
 gulp.task('watch', function()
 {
-    gulp.watch('assets/scss/*.scss', gulp.series('default'));
+    gulp.watch(['assets/scss/*.scss', 'assets/scss/**/*.scss'], gulp.series('default'));
 });

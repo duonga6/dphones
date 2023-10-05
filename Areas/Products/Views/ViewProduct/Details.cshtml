@@ -13,9 +13,9 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators flex-wrap mx-2 my-0">
                         @{
+                            int i = 0;
                             if (Model.Photos != null)
                             {
-                                int i = 0;
                                 foreach (var item in Model.Photos)
                                 {
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
@@ -25,6 +25,22 @@
                                         </div>
                                     </button>
                                     i++;
+                                }
+                            }
+                            if (Model.Colors != null)
+                            {
+                                foreach (var item in Model.Colors)
+                                {
+                                    if (item.Image != null)
+                                    {
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                        class="sm-photo-btn" aria-current="true" aria-label="Hình ảnh @i">
+                                            <div class="sm-photo-box">
+                                                <img src="/files/Products/@item.Image" class="sm-photo d-block w-100" alt="...">
+                                            </div>
+                                        </button>
+                                        i++;
+                                    }
                                 }
                             }
                         }
@@ -38,6 +54,18 @@
                                     <div class="carousel-item @if(item.Id == Model.MainPhoto) @("active")">
                                         <img src="/files/Products/@item.Name" class="d-block w-100" alt="...">
                                     </div>
+                                }
+                            }
+                            if (Model.Colors != null)
+                            {
+                                foreach (var item in Model.Colors)
+                                {
+                                    if (item.Image != null)
+                                    {
+                                        <div class="carousel-item ">
+                                            <img src="/files/Products/@item.Image" class="d-block w-100" alt="...">
+                                        </div>
+                                    }
                                 }
                             }
                         }

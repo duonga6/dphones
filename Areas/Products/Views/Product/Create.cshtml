@@ -63,6 +63,8 @@
                         <input asp-for="Charger" class="form-control">
                         <span asp-validation-for="Charger" class="text-danger"></span>
                     </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group mb-2">
                         <label asp-for="EntryDate" class="form-label"></label>
                         <input asp-for="EntryDate" class="form-control" type="date">
@@ -73,8 +75,6 @@
                         <input asp-for="ReleaseDate" class="form-control" type="date">
                         <span asp-validation-for="ReleaseDate" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="form-group mb-2">
                         <label asp-for="SIM" class="form-label"></label>
                         <textarea asp-for="SIM" class="form-control" rows="2"></textarea>
@@ -130,6 +130,10 @@
                                                 style="display: none;">
                                                 <img class="color-img-show w-100 mt-2" src=""
                                                     style="object-fit: contain;">
+                                                <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                                    onclick="editColorImg(this)">
+                                                    <i class="text-white fa-regular fa-pen-to-square"></i>
+                                                </span>
                                                 <span
                                                     class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
                                                     onclick="removeColorImg(this)">
@@ -220,6 +224,10 @@
                     <input asp-for="PrimaryImage" class="main-img-input" hidden oninput="changeMainImg(this)">
                     <div class="main-img-show w-50 position-relative" style="display: none;">
                         <img id="main-img" class="w-100 mt-2" style="object-fit: contain; height: 300px;">
+                        <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                            onclick="editMainImg(this)">
+                            <i class="text-white fa-regular fa-pen-to-square"></i>
+                        </span>
                         <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
                             onclick="removeMainImg(this)">
                             <i class="fa-solid fa-xmark"></i>
@@ -234,6 +242,10 @@
                         <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
                         <div class="sub-img-show w-50 position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
+                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                onclick="editSubImg(this)">
+                                <i class="text-white fa-regular fa-pen-to-square"></i>
+                            </span>
                             <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
                                 onclick="removeSubImg(this)">
                                 <i class="fa-solid fa-xmark"></i>
@@ -264,21 +276,273 @@
     </div>
 </div>
 
+<div id="modal-edit-img" class="modal-edit-img">
+    <div class="card">
+        <div class="card-header">
+            Chỉnh sửa ảnh
+        </div>
+        <div class="card-body">
+            <div class="result">
+                <img id="result-img">
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <span class="btn btn-primary btn-sm" onclick="SaveEditedFile(this)">Lưu về máy</span>
+            <span class="btn btn-danger btn-sm ms-auto me-2" onclick="CancelEdit(this)">Hủy bỏ</span>
+            <span class="btn btn-success btn-sm" onclick="ApplyEdit(this)">Đồng ý</span>
+        </div>
+    </div>
+</div>
 @section Scripts
-    {
-    
-    <link href="~/lib/summernote/summernote-bs5.min.css" rel="stylesheet" />
-    <script src="~/lib/summernote/summernote.min.js"></script>
+{
+    <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css">
+    <script src="~/lib/cropperjs/cropper.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $("#Description").summernote({
-                minHeight: 600
-            });
-        });
+        var img = document.getElementById("result-img");
+        var cropper = undefined;
+        var modal = $("#modal-edit-img");
     </script>
 
+    <partial name="_RichTextEditor" model="@("Description")"/>
+
     <script>
+
+        // Xử lý up ảnh chính cho sản phẩm
+        
+        const btnChooseMainImg = $("#main-img-btn-choose");
+        const imgMainShowContainer = $(".main-img-show");
+        const imgMainShow = $("#main-img");
+        const inputMainImg = $(".main-img-input");
+
+        const editMainImg = function(element) {
+            const src = $(element).siblings("#main-img").attr("src");
+            OpenEdit(element, 'main', null, src, true);
+        }
+
+        const editSubImg = function(element) {
+            const src = $(element).siblings(".sub-img").attr("src");
+            const id = $(element).closest(".sub-img-item").attr("data-id");
+            OpenEdit(element, 'sub', id, src, true);
+        }
+
+        const editColorImg = function(element) {
+            const src = $(element).siblings(".color-img-show").attr("src");
+            const id = $(element).closest(".color-group").attr("data-index");
+            OpenEdit(element, 'color', id, src, true);
+        }
+        
+        const changeMainImg = function (element) {
+            OpenEdit(element, 'main');
+        }
+
+        const OpenEdit = function(e, type = 'main', id = null, src = null, isEdit = false) {
+            modal.addClass("active");
+            if (type == 'main')
+            {
+                if (isEdit) modal.attr('data-status', 'edit');
+                modal.attr('data-type', 'main');
+            } else if (type == 'sub')
+            {
+                modal.attr('data-id', id);
+                modal.attr('data-type', 'sub');
+                if (isEdit) modal.attr('data-status', 'edit');
+            } else if (type == 'color') {
+                modal.attr('data-id', id);
+                modal.attr('data-type', 'color');
+                if (isEdit) modal.attr('data-status', 'edit');
+            } else {
+                alert("Có lỗi xảy ra, hãy refresh trang (OpenEdit)");
+                return;
+            }
+            if (src) {
+                img.src = src;
+            } else {
+                img.src = URL.createObjectURL(e.files[0]);
+            }
+            if (cropper) cropper.destroy();
+            cropper = new Cropper(img);
+        }
+
+        const SaveEditedFile = function() {
+            if (cropper) {
+                const fileName = img.getAttribute('src').split('/').pop();
+                cropper.getCroppedCanvas().toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = fileName + '.jpg';
+                    link.click();
+                }, 'image/jpg');
+            }
+        }
+
+        const CancelEdit = function(e) {
+            const modalType = modal.attr("data-type");
+            const isEdit = modal.attr("data-status") == 'edit';
+            if (modalType == 'sub' && !isEdit)
+            {
+                const id = Number(modal.attr('data-id'));
+                $(".sub-input").each((index, element) => {
+                    if (Number($(element).closest(".sub-img-item").attr("data-id")) == id){
+                        $(element).val("");
+                    }
+                });
+            } else if (modalType == 'color' && !isEdit) {
+                const id = Number(modal.attr('data-id'));
+                $(".color-input-img").each((index, element) => {
+                    if (Number($(element).closest(".color-group").attr("data-index")) == id)
+                    {
+                        $(element).val("");
+                    }
+                })
+            } else if (modalType == 'main' && !isEdit) {
+                inputMainImg.val("");
+            }
+            
+            if (cropper) {
+                img.style.display = 'none';
+                cropper.clear();
+                cropper.destroy();
+            }  
+            modal.removeClass("active");
+        }
+
+        const ApplyEdit = function() {
+            if (cropper)
+            {
+                const isEdit = modal.attr("data-status") == 'edit';
+                const modalType = modal.attr("data-type");
+                const fileName = img.getAttribute('src').split('/').pop();
+                cropper.getCroppedCanvas().toBlob(function(blob) {
+
+                    img.src = URL.createObjectURL(blob);
+                    const file = new File([blob], fileName + '.jpg');
+                    const fileList = new DataTransfer();
+                    fileList.items.add(file);
+
+
+                    if (modalType == 'main') {
+                        imgMainShow.attr("src", URL.createObjectURL(blob));
+                        btnChooseMainImg.hide();
+                        imgMainShowContainer.show();
+
+
+                        const fileInput = inputMainImg.get(0);
+                        fileInput.files = fileList.files;
+                    } else if (modalType == 'sub')
+                    {
+                        const id = $("#modal-edit-img").attr("data-id");
+                        if (!id && id != 0) {
+                            alert("Có lỗi thiếu Id");
+                            return;
+                        }
+
+                        $(".sub-img-item").each((index, e) => {
+                            const item = $(e);
+                            const itemId = item.attr("data-id");
+                            if (itemId == id) {
+                                item.children(".sub-img-show").show();
+                                item.children(".btn-choose-sub-img").hide();
+                                item.children(".sub-img-show").children(".sub-img").attr("src", URL.createObjectURL(blob));
+                                const fileInput = item.children(".sub-input").get(0);
+                                fileInput.files = fileList.files;
+                            }
+                        });
+                        if (!isEdit) addSubImgSection();
+                    } else if (modalType == 'color') {
+                        const id = $("#modal-edit-img").attr("data-id");
+                        if (!id && id != 0) {
+                            alert("Có lỗi thiếu Id");
+                            return;
+                        }
+
+                        $(".color-group").each((index, element) => {
+                            const item = $(element);
+                            const itemId = item.attr("data-index");
+                            if (itemId == id) {
+                                item.find(".color-img-show-container").show();
+                                item.find(".btn-choose-img").hide();
+                                item.find(".color-img-show").attr("src", URL.createObjectURL(blob));
+
+                                const fileInput = item.find(".color-input-img").get(0);
+                                fileInput.files = fileList.files;
+                            }
+                        });
+                    }
+
+                }, 'image/jpg');
+
+                img.style.display = 'none';
+                cropper.clear();
+                cropper.destroy();
+                modal.removeClass("active");
+    
+            } else
+            {
+                alert("Có lỗi xảy ra, vui lòng refresh trang");
+            }
+
+
+        }
+
+        const removeMainImg = function (element) {
+            
+            btnChooseMainImg.show();
+            imgMainShow.attr("src", "");
+            inputMainImg.val("");
+            imgMainShowContainer.hide();
+        }
+
+        // Xử lý up dảnh phụ cho sản phẩm
+        const changeSubImg = function (element) {
+            const id = Number($(element).closest(".sub-img-item").attr("data-id"));
+            OpenEdit(element, 'sub', id);
+
+        }
+
+        const removeSubImg = function (element) {
+            
+            if ($(".sub-img-item").length > 1)
+            {
+                $(element).closest(".sub-img-item").remove();
+                return;
+            }
+
+            const imgShowContainer = $(element).closest(".sub-img-show");
+            const btnChooseImg = imgShowContainer.siblings(".btn-choose-sub-img");
+            const imgShow = $(element).siblings(".sub-img");
+            const inputImg = imgShowContainer.siblings(".sub-input");
+
+            btnChooseImg.show();
+            imgShow.attr("src", "");
+            inputImg.val("");
+            imgShowContainer.hide();
+        }
+
+        const addSubImgSection = function () {
+            const Id = Number($(".sub-img-item").last().attr("data-id")) + 1;
+            const html = `
+                    <div class="sub-img-item mb-3" data-id="${Id}">
+                        <label class="btn btn-primary btn-sm btn-choose-sub-img" for="SubImage_${Id}__FileUpload">Thêm ảnh</label>
+                        <input type="hidden" name="SubImage.Index" value="${Id}">
+                        <input hidden class="sub-input" oninput="changeSubImg(this, ${Id})" type="file" id="SubImage_${Id}__FileUpload" name="SubImage[${Id}].FileUpload">
+                        <div class="sub-img-show w-50 position-relative" style="display: none;">
+                            <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
+                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                onclick="editSubImg(this)">
+                                <i class="text-white fa-regular fa-pen-to-square"></i>
+                            </span>
+                            <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1" onclick="removeSubImg(this)">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            $(".sub-img-container").append(html);
+        }
+
+
         // Thêm ram rom sl cho màu
         const addOption = function (element) {
             const optionIndex = ($(element).closest(".option-group").children(".option-item").last().data("id")) + 1;
@@ -356,6 +620,10 @@
                                                             <input class="color-input-img" hidden="" accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)" type="file" data-val="true" data-val-fileextensions="The ImageFile field only accepts files with the following extensions: .png, .jpg, .jpeg, .webp" data-val-fileextensions-extensions=".png,.jpg,.jpeg,.webp" id="ProductColor_${colorIndex}__ImageFile" name="ProductColor[${colorIndex}].ImageFile">
                                                             <div class="color-img-show-container w-75 position-relative" style="display: none;">
                                                                 <img class="color-img-show w-100 mt-2" src="" style="object-fit: contain;">
+                                                                <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                                                    onclick="editColorImg(this)">
+                                                                    <i class="text-white fa-regular fa-pen-to-square"></i>
+                                                                </span>
                                                                 <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1" onclick="removeColorImg(this)">
                                                                     <i class="fa-solid fa-xmark"></i>
                                                                 </span>
@@ -416,13 +684,8 @@
 
         // Xử lý ảnh upload cho color
         const changeColorImg = function (element) {
-            const btnChooseImg = $(element).siblings(".btn-choose-img");
-            const imgShowContainer = $(element).siblings(".color-img-show-container");
-            const imgShow = imgShowContainer.children(".color-img-show");
-
-            imgShow.attr("src", URL.createObjectURL(element.files[0]));
-            btnChooseImg.hide();
-            imgShowContainer.show();
+            const id = Number($(element).closest(".color-group").attr('data-index'));
+            OpenEdit(element, 'color', id)
         }
 
         const removeColorImg = function (element) {
@@ -437,78 +700,9 @@
             imgShowContainer.hide();
         }
 
-        // Xử lý up ảnh chính cho sản phẩm
-        const changeMainImg = function (element) {
-            const btnChooseImg = $(element).siblings("#main-img-btn-choose");
-            const imgShowContainer = $(element).siblings(".main-img-show");
-            const imgShow = imgShowContainer.children("#main-img");
+        
 
-            imgShow.attr("src", URL.createObjectURL(element.files[0]));
-            btnChooseImg.hide();
-            imgShowContainer.show();
-        }
-
-        const removeMainImg = function (element) {
-            const btnChooseImg = $(element).closest(".main-img-show").siblings("#main-img-btn-choose");
-            const imgShowContainer = $(element).closest(".main-img-show");
-            const imgShow = $(element).closest("#main-img");
-            const inputImg = $(element).closest(".main-img-show").closest(".main-img-input");
-
-            btnChooseImg.show();
-            imgShow.attr("src", "");
-            inputImg.val("");
-            imgShowContainer.hide();
-        }
-
-        // Xử lý up dảnh phụ cho sản phẩm
-        const changeSubImg = function (element) {
-            const btnChooseImg = $(element).siblings(".btn-choose-sub-img");
-            const imgShowContainer = $(element).siblings(".sub-img-show");
-            const imgShow = imgShowContainer.children(".sub-img");
-
-            imgShow.attr("src", URL.createObjectURL(element.files[0]));
-            btnChooseImg.hide();
-            imgShowContainer.show();
-
-            addSubImgSection();
-        }
-
-        const removeSubImg = function (element) {
-            
-            if ($(".sub-img-item").length > 1)
-            {
-                $(element).closest(".sub-img-item").remove();
-                return;
-            }
-
-            const imgShowContainer = $(element).closest(".sub-img-show");
-            const btnChooseImg = imgShowContainer.siblings(".btn-choose-sub-img");
-            const imgShow = $(element).siblings(".sub-img");
-            const inputImg = imgShowContainer.siblings(".sub-input");
-
-            btnChooseImg.show();
-            imgShow.attr("src", "");
-            inputImg.val("");
-            imgShowContainer.hide();
-        }
-
-        const addSubImgSection = function () {
-            const Id = $(".sub-img-item").last().data("id") + 1;
-            const html = `
-                    <div class="sub-img-item mb-3" data-id="${Id}">
-                        <label class="btn btn-primary btn-sm btn-choose-sub-img" for="SubImage_${Id}__FileUpload">Thêm ảnh</label>
-                        <input type="hidden" name="SubImage.Index" value="${Id}">
-                        <input hidden class="sub-input" oninput="changeSubImg(this)" type="file" id="SubImage_${Id}__FileUpload" name="SubImage[${Id}].FileUpload">
-                        <div class="sub-img-show w-50 position-relative" style="display: none;">
-                            <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
-                            <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1" onclick="removeSubImg(this)">
-                                <i class="fa-solid fa-xmark"></i>
-                            </span>
-                        </div>
-                    </div>
-                `;
-            $(".sub-img-container").append(html);
-        }
+        
 
     </script>
     

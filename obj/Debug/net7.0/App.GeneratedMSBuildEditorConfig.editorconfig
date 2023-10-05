@@ -416,6 +416,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[j:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Views/Shared/_RichTextEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SaWNoVGV4dEVkaXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [j:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Views/Shared/_StatusMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdGF0dXNNZXNzYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

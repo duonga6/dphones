@@ -7,12 +7,8 @@
         "destination": "wwwroot\\lib\\font-awesome"
       },
       {
-        "library": "multiple-select@1.6.0",
-        "destination": "wwwroot\\lib\\multiple-select"
-      },
-      {
-        "library": "summernote@0.8.20",
-        "destination": "wwwroot\\lib\\summernote"
+        "library": "cropperjs@1.6.1",
+        "destination": "wwwroot\\lib\\cropperjs"
       }
     ]
   }

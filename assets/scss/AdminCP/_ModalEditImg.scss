@@ -1,0 +1,40 @@
+.modal-edit-img {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease-in;
+
+
+    .card {
+        width: 800px;
+        height: 500px;
+
+        .card-body {
+            width: 100%;
+            height: 100%;
+            .result {
+                    
+                width: 766px;
+                height: 374px;
+            }
+        }
+    }
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    // &.hidden {
+    //     visibility: hidden;
+    // }
+}
