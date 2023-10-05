@@ -3,15 +3,15 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="product-details-container">
-    <div class="product-heading">
+<div class="product-details-container bg-white px-2">
+    <div class="product-heading pt-2">
         <p>@Model.Name</p>
     </div>
     <div class="product-info row">
         <div class="col-md-4">
             <div class="photo-slide mt-2">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-                    <div class="carousel-indicators flex-wrap mx-2 my-0">
+                    <div class="carousel-indicators flex-wrap mx-3 my-0">
                         @{
                             int i = 0;
                             if (Model.Photos != null)
@@ -33,7 +33,7 @@
                                 {
                                     if (item.Image != null)
                                     {
-                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                        <button id="btn-show-color-image-@item.Id" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
                                         class="sm-photo-btn" aria-current="true" aria-label="Hình ảnh @i">
                                             <div class="sm-photo-box">
                                                 <img src="/files/Products/@item.Image" class="sm-photo d-block w-100" alt="...">
@@ -84,11 +84,137 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="product-price d-flex align-items-center mt-3">
-                <p class="sell-price mb-0 primary-text fw-semibold">1000<sup>đ</sup></p>
-                <del class="old-price ms-3 text-dark opacity-50 fw-semibold">20.000<sup>đ</sup></del>
+            <div class="product-options">
+                <div class="options-color">
+                    <p class="fw-semibold mt-2">Chọn màu: </p>
+                    <ul class="colors-list">
+                        @if(Model.Colors != null)
+                        {
+                            bool isFirst = true;
+                            foreach(var item in Model.Colors)
+                            {
+                            <li class="color-item @if(isFirst) {@("active"); isFirst=false;}" data-id="@item.Id" onclick="chooseOption(@item.Id)">
+                                <span class="color-name">@item.Name</span>
+                                <span class="color-default-price">@item.Capacities.FirstOrDefault()?.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
+                                <span class="color-checked"><i class="fa-solid fa-check"></i></span>
+                            </li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+                <div class="options-price">
+                    <p class="fw-semibold">Chọn bộ nhớ:</p>
+                    @if(Model.Colors != null)
+                    {
+                        bool isFirst = true;
+                        foreach (var color in Model.Colors)
+                        {
+                            if (color.Capacities != null)
+                            {
+                                <ul class="prices-list colors-list @if(isFirst) {@("active")}" data-id="@color.Id">
+                                @foreach (var capa in color.Capacities)
+                                {
+                                    <li class="price-item @if(isFirst) {@("active"); isFirst=false;}" data-id="@capa.Id"  onclick="chooseOption(@color.Id, @capa.Id)">
+                                        <span class="price-name">@(capa.Ram + "GB/" + (capa.Rom % 1024 == 0 ? capa.Rom/1024 + "TB" : capa.Rom + "GB"))</span>
+                                        <span class="price-default">@capa.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
+                                        <span class="price-checked"><i class="fa-solid fa-check"></i></span>
+                                    </li>
+                                }
+                                </ul>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="product-action">
+                <div class="row">
+                    <div class="col-md-5 offset-md-2">
+                        <a class="btn primary-bg text-white fs-5 fw-normal w-100 py-2 btn-buy-now">Mua ngay</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-add-to-cart">
+                            <i class="primary-text fa-solid py-2 fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             
         </div>
+        <div class="col-md-3">
+            
+        </div>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-8 product-description" id="product-description">
+            <hr class="primary-text">
+            @Html.Raw(Model.Description)
+            <div class="product-description-action">
+                <button class="btn" id="btn-show-desc">Xem thêm</button>
+                <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts
+{
+
+    <script>
+        const btnShowDesc = $("#btn-show-desc");
+        const btnHideDesc = $("#btn-hide-desc");
+        const descContent = $("#product-description");
+
+        btnShowDesc.click(function() {
+            btnHideDesc.show();
+            btnShowDesc.hide();
+            descContent.addClass("active");
+        });
+
+        btnHideDesc.click(function() {
+            btnShowDesc.show();
+            btnHideDesc.hide();
+            descContent.removeClass("active");
+        });
+    </script>
+    <script>
+        const resetActice = function() {
+            $(".color-item").removeClass("active");
+            $(".prices-list").removeClass("active");
+            $(".price-item").removeClass("active");
+        }
+
+        const setActive = function(colorId, capaId = null)
+        {
+            $(".color-item").each((i, e) => {
+                if ($(e).data("id") == colorId) $(e).addClass("active");
+            });
+
+            $(".prices-list").each((i, e) => {
+                if ($(e).data("id") == colorId) {
+                    $(e).addClass("active");
+                    if (capaId) {
+                        $(e).children(".price-item").each((index, element) => {
+                            if ($(element).data("id") == capaId)
+                            {
+                                $(element).addClass("active");
+                            }
+                        });
+                    } else
+                    {
+                        $(e).children(".price-item").first().addClass("active");
+                    }
+                }
+            });
+
+            $(`#btn-show-color-image-${colorId}`).click();
+        }
+
+        const chooseOption = function(colorId, capaId = null)
+        {
+            resetActice();
+            setActive(colorId, capaId);
+        }
+    </script>
+}

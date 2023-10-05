@@ -72,9 +72,13 @@ body {
 .header-item {
   height: 48px;
   cursor: pointer;
+  transition: all 0.1s linear;
 }
 .header-item:hover {
-  background-color: rgba(248, 249, 250, 0.25);
+  background-color: rgba(248, 249, 250, 0.15);
+}
+.header-item.active {
+  background-color: rgba(248, 249, 250, 0.15);
 }
 
 .home-header-logo {
@@ -356,19 +360,24 @@ body {
 }
 .product-details-container .product-info .photo-slide .carousel-indicators {
   bottom: unset;
-  top: 100%;
+  top: calc(100% + 12px);
 }
 .product-details-container .product-info .photo-slide .carousel-indicators .sm-photo-btn {
-  width: 60px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   opacity: 1;
+  border-radius: 4px;
+  border-top: unset;
 }
 .product-details-container .product-info .photo-slide .carousel-indicators .sm-photo-btn .sm-photo-box {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
 }
 .product-details-container .product-info .photo-slide .carousel-indicators .sm-photo-btn .sm-photo-box .sm-photo {
   width: 100%;
@@ -376,11 +385,13 @@ body {
   object-fit: contain;
 }
 .product-details-container .product-info .photo-slide .carousel-indicators .sm-photo-btn.active .sm-photo-box {
-  outline: 1px solid #F94C10;
+  border: 1px solid #F94C10;
 }
 .product-details-container .product-info .photo-slide .carousel-inner {
   width: 100%;
   height: 380px;
+  border: 1px solid rgba(249, 76, 16, 0.2);
+  border-radius: 8px;
 }
 .product-details-container .product-info .photo-slide .carousel-inner .carousel-item {
   height: 100%;
@@ -388,11 +399,110 @@ body {
 .product-details-container .product-info .photo-slide .carousel-inner .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
-.product-details-container .product-info .product-price .sell-price {
-  font-size: 24px;
+.product-details-container .product-info .product-options .options-color .colors-list, .product-details-container .product-info .product-options .options-color .prices-list, .product-details-container .product-info .product-options .options-price .colors-list, .product-details-container .product-info .product-options .options-price .prices-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
 }
-.product-details-container .product-info .product-price .old-price {
-  font-size: 16px;
+.product-details-container .product-info .product-options .options-color .colors-list .color-item, .product-details-container .product-info .product-options .options-color .colors-list .price-item, .product-details-container .product-info .product-options .options-color .prices-list .color-item, .product-details-container .product-info .product-options .options-color .prices-list .price-item, .product-details-container .product-info .product-options .options-price .colors-list .color-item, .product-details-container .product-info .product-options .options-price .colors-list .price-item, .product-details-container .product-info .product-options .options-price .prices-list .color-item, .product-details-container .product-info .product-options .options-price .prices-list .price-item {
+  width: 120px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.1s linear;
+  margin: 0 8px 8px;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item .color-name, .product-details-container .product-info .product-options .options-color .colors-list .color-item .price-name, .product-details-container .product-info .product-options .options-color .colors-list .price-item .color-name, .product-details-container .product-info .product-options .options-color .colors-list .price-item .price-name, .product-details-container .product-info .product-options .options-color .prices-list .color-item .color-name, .product-details-container .product-info .product-options .options-color .prices-list .color-item .price-name, .product-details-container .product-info .product-options .options-color .prices-list .price-item .color-name, .product-details-container .product-info .product-options .options-color .prices-list .price-item .price-name, .product-details-container .product-info .product-options .options-price .colors-list .color-item .color-name, .product-details-container .product-info .product-options .options-price .colors-list .color-item .price-name, .product-details-container .product-info .product-options .options-price .colors-list .price-item .color-name, .product-details-container .product-info .product-options .options-price .colors-list .price-item .price-name, .product-details-container .product-info .product-options .options-price .prices-list .color-item .color-name, .product-details-container .product-info .product-options .options-price .prices-list .color-item .price-name, .product-details-container .product-info .product-options .options-price .prices-list .price-item .color-name, .product-details-container .product-info .product-options .options-price .prices-list .price-item .price-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item .color-default-price, .product-details-container .product-info .product-options .options-color .colors-list .color-item .price-default, .product-details-container .product-info .product-options .options-color .colors-list .price-item .color-default-price, .product-details-container .product-info .product-options .options-color .colors-list .price-item .price-default, .product-details-container .product-info .product-options .options-color .prices-list .color-item .color-default-price, .product-details-container .product-info .product-options .options-color .prices-list .color-item .price-default, .product-details-container .product-info .product-options .options-color .prices-list .price-item .color-default-price, .product-details-container .product-info .product-options .options-color .prices-list .price-item .price-default, .product-details-container .product-info .product-options .options-price .colors-list .color-item .color-default-price, .product-details-container .product-info .product-options .options-price .colors-list .color-item .price-default, .product-details-container .product-info .product-options .options-price .colors-list .price-item .color-default-price, .product-details-container .product-info .product-options .options-price .colors-list .price-item .price-default, .product-details-container .product-info .product-options .options-price .prices-list .color-item .color-default-price, .product-details-container .product-info .product-options .options-price .prices-list .color-item .price-default, .product-details-container .product-info .product-options .options-price .prices-list .price-item .color-default-price, .product-details-container .product-info .product-options .options-price .prices-list .price-item .price-default {
+  color: #F94C10;
+  font-size: 14px;
+  line-height: 18px;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item .color-checked, .product-details-container .product-info .product-options .options-color .colors-list .color-item .price-checked, .product-details-container .product-info .product-options .options-color .colors-list .price-item .color-checked, .product-details-container .product-info .product-options .options-color .colors-list .price-item .price-checked, .product-details-container .product-info .product-options .options-color .prices-list .color-item .color-checked, .product-details-container .product-info .product-options .options-color .prices-list .color-item .price-checked, .product-details-container .product-info .product-options .options-color .prices-list .price-item .color-checked, .product-details-container .product-info .product-options .options-color .prices-list .price-item .price-checked, .product-details-container .product-info .product-options .options-price .colors-list .color-item .color-checked, .product-details-container .product-info .product-options .options-price .colors-list .color-item .price-checked, .product-details-container .product-info .product-options .options-price .colors-list .price-item .color-checked, .product-details-container .product-info .product-options .options-price .colors-list .price-item .price-checked, .product-details-container .product-info .product-options .options-price .prices-list .color-item .color-checked, .product-details-container .product-info .product-options .options-price .prices-list .color-item .price-checked, .product-details-container .product-info .product-options .options-price .prices-list .price-item .color-checked, .product-details-container .product-info .product-options .options-price .prices-list .price-item .price-checked {
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  background-color: rgb(0, 224, 0);
+  color: white;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.1s linear;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item.active, .product-details-container .product-info .product-options .options-color .colors-list .price-item.active, .product-details-container .product-info .product-options .options-color .prices-list .color-item.active, .product-details-container .product-info .product-options .options-color .prices-list .price-item.active, .product-details-container .product-info .product-options .options-price .colors-list .color-item.active, .product-details-container .product-info .product-options .options-price .colors-list .price-item.active, .product-details-container .product-info .product-options .options-price .prices-list .color-item.active, .product-details-container .product-info .product-options .options-price .prices-list .price-item.active {
+  border-color: #F94C10;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item.active .color-checked, .product-details-container .product-info .product-options .options-color .colors-list .color-item.active .price-checked, .product-details-container .product-info .product-options .options-color .colors-list .price-item.active .color-checked, .product-details-container .product-info .product-options .options-color .colors-list .price-item.active .price-checked, .product-details-container .product-info .product-options .options-color .prices-list .color-item.active .color-checked, .product-details-container .product-info .product-options .options-color .prices-list .color-item.active .price-checked, .product-details-container .product-info .product-options .options-color .prices-list .price-item.active .color-checked, .product-details-container .product-info .product-options .options-color .prices-list .price-item.active .price-checked, .product-details-container .product-info .product-options .options-price .colors-list .color-item.active .color-checked, .product-details-container .product-info .product-options .options-price .colors-list .color-item.active .price-checked, .product-details-container .product-info .product-options .options-price .colors-list .price-item.active .color-checked, .product-details-container .product-info .product-options .options-price .colors-list .price-item.active .price-checked, .product-details-container .product-info .product-options .options-price .prices-list .color-item.active .color-checked, .product-details-container .product-info .product-options .options-price .prices-list .color-item.active .price-checked, .product-details-container .product-info .product-options .options-price .prices-list .price-item.active .color-checked, .product-details-container .product-info .product-options .options-price .prices-list .price-item.active .price-checked {
+  visibility: visible;
+  opacity: 1;
+}
+.product-details-container .product-info .product-options .options-color .colors-list .color-item:hover, .product-details-container .product-info .product-options .options-color .colors-list .price-item:hover, .product-details-container .product-info .product-options .options-color .prices-list .color-item:hover, .product-details-container .product-info .product-options .options-color .prices-list .price-item:hover, .product-details-container .product-info .product-options .options-price .colors-list .color-item:hover, .product-details-container .product-info .product-options .options-price .colors-list .price-item:hover, .product-details-container .product-info .product-options .options-price .prices-list .color-item:hover, .product-details-container .product-info .product-options .options-price .prices-list .price-item:hover {
+  border: 1px solid #F94C10;
+  cursor: pointer;
+}
+.product-details-container .product-info .product-options .options-color .prices-list, .product-details-container .product-info .product-options .options-price .prices-list {
+  display: none;
+}
+.product-details-container .product-info .product-options .options-color .prices-list.active, .product-details-container .product-info .product-options .options-price .prices-list.active {
+  display: flex;
+}
+.product-details-container .product-info .product-action .btn-add-to-cart {
+  border: 1px solid #F94C10;
+}
+.product-details-container .product-info .product-action .btn-buy-now:hover {
+  background-color: rgba(249, 76, 16, 0.9) !important;
+}
+.product-details-container .product-description {
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 40px;
+  transition: height 1s linear;
+}
+.product-details-container .product-description .product-description-action {
+  z-index: 3;
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+.product-details-container .product-description .product-description-action .btn {
+  border: 1px solid #F94C10;
+  color: #F94C10;
+}
+.product-details-container .product-description::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.9));
+  z-index: 2;
+}
+.product-details-container .product-description.active {
+  height: unset;
+}
+.product-details-container .product-description.active::after {
+  display: none;
 }

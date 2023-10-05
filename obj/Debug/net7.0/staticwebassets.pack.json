@@ -569,6 +569,1038 @@
       "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-v4compatibility.woff2"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\License.txt",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\License.txt"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\README.md",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\README.md"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\bower.json",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\bower.json"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\composer.json",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\composer.json"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_editor.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_editor.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_editor.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_editor.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_editor.pkgd.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_editor.pkgd.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_editor.pkgd.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_editor.pkgd.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_style.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_style.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\froala_style.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\froala_style.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins.pkgd.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins.pkgd.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins.pkgd.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins.pkgd.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\char_counter.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\char_counter.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\char_counter.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\char_counter.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\code_view.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\code_view.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\code_view.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\code_view.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\colors.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\colors.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\colors.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\colors.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\draggable.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\draggable.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\draggable.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\draggable.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\emoticons.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\emoticons.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\emoticons.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\emoticons.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\file.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\file.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\file.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\file.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\files_manager.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\files_manager.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\files_manager.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\files_manager.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\fullscreen.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\fullscreen.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\fullscreen.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\fullscreen.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\help.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\help.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\help.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\help.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\image.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\image.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\image.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\image.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\image_manager.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\image_manager.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\image_manager.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\image_manager.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\line_breaker.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\line_breaker.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\line_breaker.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\line_breaker.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\markdown.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\markdown.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\markdown.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\markdown.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\quick_insert.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\quick_insert.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\quick_insert.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\quick_insert.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\special_characters.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\special_characters.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\special_characters.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\special_characters.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\table.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\table.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\table.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\table.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\trim_video.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\trim_video.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\trim_video.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\trim_video.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\video.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\video.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\plugins\\video.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\plugins\\video.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\dark.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\dark.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\dark.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\dark.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\gray.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\gray.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\gray.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\gray.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\royal.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\royal.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\themes\\royal.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\themes\\royal.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\embedly.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\embedly.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\embedly.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\embedly.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\font_awesome.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\font_awesome.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\font_awesome.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\font_awesome.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\image_tui.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\image_tui.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\image_tui.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\image_tui.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\spell_checker.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\spell_checker.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\css\\third_party\\spell_checker.min.css",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\css\\third_party\\spell_checker.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\editor.jpg",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\editor.jpg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\aviary\\index.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\aviary\\index.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\grid.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\grid.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\lists.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\lists.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\modal.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\bootstrap\\modal.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\code-mirror.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\code-mirror.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\font-awesome-5-css.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\font-awesome-5-css.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\font-awesome-5-js.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\font-awesome-5-js.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\jquery\\mobile.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\jquery\\mobile.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\jquery\\ui_modal.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\jquery\\ui_modal.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\spell-checker\\spell-checker.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\spell-checker\\spell-checker.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\3rd-party\\tui\\index.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\3rd-party\\tui\\index.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\get_html.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\get_html.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\init_destroy.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\init_destroy.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\insert_html.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\insert_html.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\live_code_preview.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\live_code_preview.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\live_content_preview.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\live_content_preview.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\api\\selection.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\api\\selection.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\buttons\\custom_buttons.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\buttons\\custom_buttons.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\buttons\\custom_dropdown.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\buttons\\custom_dropdown.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\buttons\\external_button.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\buttons\\external_button.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\buttons\\subscript_superscript.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\buttons\\subscript_superscript.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\events\\blur_focus.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\events\\blur_focus.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\events\\content_changed.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\events\\content_changed.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\events\\drop.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\events\\drop.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\events\\image_removed.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\events\\image_removed.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\events\\initialized_destroy.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\events\\initialized_destroy.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\file_s3_upload.php",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\file_s3_upload.php"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\image\\custom_button.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\image\\custom_button.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\image\\default_width.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\image\\default_width.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\image\\image_styles.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\image\\image_styles.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\image\\insert_base64.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\image\\insert_base64.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\image_s3_upload.php",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\image_s3_upload.php"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\basic.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\basic.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\content.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\content.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_inside_iframe\\inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_on_click\\basic.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_on_click\\basic.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_on_click\\inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_on_click\\inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\init_on_click\\two_editors.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\init_on_click\\two_editors.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\edit_in_popup.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\edit_in_popup.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_button.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_button.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_click.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_click.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_h1.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_h1.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_image.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_image.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_link.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\init_on_link.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\initialization\\initialized_event.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\initialization\\initialized_event.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\international\\direction_rtl.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\international\\direction_rtl.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\international\\language.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\international\\language.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\international\\rtl_ltr_buttons.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\international\\rtl_ltr_buttons.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\link\\custom_validation.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\link\\custom_validation.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\link\\link_styles.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\link\\link_styles.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\link\\predefined_links.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\link\\predefined_links.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\misc\\scrollable_container.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\misc\\scrollable_container.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\misc\\scrollable_container_inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\misc\\scrollable_container_inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_br.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_br.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_div.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_div.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_p.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paragraph_modes\\enter_p.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paste\\attrs.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paste\\attrs.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paste\\plain.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paste\\plain.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\paste\\tags.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\paste\\tags.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\plugins\\char_counter.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\plugins\\char_counter.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\plugins\\full_screen.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\plugins\\full_screen.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\plugins\\line_breaker.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\plugins\\line_breaker.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\plugins\\quick_insert.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\plugins\\quick_insert.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\disable_edit.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\disable_edit.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\disable_paragraphs.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\disable_paragraphs.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\full.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\full.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\full_page.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\full_page.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\iframe.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\iframe.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\init_on_click.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\init_on_click.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\textarea.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\textarea.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\toolbar_buttons.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\toolbar_buttons.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\toolbar_inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\toolbar_inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\two_instances.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\two_instances.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popular\\z_index.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popular\\z_index.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popups\\colors.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popups\\colors.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popups\\custom.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popups\\custom.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\popups\\emoticons.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\popups\\emoticons.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\adjustable_height.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\adjustable_height.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\font_family.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\font_family.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\height.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\height.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\paragraph.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\paragraph.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\placeholder.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\placeholder.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\styling\\width.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\styling\\width.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\table\\cell_style.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\table\\cell_style.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\table\\insert_helper.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\table\\insert_helper.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\table\\nested.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\table\\nested.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\table\\resize.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\table\\resize.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\table\\style.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\table\\style.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\themes\\dark.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\themes\\dark.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\themes\\gray.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\themes\\gray.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\themes\\royal.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\themes\\royal.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\bottom.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\bottom.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\bottom_offset.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\bottom_offset.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\buttons.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\buttons.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\external.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\external.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\external_inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\external_inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\inline.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\inline.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\inline_selection.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\inline_selection.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\offset.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\offset.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\show_selection.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\show_selection.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\toolbar\\sticky.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\toolbar\\sticky.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\typing\\keep_format.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\typing\\keep_format.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\typing\\shortcuts.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\typing\\shortcuts.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\html\\typing\\tab.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\html\\typing\\tab.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\img\\photo1.jpg",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\img\\photo1.jpg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\index.d.ts",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\index.d.ts"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\index.html",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\index.html"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\froala_editor.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\froala_editor.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\froala_editor.pkgd.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\froala_editor.pkgd.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ar.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ar.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\bs.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\bs.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\cs.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\cs.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\da.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\da.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\de.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\de.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\el.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\el.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\en_ca.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\en_ca.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\en_gb.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\en_gb.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\es.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\es.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\et.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\et.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\fa.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\fa.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\fi.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\fi.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\fr.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\fr.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\he.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\he.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\hr.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\hr.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\hu.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\hu.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\id.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\id.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\it.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\it.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ja.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ja.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ko.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ko.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ku.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ku.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\me.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\me.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\nb.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\nb.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\nl.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\nl.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\pl.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\pl.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\pt_br.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\pt_br.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\pt_pt.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\pt_pt.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ro.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ro.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\ru.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\ru.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\sk.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\sk.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\sl.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\sl.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\sr.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\sr.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\sv.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\sv.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\th.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\th.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\tr.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\tr.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\uk.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\uk.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\vi.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\vi.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\zh_cn.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\zh_cn.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\languages\\zh_tw.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\languages\\zh_tw.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins.pkgd.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins.pkgd.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\align.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\align.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\char_counter.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\char_counter.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\code_beautifier.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\code_beautifier.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\code_view.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\code_view.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\colors.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\colors.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\cryptojs.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\cryptojs.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\draggable.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\draggable.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\edit_in_popup.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\edit_in_popup.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\emoticons.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\emoticons.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\entities.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\entities.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\file.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\file.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\files_manager.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\files_manager.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\font_family.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\font_family.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\font_size.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\font_size.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\forms.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\forms.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\fullscreen.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\fullscreen.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\help.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\help.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\image.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\image.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\image_manager.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\image_manager.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\inline_class.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\inline_class.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\inline_style.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\inline_style.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\line_breaker.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\line_breaker.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\line_height.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\line_height.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\link.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\link.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\lists.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\lists.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\markdown.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\markdown.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\paragraph_format.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\paragraph_format.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\paragraph_style.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\paragraph_style.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\print.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\print.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\quick_insert.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\quick_insert.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\quote.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\quote.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\save.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\save.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\special_characters.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\special_characters.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\table.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\table.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\track_changes.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\track_changes.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\trim_video.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\trim_video.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\url.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\url.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\video.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\video.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\plugins\\word_paste.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\plugins\\word_paste.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\third_party\\embedly.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\third_party\\embedly.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\third_party\\font_awesome.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\third_party\\font_awesome.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\third_party\\image_tui.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\third_party\\image_tui.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\third_party\\showdown.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\third_party\\showdown.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\js\\third_party\\spell_checker.min.js",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\js\\third_party\\spell_checker.min.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\froala_editor_4.1.2\\package.json",
+      "PackagePath": "staticwebassets\\lib\\froala_editor_4.1.2\\package.json"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },

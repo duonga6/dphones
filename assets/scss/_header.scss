@@ -14,9 +14,14 @@
 .header-item {
     height: 48px;
     cursor: pointer;
+    transition: all .1s linear;
 
     &:hover {
-        background-color: rgba($color: rgb(248, 249, 250), $alpha: 0.25);
+        background-color: rgba($color: rgb(248, 249, 250), $alpha: 0.15);
+    }
+
+    &.active {
+        background-color: rgba($color: rgb(248, 249, 250), $alpha: 0.15);
     }
 }
 

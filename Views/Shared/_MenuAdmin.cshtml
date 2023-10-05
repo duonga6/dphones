@@ -8,9 +8,5 @@
 
 @if (result.Succeeded)
 {
-    <ul class="navbar-nav align-items-center">
-        <li class="nav-item">
-            <a class="nav-link btn" asp-action="Index" asp-controller="AdminCP" asp-area="AdminCP"><i class="fa-solid fa-gear"></i> Manager</a>
-        </li>
-    </ul>
+    <a class="dropdown-item" asp-action="Index" asp-controller="AdminCP" asp-area="AdminCP">Quản lý</a>
 }

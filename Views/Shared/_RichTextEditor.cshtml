@@ -1,9 +1,16 @@
 @model string
 
-<link rel="stylesheet" href="~/richtexteditor/rte_theme_default.css" />
-<script type="text/javascript" src="~/richtexteditor/rte.js"></script>
-<script type="text/javascript" src='~/richtexteditor/plugins/all_plugins.js'></script>
+<link rel="stylesheet" href="~/lib/froala_editor_4.1.2/css/froala_editor.pkgd.min.css">
+<script src="~/lib/froala_editor_4.1.2/js/froala_editor.pkgd.min.js"></script>
 
 <script>
-    var editor1 = new RichTextEditor("#@Model");
-</script>
+    
+    var customFontSizes = ['8', '9', '10', '11', '12', '14', '16', '18', '20', '24', '30', '36', '48', '60', '72', '96'];
+    var editor = new FroalaEditor('#@Model', {
+        fontSize: customFontSizes
+    });
+    $(document).ready(function() {
+        $(".fr-view").css("height", "600px");
+
+    })
+</script>   

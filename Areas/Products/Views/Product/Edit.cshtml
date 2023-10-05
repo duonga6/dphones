@@ -241,7 +241,7 @@
                                                             <text>style="display: none;"</text>
                                                         }
                                                         >
-                                                        <img class="color-img-show w-100 mt-2"  
+                                                        <img class="color-img-show w-50 mt-2"  
                                                             style="object-fit: contain;"
                                                             @if(item.Image != null)
                                                             {
@@ -337,8 +337,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md form-group mb-2">
+            <div class="row" >
+                <div class="col-md">
                     <label class="form-label">Mô tả</label>
                     <textarea rows="5" asp-for="Description" class="form-control"></textarea>
                 </div>
@@ -382,7 +382,6 @@
         var modal = $("#modal-edit-img");
     </script>
 
-    <partial name="_RichTextEditor" model="@("Description")" />
 
     <script>
         const btnAddMainPhoto = $("#btn-add-main-photo");
@@ -756,7 +755,7 @@
                                     <div class="color-img-show-container w-75 position-relative"
                                         style="display: none;"
                                         >
-                                        <img class="color-img-show w-100 mt-2"  
+                                        <img class="color-img-show w-50 mt-2"  
                                             style="object-fit: contain;">
                                         <span
                                             class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
@@ -837,6 +836,7 @@
         }
 
     </script>
+    <partial name="_RichTextEditor" model="@("Description")" />
     <partial name="_MultipleSelect" model="@("CategoryId")"></partial>
     <partial name="_ValidationScriptsPartial" />
 }

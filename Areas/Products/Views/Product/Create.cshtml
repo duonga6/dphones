@@ -219,9 +219,9 @@
             <div class="product-img-container mt-2">
                 <p>Hình ảnh chính</p>
                 <div class="main-img-container w-100">
-                    <label asp-for="PrimaryImage" class="btn btn-primary btn-sm" id="main-img-btn-choose">Chọn
+                    <label asp-for="PrimaryImage.FileUpload" class="btn btn-primary btn-sm" id="main-img-btn-choose">Chọn
                         ảnh</label>
-                    <input asp-for="PrimaryImage" class="main-img-input" hidden oninput="changeMainImg(this)">
+                    <input asp-for="PrimaryImage.FileUpload" class="main-img-input" hidden oninput="changeMainImg(this)">
                     <div class="main-img-show w-50 position-relative" style="display: none;">
                         <img id="main-img" class="w-100 mt-2" style="object-fit: contain; height: 300px;">
                         <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
