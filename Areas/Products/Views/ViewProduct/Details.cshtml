@@ -1,5 +1,6 @@
 @model Product
 @{
+    ViewData["Title"] = Model.Name;
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
@@ -7,9 +8,10 @@
     <div class="product-heading pt-2">
         <p>@Model.Name</p>
     </div>
+    <hr class="primary-text">
     <div class="product-info row">
         <div class="col-md-4">
-            <div class="photo-slide mt-2">
+            <div class="photo-slide">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators flex-wrap mx-3 my-0">
                         @{
@@ -19,7 +21,7 @@
                                 foreach (var item in Model.Photos)
                                 {
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
-                                    class="sm-photo-btn @if(item.Id == Model.MainPhoto) @("active")" aria-current="true" aria-label="Hình ảnh @i">
+                                    class="sm-photo-btn" aria-current="true" aria-label="Hình ảnh @i">
                                         <div class="sm-photo-box">
                                             <img src="/files/Products/@item.Name" class="sm-photo d-block w-100" alt="...">
                                         </div>
@@ -29,12 +31,13 @@
                             }
                             if (Model.Colors != null)
                             {
+                                bool isFirst = true; // Active ảnh đầu tiên của color
                                 foreach (var item in Model.Colors)
                                 {
                                     if (item.Image != null)
                                     {
                                         <button id="btn-show-color-image-@item.Id" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
-                                        class="sm-photo-btn" aria-current="true" aria-label="Hình ảnh @i">
+                                        class="sm-photo-btn @if(isFirst) {@("active"); isFirst = false;}" aria-current="true" aria-label="Hình ảnh @i">
                                             <div class="sm-photo-box">
                                                 <img src="/files/Products/@item.Image" class="sm-photo d-block w-100" alt="...">
                                             </div>
@@ -51,18 +54,19 @@
                             {
                                 foreach (var item in Model.Photos)
                                 {
-                                    <div class="carousel-item @if(item.Id == Model.MainPhoto) @("active")">
+                                    <div class="carousel-item">
                                         <img src="/files/Products/@item.Name" class="d-block w-100" alt="...">
                                     </div>
                                 }
                             }
                             if (Model.Colors != null)
                             {
+                                bool isFirst = true;
                                 foreach (var item in Model.Colors)
                                 {
                                     if (item.Image != null)
                                     {
-                                        <div class="carousel-item ">
+                                        <div class="carousel-item  @if(isFirst) {@("active"); isFirst = false;}">
                                             <img src="/files/Products/@item.Image" class="d-block w-100" alt="...">
                                         </div>
                                     }
@@ -85,9 +89,9 @@
         </div>
         <div class="col-md-5">
             <div class="product-options">
-                <div class="options-color">
-                    <p class="fw-semibold mt-2">Chọn màu: </p>
-                    <ul class="colors-list">
+                <div class="options-color row">
+                    <p class="fw-semibold col-3">Chọn màu: </p>
+                    <ul class="colors-list col-9" id="color-list">
                         @if(Model.Colors != null)
                         {
                             bool isFirst = true;
@@ -95,7 +99,6 @@
                             {
                             <li class="color-item @if(isFirst) {@("active"); isFirst=false;}" data-id="@item.Id" onclick="chooseOption(@item.Id)">
                                 <span class="color-name">@item.Name</span>
-                                <span class="color-default-price">@item.Capacities.FirstOrDefault()?.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
                                 <span class="color-checked"><i class="fa-solid fa-check"></i></span>
                             </li>
                             }
@@ -129,14 +132,18 @@
             </div>
 
             <div class="product-action">
-                <div class="row">
-                    <div class="col-md-5 offset-md-2">
-                        <a class="btn primary-bg text-white fs-5 fw-normal w-100 py-2 btn-buy-now">Mua ngay</a>
+                <div class="row align-items-center">
+                    <div class="col-md-7 offset-md-1">
+                        <a class="btn primary-bg text-white fs-6 fw-normal w-100 pt-1 pb-2 btn-buy-now">
+                            <span>Mua ngay</span>
+                            <p>Giao tại nhà(COD) hoặc nhận tại cửa hàng</p>
+                        </a>
                     </div>
                     <div class="col-md-3">
-                        <a class="btn btn-add-to-cart">
-                            <i class="primary-text fa-solid py-2 fa-cart-plus"></i>
-                        </a>
+                        <span class="btn btn-add-to-cart" onclick="AddToCart()">
+                            <i class="primary-text fa-solid fa-cart-plus"></i>
+                            <p>Thêm vào giỏ</p>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -158,9 +165,80 @@
     </div>
 </div>
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header align-items-center">
+            <i class="text-warning fs-6 fa-solid fa-circle-exclamation"></i>
+            <span class="ms-2 me-auto fs-6">Đã thêm sản phẩm vào giỏ hàng</span>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 @section Scripts
 {
+    <script>
+        const toastElement = $('#liveToast');
+        const toast = new bootstrap.Toast(toastElement.get(0));
+        const showToast = function(status, message) {
+            const iconClass = status == 1 ? "text-success fa-solid fa-circle-check" : "text-warning fs-6 fa-solid fa-circle-exclamation";
+            const toastHtml = `
+                <div class="toast-header align-items-center">
+                    <i class="${iconClass}"></i>
+                    <span class="ms-2 me-auto fs-6">${message}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastElement.html("");
+            toastElement.append(toastHtml);
+            toast.show();
+        }
 
+        const updateCartQuantity = function(qtt)
+        {
+            const cartElement = $("#cart-quantity");
+            if (qtt == 0)
+                cartElement.css("display", "none");
+            else {
+                cartElement.css("display", "flex");
+                cartElement.html(qtt);
+            }
+        }
+
+        const AddToCart = function() {
+            const productId = @Model.Id;
+            const colorId = $(".color-item.active").data("id");
+            const capaId = $(".price-item.active").data("id");
+
+            if (!productId || !colorId || !capaId) {
+                showToast(0, "Có lỗi xảy ra")
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append("productId", productId);
+            formData.append("colorId", colorId);
+            formData.append("capaId", capaId);
+
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("AddToCart", "ViewProduct", new {area = "Products"})',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(data) {
+                    showToast(data.status, data.message);
+                    if (data.qtt > 0)   updateCartQuantity(data.qtt)
+                },
+                error: function() {{
+                    showToast(0, "Có lỗi xảy ra!");
+                }}
+            });
+
+        }
+        
+    </script>
     <script>
         const btnShowDesc = $("#btn-show-desc");
         const btnHideDesc = $("#btn-hide-desc");

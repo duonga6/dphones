@@ -26,7 +26,8 @@ public class HomeController : Controller
                                         .Include(p => p.Colors)
                                         .ThenInclude(c => c.Capacities)
                                         .OrderByDescending(p => p.EntryDate)
-                                        .AsSplitQuery();
+                                        .AsSplitQuery()
+                                        .ToList();
 
         int countPage = (int)Math.Ceiling((double)products.Count() / ITEM_PER_PAGE);
 
@@ -39,9 +40,16 @@ public class HomeController : Controller
         if (currentPage > countPage)
             currentPage = countPage;
 
-        products = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+        products = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).ToList();
+        
+        products.ForEach(p => {
+            p.Colors = p.Colors.OrderBy(c => c.Name).ToList();
+            p.Colors.ForEach(cl => {
+                cl.Capacities = cl.Capacities.OrderBy(ca => ca.Rom).ToList();
+            });
+        });
 
-        ViewBag.Products = products.ToList();
+        ViewBag.Products = products;
         ViewBag.CurrentPage = currentPage;
         ViewBag.CountPage = countPage;
 

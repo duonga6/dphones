@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Bogus;
 using App.Models.Products;
 using Bogus.DataSets;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Areas.Database.Controllers
 {
@@ -39,6 +40,18 @@ namespace App.Areas.Database.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Migrations()
+        {
+           await _context.Database.MigrateAsync();
+           StatusMessage = "Cập nhật thành công";
+           return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DeleteFakeData() {
+            
+            return Ok();
+        }
+
         public async Task<IActionResult> SeedData()
         {
             var roleNames = typeof(RoleName).GetFields().ToList();
@@ -48,6 +61,26 @@ namespace App.Areas.Database.Controllers
                 var roleFound = await _roleManager.FindByNameAsync(roleName);
                 if (roleFound == null)
                     await _roleManager.CreateAsync(new IdentityRole(roleName));
+            }
+
+            var useradmin = await _userManager.FindByNameAsync("admin");
+            if (useradmin == null)
+            {
+                var user = new AppUser {
+                    FullName = "Dương dk",
+                    Email = "shemurai1st@gmail.com",
+                    EmailConfirmed = true,
+                    UserName = "admin"
+                };
+
+                await _userManager.CreateAsync(user, "admin");
+                await _userManager.AddToRoleAsync(user, RoleName.Administrator);
+                await _signInManager.SignInAsync(user, false);
+
+            }
+            else {
+                await _userManager.DeleteAsync(useradmin);
+                return RedirectToAction(nameof(SeedData));
             }
 
             SeedProduct();
@@ -99,9 +132,9 @@ namespace App.Areas.Database.Controllers
             List<Product> products = new();
             List<ProductCategory> productCategories = new();
 
-            int brandsQtt = 10;
+            int brandsQtt = 5;
             int categoryQtt = 8;
-            int productQtt = 100;
+            int productQtt = 30;
 
             for (int i = 1; i <= brandsQtt; i++)
             {

@@ -1,0 +1,347 @@
+@using App.Areas.Products.Services;
+@inject CartService _cart;
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="cart-container">
+    <h5 class="text-center mt-2">Giỏ hàng của bạn</h5>
+    <hr class="primary-text mt-2">
+    <div class="row">
+        <div class="col-md-8 cart-left-section">
+            <div class="table-header">
+                <div class="row h-100 align-items-center">
+                    <div class="col-6 text-center">
+                        Sản phẩm
+                    </div>
+                    <div class="col-2 text-center">
+                        Số lượng
+                    </div>
+                    <div class="col-2 text-center">
+                        Thành tiền
+                    </div>
+                    <div class="col-2 text-center">
+                        Thao tác
+                    </div>
+                </div>
+            </div>
+            @{
+                var cartList = _cart.GetCart();
+                <div class="empty-cart" style="@if(cartList != null && cartList.Count() > 0){@("display: none;")}">
+                    <div class="empty-cart-img">
+                        <img src="~/images/cart-empty.png" alt="">
+                    </div>
+                    <div class="empty-cart-content">
+                        <span>Bạn chưa chọn sản phẩm nào cả. <br> Vui lòng quay lại <a
+                            class="primary-text text-decoration-none" asp-action="Index" asp-controller="Home">Trang
+                            chủ</a> để mua sắm</span>
+                    </div>
+                </div>
+            }
+            <ul class="cart-list" id="cart-list">
+                @* <li class="cart-item mb-2">
+                    <div class="cart-item-container position-relative">
+                        <div class="row h-100">
+                            <div class="col-6 cart-item-info">
+                                <div class="row h-100">
+                                    <div class="cart-item-img col-5">
+                                        <img src="~/files/Products/20231006084244741_iphone-15.jpg" alt="">
+                                    </div>
+                                    <div class="col-7 d-flex flex-column justify-content-center align-items-start">
+                                        <div class="product-name d-flex align-items-center pe-3">
+                                            <span class="text-center">Iphone 15 Pro Max 128GB</span>
+                                        </div>
+                                        <div class="product-options">
+                                            <div class="color">
+                                                <span>Màu sắc: Xanh dương</span>
+                                            </div>
+                                            <div class="capaticy">
+                                                <span class="ram">4GB</span>
+                                                <span class="rom">128GB</span>
+                                            </div>
+                                            <div class="price">
+                                                <span>120.000.000 <sup>đ</sup></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-2">
+                                <div class="cart-item-quantity d-flex justify-content-center align-items-center h-100">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="btn-quantity">
+                                            <i style="font-size: 14px;" class="fa-solid fa-minus"></i>
+                                        </span>
+                                        <span class="fw-semibold mx-1">4</span>
+                                        <span class="btn-quantity">
+                                            <i style="font-size: 14px;" class="fa-solid fa-plus"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div
+                                    class="total-cost h-100 d-flex flex-column justify-content-center align-items-center">
+                                    <span class="total-text">Tổng tiền:</span>
+                                    <span class="total-price fw-semibold primary-text">120.000.000<sup>đ</sup></span>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex align-items-center justify-content-center">
+                                <input type="checkbox" class="checkbox-choose-cart-item">
+                            </div>
+                        </div>
+                        <span class="position-absolute top-0 end-0 me-2 p-2 btn-delete-cart-item">
+                            <i class="primary-text fa-solid fa-xmark"></i>
+                        </span>
+                    </div>
+                </li> *@
+            </ul>
+        </div>
+
+        <div class="col-md-4 cart-right-section">
+            <div class="total-cost p-3 d-flex flex-column">
+                <div class="heading">
+                    <p class="fs-5 fw-semibold mb-0">Tổng thanh toán (<span id="product-choosed-count">0</span> sản phẩm)</p>
+                </div>
+                <hr class="primary-text">
+                <div class="total-price d-flex justify-content-between align-items-center">
+                    <p class="mb-0 py-2 ">Tổng cộng: </p>
+                    <p class="mb-0 py-2 primary-text fs-5 fw-semibold"><span id="total-money">0</span><sup> đ</sup></p>
+                </div>
+                <div class="btn-add-order mt-auto">
+                    <button class="btn primary-bg text-white w-100">Đặt hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header align-items-center">
+            <i class="text-warning fs-6 fa-solid fa-circle-exclamation"></i>
+            <span class="ms-2 me-auto fs-6">Đã thêm sản phẩm vào giỏ hàng</span>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        const cartList = $("#cart-list");
+
+        const toastElement = $('#liveToast');
+        const toast = new bootstrap.Toast(toastElement.get(0));
+        const showToast = function(status, message) {
+            const iconClass = status == 1 ? "text-success fa-solid fa-circle-check" : "text-warning fs-6 fa-solid fa-circle-exclamation";
+            const toastHtml = `
+                <div class="toast-header align-items-center">
+                    <i class="${iconClass}"></i>
+                    <span class="ms-2 me-auto fs-6">${message}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastElement.html("");
+            toastElement.append(toastHtml);
+            toast.show();
+        }
+
+        const updateCartQuantity = function(qtt)
+        {
+            const cartElement = $("#cart-quantity");
+            if (qtt == 0) {
+                cartElement.css("display", "none");
+                $(".empty-cart").show();
+            }
+            else {
+                cartElement.css("display", "flex");
+                cartElement.html(qtt);
+                $(".empty-cart").hide();
+            }
+        }
+
+        const loadCart = function () {
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("GetCartList", "ViewProduct", new { area = "Products" })',
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(data) {
+                    let html = ``;
+                    Array.from(JSON.parse(data)).forEach(item => {
+                        const rom = Number(item.Capacity.Rom) % 1024 == 0 ? item.Capacity.Rom / 1024 + "TB" : item.Capacity.Rom + "GB";
+                        html += `
+                            <li class="cart-item mb-2" data-id="${item.Id}">
+                            <div class="cart-item-container position-relative">
+                                <div class="row h-100">
+                                    <div class="col-6 cart-item-info">
+                                        <div class="row h-100">
+                                            <div class="cart-item-img col-5">
+                                                <img src="/files/Products/${item.Color.Image}" alt="">
+                                            </div>
+                                            <div class="col-7 d-flex flex-column justify-content-center align-items-start">
+                                                <div class="product-name d-flex align-items-center pe-3">
+                                                    <span class="">${item.Product.Name}</span>
+                                                </div>
+                                                <div class="product-options">
+                                                    <div class="color">
+                                                        <span>Màu sắc: ${item.Color.Name}</span>
+                                                    </div>
+                                                    <div class="capaticy">
+                                                        <span class="ram">${item.Capacity.Ram + "GB"}</span>
+                                                        <span class="rom">${rom}</span>
+                                                    </div>
+                                                    <div class="price">
+                                                        <span class="product-sell-price">${item.Capacity.SellPrice.toLocaleString("vi-VN")}</span><sup> đ</sup>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="cart-item-quantity d-flex justify-content-center align-items-center h-100">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <span class="btn-quantity btn-add-quantity" onclick="minusQuantity(this,'${item.Id}')">
+                                                    <i style="font-size: 14px;" class="fa-solid fa-minus"></i>
+                                                </span>
+                                                <span class="fw-semibold mx-1 product-quantity">${item.Quantity}</span>
+                                                <span class="btn-quantity btn-add-minus" onclick="plusQuantity(this,'${item.Id}')">
+                                                    <i style="font-size: 14px;" class="fa-solid fa-plus"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div
+                                            class="total-cost h-100 d-flex flex-column justify-content-center align-items-center">
+                                            <span class="total-text">Tổng tiền:</span>
+                                            <span class="total-price fw-semibold primary-text"><span class="total-product-money">${(item.Capacity.SellPrice * item.Quantity).toLocaleString("vi-VN")}</span> <sup>đ</sup></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 d-flex align-items-center justify-content-center">
+                                        <input type="checkbox" class="checkbox-choose-cart-item" onchange="updateTotalMoney()">
+                                    </div>
+                                </div>
+                                <span class="position-absolute top-0 end-0 me-2 p-2 btn-delete-cart-item" onclick="deleteCartItem('${item.Id}')">
+                                    <i class="primary-text fa-solid fa-xmark"></i>
+                                </span>
+                            </div>
+                        </li>
+                        `;
+                    });
+                    cartList.html("");
+                    cartList.append(html);
+                }
+            })
+        }
+
+        const deleteCartItem = function(id) {
+            const formData = new FormData();
+            formData.append("Id", id);
+
+            $.ajax({
+                type: 'delete',
+                url: '@Url.Action("DeleteCartItem", "ViewProduct", new {area = "Products"})',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
+                    showToast(data.status, data.message);
+                    if (data.qtt == 0 || !data.qtt) updateCartQuantity(0);
+                    cartList.find(`[data-id='${id}']`).remove();
+                },
+                error: function() {
+                    showToast(0, "Có lỗi khi xóa!");
+                }
+            }).done(function() {
+                updateTotalMoney();
+            });
+
+        }
+
+        const updateProductMoney = function() {
+            const allCheckbox = $(".cart-item-container");
+            allCheckbox.each((i, e) => {
+                const price = Number($(e).find(".product-sell-price").html().replace(/[.]+/g, ""));
+                const quantity = Number($(e).find(".product-quantity").html());
+
+                $(e).closest(".cart-item-container").find(".total-product-money").html((price*quantity).toLocaleString("vi-VN"));
+            });
+        }
+
+        const updateTotalMoney = function() {
+            const allCheckbox = $(".checkbox-choose-cart-item");
+            let totalCost = 0;
+            let totalProduct = 0;
+            allCheckbox.each((i, e) => {
+                if($(e).prop("checked")) {
+                    totalCost += Number($(e).closest(".cart-item-container").find(".total-product-money").html().replace(/[.]+/g, ""));
+                    totalProduct += Number($(e).closest(".cart-item-container").find(".product-quantity").html());
+                }
+            });
+
+            $("#product-choosed-count").html(totalProduct);
+            $("#total-money").html(totalCost.toLocaleString("vi-VN"));
+        }
+
+        const plusQuantity = function(e,id)
+        {
+            var formData = new FormData();
+            formData.append("Id", id);
+
+            $.ajax({
+                url: '@Url.Action("PlusQuantity", "ViewProduct", new {area = "Products"})',
+                data: formData,
+                type: 'put',
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
+                    showToast(data.status, data.message);
+                    $(e).siblings(".product-quantity").html(Number(data.qtt));
+                },
+                error: function() {
+                    showToast(data.status, data.message);
+                }
+            }).done(function() {
+                updateProductMoney();
+                updateTotalMoney();
+            })
+        }
+
+        const minusQuantity = function(e, id) {
+            var formData = new FormData();
+            formData.append("Id", id);
+
+            $.ajax({
+                url: '@Url.Action("MinusQuantity", "ViewProduct", new {area = "Products"})',
+                data: formData,
+                type: 'put',
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
+                    showToast(data.status, data.message);
+                    $(e).siblings(".product-quantity").html(Number(data.qtt));
+                },
+                error: function(data) {
+                    showToast(data.status, data.message);
+                }
+            }).done(function() {
+                updateProductMoney();
+                updateTotalMoney();
+            });
+        }
+
+        $(document).ready(function() {
+            loadCart();
+        })
+    </script>
+}

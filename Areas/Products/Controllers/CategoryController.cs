@@ -115,6 +115,8 @@ namespace App.Areas.Products.Controllers
                 return View(model);
             }
 
+            model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
+
             if (_context.Categories.Where(c => c.Slug == model.Slug && c.Id != Id).Any())
             {
                 ModelState.AddModelError(string.Empty, "Địa chỉ url này đã được dùng");

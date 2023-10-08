@@ -1,3 +1,4 @@
+using App.Areas.Products.Services;
 using App.Data;
 using App.Models;
 using App.Services;
@@ -9,9 +10,13 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 //=========================== Start Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddOptions();
+
+builder.WebHost.UseUrls("http://0.0.0.0:8090");
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext");
@@ -24,6 +29,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
+
+// Cache + Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(cfg => {
+    cfg.Cookie.Name = "gio-hang";
+    cfg.IdleTimeout = new TimeSpan(1, 0, 0, 0);
+});
+
+builder.Services.AddHttpContextAccessor();
 
 // IdentityOptions
 builder.Services.Configure<IdentityOptions>(options =>
@@ -77,6 +91,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 builder.Services.AddTransient<SidebarAdminService>();
 
+// Cart
+builder.Services.AddTransient<CartService>();
 
 
 //=========================== End Add services to the container.
@@ -100,6 +116,7 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

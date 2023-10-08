@@ -2,6 +2,20 @@
     ViewData["Title"] = "Trang chủ";
     List<Product>? products = ViewBag.Products as List<Product>;
 }
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header align-items-center">
+            <i class="text-warning fs-6 fa-solid fa-circle-exclamation"></i>
+            <span class="ms-2 me-auto fs-6">Đã thêm sản phẩm vào giỏ hàng</span>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 home-category">
+
+    </div>
+</div>
 
 <div class="product-container">
     <div class="product_grid">
@@ -9,34 +23,40 @@
         {
             foreach (var item in products)
             {
-                var srcImg = item.MainPhoto != null ? item.Photos?.Where(p => p.Id == item.MainPhoto).Select(p =>
-                p.Name).FirstOrDefault() : "no-image.png";
+
+                var firstColor = item.Colors?.FirstOrDefault();
+                var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
+                var firstCapa = firstColor?.Capacities.FirstOrDefault();
+
+
                 <div class="item">
                     <div class="card w-100">
                         <div class="card-img p-2 d-flex align-items-center">
-                            <img src="/files/Products/@srcImg" class="card-img-top rounded-1" alt="...">
+                            <a class="d-block w-100 h-100"
+                                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'><img
+                                    src="/files/Products/@srcImg" class="card-img-top rounded-1" alt="..."></a>
                         </div>
-                        <div class="card-body d-flex flex-column pt-2">
+                        <div class="card-body d-flex flex-column pt-2 pb-2 mb-1">
                             <div class="card-title">
-                                <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>@item.Name</a>
+                                <a
+                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>@item.Name</a>
                             </div>
-                            <div class="product-info mb-auto">
+                            <div class="product-info">
                                 <div class="product-info-item">
                                     @{
-                                        var capa = item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault();
-                                        if (capa != null)
+                                        if (firstCapa != null)
                                         {
                                             <i class="fa-solid fa-memory"></i>
-                                            @(capa.Ram + " GB")
+                                            @(firstCapa.Ram + " GB")
                                         }
                                     }
                                 </div>
                                 <div class="product-info-item">
-                                    @if (capa != null)
+                                    @if (firstCapa != null)
                                     {
                                         <i class="fa-solid fa-hard-drive"></i>
-                                        @(capa.Rom + " GB")
-                                    }        
+                                        @(firstCapa.Rom + " GB")
+                                    }
                                 </div>
                                 <div class="product-info-item">
                                     @if (item.ScreenSize != null)
@@ -60,19 +80,19 @@
                                     }
                                 </div>
                             </div>
-                            <div class="card-price d-flex justify-content-between px-2 mb-2">
-                                <span class="selling-price primary-text">@(capa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
+                            <div class="card-price d-flex justify-content-between px-2 mb-1">
+                                <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
                                 <del class="old-price text-dark opacity-50"></del>
                             </div>
-                            <div class="product-rating d-flex">
+                            <div class="product-rating d-flex mt-auto">
                                 <i class="star-rate active fa-solid fa-star"></i>
-                                <i class="star-rate fa-solid fa-star"></i>
-                                <i class="star-rate fa-solid fa-star"></i>
-                                <i class="star-rate fa-solid fa-star"></i>
-                                <i class="star-rate fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
                             </div>
                             <div class="add-to-cart-btn ">
-                                <i class="add-to-cart-icon text-white fa-solid fa-cart-plus"></i>
+                                <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@item.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
                             </div>
                         </div>
                     </div>
@@ -92,3 +112,58 @@
         <partial name="_Paging" model="@pagingModel"></partial>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        const toastElement = $('#liveToast');
+        const toast = new bootstrap.Toast(toastElement.get(0));
+        const showToast = function(status, message) {
+            const iconClass = status == 1 ? "text-success fa-solid fa-circle-check" : "text-warning fs-6 fa-solid fa-circle-exclamation";
+            const toastHtml = `
+                <div class="toast-header align-items-center">
+                    <i class="${iconClass}"></i>
+                    <span class="ms-2 me-auto fs-6">${message}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastElement.html("");
+            toastElement.append(toastHtml);
+            toast.show();
+        }
+
+        const updateCartQuantity = function(qtt)
+        {
+            const cartElement = $("#cart-quantity");
+            if (qtt == 0)
+                cartElement.css("display", "none");
+            else {
+                cartElement.css("display", "flex");
+                cartElement.html(qtt);
+            }
+        }
+
+        const AddToCart = function(productId, colorId = null, capaId = null) {
+            
+            var formData = new FormData();
+            formData.append("productId", productId);
+            formData.append("colorID", colorId);
+            formData.append("capaId", capaId);
+
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("AddToCart", "ViewProduct", new {area = "Products"})',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(data) {
+                    showToast(data.status, data.message);
+                    if (data.qtt > 0)   updateCartQuantity(data.qtt)
+                },
+                error: function() {{
+                    showToast(0, "Có lỗi xảy ra!");
+                }}
+            });
+        }
+    </script>
+}

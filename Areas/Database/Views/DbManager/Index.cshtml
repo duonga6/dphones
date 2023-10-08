@@ -28,7 +28,7 @@
 
 @if(dbContext.Database.GetPendingMigrations().Any())
 {
-    <a class="btn btn-primary" href="#">Cập nhật Database</a>
+    <a class="btn btn-primary" asp-action="Migrations" asp-controller="DbManager" asp-area="Database">Cập nhật Database</a>
 }
 
 @if(!canconnect)

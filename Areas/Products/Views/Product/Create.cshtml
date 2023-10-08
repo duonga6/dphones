@@ -550,7 +550,7 @@
             const html = `
                 <div class="row option-item" data-id="${optionIndex}">
                     <div class="col-md-2">
-                        <input type="hidden" name="ProductColor[0].Capacities.Index" value="${optionIndex}"> 
+                        <input type="hidden" name="ProductColor[${colorIndex}].Capacities.Index" value="${optionIndex}"> 
                         <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Ram">Ram</label>
                         <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="ProductColor_${colorIndex}__Capacities_${optionIndex}__Ram" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram" value=""><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram">
                         <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Ram" data-valmsg-replace="true"></span>
@@ -640,6 +640,7 @@
                                                             </div>
                                                             <div class="row option-item" data-id="0">
                                                                 <div class="col-md-2">
+                                                                    <input type="hidden" name="ProductColor[${colorIndex}].Capacities.Index" value="0">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__Ram">Ram</label>
                                                                     <input class="form-control" type="number" data-val="true" data-val-required="The Ram field is required." id="ProductColor_${colorIndex}__Capacities_0__Ram" name="ProductColor[${colorIndex}].Capacities[0].Ram" required><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[0].Ram">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].Ram" data-valmsg-replace="true"></span>
