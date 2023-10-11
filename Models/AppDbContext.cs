@@ -53,12 +53,12 @@ namespace App.Models
 
         public required DbSet<Product> Products {set;get;}
         public required DbSet<Category> Categories {set;get;}
-
         public required DbSet<ProductPhoto> ProductPhotos {set;get;}
         public required DbSet<Brand> Brands {set;get;}
         public required DbSet<ProductCategory> ProductCategories {set;get;}
-
         public required DbSet<Color> Colors {set;get;}
         public required DbSet<Capacity> Capacities {set;get;}
+        public required DbSet<Order> Orders {set;get;}
+        public required DbSet<OrderDetail> OrderDetails {set;get;}
     }
 }

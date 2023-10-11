@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="order-confirmed">
+    <div class="order-confirmed-container text-center">
+        <div class="icon-success">
+            <i class="text-success fa-regular fa-circle-check"></i>
+        </div>
+        <div class="heading">
+            <p>Đặt hàng thành công</p>
+        </div>
+        <div class="desc">
+            <p>
+                Vui lòng kiểm tra email để theo dõi đơn hàng.<br>
+                Mọi thông tin chi tiết vui lòng liên hệ hotline: 1800.1789
+            </p>
+        </div>
+        <div class="btn-navigate">
+            <a class="btn btn-order-info">Chi tiết đơn hàng</a>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-home text-white">Tiếp tục mua hàng</a>
+        </div>
+    </div>
+</div>

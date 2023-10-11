@@ -110,5 +110,51 @@ namespace App.Utilities
             return slug;
         }
 
+        public static string GenerateHtmlEmail(string userName, string content)
+        {
+            string html = $@"
+                <table width=""100%"" border=""0"" cellpadding=""0"" cellspacing=""0"" style=""background-color: #F6F8FC; padding-top: 20px; padding-bottom: 40px;"">
+                    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+                    <tbody>
+                        <tr>
+                            <td align=""center"" valign=""center"">
+                                <table style=""border-collapse: collapse; width: 600px; font-family: 'Roboto'"">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <img src=""https://i.ibb.co/sb3y1zd/logo-color.png"" alt=""""
+                                                        style=""width: 240px; object-fit: contain;"">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style=""background-color: white; border-radius: 8px; overflow: hidden;"">
+                                                <div
+                                                    style=""height: 6px; width: 100%;background-image: url('https://i.ibb.co/kXdGRfN/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
+                                                </div>
+                                                <div
+                                                    style=""padding: 36px; height: 400px; color: #7c8088;"">
+                                                    <p style=""font-family: 'GOOGLE SANS';margin: 14px 0; font-size: 14px; color: #7c8088;"">Xin chào {userName},</p>
+                                                    <pre style=""font-family: 'GOOGLE SANS';height: 336px; color: #7c8088; font-size: 14px;"">{content}</pre>
+                                                    <p style=""font-size: 14px;font-family: 'GOOGLE SANS';"">DPhoneS - {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}</p>
+                                                </div>
+                                                <div
+                                                    style=""height: 6px; width: 100%;background-image: url('https://i.ibb.co/kXdGRfN/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            ";
+
+            return html;
+        }
+
+    
     }
 }

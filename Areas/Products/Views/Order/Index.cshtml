@@ -1,0 +1,50 @@
+@model List<Order>
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+}
+
+<div class="card h-100">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="left-header">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"] (@ViewBag.TotalProduct)
+            <a class="btn btn-primary btn-sm rounded-circle ms-2" asp-action="Create" asp-controller="Product"
+                asp-area="Products">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr class="text-center">
+                    <th class="col-2">Mã ĐH</th>
+                    <th class="col-2">Khách hàng</th>
+                    <th class="col-2">Tên đăng nhập</th>
+                    <th class="col-2">Email</th>
+                    <th class="col-2">Ngày đặt</th>
+                    <th class="col-1">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            <a class="text-decoration-none" asp-action="Details" asp-controller="Order" asp-area="Products" asp-route-Id="@item.Id">@item.Code</a>
+                        </td>
+                        <td>@item.FullName</td>
+                        <td>@item.User?.UserName</td>
+                        <td>@item.Email</td>
+                        <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @item.OrderStatuses.Last().Status
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

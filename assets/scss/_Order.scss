@@ -1,0 +1,130 @@
+.order-container {
+
+    .order-infor {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba($color: #000000, $alpha: 0.05);
+        position: relative;
+        overflow: hidden;
+
+        .btn-order {
+            background-color: $primary-color;
+            &:hover {
+                background-color: rgba($color: $primary-color, $alpha: 0.9);
+            }
+        }
+
+        &::after {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 8px;
+            background-image: url('/images/phong-thu.jpg');
+            background-repeat: repeat-x;
+            background-size: contain;
+            
+        }
+
+        &::before {
+            display: block;
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 8px;
+            background-image: url('/images/phong-thu.jpg');
+            background-repeat: repeat-x;
+            background-size: contain;
+        }
+
+        .product-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 24px;
+
+
+            .product-item {
+
+                background-color: rgba($color: #000000, $alpha: 0.03);
+                border-radius: 8px;
+                margin-bottom: 8px;
+
+                height: 120px;
+                .product-item-img {
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+
+                .product-item-info {
+                    font-size: 14px;
+                    line-height: 18px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .product-item-name {
+                        font-weight: 500;
+                    }
+    
+                    .product-item-color {
+                    }
+    
+                    .product-item-capacity {
+                    }
+    
+                    .product-item-quantity {
+                    }
+    
+                    .product-item-price {
+                    }
+                }
+
+                .product-item-total-price {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+            }
+        }
+
+        .payments {
+
+            .total-cost {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: rgba($color: #000000, $alpha: 0.03);
+                padding: 12px 48px;
+                border-radius: 8px;
+            }
+
+            .payments-method {
+
+                .pay-option-item {
+
+                    input {
+
+                        &:checked {
+                            accent-color: $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -281,17 +281,6 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\libman.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\package-lock.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\package.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Bogus.dll
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\web.config
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\App.deps.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\App.runtimeconfig.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\appsettings.Development.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\appsettings.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\libman.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\package-lock.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\package.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\Images\add-image.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\Images\add-photo.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\Images\add-photo.png
@@ -329,3 +318,14 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\User
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\qlms1xv2.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\test.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\tải xuống (2).jpg
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\web.config
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\App.deps.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\App.runtimeconfig.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\appsettings.Development.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\libman.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\package-lock.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json

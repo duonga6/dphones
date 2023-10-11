@@ -97,7 +97,7 @@ namespace App.Areas.Products.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync(CreateProductModel model)
         {
-            return Json(model);
+            // return Json(model);
             var category = _context.Categories.ToList();
             var brand = _context.Brands.ToList();
             ViewBag.Category = new MultiSelectList(category, "Id", "Name");

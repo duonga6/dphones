@@ -90,7 +90,9 @@
                                             <i class="text-white fa-solid fa-truck-arrow-right"></i>
                                         </div>
                                         <div class="ps-2 pe-2">
-                                            <p class="mb-0 text-white text-center lh-sm">Tra cứu <br> đơn hàng</p>
+                                            <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products" class="text-white text-decoration-none lh-sm">
+                                                <p class="mb-0 text-center">Tra cứu <br> đơn hàng</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </li>
@@ -102,7 +104,7 @@
             </nav>
         </header>
         <div class="container flex-grow-1">
-            <main role="main" class="pb-3">
+            <main role="main" class="h-100">
                 @RenderBody()
             </main>
         </div>

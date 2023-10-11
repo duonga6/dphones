@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using App.Areas.Identity.Models.Account;
 using App.Models;
+using App.Utilities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -130,10 +131,18 @@ namespace App.Areas.Identity.Controllers
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
+                string emailContent = @$"
+Bạn đã thực hiện yêu cầu đặt lại mật khẩu. Hãy <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>ấn vào đây</a> để đặt lại mật khẩu.
+
+Xin cảm ơn.
+                ";
+
+                string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, emailContent);
+
                 await _emailSender.SendEmailAsync(
                     model.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>clicking here</a>.");
+                    "Đặt lại mật khẩu",
+                    emailContent);
 
                 return RedirectToAction(nameof(ForgotPasswordConfirm));
             }
@@ -220,7 +229,7 @@ namespace App.Areas.Identity.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation($"Tài khoản {model.UserName} được đăng ký.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -230,8 +239,15 @@ namespace App.Areas.Identity.Controllers
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>clicking here</a>.");
+                    string emailContent = @$"
+Chúc mừng, bạn đã đang ký tài khoản thành công. Hãy <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>ấn vào đây</a> để xác thực tài khoản.
+
+Xin cảm ơn.
+                    ";
+
+                    string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, emailContent);
+
+                    await _emailSender.SendEmailAsync(model.Email, "Đăng ký thành công", emailHtml);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -309,10 +325,19 @@ namespace App.Areas.Identity.Controllers
                 action: nameof(ConfirmedEmail),
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
+
+            string emailContent = @$"
+Bạn đã yêu cầu gửi lại email xác thực. Hãy <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>ấn vào đây</a> để xác thực tài khoản.
+
+Xin cảm ơn.
+            ";
+
+            string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, emailContent);
+
             await _emailSender.SendEmailAsync(
                 model.Email,
-                "Xác thực tài khoản của bạn",
-                $"Hãy xác thực tài khoản của bạn bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>ấn vào đây</a>.");
+                "Xác thực tài khoản",
+                emailHtml);
 
             ModelState.AddModelError(string.Empty, "Email xác thực đã được gửi, vui lòng kiểm tra email để xác thực.");
             return View(model);

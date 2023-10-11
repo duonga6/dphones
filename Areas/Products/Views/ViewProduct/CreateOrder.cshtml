@@ -1,0 +1,199 @@
+@using System.Linq;
+@using Microsoft.AspNetCore.Identity;
+@model Order
+
+@inject UserManager<AppUser> _userManager;
+
+@{
+    ViewData["Title"] = "Đặt hàng";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    var cartList = ViewBag.CartList as List<CartItem>;
+    cartList ??= new List<CartItem>();
+    var totalCost = cartList.Sum(c => c.Quantity * c.Capacity.SellPrice);
+    var user = await _userManager.GetUserAsync(User);
+}
+
+<div class="order-container">
+    <h5 class="text-center mt-2">Đặt hàng</h5>
+    <hr class="primary-text mt-2 mb-3">
+
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="order-infor px-4 py-4">
+                <h5 class="mb-3">Thông tin nhận hàng</h5>
+                <partial name="_StatusMessage"/>
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row mb-2">
+                        <div class="col-md-6 form-group">
+                            <label asp-for="FullName" class="form-label"></label>
+                            <input asp-for="FullName" class="form-control" value="@(user == null ? "" : user.FullName)">
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label asp-for="PhoneNumber" class="form-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" value="@(user == null ? "" : user.PhoneNumber)">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col form-group">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" value="@(user == null ? "" : user.Email)">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 form-group">
+                            <label asp-for="City" class="form-label"></label>
+                            <select asp-for="City" class="form-control">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                            </select>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label asp-for="District" class="form-label"></label>
+                            <select asp-for="District" class="form-control">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+                            <span asp-validation-for="District" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label asp-for="Commune" class="form-label"></label>
+                            <select asp-for="Commune" class="form-control">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
+                            <span asp-validation-for="Commune" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col form-group">
+                            <label asp-for="SpecificAddress" class="form-label"></label> (Đường, ngõ, số nhà, ...)
+                            <input asp-for="SpecificAddress" class="form-control " value="@(user == null ? "" : user.HomeAddress)">
+                            <span asp-validation-for="SpecificAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <ul class="product-list">
+                        <h6 class="mb-3">Sản phẩm mua:</h6>
+                        @if(cartList != null)
+                        {
+                            foreach(var item in cartList) 
+                            {
+                                <li class="product-item ">
+                                    <div class="row h-100">
+                                        <div class="product-item-img col-3">
+                                            <img src="/files/Products/@item.Color.Image" alt="">
+                                        </div>
+                                        <div class="product-item-info col-6">
+                                            <div class="product-item-name">
+                                                <span>@item.Product.Name</span>
+                                            </div>
+                                            <div class="product-item-color">
+                                                <span>Màu sắc: @item.Color.Name</span>
+                                            </div>
+                                            <div class="product-item-capacity">
+                                                <span>@(item.Capacity.Ram)GB /</span>
+                                                <span>@if(item.Capacity.Rom % 1024 == 0){@(item.Capacity.Rom / 1024 + "TB")}else{@(item.Capacity.Rom + "GB")}</span>
+                                            </div>
+                                            <div class="product-item-quantity">
+                                                <span>Số lượng: @item.Quantity</span>
+                                            </div>
+                                            <div class="product-item-price">
+                                                <span>@item.Capacity.SellPrice.ToString("N0", new CultureInfo("vi-VN"))</span><sup>đ</sup>
+                                            </div>
+                                        </div>
+                                        <div class="product-item-total-price col-3">
+                                            <span>Tổng tiền:</span>
+                                            <div class="primary-text fw-semibold">
+                                                <span>@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="cartId" value="@item.Id">
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <div class="payments">
+                        <div class="total-cost">
+                            <div class="fw-semibold">Tổng cộng:</div>
+                            <div class="fw-semibold primary-text">
+                                <span>@totalCost.ToString("N0", new CultureInfo("vi-VN"))</span><sup>đ</sup>
+                            </div>
+                        </div>
+                        <div class="payments-method">
+                            <h6 class="mt-4">Hình thức thanh toán</h6>
+                            <div class="pay-options">
+                                <div class="pay-option-item">
+                                    <input class="" type="radio" name="PayType" id="pay1" checked value="Online">
+                                    <label class="" for="pay1">
+                                        Thanh toán trực tuyến
+                                    </label>
+                                </div>
+                                <div class="pay-option-item">
+                                    <input class="" type="radio" name="PayType" id="pay2" value="COD">
+                                    <label class="" for="pay2">
+                                        Thanh toán khi nhận hàng(COD)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-btn mt-4">
+                        <button type="submit" class="btn text-white btn-order" >Đặt hàng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const city = $("#City").get(0);
+        const district = $("#District").get(0);
+        const commune = $("#Commune").get(0);
+
+        const renderCity = function(data) {
+            for (const x of data) {
+                city.options[city.options.length] = new Option(x.Name, x.Name);
+            }
+
+            city.onchange = function() {
+                district.length = 1;
+                commune.length = 1;
+                if (this.value != "") {
+                    const result = data.filter(n => n.Name === this.value);
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Name);
+                    }
+                }
+            }
+            district.onchange = function() {
+                commune.length = 1;
+                if (this.value != "") {
+                    const dataCity = data.filter(n => n.Name === city.value);
+                    const dataCommune = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+                    for (const ward of dataCommune) {
+                        commune.options[commune.options.length] = new Option(ward.Name,ward.Name);
+                    }
+                }
+            }
+        }
+
+        $.ajax({
+            type: 'get',
+            url: 'https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json',
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(data) {
+                renderCity(JSON.parse(data));
+            }
+        })
+
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

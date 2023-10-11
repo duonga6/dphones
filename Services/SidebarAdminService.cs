@@ -99,6 +99,16 @@ namespace App.Services
                     }
                 }
             });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
+                Title = "Quản lý đơn hàng",
+                Action = "Index",
+                Controller = "Order",
+                Area = "Products",
+                AwIcon = "fa-solid fa-cart-shopping"
+            });
         }
 
         public string RenderHtml(string controller, string area)

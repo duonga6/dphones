@@ -1,0 +1,66 @@
+@import 'variables';
+
+.card {
+
+    .card-body {
+
+        .order-container {
+            
+            .order-info {
+
+                .product-list {
+
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    .product-item {
+
+                        width: 50%;
+                        background-color: aliceblue;
+                        margin-bottom: 12px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 10px rgba($color: #000000, $alpha: 0.05);
+                        
+
+                        .product-item-img {
+                            
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img {
+                                width: 80px;
+                                object-fit: contain;
+                            }
+                        }
+
+                        .product-item-info {
+
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+
+                            .product-item-name {
+
+                                a {
+
+                                    text-decoration: none;
+                                    &:hover {
+                                        opacity: .8;
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+
+                        .product-item-total-price {
+
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

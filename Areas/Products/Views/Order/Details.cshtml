@@ -1,0 +1,101 @@
+@model Order
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<div class="card h-100">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="left-header">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"]
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="order-container">
+            <div class="order-info">
+                <div class="order-head">
+                    <div class="person-info">
+                        <p class="fw-semibold">Thông tin người nhận</p>
+                        <p class="mb-1"><span class="">Họ tên:</span> @Model.FullName</p>
+                        <p class="mb-1"><span class="">Số điện thoại:</span> @Model.PhoneNumber</p>
+                        <p class="mb-1"><span class="">Địa chỉ:</span> @(Model.SpecificAddress + ", " +
+                            Model.Commune + ", " + Model.District + ", " + Model.City)</p>
+                        <p class="mb-1"><span class="">Ngày đặt:</span>
+                            @Model.OrderDate.ToString("dd/MM/yyyy")</p>
+                        <p class="mb-1"><span class="">Ngày nhận:</span> @(Model.ReceivedDate != null ?
+                            Model.ReceivedDate?.ToString("dd/MM/yyyy") : "--/--/---")</p>
+                        <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
+                            @foreach (var item in Model.OrderStatuses)
+                            {
+                            <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") -
+                                    @item.Status</p>
+                            }
+                        <p class="mb-0"><span class="">Thành tiền:</span> <span
+                                class=" primary-text">@Model.TotalCost.ToString("N0", new
+                                CultureInfo("vi-VN"))<sup>đ</sup></span></p>
+                        <p class="mb-0"><span class="">Hình thức thanh toán:</span>
+                                @if (Model.PayType == "Online")
+                                {
+                                    <text>Thanh toán trực tuyến</text>
+                                }
+                                else
+                                {
+                                    <text>Thanh toán khi nhận hàng</text>
+                                }
+                        </p>
+                    </div>
+                    <div class="logo-tranport">
+
+                    </div>
+                </div>
+                <ul class="product-list mt-4">
+                    <p class="mb-3">Sản phẩm mua:</p>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <li class="product-item">
+                            <div class="row h-100">
+                                <div class="product-item-img col-3">
+                                    <img src="/files/Products/@item.Color?.Image" alt="">
+                                </div>
+                                <div class="product-item-info col-6">
+                                    <div class="product-item-name">
+                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product.Slug" class="primary-text fw-semibold">@item.Product?.Name</a>
+                                    </div>
+                                    <div class="product-item-color">
+                                        <span>Màu sắc: @item.Color?.Name</span>
+                                    </div>
+                                    <div class="product-item-capacity">
+                                        <span>@(item.Capacity?.Ram)GB/</span><span>@if (item.Capacity?.Rom % 1024 ==
+                                        0)
+                                            {
+                                                @(item.Capacity?.Rom / 1024 +
+                                                    "TB")
+                                            }
+                                            else
+                                            {
+                                                @(item.Capacity?.Rom + "GB")
+                                            }</span>
+                                    </div>
+                                    <div class="product-item-quantity">
+                                        <span>Số lượng: @item.Quantity</span>
+                                    </div>
+                                    <div class="product-item-price">
+                                        <span>@item.Capacity?.SellPrice.ToString("N0", new
+                                                   CultureInfo("vi-VN"))</span><sup>đ</sup>
+                                    </div>
+                                </div>
+                                <div class="product-item-total-price col-3">
+                                    <span>Tổng tiền:</span>
+                                    <div class="primary-text fw-semibold">
+                                        <span>@((item.Capacity.SellPrice * item.Quantity).ToString("N0", new
+                                              CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
