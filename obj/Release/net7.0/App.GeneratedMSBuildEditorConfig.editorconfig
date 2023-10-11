@@ -348,6 +348,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Order/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcT3JkZXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Order/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcT3JkZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Product/AddPhoto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcUHJvZHVjdFxBZGRQaG90by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -376,8 +384,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcQ2FydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/ViewProduct/CreateOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcQ3JlYXRlT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/ViewProduct/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/ViewProduct/OrderCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcT3JkZXJDaGVjay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/ViewProduct/OrderConfirmed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcT3JkZXJDb25maXJtZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/_ViewImports.cshtml]

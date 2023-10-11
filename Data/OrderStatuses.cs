@@ -9,4 +9,13 @@ namespace App.Data
         public static string Canceled {get;} = "Đã hủy";
         
     }
+
+    public enum OrderStatusCode
+    {
+        WaitAccept,
+        Accepted,
+        Delivering,
+        Delivered,
+        Canceled
+    }
 }

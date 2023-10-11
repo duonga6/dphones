@@ -81,7 +81,7 @@ namespace App.Areas.Products.Controllers
             var user = await _userManager.GetUserAsync(User);
 
             order.OrderStatuses.Add(new OrderStatus() {
-                Code = 1,
+                Code = (int)OrderStatusCode.Accepted,
                 DateUpdate = DateTime.Now,
                 Status = OrderStatuses.Accepted,
                 UserId = user?.Id,
@@ -129,7 +129,7 @@ Xin cảm ơn.";
             var dateTimeNow = DateTime.Now;
 
             order.OrderStatuses.Add(new OrderStatus() {
-                Code = 2,
+                Code = (int)OrderStatusCode.Delivering,
                 DateUpdate = dateTimeNow,
                 Status = OrderStatuses.Delivering,
                 UserId = user?.Id,
@@ -177,7 +177,7 @@ Xin cảm ơn.";
             var dateTimeNow = DateTime.Now;
 
             order.OrderStatuses.Add(new OrderStatus() {
-                Code = 3,
+                Code = (int)OrderStatusCode.Delivered,
                 DateUpdate = dateTimeNow,
                 Status = OrderStatuses.Delivered,
                 UserId = user?.Id,
@@ -222,9 +222,9 @@ Xin cảm ơn.";
             var dateTimeNow = DateTime.Now;
 
             order.OrderStatuses.Add(new OrderStatus() {
-                Code = 4,
+                Code = (int)OrderStatusCode.Canceled,
                 DateUpdate = dateTimeNow,
-                Status = OrderStatuses.Delivered,
+                Status = OrderStatuses.Canceled,
                 UserId = user?.Id,
                 Note = note,
             });

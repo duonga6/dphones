@@ -68,7 +68,7 @@ namespace App.Areas.Database.Controllers
             {
                 var user = new AppUser {
                     FullName = "Dương dk",
-                    Email = "shemurai1st@gmail.com",
+                    Email = "trieuvip14@gmail.com",
                     EmailConfirmed = true,
                     UserName = "admin"
                 };

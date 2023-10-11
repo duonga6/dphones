@@ -1,3 +1,4 @@
+@using App.Data;
 @model Order
 @{
     ViewData["Title"] = "Chi tiết đơn hàng";
@@ -7,7 +8,7 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
-            @ViewData["Title"]
+            @ViewData["Title"]: @Model.Code
         </div>
     </div>
     <div class="card-body">
@@ -31,7 +32,7 @@
                                     @item.Status</p>
                             }
                         <p class="mb-0"><span class="">Thành tiền:</span> <span
-                                class=" primary-text">@Model.TotalCost.ToString("N0", new
+                                class="fw-semibold">@Model.TotalCost.ToString("N0", new
                                 CultureInfo("vi-VN"))<sup>đ</sup></span></p>
                         <p class="mb-0"><span class="">Hình thức thanh toán:</span>
                                 @if (Model.PayType == "Online")
@@ -59,7 +60,7 @@
                                 </div>
                                 <div class="product-item-info col-6">
                                     <div class="product-item-name">
-                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product.Slug" class="primary-text fw-semibold">@item.Product?.Name</a>
+                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product.Slug" class="fw-semibold">@item.Product?.Name</a>
                                     </div>
                                     <div class="product-item-color">
                                         <span>Màu sắc: @item.Color?.Name</span>
@@ -86,7 +87,7 @@
                                 </div>
                                 <div class="product-item-total-price col-3">
                                     <span>Tổng tiền:</span>
-                                    <div class="primary-text fw-semibold">
+                                    <div class="fw-semibold">
                                         <span>@((item.Capacity.SellPrice * item.Quantity).ToString("N0", new
                                               CultureInfo("vi-VN")))</span><sup>đ</sup>
                                     </div>

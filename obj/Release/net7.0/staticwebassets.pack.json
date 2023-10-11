@@ -41,12 +41,20 @@
       "PackagePath": "staticwebassets\\images\\cart-empty.png"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\delivery.jpg",
+      "PackagePath": "staticwebassets\\images\\delivery.jpg"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\logo-color.png",
       "PackagePath": "staticwebassets\\images\\logo-color.png"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\logo-white.png",
       "PackagePath": "staticwebassets\\images\\logo-white.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\phong-thu.jpg",
+      "PackagePath": "staticwebassets\\images\\phong-thu.jpg"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\datatables-simple-demo.js",

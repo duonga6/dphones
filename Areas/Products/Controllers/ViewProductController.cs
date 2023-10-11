@@ -297,7 +297,7 @@ namespace App.Areas.Products.Controllers
             });
 
             var orderStatus = new OrderStatus() {
-                Code = 0,
+                Code = (int)OrderStatusCode.WaitAccept,
                 Status = OrderStatuses.WaitAccept,
                 DateUpdate = DateTime.Now,
                 Note = "Khách hàng đặt hàng trên trang web",

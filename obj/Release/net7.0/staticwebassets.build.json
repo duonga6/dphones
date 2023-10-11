@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2LOy1TNztugggpQO5ovHFMgEEBR0MeaciSYbNsdHBoI=",
+  "Hash": "atPvDSpURG9jiDLLnhxyJKYhT2ZkszoovznnE0q2I4o=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1224,6 +1224,23 @@
       "OriginalItemSpec": "wwwroot\\images\\cart-empty.png"
     },
     {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\delivery.jpg",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/delivery.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\delivery.jpg"
+    },
+    {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\logo-color.png",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -1256,6 +1273,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo-white.png"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\phong-thu.jpg",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/phong-thu.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\phong-thu.jpg"
     },
     {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\datatables-simple-demo.js",
