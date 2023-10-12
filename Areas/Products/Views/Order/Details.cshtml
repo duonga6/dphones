@@ -9,13 +9,36 @@
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"]: @Model.Code
+            @switch(Model.OrderStatuses.Last().Code)
+            {
+                case (int)OrderStatusCode.WaitAccept:
+                        <a asp-action="AcceptOrder" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-warning btn-sm">Xác nhận đơn hàng</a>
+                    break;
+                case (int)OrderStatusCode.Accepted:
+                        <a asp-action="Delivery" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-primary btn-sm">Giao hàng</a>
+                    break;
+                case (int)OrderStatusCode.Delivering:
+                        <a asp-action="Delivered" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-primary btn-sm">Đánh dấu đã nhận được hàng</a>
+                    break;
+                case (int)OrderStatusCode.Delivered:
+                        <a class="btn ms-3 btn-success btn-sm">Đã giao</a>
+                    break;
+                default:
+                        
+                    break;
+            }
+            @if(Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered)
+            {
+                <button class="btn ms-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Hủy đơn hàng</button>
+            }
         </div>
+        
     </div>
     <div class="card-body">
         <div class="order-container">
             <div class="order-info">
-                <div class="order-head">
-                    <div class="person-info">
+                <div class="order-head row">
+                    <div class="person-info col-6">
                         <p class="fw-semibold">Thông tin người nhận</p>
                         <p class="mb-1"><span class="">Họ tên:</span> @Model.FullName</p>
                         <p class="mb-1"><span class="">Số điện thoại:</span> @Model.PhoneNumber</p>
@@ -25,12 +48,6 @@
                             @Model.OrderDate.ToString("dd/MM/yyyy")</p>
                         <p class="mb-1"><span class="">Ngày nhận:</span> @(Model.ReceivedDate != null ?
                             Model.ReceivedDate?.ToString("dd/MM/yyyy") : "--/--/---")</p>
-                        <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
-                            @foreach (var item in Model.OrderStatuses)
-                            {
-                            <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") -
-                                    @item.Status</p>
-                            }
                         <p class="mb-0"><span class="">Thành tiền:</span> <span
                                 class="fw-semibold">@Model.TotalCost.ToString("N0", new
                                 CultureInfo("vi-VN"))<sup>đ</sup></span></p>
@@ -45,8 +62,12 @@
                                 }
                         </p>
                     </div>
-                    <div class="logo-tranport">
-
+                    <div class="col-6 order-status">
+                        <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
+                            @foreach (var item in Model.OrderStatuses)
+                            {
+                            <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") - @item.Status</p>
+                            }
                     </div>
                 </div>
                 <ul class="product-list mt-4">
@@ -60,7 +81,7 @@
                                 </div>
                                 <div class="product-item-info col-6">
                                     <div class="product-item-name">
-                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product.Slug" class="fw-semibold">@item.Product?.Name</a>
+                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product?.Slug" class="fw-semibold">@item.Product?.Name</a>
                                     </div>
                                     <div class="product-item-color">
                                         <span>Màu sắc: @item.Color?.Name</span>
@@ -88,8 +109,7 @@
                                 <div class="product-item-total-price col-3">
                                     <span>Tổng tiền:</span>
                                     <div class="fw-semibold">
-                                        <span>@((item.Capacity.SellPrice * item.Quantity).ToString("N0", new
-                                              CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                        <span>@((item.Capacity.SellPrice * item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
                                     </div>
                                 </div>
                             </div>
@@ -99,4 +119,24 @@
             </div>
         </div>
     </div>
+    <partial name="_AlertMessage" />
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-dialog-centered" method="post">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-6" id="exampleModalLabel">Lý do hủy đơn hàng</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                <textarea name="note" class="form-control w-100" rows="5"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary"  asp-action="CancelOrder" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id">Xác nhận</button>
+        </div>
+        </div>
+    </form>
 </div>

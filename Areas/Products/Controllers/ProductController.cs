@@ -108,7 +108,7 @@ namespace App.Areas.Products.Controllers
                 return View();
             }
 
-            model.Slug ??= AppUtilities.GenerateSlug(model.Name);
+            model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
 
             if (_context.Products.Any(p => p.Slug == model.Slug))
             {
@@ -375,7 +375,7 @@ namespace App.Areas.Products.Controllers
                 return Content(errors);
             }
 
-            model.Slug ??= AppUtilities.GenerateSlug(model.Name);
+            model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
 
             if (_context.Products.FirstOrDefault(p => p.Slug == model.Slug && p.Id != Id) != null)
             {

@@ -36,7 +36,7 @@ namespace App.Areas.Products.Controllers
                                 .ToList();
 
             order.ForEach(o => {
-                o.OrderStatuses = o.OrderStatuses.OrderByDescending(s => s.DateUpdate).ToList();
+                o.OrderStatuses = o.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
             });
             
             return View(order);
@@ -52,7 +52,7 @@ namespace App.Areas.Products.Controllers
                                 .FirstOrDefault();
 
             if (order == null)  return NotFound();
-            order.OrderStatuses = order.OrderStatuses.OrderByDescending(s => s.DateUpdate).ToList();
+            order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
             order.OrderDetails.ForEach(e => {
                 e.Product = _context.Products.FirstOrDefault(p => p.Id == e.ProductId);
                 e.Color = _context.Colors.FirstOrDefault(c => c.Id == e.ColorId);
@@ -71,7 +71,7 @@ namespace App.Areas.Products.Controllers
 
             if (order == null)  return NotFound();     
 
-            order.OrderStatuses = order.OrderStatuses.OrderByDescending(o => o.DateUpdate).ToList();
+            order.OrderStatuses = order.OrderStatuses.OrderBy(o => o.DateUpdate).ToList();
             if(order.OrderStatuses.Last().Status != OrderStatuses.WaitAccept)
             {
                 StatusMessage = "Trạng thái trước đó không hợp lệ";
@@ -92,7 +92,6 @@ namespace App.Areas.Products.Controllers
 
             string emailContent = 
 $@"
-Xin chào {order.FullName}. 
 Thông báo, đơn hàng của bạn đã được xác nhận. Chúng tôi đang chuẩn bị đơn hàng giao cho đơn vị vận chuyển 
 Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng.
 
@@ -117,7 +116,7 @@ Xin cảm ơn.";
 
             if (order == null)  return NotFound();     
 
-            order.OrderStatuses = order.OrderStatuses.OrderByDescending(o => o.DateUpdate).ToList();
+            order.OrderStatuses = order.OrderStatuses.OrderBy(o => o.DateUpdate).ToList();
             if(order.OrderStatuses.Last().Status != OrderStatuses.Accepted)
             {
                 StatusMessage = "Trạng thái trước đó không hợp lệ";
@@ -140,7 +139,6 @@ Xin cảm ơn.";
 
             string emailContent = 
 $@"
-Xin chào {order.FullName}.
 Thông báo, đơn hàng của bạn đã được giao cho bên vận chuyển - {dateTimeNow.ToString("hh:mm dd/MM/yyy")}.
 Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng.
 
@@ -165,7 +163,7 @@ Xin cảm ơn.";
 
             if (order == null)  return NotFound();     
 
-            order.OrderStatuses = order.OrderStatuses.OrderByDescending(o => o.DateUpdate).ToList();
+            order.OrderStatuses = order.OrderStatuses.OrderBy(o => o.DateUpdate).ToList();
             if(order.OrderStatuses.Last().Status != OrderStatuses.Delivering)
             {
                 StatusMessage = "Trạng thái trước đó không hợp lệ";
@@ -184,9 +182,10 @@ Xin cảm ơn.";
                 Note = $"Đơn hàng đã được giao cho khách hàng.",
             });
 
+            await _context.SaveChangesAsync();
+
             string emailContent = 
 $@"
-Xin chào {order.FullName}.
 Thông báo, đơn hàng của bạn đã được giao thành công vào lúc {dateTimeNow.ToString("hh:mm dd/MM/yyy")}.
 Cảm ơn bạn đã tin tưởng vào sản phẩm của chúng tôi.
 
@@ -201,6 +200,7 @@ Xin cảm ơn.";
             return RedirectToAction(nameof(Details), new {Id});
         }
 
+        [HttpPost]
         public async Task<IActionResult> CancelOrder(int Id, string? note)
         {
             var order = _context.Orders.Where(o => o.Id == Id)
@@ -210,8 +210,8 @@ Xin cảm ơn.";
 
             if (order == null)  return NotFound();     
 
-            order.OrderStatuses = order.OrderStatuses.OrderByDescending(o => o.DateUpdate).ToList();
-            if(order.OrderStatuses.Last().Status != OrderStatuses.Delivered)
+            order.OrderStatuses = order.OrderStatuses.OrderBy(o => o.DateUpdate).ToList();
+            if(order.OrderStatuses.Last().Status == OrderStatuses.Delivered)
             {
                 StatusMessage = "Trạng thái trước đó không hợp lệ";
                 return RedirectToAction(nameof(Details), new {Id});
@@ -229,12 +229,15 @@ Xin cảm ơn.";
                 Note = note,
             });
 
+            await _context.SaveChangesAsync();
+
             string emailContent = 
 $@"
-Xin chào {order.FullName}.
 Thông báo, đơn hàng của bạn đã bị hủy.
 
 Lý do: {note}
+
+Mã đơn hàng: {order.Code}
 
 Mọi thông tin chi tiết vui lòng liên hệ 1800.1789.
 Xin cảm ơn.";

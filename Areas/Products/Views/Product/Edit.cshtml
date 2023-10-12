@@ -503,6 +503,9 @@
             }
             if (cropper) cropper.destroy();
             cropper = new Cropper(img);
+            if (type == 'color') {
+                cropper.setAspectRatio(1 / 1);
+            }
         }
 
         const SaveEditedFile = function() {
@@ -512,9 +515,9 @@
                     const url = URL.createObjectURL(blob);
                     const link = document.createElement('a');
                     link.href = url;
-                    link.download = fileName + '.jpg';
+                    link.download = fileName + '.png';
                     link.click();
-                }, 'image/jpg');
+                }, 'image/png');
             }
         }
 
@@ -554,7 +557,7 @@
             {
                 const isEdit = modal.attr("data-status") == 'edit';
                 const modalType = modal.attr("data-type");
-                const fileName = img.getAttribute('src').split('/').pop() + '.jpg';
+                const fileName = img.getAttribute('src').split('/').pop() + '.png';
                 cropper.getCroppedCanvas().toBlob(function(blob) {
                     const srcImgEdited = URL.createObjectURL(blob);
                     img.src = srcImgEdited;
@@ -617,7 +620,7 @@
                         });
                     }
 
-                }, 'image/jpg');
+                }, 'image/png');
 
                 img.style.display = 'none';
                 cropper.clear();

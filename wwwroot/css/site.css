@@ -383,9 +383,8 @@ body {
   height: 100%;
 }
 .product-details-container .product-info .photo-slide .carousel-inner .carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
 }
 .product-details-container .product-info .product-options .options-color .colors-list, .product-details-container .product-info .product-options .options-color .prices-list, .product-details-container .product-info .product-options .options-price .colors-list, .product-details-container .product-info .product-options .options-price .prices-list {
   list-style: none;

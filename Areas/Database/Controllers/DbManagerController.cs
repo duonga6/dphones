@@ -64,10 +64,11 @@ namespace App.Areas.Database.Controllers
             }
 
             var useradmin = await _userManager.FindByNameAsync("admin");
+            useradmin ??= await _userManager.FindByEmailAsync("trieuvip14@gmail.com");
             if (useradmin == null)
             {
                 var user = new AppUser {
-                    FullName = "Dương dk",
+                    FullName = "Triệu",
                     Email = "trieuvip14@gmail.com",
                     EmailConfirmed = true,
                     UserName = "admin"
