@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zFY74N++QwNGhG5ArWGhGvCN6iCzK5hHwMGcoSRmE8k=",
+  "Hash": "k3NsD5YwjYCHUvypIMIbJB6Sf73RUGi2Un0+lUpv+4k=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1307,6 +1307,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\datatables-simple-demo.js"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\CreateProduct.js",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "js/Products/CreateProduct.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Products\\CreateProduct.js"
     },
     {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\scripts.js",

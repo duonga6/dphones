@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\images\\phong-thu.jpg"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\CreateProduct.js",
+      "PackagePath": "staticwebassets\\js\\Products\\CreateProduct.js"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\datatables-simple-demo.js",
       "PackagePath": "staticwebassets\\js\\datatables-simple-demo.js"
     },

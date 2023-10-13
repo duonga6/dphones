@@ -235,8 +235,8 @@
                     </div>
                 </div>
                 <p class="mt-2">Hình ảnh phụ</p>
-                <div class="sub-img-container w-100">
-                    <div class="sub-img-item mb-3" data-id="0">
+                <div class="sub-img-container w-100 d-flex flex-lg-wrap">
+                    <div class="sub-img-item mb-3 col-2" data-id="0">
                         <label asp-for="SubImage[0].FileUpload" class="btn btn-primary btn-sm btn-choose-sub-img">Thêm ảnh</label>
                         <input type="hidden" name="SubImage.Index" value="0">
                         <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">

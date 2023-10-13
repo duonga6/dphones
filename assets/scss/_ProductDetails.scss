@@ -58,7 +58,7 @@
             .carousel-inner {
                 width: 100%;
                 height: 380px;
-                border: 1px solid rgba($color: $primary-color, $alpha: 0.2);
+                border: 1px solid rgba($color: $primary-color, $alpha: 0.25);
                 border-radius: 8px;
 
                 .carousel-item {
@@ -163,7 +163,32 @@
                 }
             }
         }
+        
+        .product-promotion {
 
+            margin-top: 24px;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+
+            .product-promotion-list {
+                
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                .product-promotion-item {
+                    
+                    font-size: 14px;
+                    font-style: italic;
+                    font-weight: 500;
+                    i {
+                        font-size: 12px;
+                        color: $primary-color;
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
         
 
         .product-action {
@@ -211,13 +236,70 @@
                 }
             }
         }
+
+        .other-product {
+
+            .heading {
+                
+            }
+
+            .other-product-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                .other-product-item {
+
+                    background-color: rgba(0, 0, 0, 0.03);
+                    border-radius: 8px;
+                    height: 100px;
+                    margin-bottom: 8px;
+
+                    .other-product-item-img {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+
+                        img {
+                            width: 80px;
+                            object-fit: contain;
+                        }
+                    }
+                        
+                    .other-product-item-info {
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        .other-product-item-name {
+                            font-size: 15px;
+                            font-weight: 500;
+                            line-height: 18px;
+                        }
+
+                        .other-product-item-price {
+                            font-size: 14px;
+                            font-weight: 500;
+                            line-height: 18px;
+                        }
+
+                        .other-product-item-link {
+                            font-size: 14px;
+                        }   
+                    }
+                }
+            }
+            
+        }
     }
     .product-description {
         height: 600px;
         overflow: hidden;
         position: relative;
-        padding-bottom: 40px;
-
+        padding: 0 12px 40px;
+        box-shadow: 0px 4px 20px rgba($color: #000000, $alpha: 0.05);
         transition: height 1s linear;
 
 

@@ -8,7 +8,7 @@
     <div class="product-heading pt-2">
         <p>@Model.Name</p>
     </div>
-    <hr class="primary-text">
+    <hr class="primary-text opacity-25">
     <div class="product-info row">
         <div class="col-md-4">
             <div class="photo-slide">
@@ -134,13 +134,21 @@
                     }
                 </div>
             </div>
-
+            <div class="product-promotion">
+                <ul class="product-promotion-list">
+                    <li class="product-promotion-item"><i class="fa-solid fa-caret-right"></i> Bảo hành 12 tháng</li>
+                    <li class="product-promotion-item"><i class="fa-solid fa-caret-right"></i> Lỗi 1 đổi 1 trong 15 ngày đầu nếu lỗi của NSX</li>
+                    <li class="product-promotion-item"><i class="fa-solid fa-caret-right"></i> Tặng Voucher giảm giá <span class="primary-text">100.000đ</span> khi thanh toán trực tuyến</li>
+                    <li class="product-promotion-item"><i class="fa-solid fa-caret-right"></i> Tặng miến dán cường lực chất lượng cao</li>
+                    <li class="product-promotion-item"><i class="fa-solid fa-caret-right"></i> Tặng ốp lưng silicon siêu bền</li>
+                </ul>
+            </div>
             <div class="product-action">
                 <div class="row align-items-center">
                     <div class="col-md-7 offset-md-1">
                         <a class="btn primary-bg text-white fs-6 fw-normal w-100 pt-1 pb-2 btn-buy-now">
                             <span>Mua ngay</span>
-                            <p>Giao tại nhà(COD) hoặc nhận tại cửa hàng</p>
+                            <p>Giao tại nhà (COD) hoặc nhận tại cửa hàng</p>
                         </a>
                     </div>
                     <div class="col-md-3">
@@ -154,10 +162,48 @@
             
         </div>
         <div class="col-md-3">
-            
+            <div class="other-product">
+                <h6 class="heading primary-bg text-white py-2 fw-normal text-center rounded">
+                    Có thể bạn quan tâm
+                </h6>
+                <ul class="other-product-list">
+                    <li class="other-product-item">
+                        <div class="row h-100 gx-0">
+                            <div class="col-4">
+                                <div class="other-product-item-img">
+                                    <img src="/files/Products/20231012184139448_iphone-14-pro-chinh-hang-vn-a.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-8 pe-4">
+                                <div class="other-product-item-info">
+                                    <a href="#" class="other-product-item-name text-decoration-none text-dark">IPhone 15 Pro Max 128 GB</a>
+                                    <span class="other-product-item-price primary-text my-1">26.000.000<sup>đ</sup></span>
+                                    <a href="#" class="other-product-item-link text-decoration-none">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="other-product-item">
+                        <div class="row h-100 gx-0">
+                            <div class="col-4">
+                                <div class="other-product-item-img">
+                                    <img src="/files/Products/20231012184139448_iphone-14-pro-chinh-hang-vn-a.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-8 pe-4">
+                                <div class="other-product-item-info">
+                                    <a href="#" class="other-product-item-name text-decoration-none text-dark">IPhone 15 Pro Max 128 GB ádasdsad</a>
+                                    <span class="other-product-item-price primary-text my-1">26.000.000<sup>đ</sup></span>
+                                    <a href="#" class="other-product-item-link text-decoration-none">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="row px-4">
+    <div class="row px-2">
         <div class="col-md-8 product-description" id="product-description">
             <hr class="primary-text">
             @Html.Raw(Model.Description)
