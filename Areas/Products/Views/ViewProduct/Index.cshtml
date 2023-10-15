@@ -1,0 +1,277 @@
+@using System.Linq;
+@model List<Product>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    List<Brand> brands = ViewBag.Brands ?? new List<Brand>();
+    List<Category> categories = ViewBag.Categories ?? new List<Category>();
+    List<int> priceLevels = ViewBag.PriceLevels ?? new List<int>();
+
+    var queryBrands = Context.Request.Query["hangsx"].ToString();
+    var queryBrandsSplit = queryBrands.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    var queryCategories = Context.Request.Query["danhmuc"].ToString();
+    var queryCategoriesSplit = queryCategories.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    var queryPriceLevels = Context.Request.Query["mucgia"].ToString();
+    var queryPriceLevelsSplit = queryPriceLevels.Split("-", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    var querySort = Context.Request.Query["sort"].ToString();
+
+    int from = -1;
+    int to = -1;
+    if (queryPriceLevelsSplit.Count() == 2)
+    {
+        Int32.TryParse(queryPriceLevelsSplit[0], out from);
+        Int32.TryParse(queryPriceLevelsSplit[1], out to);
+    }
+}
+<partial name="_HomeSlide"></partial>
+
+
+<div class="home-product-with-filter">
+    <div class="row">
+        <div class="col-2 left-section">
+            <div class="input-groups">
+                <p class="heading">Hãng sản xuất</p>
+                <form method="get">
+                    <div class="input-list">
+                        <div class="input-item">
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="", danhmuc = queryCategories, mucgia=queryPriceLevels, sort = querySort})'>
+                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryBrands)){@("checked")}>
+                            </a> Tất cả
+                        </div>
+                        @foreach (var item in brands)
+                        {
+                            List<string> brandsListString = new List<string>();
+                            if(queryBrandsSplit.Contains(item.Name))
+                            {
+                                brandsListString.AddRange(queryBrandsSplit);
+                                brandsListString.Remove(item.Name);
+                            }
+                            else
+                            {
+                                brandsListString.AddRange(queryBrandsSplit);
+                                brandsListString.Add(item.Name);
+                            }
+                            var url = Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = string.Join(",", brandsListString), mucgia=queryPriceLevels, sort = querySort});
+                            <div class="input-item">
+                                <a href="@url">
+                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(queryBrandsSplit.Contains(item.Name)){<text>checked</text>}>
+                                </a> @item.Name
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+            <div class="input-groups">
+                <p class="heading">Mức giá</p>
+                <form method="get">
+                    <div class="input-list">
+                        <div class="input-item price">
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia="", sort = querySort})'>
+                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryPriceLevels)){@("checked")}>
+                            </a> Tất cả
+                        </div>
+                        @for(int i = 0; i < priceLevels.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="input-item price">
+                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"0-{priceLevels[i]}", sort = querySort})'>
+                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(to == priceLevels[i]){@("checked")}>
+                                    </a>
+                                    Dưới @priceLevels[i] triệu
+                                </div>
+                            } 
+                            else if (i == priceLevels.Count() - 1)
+                            {
+                                <div class="input-item price">
+                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-max", sort = querySort})'>
+                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i]){@("checked")}>
+                                    </a>
+                                    Trên @priceLevels[i] triệu
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="input-item price">
+                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-{priceLevels[i+1]}", sort = querySort})'>
+                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i] && to == priceLevels[i+1]){@("checked")}>
+                                    </a>
+                                    Từ @priceLevels[i] - @priceLevels[i + 1] triệu
+                                </div>
+                            }
+                        }
+                    </div>
+                </form>
+            </div>
+            
+            <div class="input-groups">
+                <p class="heading">Mục đích sử dụng</p>
+                <form method="get">
+                    <div class="input-list">
+                        <div class="input-item purpose">
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = "", mucgia=queryPriceLevels, sort = querySort})'>
+                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryCategories)){@("checked")}>
+                            </a> Tất cả
+                        </div>
+                        @foreach (var item in categories)
+                        {
+                            var categoriesListString = new List<string>();
+                            if(item.Slug != null)
+                            {
+                                if (queryCategoriesSplit.Contains(item.Slug))
+                                {
+                                    categoriesListString.AddRange(queryCategoriesSplit);
+                                    categoriesListString.Remove(item.Slug);
+                                }
+                                else
+                                {
+                                    categoriesListString.AddRange(queryCategoriesSplit);
+                                    categoriesListString.Add(item.Slug);
+                                }
+                            }
+                            var url = Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = string.Join(",", categoriesListString), mucgia=queryPriceLevels, sort = querySort});
+                            <div class="input-item purpose">
+                                <a href="@url">
+                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(item.Slug != null && queryCategoriesSplit.Contains(item.Slug)){<text>checked</text>}>
+                                </a> @item.Name
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-10 right-section">
+            <div class="sort-section">
+                <div class="heading">
+                    <span class="title">Điện thoại</span> 
+                    <span class="product-count">(@Model.Count() Sản phẩm)</span>
+                </div>
+                <div class="sort-bar">
+                    <p class="sort-heading">Lọc theo</p>
+                    <ul class="sort-list">
+                        <li class='sort-item @if(string.IsNullOrEmpty(querySort) || querySort == "ngayramat"){@("active")}'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="ngayramat"})'>
+                                Ngày ra mắt
+                            </a>
+                        </li>
+                        <li class='sort-item @if(querySort == "giacao"){@("active")}'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giacao"})'>
+                                Giá cao
+                            </a>
+                        </li>
+                        <li class='sort-item @if(querySort == "giathap"){@("active")}'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giathap"})'>
+                                Giá thấp
+                            </a>
+                        </li>
+                        <li class='sort-item @if(querySort == "banchay"){@("active")}'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="banchay"})'>
+                                Bán chạy
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product-container">
+                <div class="product_grid">
+                    @if(Model != null)
+                    {
+                        foreach(var item in Model)
+                        {
+                            var firstColor = item.Colors.FirstOrDefault();
+                            var firstCapa = firstColor?.Capacities.FirstOrDefault();
+
+                            <div class="item">
+                                <div class="card w-100">
+                                    <div class="card-img p-2 d-flex align-items-center">
+                                        <a class="d-block w-100 h-100"
+                                            href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'
+                                            >
+                                            <img src="/files/Products/@firstColor?.Image" class="card-img-top rounded-1" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="card-body d-flex flex-column pt-2 pb-2 mb-1">
+                                        <div class="card-title">
+                                            <a 
+                                                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>
+                                                    @item.Name
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-info-item">
+                                                @{
+                                                    if (firstCapa != null)
+                                                    {
+                                                        <i class="fa-solid fa-memory"></i>
+                                                        @(firstCapa.Ram + " GB")
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="product-info-item">
+                                                @if (firstCapa != null)
+                                                {
+                                                    <i class="fa-solid fa-hard-drive"></i>
+                                                    @(firstCapa.Rom + " GB")
+                                                }
+                                            </div>
+                                            <div class="product-info-item">
+                                                @if (item.ScreenSize != null)
+                                                {
+                                                    <i class="fa-solid fa-mobile-screen"></i>
+                                                    @(item.ScreenSize.Value + "\"")
+                                                }
+                                            </div>
+                                            <div class="product-info-item">
+                                                @if (item.Battery != null)
+                                                {
+                                                    <i class="fa-solid fa-battery-three-quarters"></i>
+                                                    @(item.Battery.Value + " mAh")
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="card-price d-flex justify-content-between px-2 mb-1 mt-1">
+                                            <span class="selling-price primary-text">
+                                                @(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))
+                                                <sup>đ</sup>
+                                            </span>
+                                            <del class="old-price text-dark opacity-50"></del>
+                                        </div>
+                                        <div class="product-rating d-flex mt-1">
+                                            <i class="star-rate active fa-solid fa-star"></i>
+                                            <i class="star-rate active fa-solid fa-star"></i>
+                                            <i class="star-rate active fa-solid fa-star"></i>
+                                            <i class="star-rate active fa-solid fa-star"></i>
+                                            <i class="star-rate active fa-solid fa-star"></i>
+                                        </div>
+                                        <div class="add-to-cart-btn ">
+                                            <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@item.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const clickFilter = function(e) {
+            const link = $(e).closest("a").get(0);
+            window.location.href = link.href;
+        }
+
+        $(document).ready(function() {
+            var targetElement = $(".home-product-with-filter");
+            $('html, body').animate({
+                scrollTop: targetElement.offset().top - 100
+            }, 0);
+        })
+    </script>
+}

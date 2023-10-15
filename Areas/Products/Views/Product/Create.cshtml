@@ -1,11 +1,11 @@
 @model CreateProductModel
 @{
-    ViewData["Title"] = "Thêm mới sản phẩm";
+    ViewData["Title"] = "Thêm sản phẩm";
 }
 
 <div class="card">
     <div class="card-header">
-        <i class="fa-solid fa-table"></i>
+        <i class="fa-solid fa-circle-plus text-primary fs-5"></i>
         @ViewData["Title"]
     </div>
     <div class="card-body">
@@ -14,74 +14,74 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group mb-2">
-                        <label asp-for="Code" class="form-label"></label>
+                        <label asp-for="Code" class="form-label fw-semibold"></label>
                         <input asp-for="Code" class="form-control">
                         <span asp-validation-for="Code" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="Name" class="form-label"></label>
+                        <label asp-for="Name" class="form-label fw-semibold"></label>
                         <input asp-for="Name" class="form-control">
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="CategoryId" class="form-label"></label>
+                        <label asp-for="CategoryId" class="form-label fw-semibold"></label>
                         <select asp-for="CategoryId" asp-items="@ViewBag.Category" class="w-100"></select>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="BrandId" class="form-label"></label>
+                        <label asp-for="BrandId" class="form-label fw-semibold"></label>
                         <select asp-for="BrandId" asp-items="@ViewBag.Brand" class="w-100 form-select"></select>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="Slug" class="form-label"></label>
+                        <label asp-for="Slug" class="form-label fw-semibold"></label>
                         <input asp-for="Slug" class="form-control">
                         <span asp-validation-for="Slug" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group mb-2">
-                        <label asp-for="Battery" class="form-label"></label>
+                        <label asp-for="Battery" class="form-label fw-semibold"></label>
                         <input asp-for="Battery" class="form-control">
                         <span asp-validation-for="Battery" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="OS" class="form-label"></label>
+                        <label asp-for="OS" class="form-label fw-semibold"></label>
                         <input asp-for="OS" class="form-control">
                         <span asp-validation-for="OS" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="Chipset" class="form-label"></label>
+                        <label asp-for="Chipset" class="form-label fw-semibold"></label>
                         <input asp-for="Chipset" class="form-control">
                         <span asp-validation-for="Chipset" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="ScreenSize" class="form-label"></label>
+                        <label asp-for="ScreenSize" class="form-label fw-semibold"></label>
                         <input asp-for="ScreenSize" class="form-control">
                         <span asp-validation-for="ScreenSize" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="Charger" class="form-label"></label>
+                        <label asp-for="Charger" class="form-label fw-semibold"></label>
                         <input asp-for="Charger" class="form-control">
                         <span asp-validation-for="Charger" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-2">
-                        <label asp-for="EntryDate" class="form-label"></label>
+                        <label asp-for="EntryDate" class="form-label fw-semibold"></label>
                         <input asp-for="EntryDate" class="form-control" type="date">
                         <span asp-validation-for="EntryDate" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="ReleaseDate" class="form-label"></label>
+                        <label asp-for="ReleaseDate" class="form-label fw-semibold"></label>
                         <input asp-for="ReleaseDate" class="form-control" type="date">
                         <span asp-validation-for="ReleaseDate" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="SIM" class="form-label"></label>
+                        <label asp-for="SIM" class="form-label fw-semibold"></label>
                         <textarea asp-for="SIM" class="form-control" rows="2"></textarea>
                         <span asp-validation-for="SIM" class="text-danger"></span>
                     </div>
                     <div class="form-group mb-2">
-                        <label asp-for="Camera" class="form-label"></label>
+                        <label asp-for="Camera" class="form-label fw-semibold"></label>
                         <textarea asp-for="Camera" class="form-control" rows="3"></textarea>
                         <span asp-validation-for="Camera" class="text-danger"></span>
                     </div>
@@ -92,11 +92,34 @@
                     </div>
                 </div>
             </div>
+            <div class="product-img-container mt-2">
+                <p class="mt-2 fw-semibold">Hình ảnh</p>
+                <div class="sub-img-container w-100 d-flex flex-lg-wrap">
+                    <div class="sub-img-item col-2 d-flex justify-content-center align-items-center" data-id="0">
+                        <label asp-for="SubImage[0].FileUpload" class="btn btn-choose-sub-img">
+                            <img src="~/images/upload_icon.png" alt="">
+                        </label>
+                        <input type="hidden" name="SubImage.Index" value="0">
+                        <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
+                        <div class="sub-img-show position-relative" style="display: none;">
+                            <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
+                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                onclick="editSubImg(this)">
+                                <i class="text-white fa-regular fa-pen-to-square"></i>
+                            </span>
+                            <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
+                                onclick="removeSubImg(this)">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row mt-4">
                 <div class="col-md">
                     <div class="form-group mb-2" id="color-container">
                         <p>
-                            Màu sắc
+                            <span class="fw-semibold">Màu sắc</span>
                             <span class="btn btn-primary btn-sm ms-2" id="add-color">
                                 <i class="fa-solid fa-plus"></i>
                             </span>
@@ -122,13 +145,14 @@
                                             </div>
                                         </div>
                                         <div class="color-image mt-2">
-                                            <label asp-for="ProductColor[0].ImageFile"
-                                                class="btn btn-success btn-sm btn-choose-img">Thêm ảnh</label>
+                                            <label asp-for="ProductColor[0].ImageFile" class="btn btn-choose-img">
+                                                <img src="~/images/upload_icon.png" alt="">
+                                            </label>
                                             <input asp-for="ProductColor[0].ImageFile" class="color-input-img" hidden
                                                 accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
-                                            <div class="color-img-show-container w-75 position-relative"
+                                            <div class="color-img-show-container position-relative"
                                                 style="display: none;">
-                                                <img class="color-img-show w-100 mt-2" src=""
+                                                <img class="color-img-show mt-2" src=""
                                                     style="object-fit: contain;">
                                                 <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
                                                     onclick="editColorImg(this)">
@@ -216,48 +240,10 @@
                     </div>
                 </div>
             </div>
-            <div class="product-img-container mt-2">
-                <p>Hình ảnh chính</p>
-                <div class="main-img-container w-100">
-                    <label asp-for="PrimaryImage.FileUpload" class="btn btn-primary btn-sm" id="main-img-btn-choose">Chọn
-                        ảnh</label>
-                    <input asp-for="PrimaryImage.FileUpload" class="main-img-input" hidden oninput="changeMainImg(this)">
-                    <div class="main-img-show w-50 position-relative" style="display: none;">
-                        <img id="main-img" class="w-100 mt-2" style="object-fit: contain; height: 300px;">
-                        <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
-                            onclick="editMainImg(this)">
-                            <i class="text-white fa-regular fa-pen-to-square"></i>
-                        </span>
-                        <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
-                            onclick="removeMainImg(this)">
-                            <i class="fa-solid fa-xmark"></i>
-                        </span>
-                    </div>
-                </div>
-                <p class="mt-2">Hình ảnh phụ</p>
-                <div class="sub-img-container w-100 d-flex flex-lg-wrap">
-                    <div class="sub-img-item mb-3 col-2" data-id="0">
-                        <label asp-for="SubImage[0].FileUpload" class="btn btn-primary btn-sm btn-choose-sub-img">Thêm ảnh</label>
-                        <input type="hidden" name="SubImage.Index" value="0">
-                        <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
-                        <div class="sub-img-show w-50 position-relative" style="display: none;">
-                            <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
-                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
-                                onclick="editSubImg(this)">
-                                <i class="text-white fa-regular fa-pen-to-square"></i>
-                            </span>
-                            <span class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
-                                onclick="removeSubImg(this)">
-                                <i class="fa-solid fa-xmark"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                     <div class="col-md form-group mb-2">
-                        <label asp-for="Description" class="form-label"></label>
+                        <label asp-for="Description" class="form-label fw-semibold my-3"></label>
                         <textarea asp-for="Description" class="form-control"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>

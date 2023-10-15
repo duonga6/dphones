@@ -94,6 +94,9 @@ builder.Services.AddTransient<SidebarAdminService>();
 // Cart
 builder.Services.AddTransient<CartService>();
 
+// Home Category
+builder.Services.AddTransient<HomeCategoryService>();
+
 
 //=========================== End Add services to the container.
 

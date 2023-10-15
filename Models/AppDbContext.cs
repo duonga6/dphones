@@ -31,7 +31,10 @@ namespace App.Models
 
             builder.Entity<Product>(entity => {
                 entity.HasIndex(p => p.Slug).IsUnique();
-                entity.Property(p => p.Sold).HasDefaultValue(0);
+                entity.HasOne(p => p.Brand)
+                        .WithMany(b => b.Products)
+                        .HasForeignKey(p => p.BrandId)
+                        .OnDelete(DeleteBehavior.SetNull);
             });
 
             builder.Entity<Brand>(entity => {
@@ -49,6 +52,11 @@ namespace App.Models
                 });
             });
 
+            builder.Entity<Capacity>(entity => {
+                entity.Property(c => c.Sold).HasDefaultValue(0);
+                entity.HasIndex(c => c.SellPrice);
+            }); 
+
         }
 
         public required DbSet<Product> Products {set;get;}
@@ -60,5 +68,6 @@ namespace App.Models
         public required DbSet<Capacity> Capacities {set;get;}
         public required DbSet<Order> Orders {set;get;}
         public required DbSet<OrderDetail> OrderDetails {set;get;}
+        public required DbSet<PriceLevel> PriceLevels {set;get;}
     }
 }

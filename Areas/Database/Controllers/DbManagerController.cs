@@ -84,7 +84,7 @@ namespace App.Areas.Database.Controllers
                 return RedirectToAction(nameof(SeedData));
             }
 
-            SeedProduct();
+            // SeedProduct();
 
             StatusMessage = "Seed data thành công";
             return RedirectToAction(nameof(Index));
@@ -122,7 +122,6 @@ namespace App.Areas.Database.Controllers
             fakerProduct.RuleFor(p => p.SIM, f => f.Lorem.Sentence(3, 7));
             fakerProduct.RuleFor(p => p.OS, f => f.Lorem.Sentence(3, 7));
             fakerProduct.RuleFor(p => p.Description, f => f.Lorem.Paragraph(4) + "[FakeData]");
-            fakerProduct.RuleFor(p => p.Sold, f => f.Random.Int(0, 10));
             fakerProduct.RuleFor(p => p.Published, f => true);
             fakerProduct.RuleFor(p => p.ReleaseDate, f => f.Date.Between(new DateTime(2020, 1, 1), new DateTime(2024, 1, 1)));
             fakerProduct.RuleFor(p => p.EntryDate, f => f.Date.Between(new DateTime(2020, 1, 1), new DateTime(2024, 1, 1)));

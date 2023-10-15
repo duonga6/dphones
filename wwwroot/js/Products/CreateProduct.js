@@ -2,38 +2,25 @@ var img = document.getElementById("result-img");
 var cropper = undefined;
 var modal = $("#modal-edit-img");
 
-const btnChooseMainImg = $("#main-img-btn-choose");
-const imgMainShowContainer = $(".main-img-show");
-const imgMainShow = $("#main-img");
-const inputMainImg = $(".main-img-input");
-
-const editMainImg = function (element) {
-    const src = $(element).siblings("#main-img").attr("src");
-    OpenEdit(element, 'main', null, src, true);
-}
-
+// Chỉnh sửa ảnh sản phẩm
 const editSubImg = function (element) {
     const src = $(element).siblings(".sub-img").attr("src");
     const id = $(element).closest(".sub-img-item").attr("data-id");
     OpenEdit(element, 'sub', id, src, true);
 }
 
+// Chỉnh sửa ảnh Color
 const editColorImg = function (element) {
     const src = $(element).siblings(".color-img-show").attr("src");
     const id = $(element).closest(".color-group").attr("data-index");
     OpenEdit(element, 'color', id, src, true);
 }
 
-const changeMainImg = function (element) {
-    OpenEdit(element, 'main');
-}
-
-const OpenEdit = function (e, type = 'main', id = null, src = null, isEdit = false) {
+// Mở modal edit ảnh
+const OpenEdit = function (e, type, id = null, src = null, isEdit = false) {
     modal.addClass("active");
-    if (type == 'main') {
-        if (isEdit) modal.attr('data-status', 'edit');
-        modal.attr('data-type', 'main');
-    } else if (type == 'sub') {
+
+    if (type == 'sub') {
         modal.attr('data-id', id);
         modal.attr('data-type', 'sub');
         if (isEdit) modal.attr('data-status', 'edit');
@@ -58,6 +45,7 @@ const OpenEdit = function (e, type = 'main', id = null, src = null, isEdit = fal
     }
 }
 
+// Lưu ảnh được cắt
 const SaveEditedFile = function () {
     if (cropper) {
         const fileName = img.getAttribute('src').split('/').pop();
@@ -71,6 +59,7 @@ const SaveEditedFile = function () {
     }
 }
 
+// Hủy modal cắt ảnh
 const CancelEdit = function (e) {
     const modalType = modal.attr("data-type");
     const isEdit = modal.attr("data-status") == 'edit';
@@ -88,8 +77,6 @@ const CancelEdit = function (e) {
                 $(element).val("");
             }
         })
-    } else if (modalType == 'main' && !isEdit) {
-        inputMainImg.val("");
     }
 
     if (cropper) {
@@ -100,6 +87,7 @@ const CancelEdit = function (e) {
     modal.removeClass("active");
 }
 
+// Áp dụng ảnh cắt
 const ApplyEdit = function () {
     if (cropper) {
         const isEdit = modal.attr("data-status") == 'edit';
@@ -113,15 +101,7 @@ const ApplyEdit = function () {
             fileList.items.add(file);
 
 
-            if (modalType == 'main') {
-                imgMainShow.attr("src", URL.createObjectURL(blob));
-                btnChooseMainImg.hide();
-                imgMainShowContainer.show();
-
-
-                const fileInput = inputMainImg.get(0);
-                fileInput.files = fileList.files;
-            } else if (modalType == 'sub') {
+            if (modalType == 'sub') {
                 const id = $("#modal-edit-img").attr("data-id");
                 if (!id && id != 0) {
                     alert("Có lỗi thiếu Id");
@@ -175,21 +155,17 @@ const ApplyEdit = function () {
 
 }
 
-const removeMainImg = function (element) {
 
-    btnChooseMainImg.show();
-    imgMainShow.attr("src", "");
-    inputMainImg.val("");
-    imgMainShowContainer.hide();
-}
+// Xử lý up ảnh cho sản phẩm
 
-// Xử lý up dảnh phụ cho sản phẩm
+// Chọn ảnh
 const changeSubImg = function (element) {
     const id = Number($(element).closest(".sub-img-item").attr("data-id"));
     OpenEdit(element, 'sub', id);
 
 }
 
+// xóa ảnh
 const removeSubImg = function (element) {
 
     if ($(".sub-img-item").length > 1) {
@@ -208,14 +184,17 @@ const removeSubImg = function (element) {
     imgShowContainer.hide();
 }
 
+// Thêm input cho ảnh tiếp theo
 const addSubImgSection = function () {
     const Id = Number($(".sub-img-item").last().attr("data-id")) + 1;
     const html = `
-                    <div class="sub-img-item mb-3" data-id="${Id}">
-                        <label class="btn btn-primary btn-sm btn-choose-sub-img" for="SubImage_${Id}__FileUpload">Thêm ảnh</label>
+                    <div class="sub-img-item col-2 d-flex justify-content-center align-items-center" data-id="${Id}">
+                        <label for="SubImage_${Id}__FileUpload" class="btn btn-choose-sub-img">
+                            <img src="/images/upload_icon.png" alt="">
+                        </label>
                         <input type="hidden" name="SubImage.Index" value="${Id}">
                         <input hidden class="sub-input" oninput="changeSubImg(this, ${Id})" type="file" id="SubImage_${Id}__FileUpload" name="SubImage[${Id}].FileUpload">
-                        <div class="sub-img-show w-50 position-relative" style="display: none;">
+                        <div class="sub-img-show position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
                             <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
                                 onclick="editSubImg(this)">
@@ -304,10 +283,12 @@ $(document).ready(function () {
                                                             </div>
                                                         </div>
                                                         <div class="color-image mt-2">
-                                                            <label class="btn btn-success btn-sm btn-choose-img" for="ProductColor_${colorIndex}__ImageFile">Thêm ảnh</label>
+                                                            <label class="btn btn-choose-img" for="ProductColor_${colorIndex}__ImageFile">
+                                                                <img src="/images/upload_icon.png" alt="">
+                                                            </label>
                                                             <input class="color-input-img" hidden="" accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)" type="file" data-val="true" data-val-fileextensions="The ImageFile field only accepts files with the following extensions: .png, .jpg, .jpeg, .webp" data-val-fileextensions-extensions=".png,.jpg,.jpeg,.webp" id="ProductColor_${colorIndex}__ImageFile" name="ProductColor[${colorIndex}].ImageFile">
-                                                            <div class="color-img-show-container w-75 position-relative" style="display: none;">
-                                                                <img class="color-img-show w-100 mt-2" src="" style="object-fit: contain;">
+                                                            <div class="color-img-show-container position-relative" style="display: none;">
+                                                                <img class="color-img-show mt-2" src="" style="object-fit: contain;">
                                                                 <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
                                                                     onclick="editColorImg(this)">
                                                                     <i class="text-white fa-regular fa-pen-to-square"></i>
@@ -372,11 +353,14 @@ $(document).ready(function () {
 })
 
 // Xử lý ảnh upload cho color
+
+// Chọn ảnh
 const changeColorImg = function (element) {
     const id = Number($(element).closest(".color-group").attr('data-index'));
     OpenEdit(element, 'color', id)
 }
 
+// Xóa ảnh
 const removeColorImg = function (element) {
     const btnChooseImg = $(element).closest(".color-img-show-container").siblings(".btn-choose-img");
     const inputImg = $(element).closest(".color-img-show-container").siblings(".color-input-img");

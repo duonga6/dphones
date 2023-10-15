@@ -51,9 +51,6 @@ namespace App.Models.Products
         [Display(Name = "Mô tả")]
         public string? Description {set;get;}
 
-        [Display(Name = "Đã bán")]
-        public int Sold {set;get;}
-
         [Display(Name = "Hiển thị sản phẩm")]
         public bool Published {set;get;}
 
@@ -65,10 +62,6 @@ namespace App.Models.Products
 
         // Photo
         public List<ProductPhoto>? Photos {set;get;}
-
-
-        [Display(Name = "Hình ảnh chính")]
-        public int? MainPhoto {set;get;}
 
         // Brand
         [Display(Name = "Hãng sản phẩm")]

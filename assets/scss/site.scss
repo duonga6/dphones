@@ -61,17 +61,24 @@ body {
     background-color: rgb(248,248,248) !important;
 }
 
-@import "header";
 @import "AdminCP/AddPhoto";
 @import "AdminCP/ProductDetails";
 @import "AdminCP/UserManager";
 @import "AdminCP/ModalEditImg";
-@import "login";
-@import "HomeProduct";
-@import "ProductDetails";
-@import "AdminCP/EditUser";
-@import "Cart";
-@import "Order";
-@import "OrderConfirmed";
-@import "OrderCheck";
 @import "AdminCP/OrderDetails";
+@import "AdminCP/CreateProduct";
+@import "AdminCP/EditUser";
+
+@import "login";
+
+@import "Cart/Cart";
+
+@import "Order/Order";
+@import "Order/OrderConfirmed";
+@import "Order/OrderCheck";
+
+@import "HomePage/ProductDetails";
+@import "HomePage/LayoutHome";
+@import "HomePage/Breadcrumb";
+@import "HomePage/HomeProduct";
+@import "HomePage/HomeProductFilter"

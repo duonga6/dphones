@@ -16,6 +16,9 @@ namespace App.Models.Products {
         [Display(Name = "Số lượng")]
         public int Quantity {set;get;}
         
+        [Display(Name = "Đã bán")]
+        public int Sold {set;get;}
+        
         [Column(TypeName = "decimal(18,2)")]
         [Display(Name = "Giá nhập vào")]
         [Required(ErrorMessage = "{0} không được trống")]

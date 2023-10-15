@@ -1,0 +1,30 @@
+@import "../variables";
+
+.header-breadcrumb {
+    background-color: white;
+    height: 32px;
+
+    ol {
+        height: 100%;
+        padding-left: 12px;
+
+        li {
+            color: #6c757d;
+            line-height: 32px;
+            display: flex;
+            align-items: center;
+
+            a {
+                color: #6c757d;
+            }
+
+            .home-icon {
+                font-size: 12px;
+                margin-right: 4px;
+                color: $primary-color;
+            }
+        }
+    }
+
+    border-bottom: $border-gray-sm;
+}

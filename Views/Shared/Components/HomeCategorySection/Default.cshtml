@@ -1,0 +1,68 @@
+@model HomeCategory
+@{
+    var topSecond = Model.Products.Take(2);
+}
+<div class="header-category position-absolute top-100">
+    <div class="category-container">
+        <p class="category-heading">Hãng sản xuất</p>
+        <ul class="category-brand-list category-list">
+            @foreach (var item in Model.Brands)
+            {
+                <li class="category-brand-item category-item">
+                    <a href="" class="">@item.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="category-container category-price">
+        <p class="category-heading">Mức giá</p>
+        <ul class="category-list category-price-list">
+            <li class="category-item category-price-item">
+                <a href="" class="">Dưới 3 triệu</a>
+            </li>
+            <li class="category-item">
+                <a href="" class="">Từ 3 - 5 triệu</a>
+            </li>
+            <li class="category-item">
+                <a href="" class="">Từ 5 - 8 triệu</a>
+            </li>
+            <li class="category-item">
+                <a href="" class="">Từ 8 - 12 triệu</a>
+            </li>
+            <li class="category-item">
+                <a href="" class="">Từ 12 - 20 triệu</a>
+            </li>
+            <li class="category-item">
+                <a href="" class="">Trên 20 triệu</a>
+            </li>
+        </ul>
+    </div>
+    <div class="category-container category-purpose">
+        <p class="category-heading">Mục đích sử dụng</p>
+        <ul class="category-list category-purpose-list">
+            @foreach (var item in Model.Categories)
+            {
+                <li class="category-item category-purpose-item">
+                    <a href="" class="">@item.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="category-container category-best-sell">
+        <p class="category-heading">Bán chạy nhất</p>
+        <ul class="category-best-sell-list">
+            @foreach(var item in topSecond)
+            {
+                <li class="category-best-sell-item">
+                    <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})" class="item-img">
+                        <img src="/files/Products/@item.Colors?.FirstOrDefault()?.Image" alt="">
+                    </a>
+                    <div class="item-content">
+                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})" class="item-name">@item.Name</a>
+                        <p class="item-price">@item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault()?.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

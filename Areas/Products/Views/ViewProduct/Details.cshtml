@@ -2,17 +2,20 @@
 @{
     ViewData["Title"] = Model.Name;
     Layout = "/Views/Shared/_Layout.cshtml";
+    List<Capacity> otherProduct = ViewBag.OtherProduct;
 }
+
+@* <partial name="_Breadcrumb" model="new List<string>()" /> *@
 
 <div class="product-details-container bg-white px-2">
     <div class="product-heading pt-2">
         <p>@Model.Name</p>
     </div>
-    <hr class="primary-text opacity-25">
+    <hr class="primary-text opacity-25 mt-0">
     <div class="product-info row">
         <div class="col-md-4">
             <div class="photo-slide">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <div id="product-proto-slide" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators flex-wrap mx-3 my-0">
                         @{
                             int i = 0;
@@ -20,7 +23,7 @@
                             {
                                 foreach (var item in Model.Photos)
                                 {
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                    <button type="button" data-bs-target="#product-proto-slide" data-bs-slide-to="@i"
                                     class="sm-photo-btn" aria-current="true" aria-label="Hình ảnh @i">
                                         <div class="sm-photo-box">
                                             <img src="/files/Products/@item.Name" class="sm-photo d-block w-100" alt="...">
@@ -36,7 +39,7 @@
                                 {
                                     if (item.Image != null)
                                     {
-                                        <button id="btn-show-color-image-@item.Id" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i"
+                                        <button id="btn-show-color-image-@item.Id" type="button" data-bs-target="#product-proto-slide" data-bs-slide-to="@i"
                                         class="sm-photo-btn @if(isFirst) {@("active"); isFirst = false;}" aria-current="true" aria-label="Hình ảnh @i">
                                             <div class="sm-photo-box">
                                                 <img src="/files/Products/@item.Image" class="sm-photo d-block w-100" alt="...">
@@ -78,12 +81,12 @@
                             }
                         }
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#product-proto-slide"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    <button class="carousel-control-next" type="button" data-bs-target="#product-proto-slide"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
@@ -93,9 +96,9 @@
         </div>
         <div class="col-md-5">
             <div class="product-options">
-                <div class="options-color row">
-                    <p class="fw-semibold col-3">Chọn màu: </p>
-                    <ul class="colors-list col-9" id="color-list">
+                <div class="options-color">
+                    <p class="fw-semibold">Chọn màu: </p>
+                    <ul class="colors-list" id="color-list">
                         @if(Model.Colors != null)
                         {
                             bool isFirst = true;
@@ -167,50 +170,96 @@
                     Có thể bạn quan tâm
                 </h6>
                 <ul class="other-product-list">
-                    <li class="other-product-item">
-                        <div class="row h-100 gx-0">
-                            <div class="col-4">
-                                <div class="other-product-item-img">
-                                    <img src="/files/Products/20231012184139448_iphone-14-pro-chinh-hang-vn-a.png" alt="">
+                    @foreach(var item in otherProduct)
+                    {
+                        <li class="other-product-item">
+                            <div class="row h-100 gx-0">
+                                <div class="col-4">
+                                    <div class="other-product-item-img">
+                                        <img src="/files/Products/@item.Color?.Image" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-8 pe-4">
+                                    <div class="other-product-item-info">
+                                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Color?.Product?.Slug})" class="other-product-item-name text-decoration-none text-dark">@item.Color?.Product?.Name</a>
+                                        <span class="other-product-item-price primary-text mt-1">@item.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
+                                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Color?.Product?.Slug})" href="#" class="other-product-item-link">Xem chi tiết</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 pe-4">
-                                <div class="other-product-item-info">
-                                    <a href="#" class="other-product-item-name text-decoration-none text-dark">IPhone 15 Pro Max 128 GB</a>
-                                    <span class="other-product-item-price primary-text my-1">26.000.000<sup>đ</sup></span>
-                                    <a href="#" class="other-product-item-link text-decoration-none">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="other-product-item">
-                        <div class="row h-100 gx-0">
-                            <div class="col-4">
-                                <div class="other-product-item-img">
-                                    <img src="/files/Products/20231012184139448_iphone-14-pro-chinh-hang-vn-a.png" alt="">
-                                </div>
-                            </div>
-                            <div class="col-8 pe-4">
-                                <div class="other-product-item-info">
-                                    <a href="#" class="other-product-item-name text-decoration-none text-dark">IPhone 15 Pro Max 128 GB ádasdsad</a>
-                                    <span class="other-product-item-price primary-text my-1">26.000.000<sup>đ</sup></span>
-                                    <a href="#" class="other-product-item-link text-decoration-none">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
-    <div class="row px-2">
+    <div class="row ps-2">
         <div class="col-md-8 product-description" id="product-description">
             <hr class="primary-text">
-            @Html.Raw(Model.Description)
+            <div class="desc-content">
+                @Html.Raw(Model.Description)
+            </div>
             <div class="product-description-action">
                 <button class="btn" id="btn-show-desc">Xem thêm</button>
                 <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
             </div>
+        </div>
+        <div class="col-md-4 product-configuration mt-4">
+            <p class="product-configuration-heading primary-bg rounded text-white text-center py-2">Thông số kỹ thuật</p>
+            <table class="configuration-table table table-striped">
+                <tr class="configuration-table-row">
+                    <td class="col-4">Tên sản phẩm</td>
+                    <td class="col-6">@Model.Name</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td class="col-4">Hãng sản xuất</td>
+                    <td class="col-6">@Model.Brand?.Name</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td class="col-4">Năm ra mắt</td>
+                    <td class="col-6">@Model.ReleaseDate?.ToString("MM/yyyy")</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td class="col-4">Kích thước màn hình</td>
+                    <td class="col-6">@Model.ScreenSize</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Camera</td>
+                    <td>@Model.Camera</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Chipset</td>
+                    <td>@Model.Chipset</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Dung lượng Ram</td>
+                    <td>@{
+                            var ram = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Ram.ToString() + " GB").Distinct();
+                            <text>@string.Join(", ", ram)</text>
+                        }
+                    </td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Bộ nhớ trong</td>
+                    <td>@{
+                            var rom = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Rom.ToString() + " GB").Distinct();
+                            <text>@string.Join(", ", rom)</text>
+                        }
+                    </td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Pin</td>
+                    <td>@(Model.Battery)mAh (@(Model.Charger)W)</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Thẻ sim</td>
+                    <td>@Model.SIM</td>
+                </tr>
+                <tr class="configuration-table-row">
+                    <td>Hệ điều hành</td>
+                    <td>@Model.OS</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
@@ -228,6 +277,7 @@
 @section Scripts
 {
     <script>
+
         const toastElement = $('#liveToast');
         const toast = new bootstrap.Toast(toastElement.get(0));
         const showToast = function(status, message) {

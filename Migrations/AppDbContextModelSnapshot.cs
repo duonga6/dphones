@@ -155,9 +155,16 @@ namespace App.Migrations
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Sold")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.HasKey("Id");
 
                     b.HasIndex("ColorId");
+
+                    b.HasIndex("SellPrice");
 
                     b.ToTable("Capacities");
                 });
@@ -359,6 +366,22 @@ namespace App.Migrations
                     b.ToTable("OrderStatus");
                 });
 
+            modelBuilder.Entity("App.Models.Products.PriceLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PriceLevels");
+                });
+
             modelBuilder.Entity("App.Models.Products.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -392,9 +415,6 @@ namespace App.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MainPhoto")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -418,11 +438,6 @@ namespace App.Migrations
                     b.Property<string>("Slug")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Sold")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -668,7 +683,8 @@ namespace App.Migrations
                 {
                     b.HasOne("App.Models.Products.Brand", "Brand")
                         .WithMany("Products")
-                        .HasForeignKey("BrandId");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Brand");
                 });

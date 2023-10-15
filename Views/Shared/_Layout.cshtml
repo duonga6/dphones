@@ -1,5 +1,7 @@
 ﻿@using App.Areas.Products.Services;
+@using App.Services;
 @inject CartService _cart;
+@inject HomeCategoryService _homeCategory;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +19,7 @@
 <body>
     <div class="wrapper d-flex flex-column h-100">
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow primary-bg">
+            <nav class="header-navbar navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow primary-bg">
                 <div class="container-xxl py-1">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,14 +34,45 @@
                                 </a>
                             </li>
                             <li class="nav-item ms-4">
-                                <div class="header-item active rounded p-1 d-flex align-items-center">
-                                    <div class="ps-2 pe-1 d-flex align-items-center">
+                                <div class="header-item active rounded p-1 d-flex align-items-center position-relative">
+                                    @* <div class="ps-2 pe-1 d-flex align-items-center">
                                         <i class="text-white fa-solid fa-location-dot"></i>
                                     </div>
                                     <div class="ps-1 pe-2">
                                         <p class="mb-0 text-white" style="font-size: 12px;">Xem giá tại</p>
                                         <p class="mb-0 text-center text-white fw-semibold">Hà Nội</p>
+                                    </div> *@
+
+                                    <div class="ps-2 pe-1 d-flex align-items-center">
+                                        <i class="text-white fa-solid fa-bars"></i>
                                     </div>
+                                    <div class="ps-1 pe-2">
+                                        <p class="mb-0 text-white">Danh mục</p>
+                                    </div>
+
+                                    @* <div class="header-category position-absolute top-100">
+                                        <div class="category-container">
+                                            <p class="category-heading">Thương hiệu điện thoại</p>
+                                            <ul class="category-list">
+                                                <li class="category-item">
+                                                    <a href="" class="">Samsung</a>
+                                                </li>
+                                                <li class="category-item">
+                                                    <a href="" class="">Samsung</a>
+                                                </li>
+                                                <li class="category-item">
+                                                    <a href="" class="">Samsung</a>
+                                                </li>
+                                                <li class="category-item">
+                                                    <a href="" class="">Samsung</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div> *@
+                                    @{
+                                        @await Component.InvokeAsync("App.Components.HomeCategorySection", _homeCategory.GetData());
+                                    }
+                                    
                                 </div>
                             </li>
                         </ul>
@@ -109,9 +142,114 @@
             </main>
         </div>
 
-        <footer class="border-top footer text-muted flex-shrink-0">
+        <footer class="border-top footer text-muted flex-shrink-0 home-footer">
             <div class="container">
-                &copy; 2023 - App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="footer-group">
+                            <p class="footer-heading">Tổng đài hỗ trợ</p>
+                            <ul class="footer-list">
+                                <li class="footer-item">
+                                    Gọi mua hàng 1800.1789 (7h30 - 22h)
+                                </li>
+                                <li class="footer-item">
+                                    Gọi khiếu nại 1800.1987 (8h00 - 21h30)
+                                </li>
+                                <li class="footer-item">
+                                    Gọi bảo hành 1800.1879 (8h00 - 21h00)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="footer-group">
+                            <p class="footer-heading">Thông tin và chính sách</p>
+                            <ul class="footer-list">
+                                <li class="footer-item">
+                                    Mua hàng và thanh toán Online
+                                </li>
+                                <li class="footer-item">
+                                    Mua hàng trả góp Online
+                                </li>
+                                <li class="footer-item">
+                                    Chính sách giao hàng
+                                </li>
+                                <li class="footer-item">
+                                    Tra thông tin bảo hành
+                                </li>
+                                <li class="footer-item">
+                                    Tra cứu hoá đơn điện tử
+                                </li>
+                                <li class="footer-item">
+                                    Thông tin hoá đơn mua hàng
+                                </li>
+                                <li class="footer-item">
+                                    Trung tâm bảo hành chính hãng
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="footer-group">
+                            <p class="footer-heading">Dịch vụ và thông tin khác</p>
+                            <ul class="footer-list">
+                                <li class="footer-item">
+                                    Khách hàng doanh nghiệp (B2B)
+                                </li>
+                                <li class="footer-item">
+                                    Ưu đãi thanh toán
+                                </li>
+                                <li class="footer-item">
+                                    Quy chế hoạt động
+                                </li>
+                                <li class="footer-item">
+                                    Chính sách Bảo hành
+                                </li>
+                                <li class="footer-item">
+                                    Liên hệ hợp tác kinh doanh
+                                </li>
+                                <li class="footer-item">
+                                    Tuyển dụng
+                                </li>
+                                <li class="footer-item">
+                                    Dịch vụ bảo hành điện thoại
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="footer-group">
+                            <p class="footer-heading">Kết nối với chúng tôi</p>
+                            <ul class="link-list">
+                                <li class="link-item">
+                                    <a href="https://youtube.com">
+                                        <img src="/images/Youtube.png" alt="">
+                                    </a>
+                                </li>
+                                <li class="link-item">
+                                    <a href="https://facebook.com">
+                                        <img src="/images/Facebook.png" alt="">
+                                    </a>
+                                </li>
+                                <li class="link-item">
+                                    <a href="https://instagram.com">
+                                        <img src="/images/Instagram.png" alt="">
+                                    </a>
+                                </li>
+                                <li class="link-item">
+                                    <a href="https://tiktok.com">
+                                        <img src="/images/Tiktok.png" alt="">
+                                    </a>
+                                </li>
+                                <li class="link-item">
+                                    <a href="https://zalo.me">
+                                        <img src="/images/Zalo.png" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </footer>
     </div>

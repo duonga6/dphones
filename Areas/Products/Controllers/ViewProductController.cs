@@ -34,11 +34,79 @@ namespace App.Areas.Products.Controllers
             _emailSender = emailSender;
         }
 
+        [Route("/dien-thoai")]
+        public IActionResult Index(string? hangsx, string? danhmuc, string? mucgia, string? sort)
+        {
+            var products = _context.Products.Include(p => p.Brand)
+                                            .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
+                                            .Include(p => p.Colors.OrderBy(c => c.Name)).ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
+                                            .OrderByDescending(p => p.ReleaseDate)
+                                            .AsSplitQuery();
+
+            var brands = hangsx?.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var categories = danhmuc?.Split(",");
+            var price = mucgia?.Split("-");
+
+            if (brands != null)
+            {
+                products = products.Where(p => p.Brand != null && brands.Contains(p.Brand.Name));
+            }
+
+            if (categories != null)
+            {
+                var productCategoryId = _context.ProductCategories
+                                    .Include(p => p.Category)
+                                    .Where(p => p.Category != null && categories.Contains(p.Category.Slug))
+                                    .Select(p => p.ProductId);
+
+                products = products.Where(p => productCategoryId.Contains(p.Id));
+            }
+
+            if (price != null)
+            {
+                _ = decimal.TryParse(price[0], out decimal tu);
+                _ = decimal.TryParse(price[1], out decimal den);
+                try
+                { 
+                    products = products.Where(p => p.Colors.First().Capacities.First().SellPrice >= tu && p.Colors.First().Capacities.First().SellPrice <= den);
+                }
+                catch
+                {
+
+                }
+            }
+
+            switch(sort)
+            {
+                case "ngayramat":
+                    products = products.OrderByDescending(p => p.ReleaseDate);
+                    break;
+                case "giathap":
+                    products = products.OrderBy(p => p.Colors.SelectMany(c => c.Capacities).Min(c => c.SellPrice));
+                    break;
+                case "giacao":
+                    products = products.OrderByDescending(p => p.Colors.SelectMany(c => c.Capacities).Min(c => c.SellPrice));
+                    break;
+                case "banchay":
+                    products = products.OrderByDescending(p => p.Colors.SelectMany(c => c.Capacities).Max(c => c.Sold));
+                    break;
+            }
+
+            
+
+            ViewBag.Brands = _context.Brands.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.PriceLevels = _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToList();
+
+            return View(products.ToList());
+        }
+
 
         [Route("/{slug}")]
         public IActionResult Details(string slug)
         {
             var product = _context.Products.Where(p => p.Slug == slug)
+                                            .Include(p => p.Brand)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
                                             .ThenInclude(c => c.Capacities)
@@ -52,6 +120,32 @@ namespace App.Areas.Products.Controllers
             {
                 c.Capacities = c.Capacities.OrderBy(ca => ca.Rom).ToList();
             });
+
+            var listOtherProduct = new List<Capacity>();
+            decimal currentPrice = product.Colors.First().Capacities.First().SellPrice;
+            decimal rangePrice = 3000000.0m;
+            var capacity = _context.Capacities
+                                    .Where(c => c.SellPrice + rangePrice >= currentPrice && c.SellPrice - rangePrice <= currentPrice)
+                                    .Include(c => c.Color!)
+                                    .ThenInclude(c => c.Product!)
+                                    .Where(c => c.Color != null && c.Color.Product != null && c.Color.ProductId != product.Id)
+                                    .AsSplitQuery()
+                                    .GroupBy(c => c.Color.Product.Id)
+                                    .AsEnumerable()
+                                    .Take(5)
+                                    .ToList();
+            
+            foreach (var item in capacity)
+            {
+                var capa = item?.OrderBy(c => c.Color?.Name).FirstOrDefault();
+                if (capa != null && capa.Color != null && capa.Color.Product != null)
+                {
+                    listOtherProduct.Add(capa);
+                }
+
+            }
+
+            ViewBag.OtherProduct = listOtherProduct;
 
             return View(product);
         }

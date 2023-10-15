@@ -1,8 +1,7 @@
 @model CreateProductModel
 @{
     ViewData["Title"] = "Chính sửa sản phẩm";
-    var mainPhoto = Model.Photos?.Where(p => p.Id == Model.MainPhoto).FirstOrDefault();
-    var subPhoto = Model.Photos?.Where(p => p.Id != Model.MainPhoto).ToList() ?? new List<ProductPhoto>();
+    var subPhoto = Model.Photos?.ToList() ?? new List<ProductPhoto>();
     @* Layout = "/Views/Shared/_Layout.cshtml"; *@
     var subPhotoCount = subPhoto.Count();
 }
@@ -100,35 +99,6 @@
             @* Photo *@
             <div class="product-add-photo d-flex flex-column mt-4">
                 <div class="row product-photo-container">
-                    <div class="main-photo-container col-md-4">
-                        <div class="main-photo-input-container">
-                            <span class="form-label">Hình ảnh hiển thị</span>
-                            <br>
-                            <div id="btn-add-main-photo" @if (mainPhoto != null){ <text>style="display: none"</text>}
-                            >
-                                <label asp-for="PrimaryImage.FileUpload" class="btn btn-success">Upload
-                                    <i class="fa-solid fa-plus"></i></label>
-                                <input asp-for="PrimaryImage.FileUpload" hidden onchange="changeMainPhoto(this)">
-                                <input type="hidden" name="PrimaryImage.Id" id="input-id-main-photo" value="@if (Model.MainPhoto != null) {@(Model.MainPhoto)} else {@("0")}" disabled>
-                            </div>
-                        </div>
-                        <div class="show-main-photo mt-4 position-relative" @if (mainPhoto == null)
-                        {
-                            <text>
-                                style="display:none"</text>
-                        }>
-                            <img src="@if(@mainPhoto?.Name != null) @("/files/Products/" + @mainPhoto.Name)" id="main-photo-img">
-                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
-                                onclick="editMainImg(this)">
-                                <i class="text-white fa-regular fa-pen-to-square"></i>
-                            </span>
-                            <span data-id="@mainPhoto?.Id"
-                                class="btn btn-danger btn-sm position-absolute top-0 end-0 mt-1 me-1"
-                                onclick="deleteMainPhoto(@mainPhoto?.Id)">
-                                <i class="fa-solid fa-xmark"></i>
-                            </span>
-                        </div>
-                    </div>
                     <div class="sub-photo-container col-md-8">
                         <div class="sub-photo-input-container">
                             <span class="form-label">Hình ảnh khác</span>

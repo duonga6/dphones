@@ -22,14 +22,8 @@ public class HomeController : Controller
 
     public IActionResult Index([FromQuery(Name = "p")]int currentPage)
     {
-        var products = _context.Products.Include(p => p.Photos)
-                                        .Include(p => p.Colors)
-                                        .ThenInclude(c => c.Capacities)
-                                        .OrderByDescending(p => p.EntryDate)
-                                        .AsSplitQuery()
-                                        .ToList();
 
-        int countPage = (int)Math.Ceiling((double)products.Count() / ITEM_PER_PAGE);
+        int countPage = (int)Math.Ceiling((double)_context.Products.Count() / ITEM_PER_PAGE);
 
         if (countPage < 1)
             countPage = 1;
@@ -40,7 +34,15 @@ public class HomeController : Controller
         if (currentPage > countPage)
             currentPage = countPage;
 
-        products = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).ToList();
+            
+        var products = _context.Products.Include(p => p.Brand)
+                                        .Include(p => p.Photos)
+                                        .Include(p => p.Colors)
+                                        .ThenInclude(c => c.Capacities)
+                                        .AsSingleQuery()
+                                        .OrderByDescending(p => p.EntryDate)
+                                        .Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE)
+                                        .ToList();
         
         products.ForEach(p => {
             p.Colors = p.Colors.OrderBy(c => c.Name).ToList();
@@ -48,7 +50,8 @@ public class HomeController : Controller
                 cl.Capacities = cl.Capacities.OrderBy(ca => ca.Rom).ToList();
             });
         });
-
+        
+        
         ViewBag.Products = products;
         ViewBag.CurrentPage = currentPage;
         ViewBag.CountPage = countPage;

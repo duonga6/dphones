@@ -1,0 +1,236 @@
+.product-container {
+    margin: 0 -6px 80px;
+    .product_grid {
+
+        display: flex;
+        flex-wrap: wrap;
+
+        .item {
+            width: calc(20% - 12px);
+            margin: 6px;
+
+            .card {
+                height: 434px;
+                position: relative;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                background-color: white;
+                transition: all .1s linear;
+
+                .card-img {
+                    height: 270px;
+                    overflow: hidden;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: contain;
+                        transition: transform .2s linear;
+                    }
+                }
+
+                .card-body {
+
+                    .card-title {
+                        font-size: 16px;
+                        line-height: 18px;
+                        font-weight: 500;
+                        height: 36px;
+
+                        a {
+                            margin-bottom: 4px;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            color: #333;
+                            text-decoration: none;
+                        }
+
+                        &>a:hover {
+                            color: #C70039;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .card-price {
+
+                        .selling-price {
+                            font-size: 16px;
+                            font-weight: 500;
+                        }
+
+                        .old-price {
+                            font-weight: 500;
+                            font-size: 16px;
+                        }
+                    }
+
+                    .product-rating {
+
+                        .star-rate {
+                            font-size: 12px;
+                            color: rgba($color: #000000, $alpha: 0.2);
+
+                            &.star-rate.active {
+                                color: gold;
+                            }
+                        }
+
+                    }
+
+                    .product-info {
+
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        .product-info-item {
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                            background-color: #f3f3f3;
+                            color: #4c4c4c;
+                            font-weight: 500;
+                            font-size: 11px;
+                            margin-right: 8px;
+                            margin-bottom: 4px;
+                        }
+                    }
+                }
+
+                .add-to-cart-btn {
+                    position: absolute;
+                    bottom: 4px;
+                    right: 8px;
+                    visibility: hidden;
+                    opacity: 0;
+                    cursor: pointer;
+                    transition: all .1s linear;
+
+                    .add-to-cart-icon {
+                        color: $primary-color;
+                        font-size: 20px;
+                        padding: 8px;
+                        transition: all .1s linear;
+
+                        &:hover {
+                            opacity: .8;
+                        }
+                    }
+                }
+
+                &:hover {
+
+                    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+
+                    .card-img {
+
+                        img {
+                            cursor: pointer;
+                            transform: scale(1.01);
+                        }
+                    }
+
+                    .card-body {
+                        .add-to-cart-btn {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+
+.home-pagination {
+
+    margin-top: 24px;
+
+    ul {
+        justify-content: center;
+
+        li {
+            a {
+                color: $primary-color;
+            }
+
+            &:hover {
+                a {
+                    color: $primary-color;
+                }
+            }
+
+        }
+
+        li.active {
+            a {
+                color: white !important;
+                background-color: $primary-color !important;
+                border-color: #dee2e6 !important;
+            }
+        }
+    }
+}
+
+.home-side-section {
+    margin: 16px 0 48px;
+
+    .home-slide-section {
+
+        .carousel {
+            width: 100%;
+            aspect-ratio: 4/1;
+            .carousel-indicators {
+
+                .active {
+                    background-color: $primary-color;
+                }
+            }
+
+            .carousel-inner {
+                border-radius: 8px;
+                overflow: hidden;
+
+                .carousel-item {
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 8px;
+                        object-fit: cover;
+                    }
+                }
+            }
+
+            .slide-control {
+                width: 30px;
+                height: 30px;
+                background-color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                border: $border-gray-sm;
+            }
+        }
+    }
+
+    .sales-product {
+
+        .sales-product-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .sales-product-item {
+                height: 120px;
+                background-color: white;
+                border-radius: 8px;
+            }
+        }
+    }
+}

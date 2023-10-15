@@ -93,7 +93,6 @@
                     <th>@Html.DisplayNameFor(model => model.Code)</th>
                     <th>@Html.DisplayNameFor(model => model.Name)</th>
                     <th>@Html.DisplayNameFor(model => model.EntryDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.Sold)</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -109,7 +108,6 @@
                             </a>
                         </td>
                         <td>@item.EntryDate.ToShortDateString()</td>
-                        <td>@item.Sold</td>
                         <td>
                             <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
                                 asp-area="Products" asp-route-Id="@item.Id">

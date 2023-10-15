@@ -11,8 +11,6 @@ namespace App.Areas.Products.Models
 
         public List<ColorExtend>? ProductColor {set;get;}
 
-        public ProductPhotoWithFile? PrimaryImage {set;get;}
-
         public List<ProductPhotoWithFile>? SubImage {set;get;}
     }
 

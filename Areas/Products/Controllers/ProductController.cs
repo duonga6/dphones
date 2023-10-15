@@ -52,9 +52,6 @@ namespace App.Areas.Products.Controllers
                 case "name":
                     products = sortOrder == "asc" ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name);
                     break;
-                case "sold":
-                    products = sortOrder == "asc" ? products.OrderBy(p => p.Sold) : products.OrderByDescending(p => p.Sold);
-                    break;
                 default:
                     products = sortOrder == "asc" ? products.OrderBy(p => p.EntryDate) : products.OrderByDescending(p => p.EntryDate);
                     break;
@@ -217,21 +214,6 @@ namespace App.Areas.Products.Controllers
                         }
                     }
 
-                    if (model.PrimaryImage != null && model.PrimaryImage.FileUpload != null && model.PrimaryImage.FileUpload.Length > 0)
-                    {
-                        var file = model.PrimaryImage.FileUpload;
-                        string filename = await SaveImgFile(file, newProduct.Slug);
-                        var newMainPhoto = new ProductPhoto
-                        {
-                            Name = filename,
-                            ProductId = newProduct.Id
-                        };
-                        await _context.ProductPhotos.AddAsync(newMainPhoto);
-
-                        await _context.SaveChangesAsync();
-                        newProduct.MainPhoto = newMainPhoto.Id;
-                    }
-
                     await _context.SaveChangesAsync();
 
                     scope.Complete();
@@ -313,7 +295,6 @@ namespace App.Areas.Products.Controllers
                 CategoryId = product.ProductCategories.Select(p => p.CategoryId).ToArray(),
                 Colors = product.Colors,
                 Photos = product.Photos,
-                MainPhoto = product.MainPhoto,
                 ProductColor = photoColor
             };
 
@@ -404,48 +385,7 @@ namespace App.Areas.Products.Controllers
                     productUpdate.Description = model.Description;
                     productUpdate.Published = model.Published;
 
-                    // CẬP NHẬT ẢNH CHÍNH
-                    if (model.PrimaryImage != null)
-                    {
-                        var oldPhoto = productUpdate.Photos?.Where(p => p.Id == productUpdate.MainPhoto).FirstOrDefault();
-                        if (model.PrimaryImage.FileUpload == null)
-                        {
-                            if (oldPhoto != null)
-                            {
-                                productUpdate.MainPhoto = null;
-                                DeleteImgFile(oldPhoto.Name);
-                            }
-                        }
-                        else
-                        {
-                            var file = model.PrimaryImage.FileUpload;
-
-                            string filename = await SaveImgFile(file, productUpdate.Slug);
-
-                            if (oldPhoto != null)
-                            {
-                                DeleteImgFile(oldPhoto.Name);
-                                oldPhoto.Name = filename;
-                            }
-                            else
-                            {
-                                var newPhoto = new ProductPhoto()
-                                {
-                                    Name = filename,
-                                    ProductId = productUpdate.Id
-                                };
-
-                                await _context.ProductPhotos.AddAsync(newPhoto);
-                                await _context.SaveChangesAsync();
-
-                                productUpdate.MainPhoto = newPhoto.Id;
-                            }
-
-
-                        }
-                    }
-
-                    // CẬP NHẬT ẢNH PHỤ
+                    // CẬP NHẬT ẢNH
                     if (model.SubImage != null)
                     {
                         foreach (var item in model.SubImage)
@@ -731,95 +671,6 @@ namespace App.Areas.Products.Controllers
             ViewBag.Product = product;
 
             return View();
-        }
-
-        public class UploadOneFile
-        {
-            [Display(Name = "Chọn hình ảnh")]
-            [DataType(DataType.Upload)]
-            [FileExtensions(Extensions = "png, jpg, jpeg, webp")]
-            public IFormFile? FileUpload { set; get; }
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult GetPhoto(int Id)
-        {
-            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
-            if (product == null) return NotFound();
-
-            var mainPhoto = _context.ProductPhotos.Where(p => p.Id == product.MainPhoto).Select(p => new
-            {
-                id = p.Id,
-                filename = p.Name
-            }).FirstOrDefault();
-
-            var subPhoto = _context.ProductPhotos.Where(p => p.ProductId == product.Id && p.Id != product.MainPhoto).Select(p => new
-            {
-                id = p.Id,
-                filename = p.Name
-            }).ToList();
-
-            return Json(new
-            {
-                mainPhoto,
-                subPhoto
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadImage(int Id, [Bind("FileUpload")] UploadOneFile f, string type)
-        {
-            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
-            if (product == null) return NotFound("Không tìm thấy sản phẩm này");
-
-            var file = f.FileUpload;
-
-            if (file != null && file.Length > 0)
-            {
-                var filename = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine("Uploads", "Products", filename);
-
-                using var fileStream = new FileStream(filePath, FileMode.Create);
-                await file.CopyToAsync(fileStream);
-
-                var photo = new ProductPhoto()
-                {
-                    Name = filename,
-                    Product = product
-                };
-
-                _context.ProductPhotos.Add(photo);
-                _context.SaveChanges();
-
-                if (type == "main") product.MainPhoto = photo.Id;
-
-                _context.SaveChanges();
-            }
-
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteImage(int Id, int productid, string type)
-        {
-            var product = _context.Products.Where(p => p.Id == productid).FirstOrDefault();
-            if (product == null) return NotFound();
-
-            var photo = _context.ProductPhotos.Where(p => p.Id == Id).FirstOrDefault();
-            if (photo == null) return NotFound();
-
-            string filepath = Path.Combine("Uploads", "Products", photo.Name);
-            if (System.IO.File.Exists(filepath))
-            {
-                System.IO.File.Delete(filepath);
-            }
-
-            if (type == "main") product.MainPhoto = null;
-            _context.ProductPhotos.Remove(photo);
-            await _context.SaveChangesAsync();
-
-            return Ok();
         }
     }
 }

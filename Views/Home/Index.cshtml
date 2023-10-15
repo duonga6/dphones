@@ -1,6 +1,10 @@
-﻿@{
+﻿@using App.Services;
+@inject HomeCategoryService _homeCategory
+@{
     ViewData["Title"] = "Trang chủ";
     List<Product>? products = ViewBag.Products as List<Product>;
+    List<Product>? productsBestSeller = _homeCategory.GetData().Products;
+    
 }
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -11,12 +15,93 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-4 home-category">
 
+<partial name="_HomeSlide" />
+
+<h4>SẢN PHẨM BÁN CHẠY</h4>
+<div class="product-bestseller product-container">
+    <div class="product_grid">
+        @if(productsBestSeller != null)
+        {
+            foreach(var item in productsBestSeller)
+            {
+                var firstColor = item.Colors?.FirstOrDefault();
+                var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
+                var firstCapa = firstColor?.Capacities.FirstOrDefault();
+                <div class="item">
+                    <div class="card w-100">
+                        <div class="card-img p-2 d-flex align-items-center">
+                            <a class="d-block w-100 h-100"
+                                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>
+                                <img src="/files/Products/@firstColor.Image" class="card-img-top rounded-1" alt="...">
+                            </a>
+                        </div>
+                        <div class="card-body d-flex flex-column pt-2 pb-2 mb-1">
+                            <div class="card-title">
+                                <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>@item.Name</a>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-info-item">
+                                    @{
+                                        if (firstCapa != null)
+                                        {
+                                            <i class="fa-solid fa-memory"></i>
+                                            @(firstCapa.Ram + " GB")
+                                        }
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (firstCapa != null)
+                                    {
+                                        <i class="fa-solid fa-hard-drive"></i>
+                                        @(firstCapa.Rom + " GB")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (item.ScreenSize != null)
+                                    {
+                                        <i class="fa-solid fa-mobile-screen"></i>
+                                        @(item.ScreenSize.Value + "\"")
+                                    }
+                                </div>
+                                <div class="product-info-item">
+                                    @if (item.Battery != null)
+                                    {
+                                        <i class="fa-solid fa-battery-three-quarters"></i>
+                                        @(item.Battery.Value + " mAh")
+                                    }
+                                </div>
+                                @* <div class="product-info-item">
+                                    @if (item.Chipset != null)
+                                    {
+                                        <i class="fa-solid fa-microchip"></i>
+                                        @(item.Chipset)
+                                    }
+                                </div> *@
+                            </div>
+                            <div class="card-price d-flex justify-content-between px-2 mb-1 mt-1">
+                                <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
+                                <del class="old-price text-dark opacity-50"></del>
+                            </div>
+                            <div class="product-rating d-flex mt-1">
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                                <i class="star-rate active fa-solid fa-star"></i>
+                            </div>
+                            <div class="add-to-cart-btn ">
+                                <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@item.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        
     </div>
 </div>
-
+<h4 class="mt-4">TẤT CẢ SẢN PHẨM</h4>
 <div class="product-container">
     <div class="product_grid">
         @if (products != null)
@@ -72,19 +157,19 @@
                                         @(item.Battery.Value + " mAh")
                                     }
                                 </div>
-                                <div class="product-info-item">
+                                @* <div class="product-info-item">
                                     @if (item.Chipset != null)
                                     {
                                         <i class="fa-solid fa-microchip"></i>
                                         @(item.Chipset)
                                     }
-                                </div>
+                                </div> *@
                             </div>
-                            <div class="card-price d-flex justify-content-between px-2 mb-1">
+                            <div class="card-price d-flex justify-content-between px-2 mb-1 mt-1">
                                 <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
                                 <del class="old-price text-dark opacity-50"></del>
                             </div>
-                            <div class="product-rating d-flex mt-auto">
+                            <div class="product-rating d-flex mt-1">
                                 <i class="star-rate active fa-solid fa-star"></i>
                                 <i class="star-rate active fa-solid fa-star"></i>
                                 <i class="star-rate active fa-solid fa-star"></i>
