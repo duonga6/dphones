@@ -17,6 +17,7 @@
     var queryPriceLevelsSplit = queryPriceLevels.Split("-", StringSplitOptions.RemoveEmptyEntries).ToList();
 
     var querySort = Context.Request.Query["sort"].ToString();
+    var querySearch = Context.Request.Query["s"].ToString();
 
     int from = -1;
     int to = -1;
@@ -30,145 +31,151 @@
 
 
 <div class="home-product-with-filter">
-    <div class="row">
-        <div class="col-2 left-section">
-            <div class="input-groups">
-                <p class="heading">Hãng sản xuất</p>
-                <form method="get">
-                    <div class="input-list">
-                        <div class="input-item">
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="", danhmuc = queryCategories, mucgia=queryPriceLevels, sort = querySort})'>
-                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryBrands)){@("checked")}>
-                            </a> Tất cả
-                        </div>
-                        @foreach (var item in brands)
-                        {
-                            List<string> brandsListString = new List<string>();
-                            if(queryBrandsSplit.Contains(item.Name))
-                            {
-                                brandsListString.AddRange(queryBrandsSplit);
-                                brandsListString.Remove(item.Name);
-                            }
-                            else
-                            {
-                                brandsListString.AddRange(queryBrandsSplit);
-                                brandsListString.Add(item.Name);
-                            }
-                            var url = Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = string.Join(",", brandsListString), mucgia=queryPriceLevels, sort = querySort});
+    <div class="row g-3">
+        <div class="left-section">
+            <div class="input-container">
+                <div class="input-groups">
+                    <p class="heading">Hãng sản xuất</p>
+                        <div class="input-list">
                             <div class="input-item">
-                                <a href="@url">
-                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(queryBrandsSplit.Contains(item.Name)){<text>checked</text>}>
-                                </a> @item.Name
+                                <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx="", danhmuc = queryCategories, mucgia=queryPriceLevels, sort = querySort})'>
+                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryBrands)){@("checked")}>
+                                </a> Tất cả
                             </div>
-                        }
-                    </div>
-                </form>
-            </div>
-            <div class="input-groups">
-                <p class="heading">Mức giá</p>
-                <form method="get">
-                    <div class="input-list">
-                        <div class="input-item price">
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia="", sort = querySort})'>
-                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryPriceLevels)){@("checked")}>
-                            </a> Tất cả
-                        </div>
-                        @for(int i = 0; i < priceLevels.Count(); i++)
-                        {
-                            if (i == 0)
+                            @foreach (var item in brands)
                             {
-                                <div class="input-item price">
-                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"0-{priceLevels[i]}", sort = querySort})'>
-                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(to == priceLevels[i]){@("checked")}>
-                                    </a>
-                                    Dưới @priceLevels[i] triệu
-                                </div>
-                            } 
-                            else if (i == priceLevels.Count() - 1)
-                            {
-                                <div class="input-item price">
-                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-max", sort = querySort})'>
-                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i]){@("checked")}>
-                                    </a>
-                                    Trên @priceLevels[i] triệu
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="input-item price">
-                                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-{priceLevels[i+1]}", sort = querySort})'>
-                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i] && to == priceLevels[i+1]){@("checked")}>
-                                    </a>
-                                    Từ @priceLevels[i] - @priceLevels[i + 1] triệu
-                                </div>
-                            }
-                        }
-                    </div>
-                </form>
-            </div>
-            
-            <div class="input-groups">
-                <p class="heading">Mục đích sử dụng</p>
-                <form method="get">
-                    <div class="input-list">
-                        <div class="input-item purpose">
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = "", mucgia=queryPriceLevels, sort = querySort})'>
-                                <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryCategories)){@("checked")}>
-                            </a> Tất cả
-                        </div>
-                        @foreach (var item in categories)
-                        {
-                            var categoriesListString = new List<string>();
-                            if(item.Slug != null)
-                            {
-                                if (queryCategoriesSplit.Contains(item.Slug))
+                                List<string> brandsListString = new List<string>();
+                                if(queryBrandsSplit.Contains(item.Name))
                                 {
-                                    categoriesListString.AddRange(queryCategoriesSplit);
-                                    categoriesListString.Remove(item.Slug);
+                                    brandsListString.AddRange(queryBrandsSplit);
+                                    brandsListString.Remove(item.Name);
                                 }
                                 else
                                 {
-                                    categoriesListString.AddRange(queryCategoriesSplit);
-                                    categoriesListString.Add(item.Slug);
+                                    brandsListString.AddRange(queryBrandsSplit);
+                                    brandsListString.Add(item.Name);
+                                }
+                                var url = Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = string.Join(",", brandsListString), mucgia=queryPriceLevels, sort = querySort});
+                                <div class="input-item">
+                                    <a href="@url">
+                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(queryBrandsSplit.Contains(item.Name)){<text>checked</text>}>
+                                    </a> @item.Name
+                                </div>
+                            }
+                        </div>
+                </div>
+                <div class="input-groups">
+                    <p class="heading">Mức giá</p>
+                        <div class="input-list">
+                            <div class="input-item price">
+                                <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx=queryBrands, danhmuc = queryCategories, mucgia="", sort = querySort})'>
+                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryPriceLevels)){@("checked")}>
+                                </a> Tất cả
+                            </div>
+                            @for(int i = 0; i < priceLevels.Count(); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="input-item price">
+                                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"0-{priceLevels[i]}", sort = querySort})'>
+                                            <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(to == priceLevels[i]){@("checked")}>
+                                        </a>
+                                        Dưới @priceLevels[i] triệu
+                                    </div>
+                                } 
+                                else if (i == priceLevels.Count() - 1)
+                                {
+                                    <div class="input-item price">
+                                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-max", sort = querySort})'>
+                                            <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i]){@("checked")}>
+                                        </a>
+                                        Trên @priceLevels[i] triệu
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-item price">
+                                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx=queryBrands, danhmuc = queryCategories, mucgia=$"{priceLevels[i]}-{priceLevels[i+1]}", sort = querySort})'>
+                                            <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(from == priceLevels[i] && to == priceLevels[i+1]){@("checked")}>
+                                        </a>
+                                        Từ @priceLevels[i] - @priceLevels[i + 1] triệu
+                                    </div>
                                 }
                             }
-                            var url = Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = string.Join(",", categoriesListString), mucgia=queryPriceLevels, sort = querySort});
+                        </div>
+                </div>
+                <div class="input-groups">
+                    <p class="heading">Mục đích sử dụng</p>
+                        <div class="input-list">
                             <div class="input-item purpose">
-                                <a href="@url">
-                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(item.Slug != null && queryCategoriesSplit.Contains(item.Slug)){<text>checked</text>}>
-                                </a> @item.Name
+                                <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = "", mucgia=queryPriceLevels, sort = querySort})'>
+                                    <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(string.IsNullOrEmpty(queryCategories)){@("checked")}>
+                                </a> Tất cả
                             </div>
-                        }
-                    </div>
-                </form>
+                            @foreach (var item in categories)
+                            {
+                                var categoriesListString = new List<string>();
+                                if(item.Slug != null)
+                                {
+                                    if (queryCategoriesSplit.Contains(item.Slug))
+                                    {
+                                        categoriesListString.AddRange(queryCategoriesSplit);
+                                        categoriesListString.Remove(item.Slug);
+                                    }
+                                    else
+                                    {
+                                        categoriesListString.AddRange(queryCategoriesSplit);
+                                        categoriesListString.Add(item.Slug);
+                                    }
+                                }
+                                var url = Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = string.Join(",", categoriesListString), mucgia=queryPriceLevels, sort = querySort});
+                                <div class="input-item purpose">
+                                    <a href="@url">
+                                        <input class="input-checkbox-left-section" type="checkbox" onchange="clickFilter(this)" @if(item.Slug != null && queryCategoriesSplit.Contains(item.Slug)){<text>checked</text>}>
+                                    </a> @item.Name
+                                </div>
+                            }
+                        </div>
+                </div>
             </div>
         </div>
-        <div class="col-10 right-section">
+        <div class="right-section">
             <div class="sort-section">
                 <div class="heading">
-                    <span class="title">Điện thoại</span> 
-                    <span class="product-count">(@Model.Count() Sản phẩm)</span>
+                    @if(string.IsNullOrEmpty(querySearch))
+                    {
+                        <span class="title">Điện thoại</span> 
+                        <span class="product-count">(@ViewBag.TotalProduct Sản phẩm)</span>
+                    }
+                    else
+                    {
+                        <span class="title">Tìm kiếm: </span> <span class="search-result">@querySearch</span>
+                        <span class="product-count">(@ViewBag.TotalProduct Sản phẩm)</span>
+                        <a class="btn-reset-search" href='@Url.Action("Index", "ViewProduct", new {area = "Products"})'>
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+                    }
                 </div>
                 <div class="sort-bar">
                     <p class="sort-heading">Lọc theo</p>
                     <ul class="sort-list">
                         <li class='sort-item @if(string.IsNullOrEmpty(querySort) || querySort == "ngayramat"){@("active")}'>
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="ngayramat"})'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="ngayramat"})'>
                                 Ngày ra mắt
                             </a>
                         </li>
                         <li class='sort-item @if(querySort == "giacao"){@("active")}'>
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giacao"})'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giacao"})'>
                                 Giá cao
                             </a>
                         </li>
                         <li class='sort-item @if(querySort == "giathap"){@("active")}'>
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giathap"})'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="giathap"})'>
                                 Giá thấp
                             </a>
                         </li>
                         <li class='sort-item @if(querySort == "banchay"){@("active")}'>
-                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="banchay"})'>
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products",s = querySearch, hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort="banchay"})'>
                                 Bán chạy
                             </a>
                         </li>
@@ -256,6 +263,14 @@
                     }
                 </div>
             </div>
+            @{
+                var pagingModel = new PagingModel{
+                    CountPage = ViewBag.CountPage,
+                    CurrentPage = ViewBag.CurrentPage,
+                    GenerateUrl = p => Url.Action("Index", "ViewProduct", new {area = "Products", hangsx = queryBrands, danhmuc = queryCategories, mucgia=queryPriceLevels, sort=querySort, p}) ?? ""
+                };
+            }
+            <partial name="_Paging" model="pagingModel"/>
         </div>
     </div>
 </div>
@@ -267,11 +282,9 @@
             window.location.href = link.href;
         }
 
-        $(document).ready(function() {
+        @* $(document).ready(function() {
             var targetElement = $(".home-product-with-filter");
-            $('html, body').animate({
-                scrollTop: targetElement.offset().top - 100
-            }, 0);
-        })
+            $('html, body').scrollTop(targetElement.offset().top - 40);
+        }) *@
     </script>
 }

@@ -6,11 +6,13 @@ using Bogus;
 using App.Models.Products;
 using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Areas.Database.Controllers
 {
     [Area("Database")]
-    [Route("/database-manager/[action]")]
+    [Authorize(Roles = RoleName.Administrator)]
     public class DbManagerController : Controller
     {
         private readonly AppDbContext _context;
@@ -35,23 +37,27 @@ namespace App.Areas.Database.Controllers
         [TempData]
         public string? StatusMessage { set; get; }
 
+        [Route("/database-manager/index")]
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB");
+
+            var filename = Directory.GetFiles(backUpPath).ToList();
+
+            ViewBag.BackUpList = filename.Select(f => Path.GetFileName(f)).ToList();
             return View();
         }
 
         public async Task<IActionResult> Migrations()
         {
-           await _context.Database.MigrateAsync();
-           StatusMessage = "Cập nhật thành công";
-           return RedirectToAction(nameof(Index));
+            await _context.Database.MigrateAsync();
+            StatusMessage = "Cập nhật thành công";
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult DeleteFakeData() {
-            
-            return Ok();
-        }
-
+        [AllowAnonymous]
+        [Route("/database-manager/seed-data")]
         public async Task<IActionResult> SeedData()
         {
             var roleNames = typeof(RoleName).GetFields().ToList();
@@ -67,7 +73,8 @@ namespace App.Areas.Database.Controllers
             useradmin ??= await _userManager.FindByEmailAsync("trieuvip14@gmail.com");
             if (useradmin == null)
             {
-                var user = new AppUser {
+                var user = new AppUser
+                {
                     FullName = "Triệu",
                     Email = "trieuvip14@gmail.com",
                     EmailConfirmed = true,
@@ -79,7 +86,8 @@ namespace App.Areas.Database.Controllers
                 await _signInManager.SignInAsync(user, false);
 
             }
-            else {
+            else
+            {
                 await _userManager.DeleteAsync(useradmin);
                 return RedirectToAction(nameof(SeedData));
             }
@@ -87,6 +95,83 @@ namespace App.Areas.Database.Controllers
             // SeedProduct();
 
             StatusMessage = "Seed data thành công";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Route("/database-manager/backup-db")]
+        public IActionResult BackUpDB()
+        {
+            string now = DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss");
+            var p = new Process
+            {
+                StartInfo =
+                {
+                    FileName = "sqlcmd",
+                    WorkingDirectory = Directory.GetCurrentDirectory(),
+                    Arguments = $"-S localhost -U sa -P 12345678Aa -Q \"BACKUP DATABASE dphones TO DISK = '{Directory.GetCurrentDirectory()}\\BackupDB\\backup_file_{now}.bak'\""
+                }
+            };
+
+            p.Start();
+
+            p.WaitForExit();
+
+            if (p.ExitCode != 0)
+            {
+                StatusMessage = $"BackUp thất bại \n {p.StandardError.ReadToEnd()}";
+            }
+
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Route("/database-manager/restore-db")]
+        public IActionResult RestoreDB(string fileName)
+        {
+            string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB");;
+            var nameList = Directory.GetFiles(backUpPath).ToList();
+
+            if (nameList.Contains(fileName))
+            {
+                StatusMessage = "Không tìm thấy bản Backup này";
+            }
+            else
+            {
+                string script = $@"
+                    ALTER DATABASE dphones
+                    SET OFFLINE WITH ROLLBACK IMMEDIATE
+                    GO
+
+                    RESTORE DATABASE dphones FROM DISK = '{Directory.GetCurrentDirectory()}\\BackupDB\\{fileName}' WITH REPLACE
+                    GO
+
+                    ALTER DATABASE dphones
+                    SET ONLINE
+                    GO
+                ";
+                var p = new Process
+                {
+                    StartInfo =
+                {
+                    FileName = "sqlcmd",
+                    WorkingDirectory = Directory.GetCurrentDirectory(),
+                    Arguments = $"-S localhost -U sa -P 12345678Aa -d master -Q \"{script}\""
+                }
+                };
+
+                p.Start();
+
+                p.WaitForExit();
+
+                if (p.ExitCode != 0)
+                {
+                    StatusMessage = $"Phục hồi thất bại \n {p.StandardError.ReadToEnd()}";
+                }
+
+                StatusMessage = "Phục hồi thành công";
+            }
+
             return RedirectToAction(nameof(Index));
         }
 

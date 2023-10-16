@@ -1,6 +1,7 @@
 @model HomeCategory
 @{
     var topSecond = Model.Products.Take(2);
+    var priceLevels = Model.PriceLevels as List<int>;
 }
 <div class="header-category position-absolute top-100">
     <div class="category-container">
@@ -9,7 +10,7 @@
             @foreach (var item in Model.Brands)
             {
                 <li class="category-brand-item category-item">
-                    <a href="" class="">@item.Name</a>
+                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=item.Name})' class="">@item.Name</a>
                 </li>
             }
         </ul>
@@ -17,24 +18,23 @@
     <div class="category-container category-price">
         <p class="category-heading">Mức giá</p>
         <ul class="category-list category-price-list">
-            <li class="category-item category-price-item">
-                <a href="" class="">Dưới 3 triệu</a>
-            </li>
-            <li class="category-item">
-                <a href="" class="">Từ 3 - 5 triệu</a>
-            </li>
-            <li class="category-item">
-                <a href="" class="">Từ 5 - 8 triệu</a>
-            </li>
-            <li class="category-item">
-                <a href="" class="">Từ 8 - 12 triệu</a>
-            </li>
-            <li class="category-item">
-                <a href="" class="">Từ 12 - 20 triệu</a>
-            </li>
-            <li class="category-item">
-                <a href="" class="">Trên 20 triệu</a>
-            </li>
+            @for (int i = 0; i < priceLevels.Count(); i++)
+            {
+                <li class="category-item category-price-item">
+                @if (i == 0)
+                {
+                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"0-{priceLevels[i]}"})' class="">Dưới @priceLevels[i] triệu</a>
+                }
+                else if (i == priceLevels.Count() - 1)
+                {
+                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-max"})' class="">Trên @priceLevels[i] triệu</a>
+                }
+                else
+                {
+                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-{priceLevels[i + 1]}"})' class="">Từ @priceLevels[i] - @priceLevels[i + 1] triệu</a>
+                }
+                </li>
+            }
         </ul>
     </div>
     <div class="category-container category-purpose">
@@ -43,7 +43,7 @@
             @foreach (var item in Model.Categories)
             {
                 <li class="category-item category-purpose-item">
-                    <a href="" class="">@item.Name</a>
+                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", danhmuc=item.Slug})' class="">@item.Name</a>
                 </li>
             }
         </ul>

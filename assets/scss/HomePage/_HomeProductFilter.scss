@@ -1,32 +1,41 @@
 .home-product-with-filter {
+    margin-bottom: 200px;
     .left-section {
-        .input-groups {
-            margin-bottom: 12px;
-            .heading {
-                font-weight: 500;
-                margin-bottom: 16px;
-            }
-            .input-list {
-                display: flex;
-                flex-wrap: wrap;
-                .input-item {
-                    width: 50%;
-                    margin-bottom: 4px;
+        flex: 0 0 auto;
+        width: 20%;
+        .input-container {
+            background-color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            box-shadow: $shadow-sm;
+            .input-groups {
+                margin-bottom: 12px;
+                .heading {
+                    font-weight: 500;
+                    margin-bottom: 16px;
+                }
+                .input-list {
                     display: flex;
-                    align-items: center;
-                    font-size: 14px;
-                    input {
-                        margin-right: 10px;
-                        transform: scale(1.2);
-
-                        &:checked {
-                            accent-color: $primary-color;
+                    flex-wrap: wrap;
+                    .input-item {
+                        width: 50%;
+                        margin-bottom: 4px;
+                        display: flex;
+                        align-items: center;
+                        font-size: 14px;
+                        input {
+                            margin-right: 10px;
+                            transform: scale(1.2);
+                            cursor: pointer;
+                            &:checked {
+                                accent-color: $primary-color;
+                            }
                         }
-                    }
 
-                    &.price,
-                    &.purpose {
-                        width: 100%;
+                        &.price,
+                        &.purpose {
+                            width: 100%;
+                        }
                     }
                 }
             }
@@ -34,11 +43,13 @@
     }
 
     .right-section {
+        flex: 0 0 auto;
+        width: 80%;
         .sort-section {
             height: 68px;
             background-color: white;
             border-radius: 8px;
-            border: $border-gray-sm;
+            box-shadow: $shadow-sm;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -50,8 +61,18 @@
                     font-weight: 500;
                     margin-bottom: 0;
                 }
+                .search-result {
+                    font-size: 22px;
+                }
                 .product-count {
                     font-size: 18px;
+                }
+                .btn-reset-search {
+                    color: $primary-color;
+                    transition: all .1s ease;
+                    &:hover {
+                        opacity: 0.8;
+                    }
                 }
             }
 
@@ -106,7 +127,8 @@
         }
 
         .product-container {
-            margin-top: 24px;
+            margin-top: 16px;
+            margin-bottom: 40px;
             .product_grid {
                 display: flex;
                 flex-wrap: wrap;
@@ -125,6 +147,28 @@
                             .product-info {
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        .pagination {
+            justify-content: center;
+            margin-bottom: 100px;
+            .page-item {
+                .page-link {
+                    color: $primary-color;
+                }
+                &.active {
+                    .page-link {
+                        background-color: $primary-color;
+                        color: white;
+                        border: $border-primary;
+                    }
+                }
+                &.disabled {
+                    .page-link {
+                        color: #6c757d;
                     }
                 }
             }

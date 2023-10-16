@@ -101,6 +101,10 @@
       "PackagePath": "staticwebassets\\images\\phong-thu.jpg"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\restore.svg",
+      "PackagePath": "staticwebassets\\images\\restore.svg"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\upload_icon.png",
       "PackagePath": "staticwebassets\\images\\upload_icon.png"
     },

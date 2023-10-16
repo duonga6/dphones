@@ -21,6 +21,7 @@ namespace App.Areas.Products.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly CartService _cart;
         private readonly IEmailSender _emailSender;
+        private readonly int ITEM_PER_PAGE = 10;
 
         [TempData]
         public string? StatusMessage { set; get; }
@@ -35,7 +36,7 @@ namespace App.Areas.Products.Controllers
         }
 
         [Route("/dien-thoai")]
-        public IActionResult Index(string? hangsx, string? danhmuc, string? mucgia, string? sort)
+        public IActionResult Index([FromQuery]string hangsx, [FromQuery]string danhmuc, [FromQuery]string mucgia, [FromQuery]string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
             var products = _context.Products.Include(p => p.Brand)
                                             .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
@@ -44,8 +45,13 @@ namespace App.Areas.Products.Controllers
                                             .AsSplitQuery();
 
             var brands = hangsx?.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            var categories = danhmuc?.Split(",");
-            var price = mucgia?.Split("-");
+            var categories = danhmuc?.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var price = mucgia?.Split("-", StringSplitOptions.RemoveEmptyEntries);
+
+            if (searchString != null)
+            {
+                products = products.Where(p => p.Name.ToLower().Contains(searchString.ToLower()));
+            }
 
             if (brands != null)
             {
@@ -66,9 +72,14 @@ namespace App.Areas.Products.Controllers
             {
                 _ = decimal.TryParse(price[0], out decimal tu);
                 _ = decimal.TryParse(price[1], out decimal den);
+                tu *= 1000000;
+                den *= 1000000;
                 try
                 { 
-                    products = products.Where(p => p.Colors.First().Capacities.First().SellPrice >= tu && p.Colors.First().Capacities.First().SellPrice <= den);
+                    if (tu > den)
+                        products = products.Where(p => p.Colors.First().Capacities.First().SellPrice >= tu);
+                    else
+                        products = products.Where(p => p.Colors.First().Capacities.First().SellPrice >= tu && p.Colors.First().Capacities.First().SellPrice <= den);
                 }
                 catch
                 {
@@ -90,6 +101,9 @@ namespace App.Areas.Products.Controllers
                 case "banchay":
                     products = products.OrderByDescending(p => p.Colors.SelectMany(c => c.Capacities).Max(c => c.Sold));
                     break;
+                default:
+                    products = products.OrderByDescending(p => p.ReleaseDate);
+                    break;
             }
 
             
@@ -97,8 +111,21 @@ namespace App.Areas.Products.Controllers
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Categories = _context.Categories.ToList();
             ViewBag.PriceLevels = _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToList();
+            ViewBag.TotalProduct = products.Count();
 
-            return View(products.ToList());
+            int countPage = (int)Math.Ceiling((decimal)ViewBag.TotalProduct / ITEM_PER_PAGE);
+            if (countPage < 1) countPage = 1;
+
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > countPage) currentPage = countPage;
+
+            ViewBag.CountPage = countPage;
+            ViewBag.CurrentPage = currentPage;
+            
+
+            var productInPage = products.Skip((currentPage -1 ) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+
+            return View(productInPage.ToList());
         }
 
 

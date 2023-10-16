@@ -126,7 +126,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brand", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.Capacity", b =>
@@ -166,7 +166,7 @@ namespace App.Migrations
 
                     b.HasIndex("SellPrice");
 
-                    b.ToTable("Capacities");
+                    b.ToTable("Capacities", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.Category", b =>
@@ -194,7 +194,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.Color", b =>
@@ -223,7 +223,7 @@ namespace App.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.Order", b =>
@@ -294,7 +294,7 @@ namespace App.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.OrderDetail", b =>
@@ -327,7 +327,7 @@ namespace App.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.OrderStatus", b =>
@@ -363,7 +363,7 @@ namespace App.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrderStatus");
+                    b.ToTable("OrderStatus", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.PriceLevel", b =>
@@ -379,7 +379,7 @@ namespace App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PriceLevels");
+                    b.ToTable("PriceLevels", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.Product", b =>
@@ -447,7 +447,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.ProductCategory", b =>
@@ -462,7 +462,7 @@ namespace App.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCategory");
+                    b.ToTable("ProductCategory", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Products.ProductPhoto", b =>
@@ -484,7 +484,7 @@ namespace App.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductPhoto");
+                    b.ToTable("ProductPhoto", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

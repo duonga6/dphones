@@ -37,12 +37,56 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Facebook.png",
+      "PackagePath": "staticwebassets\\images\\Facebook.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Instagram.png",
+      "PackagePath": "staticwebassets\\images\\Instagram.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Tiktok.png",
+      "PackagePath": "staticwebassets\\images\\Tiktok.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Youtube.png",
+      "PackagePath": "staticwebassets\\images\\Youtube.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Zalo.png",
+      "PackagePath": "staticwebassets\\images\\Zalo.png"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\cart-empty.png",
       "PackagePath": "staticwebassets\\images\\cart-empty.png"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\delivery.jpg",
       "PackagePath": "staticwebassets\\images\\delivery.jpg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638264776256861272_F-C1_1200x300iP13 1.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638264776256861272_F-C1_1200x300iP13 1.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638317195199194071_F-C1_1200x300@2x.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638317195199194071_F-C1_1200x300@2x.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638317476292540238_F-C1_1200x300.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638317476292540238_F-C1_1200x300.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638319207158675908_F-C1_1200x300.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638319207158675908_F-C1_1200x300.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638321846764449015_F-C1_1200x300.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638321846764449015_F-C1_1200x300.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638326123868033069_F-C1_1200x300.webp",
+      "PackagePath": "staticwebassets\\images\\home-slide\\638326123868033069_F-C1_1200x300.webp"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\logo-color.png",
@@ -55,6 +99,18 @@
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\phong-thu.jpg",
       "PackagePath": "staticwebassets\\images\\phong-thu.jpg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\restore.svg",
+      "PackagePath": "staticwebassets\\images\\restore.svg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\upload_icon.png",
+      "PackagePath": "staticwebassets\\images\\upload_icon.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\CreateProduct.js",
+      "PackagePath": "staticwebassets\\js\\Products\\CreateProduct.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\datatables-simple-demo.js",

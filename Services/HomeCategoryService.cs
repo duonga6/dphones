@@ -34,7 +34,8 @@ namespace App.Services
             {
                 Brands = _context.Brands.OrderBy(b => b.Name).ToList(),
                 Categories = _context.Categories.OrderBy(c => c.Name).ToList(),
-                Products = productsBestSeller
+                Products = productsBestSeller,
+                PriceLevels = _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToList()
             };
 
             return data;

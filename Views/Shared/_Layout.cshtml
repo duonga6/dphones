@@ -35,40 +35,13 @@
                             </li>
                             <li class="nav-item ms-4">
                                 <div class="header-item active rounded p-1 d-flex align-items-center position-relative">
-                                    @* <div class="ps-2 pe-1 d-flex align-items-center">
-                                        <i class="text-white fa-solid fa-location-dot"></i>
-                                    </div>
-                                    <div class="ps-1 pe-2">
-                                        <p class="mb-0 text-white" style="font-size: 12px;">Xem giá tại</p>
-                                        <p class="mb-0 text-center text-white fw-semibold">Hà Nội</p>
-                                    </div> *@
-
+                                   
                                     <div class="ps-2 pe-1 d-flex align-items-center">
                                         <i class="text-white fa-solid fa-bars"></i>
                                     </div>
                                     <div class="ps-1 pe-2">
                                         <p class="mb-0 text-white">Danh mục</p>
                                     </div>
-
-                                    @* <div class="header-category position-absolute top-100">
-                                        <div class="category-container">
-                                            <p class="category-heading">Thương hiệu điện thoại</p>
-                                            <ul class="category-list">
-                                                <li class="category-item">
-                                                    <a href="" class="">Samsung</a>
-                                                </li>
-                                                <li class="category-item">
-                                                    <a href="" class="">Samsung</a>
-                                                </li>
-                                                <li class="category-item">
-                                                    <a href="" class="">Samsung</a>
-                                                </li>
-                                                <li class="category-item">
-                                                    <a href="" class="">Samsung</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div> *@
                                     @{
                                         @await Component.InvokeAsync("App.Components.HomeCategorySection", _homeCategory.GetData());
                                     }
@@ -76,10 +49,11 @@
                                 </div>
                             </li>
                         </ul>
-                        <form class="d-flex header-search-container ms-4 me-2 flex-grow-1">
-                            <input class="header-search-input form-control me-2 px-3" type="search"
-                                placeholder="Bạn cần tìm gì... ?" aria-label="Search">
-                            <button class="btn header-search-btn" type="submit">
+                        <form method="get" class="d-flex header-search-container ms-4 me-2 flex-grow-1">
+                            <input class="header-search-input form-control me-2 px-3" type="text" name="s"
+                                placeholder="Bạn cần tìm gì... ?" aria-label="Search" value='@Context.Request.Query["s"]'>
+                            <button class="btn header-search-btn" type="submit" 
+                                asp-action="Index" asp-controller="ViewProduct" asp-area="Products">
                                 <i class="primary-text fa-solid fa-magnifying-glass"></i>
                             </button>
                         </form>
