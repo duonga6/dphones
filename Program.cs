@@ -25,6 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+
 // Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>()
@@ -98,6 +99,7 @@ builder.Services.AddTransient<CartService>();
 builder.Services.AddTransient<HomeCategoryService>();
 
 
+
 //=========================== End Add services to the container.
 
 var app = builder.Build();
@@ -129,5 +131,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+using (var scopeService = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    var _context = scopeService.ServiceProvider.GetService<AppDbContext>();
+    if (_context != null && _context.Database.GetPendingMigrations().Any())
+    {
+        _context.Database.Migrate();
+    }
+}
 
 app.Run();

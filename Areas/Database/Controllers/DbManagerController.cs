@@ -1,3 +1,4 @@
+using System.IO;
 using App.Data;
 using App.Models;
 using Microsoft.AspNetCore.Identity;
@@ -8,11 +9,12 @@ using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace App.Areas.Database.Controllers
 {
     [Area("Database")]
-    [Authorize(Roles = RoleName.Administrator)]
+    // [Authorize(Roles = RoleName.Administrator)]
     public class DbManagerController : Controller
     {
         private readonly AppDbContext _context;
@@ -20,18 +22,21 @@ namespace App.Areas.Database.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<DbManagerController> _logger;
+        private readonly IConfiguration _configuration;
 
         public DbManagerController(AppDbContext context,
                                     UserManager<AppUser> userManager,
                                     SignInManager<AppUser> signInManager,
                                     RoleManager<IdentityRole> roleManager,
-                                    ILogger<DbManagerController> logger)
+                                    ILogger<DbManagerController> logger,
+                                    IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
         [TempData]
@@ -49,6 +54,8 @@ namespace App.Areas.Database.Controllers
             return View();
         }
 
+        [Route("/database-manager/migration")]
+        [AllowAnonymous]
         public async Task<IActionResult> Migrations()
         {
             await _context.Database.MigrateAsync();
@@ -99,16 +106,17 @@ namespace App.Areas.Database.Controllers
         }
 
         [Route("/database-manager/backup-db")]
-        public IActionResult BackUpDB()
+        public IActionResult BackUpDB(string info)
         {
             string now = DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss");
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB", $"backup_file_{now}_{info}.bak");
             var p = new Process
             {
                 StartInfo =
                 {
                     FileName = "sqlcmd",
                     WorkingDirectory = Directory.GetCurrentDirectory(),
-                    Arguments = $"-S localhost -U sa -P 12345678Aa -Q \"BACKUP DATABASE dphones TO DISK = '{Directory.GetCurrentDirectory()}\\BackupDB\\backup_file_{now}.bak'\""
+                    Arguments = $"-S localhost -U sa -P 12345678Aa -Q \"BACKUP DATABASE dphones TO DISK = '{path}'\""
                 }
             };
 
@@ -126,15 +134,16 @@ namespace App.Areas.Database.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Route("/database-manager/restore-db")]
+        [Route("/database-manager/restore-db/{fileName}")]
         public IActionResult RestoreDB(string fileName)
         {
             string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB");;
-            var nameList = Directory.GetFiles(backUpPath).ToList();
+            var nameList = Directory.GetFiles(backUpPath).Select(n => Path.GetFileName(n)).ToList();
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB", fileName);
 
-            if (nameList.Contains(fileName))
+            if (!nameList.Contains(fileName))
             {
-                StatusMessage = "Không tìm thấy bản Backup này";
+                StatusMessage = $"Không tìm thấy bản Backup này";
             }
             else
             {
@@ -143,7 +152,22 @@ namespace App.Areas.Database.Controllers
                     SET OFFLINE WITH ROLLBACK IMMEDIATE
                     GO
 
-                    RESTORE DATABASE dphones FROM DISK = '{Directory.GetCurrentDirectory()}\\BackupDB\\{fileName}' WITH REPLACE
+                    DECLARE @mdfPath NVARCHAR(255);
+                    DECLARE @ldfPath NVARCHAR(255);
+
+                    SELECT @mdfPath = physical_name
+                    FROM sys.master_files
+                    WHERE name = 'dphones';
+
+                    SELECT @ldfPath = physical_name
+                    FROM sys.master_files
+                    WHERE name = 'dphones_log';
+
+                    RESTORE DATABASE dphones 
+                    FROM DISK = '{path}' 
+                    WITH REPLACE,
+                    MOVE 'dphones' TO @mdfPath,
+                    MOVE 'dphones_log' TO @ldfPath;
                     GO
 
                     ALTER DATABASE dphones
@@ -169,7 +193,7 @@ namespace App.Areas.Database.Controllers
                     StatusMessage = $"Phục hồi thất bại \n {p.StandardError.ReadToEnd()}";
                 }
 
-                StatusMessage = "Phục hồi thành công";
+                StatusMessage = $"Phục hồi thành công";
             }
 
             return RedirectToAction(nameof(Index));

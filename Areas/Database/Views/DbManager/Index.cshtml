@@ -74,4 +74,11 @@ else
         </a>
     </p>
 }
-<a href='@Url.Action("BackUpDB", "DbManager", new {area = "Database"})' class="btn btn-primary">Tạo sao lưu</a>
+<form method="get" class="row" asp-action="BackupDB" asp-controller="DbManager" asp-area="Database">
+    <p class="fw-semibold fs-5">Tạo sao lưu</p>
+    <div class="form-group col-3">
+        <label class="form-label" for="">Ghi chú</label>
+        <input class="form-control form-control-sm" type="text" name="info">
+        <button type="submit" class="btn btn-primary btn-sm mt-2">Tạo</button>
+    </div>
+</form>

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using App.Models.Products;
 using Microsoft.AspNetCore.Identity;
 
 namespace App.Models
@@ -13,5 +14,7 @@ namespace App.Models
         public string? UserAvatar {set;get;}
 
         public DateTime BirthDate {set;get;}
+        
+        public List<Order> Orders {set;get;} = new();
     }
 }

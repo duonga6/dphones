@@ -37,6 +37,13 @@ namespace App.Models
                         .OnDelete(DeleteBehavior.SetNull);
             });
 
+            builder.Entity<Order>(entity => {
+                entity.HasOne(o => o.User)
+                        .WithMany(u => u.Orders)
+                        .HasForeignKey(o => o.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Brand>(entity => {
                 entity.HasIndex(b => b.Slug).IsUnique();
             });

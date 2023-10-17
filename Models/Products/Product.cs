@@ -75,5 +75,6 @@ namespace App.Models.Products
         public List<ProductCategory> ProductCategories {set;get;} = new();
 
         public List<Color> Colors {set;get;} = new();
+
     }
 }
