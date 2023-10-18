@@ -124,23 +124,22 @@
                         <div class="payments-method">
                             <h6 class="mt-4">Hình thức thanh toán</h6>
                             <div class="pay-options">
-                                <div class="pay-option-item">
-                                    <input class="" type="radio" name="PayType" id="pay1" checked value="Online">
-                                    <label class="" for="pay1">
-                                        Thanh toán trực tuyến
-                                    </label>
-                                </div>
-                                <div class="pay-option-item">
-                                    <input class="" type="radio" name="PayType" id="pay2" value="COD">
-                                    <label class="" for="pay2">
-                                        Thanh toán khi nhận hàng(COD)
-                                    </label>
+                                <div class="row">
+                                    <div class="col-6 pay-option-item pay-online active">
+                                        <input type="radio" class="inpPayType" name="PayType" id="Online" value="Online" checked>
+                                        <label for="Online"> Thanh toán trực tuyến (VNPAY)</label>
+                                    </div>
+                                    <div class="col-6 pay-option-item pay-offline">
+                                        <input type="radio" class="inpPayType" name="PayType" id="COD" value="COD">
+                                        <label for="COD"> Thanh toán khi nhận hàng</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <span class="text-danger" id="online-pay-note">(*) Vui lòng lưu lại mã đơn hàng để thuận tiện theo dõi khi hủy thanh toán</span>
                     <div class="form-btn mt-4">
-                        <button type="submit" class="btn text-white btn-order" >Đặt hàng</button>
+                        <button type="submit" class="btn text-white btn-order">Đặt hàng</button>
                     </div>
                 </form>
             </div>
@@ -193,6 +192,16 @@
                 renderCity(JSON.parse(data));
             }
         })
+
+        $(document).ready(function() {
+            const onlinePayNote = $("#online-pay-note");
+            $(".inpPayType").change(function() {
+                if ($(this).val() == 'Online')
+                    onlinePayNote.show();
+                else
+                    onlinePayNote.hide();
+            });
+        });
 
     </script>
     <partial name="_ValidationScriptsPartial" />

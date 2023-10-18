@@ -1,11 +1,14 @@
 .order-container {
-
     .order-infor {
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 4px 20px rgba($color: #000000, $alpha: 0.05);
         position: relative;
         overflow: hidden;
+
+        #online-pay-note {
+            font-size: 14px;
+        }
 
         .btn-order {
             background-color: $primary-color;
@@ -22,10 +25,9 @@
             right: 0;
             left: 0;
             height: 8px;
-            background-image: url('/images/phong-thu.jpg');
+            background-image: url("/images/phong-thu.jpg");
             background-repeat: repeat-x;
             background-size: contain;
-            
         }
 
         &::before {
@@ -36,7 +38,7 @@
             right: 0;
             left: 0;
             height: 8px;
-            background-image: url('/images/phong-thu.jpg');
+            background-image: url("/images/phong-thu.jpg");
             background-repeat: repeat-x;
             background-size: contain;
         }
@@ -47,9 +49,7 @@
             margin: 0;
             margin-top: 24px;
 
-
             .product-item {
-
                 background-color: rgba($color: #000000, $alpha: 0.03);
                 border-radius: 8px;
                 margin-bottom: 8px;
@@ -77,16 +77,16 @@
                     .product-item-name {
                         font-weight: 500;
                     }
-    
+
                     .product-item-color {
                     }
-    
+
                     .product-item-capacity {
                     }
-    
+
                     .product-item-quantity {
                     }
-    
+
                     .product-item-price {
                     }
                 }
@@ -97,12 +97,10 @@
                     justify-content: center;
                     align-items: center;
                 }
-
             }
         }
 
         .payments {
-
             .total-cost {
                 display: flex;
                 justify-content: space-between;
@@ -113,18 +111,24 @@
             }
 
             .payments-method {
-
-                .pay-option-item {
-
-                    input {
-
-                        &:checked {
-                            accent-color: $primary-color;
+                .pay-options {
+                    .pay-option-item {
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 52px;
+                        background-color: rgba($color: #000000, $alpha: 0.025);
+                        border-radius: 8px;
+                        
+                        input {
+                            &:checked {
+                                accent-color: $primary-color;
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 }

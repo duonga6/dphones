@@ -15,12 +15,12 @@
                     <div class="h-100 d-flex justify-content-center align-items-center">
                         <form class="w-75" method="post">
                             <div class="form-group mb-2">
-                                <label class="form-label">Số điện thoại (bắt buộc)</label>
-                                <input type="text" name="PhoneNumber" class="form-control">
+                                <label asp-for="PhoneNumber" class="form-label">Số điện thoại (bắt buộc)</label>
+                                <input asp-for="PhoneNumber" class="form-control">
                             </div>
                             <div class="form-group mb-4">
-                                <label class="form-label">Mã đơn hàng (bắt buộc)</label>
-                                <input type="text" name="Code" class="form-control">
+                                <label asp-for="Code" class="form-label">Mã đơn hàng (bắt buộc)</label>
+                                <input asp-for="Code" class="form-control">
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn primary-bg text-white">Kiểm tra</button>
@@ -47,7 +47,17 @@
                     {
                         <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") - @item.Status</p>
                     }
-                    <p class="mb-0"><span class="fw-semibold">Thành tiền:</span> <span class="fw-semibold primary-text">@Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span></p>
+                    <p class="mb-0">
+                        <span class="fw-semibold">Thành tiền:</span> <span class="fw-semibold primary-text">@Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
+                        @if(Model.PayStatuses.FirstOrDefault(p => p.ResponseCode == "00") != null)
+                        {
+                            <span> - Đã thanh toán</span>
+                        }
+                        else
+                        {
+                            <span>- Chưa thanh toán. <a href='@Url.Action("Pay", "ViewProduct", new {area = "Products", orderId = Model.Id})'>Nhấn vào đây</a> để thanh toán</span>
+                        }
+                    </p>
                     <p class="mb-0"><span class="fw-semibold">Hình thức thanh toán:</span>
                         @if(Model.PayType == "Online")
                         {

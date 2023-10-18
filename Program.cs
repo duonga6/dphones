@@ -88,9 +88,15 @@ var mailSettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailSettings);
 builder.Services.AddTransient<IEmailSender, SendMailService>();
 
+// VnPay
+var vnPaySettings = builder.Configuration.GetSection("VnPaySettings");
+builder.Services.Configure<VnPaySettings>(vnPaySettings);
+builder.Services.AddTransient<VnPayService>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 builder.Services.AddTransient<SidebarAdminService>();
+
 
 // Cart
 builder.Services.AddTransient<CartService>();

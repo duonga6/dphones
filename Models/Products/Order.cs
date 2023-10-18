@@ -68,5 +68,16 @@ namespace App.Models.Products
 
         public List<OrderDetail> OrderDetails {set;get;} = new();
         public List<OrderStatus> OrderStatuses {set;get;} = new();
+        public List<PayStatus> PayStatuses {set;get;} = new();
     }
 }
+
+
+// Logic:
+/*
+
+    Tạo đơn hàng:   Thanh toán trực tuyến ->    Đã thanh toán: Đã xác nhận
+                                          ->    Chưa thanh toán:
+                    
+
+*/

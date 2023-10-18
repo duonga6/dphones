@@ -244,6 +244,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcT3JkZXJDb25maXJtZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/ViewProduct/PaymentResult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcVmlld1Byb2R1Y3RcUGF5bWVudFJlc3VsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -29,6 +29,7 @@ namespace App.Areas.Products.Controllers
             _context = context;
         }
 
+        // Trang thống kê
         public IActionResult Index()
         {
             var order = _context.Orders
@@ -42,6 +43,7 @@ namespace App.Areas.Products.Controllers
             return View(order);
         }
 
+        // Trang chi tiết
         [HttpGet("{Id}")]
         public IActionResult Details(int Id)
         {
@@ -62,16 +64,28 @@ namespace App.Areas.Products.Controllers
             return View(order);
         }
 
+        // Xác nhận đơn hàng
         public async Task<IActionResult> AcceptOrder(int Id)
         {
             var order = _context.Orders.Where(o => o.Id == Id)
                                 .Include(o => o.OrderStatuses)
+                                .Include(o => o.PayStatuses)
                                 .AsSplitQuery()
                                 .FirstOrDefault();
 
             if (order == null)  return NotFound();     
 
             order.OrderStatuses = order.OrderStatuses.OrderBy(o => o.DateUpdate).ToList();
+
+            if (order.PayType == "Online")
+            {
+                if (!order.PayStatuses.Any(p => p.ResponseCode == "00"))
+                {
+                    StatusMessage = "Đơn hàng này chưa được thanh toán, không được xác nhận. Hãy hủy nếu sau thời gian dài không thanh toán";
+                    return RedirectToAction(nameof(Details), new {Id});
+                }
+            }
+
             if(order.OrderStatuses.Last().Status != OrderStatuses.WaitAccept)
             {
                 StatusMessage = "Trạng thái trước đó không hợp lệ";
@@ -92,8 +106,8 @@ namespace App.Areas.Products.Controllers
 
             string emailContent = 
 $@"
-Thông báo, đơn hàng của bạn đã được xác nhận. Chúng tôi đang chuẩn bị đơn hàng giao cho đơn vị vận chuyển 
-Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng.
+Thông báo, đơn hàng của bạn đã được xác nhận. Chúng tôi đang chuẩn bị đơn hàng giao cho đơn vị vận chuyển.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
 
 Mã đơn hàng: {order.Code}
 
@@ -107,6 +121,7 @@ Xin cảm ơn.";
             return RedirectToAction(nameof(Details), new {Id});
         }
 
+        // Gửi đơn hàng
         public async Task<IActionResult> Delivery(int Id)
         {
             var order = _context.Orders.Where(o => o.Id == Id)
@@ -132,7 +147,7 @@ Xin cảm ơn.";
                 DateUpdate = dateTimeNow,
                 Status = OrderStatuses.Delivering,
                 UserId = user?.Id,
-                Note = $"Đơn hàng được gửi cho vận chuyển.",
+                Note = $"Đơn hàng đã được gửi cho vận chuyển.",
 
             });
             await _context.SaveChangesAsync();
@@ -140,7 +155,7 @@ Xin cảm ơn.";
             string emailContent = 
 $@"
 Thông báo, đơn hàng của bạn đã được giao cho bên vận chuyển - {dateTimeNow.ToString("hh:mm dd/MM/yyy")}.
-Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
 
 Mã đơn hàng: {order.Code}
 
@@ -151,9 +166,12 @@ Xin cảm ơn.";
 
             await _emailSender.SendEmailAsync(order.Email, "Đơn hàng đang được giao", emailHtml);
 
+            
+
             return RedirectToAction(nameof(Details), new {Id});
         }
-
+        
+        // Đã giao
         public async Task<IActionResult> Delivered(int Id)
         {
             var order = _context.Orders.Where(o => o.Id == Id)
@@ -200,6 +218,7 @@ Xin cảm ơn.";
             return RedirectToAction(nameof(Details), new {Id});
         }
 
+        // Hủy
         [HttpPost]
         public async Task<IActionResult> CancelOrder(int Id, string? note)
         {

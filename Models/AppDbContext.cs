@@ -76,5 +76,6 @@ namespace App.Models
         public required DbSet<Order> Orders {set;get;}
         public required DbSet<OrderDetail> OrderDetails {set;get;}
         public required DbSet<PriceLevel> PriceLevels {set;get;}
+        public required DbSet<PayStatus> PayStatuses {set;get;}
     }
 }

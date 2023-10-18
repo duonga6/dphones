@@ -2,6 +2,7 @@ namespace App.Data
 {
     public static class OrderStatuses
     {
+        public static string Paid {get;} = "Đã thanh toán";
         public static string WaitAccept {get;} = "Chờ xác nhận";
         public static string Accepted {get;} = "Đã xác nhận";
         public static string Delivering {get;} = "Đang giao";
@@ -12,6 +13,7 @@ namespace App.Data
 
     public enum OrderStatusCode
     {
+        Paid,
         WaitAccept,
         Accepted,
         Delivering,

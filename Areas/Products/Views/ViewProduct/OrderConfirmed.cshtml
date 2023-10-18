@@ -1,3 +1,4 @@
+@model Order
 @{
     ViewData["Title"] = "Giỏ hàng";
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -6,7 +7,7 @@
 <div class="order-confirmed">
     <div class="order-confirmed-container text-center">
         <div class="icon-success">
-            <i class="text-success fa-regular fa-circle-check"></i>
+            <img src="/images/success.png" alt="">
         </div>
         <div class="heading">
             <p>Đặt hàng thành công</p>
@@ -14,11 +15,12 @@
         <div class="desc">
             <p>
                 Vui lòng kiểm tra email để theo dõi đơn hàng.<br>
-                Mọi thông tin chi tiết vui lòng liên hệ hotline: 1800.1789
+                Mọi thông tin chi tiết vui lòng liên hệ hotline: 1800.1789 <br>
+                <span class="fw-semibold">Mã đơn hàng: <span class="primary-text">@Model.Code</span></span>
             </p>
         </div>
         <div class="btn-navigate">
-            <a class="btn btn-order-info">Chi tiết đơn hàng</a>
+            <a href='@Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = Model.PhoneNumber, Code = Model.Code})' class="btn btn-order-info me-2">Chi tiết đơn hàng</a>
             <a asp-action="Index" asp-controller="Home" class="btn btn-home text-white">Tiếp tục mua hàng</a>
         </div>
     </div>

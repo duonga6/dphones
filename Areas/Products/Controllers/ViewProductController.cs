@@ -3,12 +3,15 @@ using App.Areas.Products.Services;
 using App.Data;
 using App.Models;
 using App.Models.Products;
+using App.Models.VnPay;
+using App.Services;
 using App.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Linq;
 
 namespace App.Areas.Products.Controllers
@@ -22,21 +25,23 @@ namespace App.Areas.Products.Controllers
         private readonly CartService _cart;
         private readonly IEmailSender _emailSender;
         private readonly int ITEM_PER_PAGE = 10;
+        private readonly VnPayService _vnPay;
 
         [TempData]
         public string? StatusMessage { set; get; }
 
-        public ViewProductController(ILogger<ProductController> logger, AppDbContext context, CartService cart, UserManager<AppUser> userManager, IEmailSender emailSender)
+        public ViewProductController(ILogger<ProductController> logger, AppDbContext context, CartService cart, UserManager<AppUser> userManager, IEmailSender emailSender, VnPayService vnPay)
         {
             _logger = logger;
             _context = context;
             _cart = cart;
             _userManager = userManager;
             _emailSender = emailSender;
+            _vnPay = vnPay;
         }
 
         [Route("/dien-thoai")]
-        public IActionResult Index([FromQuery]string hangsx, [FromQuery]string danhmuc, [FromQuery]string mucgia, [FromQuery]string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
+        public IActionResult Index([FromQuery] string hangsx, [FromQuery] string danhmuc, [FromQuery] string mucgia, [FromQuery] string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
             var products = _context.Products.Include(p => p.Brand)
                                             .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
@@ -75,7 +80,7 @@ namespace App.Areas.Products.Controllers
                 tu *= 1000000;
                 den *= 1000000;
                 try
-                { 
+                {
                     if (tu > den)
                         products = products.Where(p => p.Colors.First().Capacities.First().SellPrice >= tu);
                     else
@@ -87,7 +92,7 @@ namespace App.Areas.Products.Controllers
                 }
             }
 
-            switch(sort)
+            switch (sort)
             {
                 case "ngayramat":
                     products = products.OrderByDescending(p => p.ReleaseDate);
@@ -106,7 +111,7 @@ namespace App.Areas.Products.Controllers
                     break;
             }
 
-            
+
 
             ViewBag.Brands = _context.Brands.ToList();
             ViewBag.Categories = _context.Categories.ToList();
@@ -121,9 +126,9 @@ namespace App.Areas.Products.Controllers
 
             ViewBag.CountPage = countPage;
             ViewBag.CurrentPage = currentPage;
-            
 
-            var productInPage = products.Skip((currentPage -1 ) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+
+            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
             return View(productInPage.ToList());
         }
@@ -161,7 +166,7 @@ namespace App.Areas.Products.Controllers
                                     .AsEnumerable()
                                     .Take(5)
                                     .ToList();
-            
+
             foreach (var item in capacity)
             {
                 var capa = item?.OrderBy(c => c.Color?.Name).FirstOrDefault();
@@ -395,7 +400,7 @@ namespace App.Areas.Products.Controllers
             var cartItemSelected = cartList?.Where(c => cartId.Contains(c.Id)).ToList();
             ViewBag.CartList = cartItemSelected;
 
-            if (cartItemSelected == null)
+            if (cartItemSelected == null || cartItemSelected.Count == 0)
             {
                 StatusMessage = "Có lỗi xảy ra, không tìm thấy sản phẩm";
                 return View(model);
@@ -417,10 +422,13 @@ namespace App.Areas.Products.Controllers
                 });
             });
 
-            var orderStatus = new OrderStatus() {
+            var now = DateTime.Now;
+
+            var orderStatus = new OrderStatus()
+            {
                 Code = (int)OrderStatusCode.WaitAccept,
                 Status = OrderStatuses.WaitAccept,
-                DateUpdate = DateTime.Now,
+                DateUpdate = now,
                 Note = "Khách hàng đặt hàng trên trang web",
             };
 
@@ -433,9 +441,9 @@ namespace App.Areas.Products.Controllers
                 Email = model.Email,
                 PayType = model.PayType,
                 PhoneNumber = model.PhoneNumber,
-                OrderDate = DateTime.Now,
+                OrderDate = now,
                 SpecificAddress = model.SpecificAddress,
-                Code = DateTime.Now.ToString("yyyyMMddHH") + "-" + model.PhoneNumber,
+                Code = now.ToString("yyyyMMddHHmm") + model.PhoneNumber,
                 TotalCost = totalCost,
                 OrderDetails = orderDetailList,
                 OrderStatuses = new List<OrderStatus>() {
@@ -464,10 +472,10 @@ namespace App.Areas.Products.Controllers
 
             string orderMessage = user == null ? "Chúng tôi sẽ liên lạc với bạn để xác nhận đơn hàng này. Nếu không xác nhận được đơn hàng sẽ bị hủy." : "Đơn hàng của bạn đang được chúng tôi xử lý.";
 
-            string emailContent = 
+            string emailContent =
 $@"
 Cảm ơn bạn đã đặt hàng. {orderMessage}
-Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
 
 Mã đơn hàng: {order.Code}
 
@@ -476,44 +484,167 @@ Xin cảm ơn.";
 
             string emailHtml = AppUtilities.GenerateHtmlEmail(order.FullName, emailContent);
 
-            await _emailSender.SendEmailAsync(order.Email, "Đặt hàng thành công", emailHtml);
+            _ = _emailSender.SendEmailAsync(order.Email, "Đặt hàng thành công", emailHtml);
 
-            return View(nameof(OrderConfirmed));
-        }
-
-        [Route("/order-confirmed")]
-        public IActionResult OrderConfirmed()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        [Route("/order-check")]
-        public IActionResult OrderCheck()
-        {
-            return View();
-        }
-
-        [HttpPost, ActionName(nameof(OrderCheck))]
-        [Route("/order-check")]
-        public IActionResult OrderCheckAsync(string PhoneNumber, string Code)
-        {
-            var order = _context.Orders.Where(o => o.PhoneNumber == PhoneNumber && o.Code == Code)
-                                        .Include(o => o.OrderDetails)
-                                        .Include(o => o.OrderStatuses)
-                                        .FirstOrDefault();
-
-            order?.OrderDetails.ForEach(o => {
-                o.Product = _context.Products.FirstOrDefault(p => p.Id == o.ProductId);
-                o.Color = _context.Colors.FirstOrDefault(c => c.Id == o.ColorId);
-                o.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == o.CapacityId);
-            });
-
-            if (order?.OrderStatuses != null)
+            if (model.PayType == "Online")
             {
-                order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
+                string redirectUrl = _vnPay.SendRequest((long)totalCost, order.Code);
+                return Redirect(redirectUrl);
             }
+            else
+            {
+                return RedirectToAction(nameof(OrderConfirmed), new { orderId = order.Id });
+            }
+
+        }
+
+        [Route("/thanh-toan/{orderId:int}")]
+        public IActionResult Pay(int orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null) return NotFound();
+
+            string redirectUrl = _vnPay.SendRequest((long)order.TotalCost, order.Code);
+            return Redirect(redirectUrl);
+        }
+
+        [Route("/ket-qua-thanh-toan")]
+        public IActionResult PaymentResult([FromQuery] PayResponse model)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Code == model.vnp_TxnRef);
+            if (order == null) return NotFound();
+            ViewBag.Order = order;
+
+            var payStatusCheck = _context.PayStatuses.FirstOrDefault(p => p.PaymentCode == model.vnp_TxnRef);
+            if (payStatusCheck != null)
+                return View(payStatusCheck);
+
+            var payStatus = new PayStatus()
+            {
+                Amount = Convert.ToDecimal(model.vnp_Amount),
+                BankCode = model.vnp_BankCode,
+                BankTranNo = model.vnp_BankTranNo,
+                CardType = model.vnp_CardType,
+                Date = DateTime.ParseExact(model.vnp_PayDate, "yyyyMMddHHmmss", null),
+                OrderId = order.Id,
+                OrderInfo = model.vnp_OrderInfo,
+                PaymentCode = model.vnp_TxnRef,
+                ResponseCode = model.vnp_ResponseCode,
+                TransactionNo = model.vnp_TransactionNo,
+                TransactionStatus = model.vnp_TransactionStatus,
+            };
+
+            switch (model.vnp_ResponseCode)
+            {
+                case "00":
+                    payStatus.Content = "Giao dịch thành công";
+                    string emailContent =
+$@"
+Bạn đã thanh toán đơn hàng {order.Code}. Chúng tôi đang chuẩn bị đơn hàng giao cho đơn vị vận chuyển.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
+
+Mã đơn hàng: {order.Code}
+Mã giao dịch: {payStatus.BankTranNo}
+Thời gian: {(payStatus.Date ?? DateTime.Now).ToString("HH:mm dd/MM/yyyy")}
+Số tiền: {(payStatus.Amount / 100 ?? 0).ToString("N0", new CultureInfo("vi-VN"))}đ
+
+Mọi thông tin chi tiết vui lòng liên hệ 1800.1789
+Xin cảm ơn.";
+
+                    string emailHtml = AppUtilities.GenerateHtmlEmail(order.FullName, emailContent);
+
+                    _ = _emailSender.SendEmailAsync(order.Email, "Thanh toán thành công", emailHtml);
+
+                    order.OrderStatuses.Add(new OrderStatus()
+                    {
+                        Code = (int)OrderStatusCode.Accepted,
+                        DateUpdate = DateTime.Now,
+                        Status = OrderStatuses.Accepted,
+                        Note = $"Đơn hàng đã thanh toán và xác nhận",
+
+                    });
+
+                    break;
+                case "07":
+                    payStatus.Content = "Trừ tiền thành công. Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường).";
+                    break;
+                case "09":
+                    payStatus.Content = "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking tại ngân hàng.";
+                    break;
+                case "10":
+                    payStatus.Content = "Giao dịch không thành công do: Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần.";
+                    break;
+                case "11":
+                    payStatus.Content = "Giao dịch không thành công do: Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại giao dịch.";
+                    break;
+                case "12":
+                    payStatus.Content = "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng bị khóa.";
+                    break;
+                case "13":
+                    payStatus.Content = "Giao dịch không thành công do Quý khách nhập sai mật khẩu xác thực giao dịch (OTP). Xin quý khách vui lòng thực hiện lại giao dịch.";
+                    break;
+                case "24":
+                    payStatus.Content = "Giao dịch không thành công do: Khách hàng hủy giao dịch";
+                    break;
+                case "51":
+                    payStatus.Content = "Giao dịch không thành công do: Tài khoản của quý khách không đủ số dư để thực hiện giao dịch.";
+                    break;
+                case "65":
+                    payStatus.Content = "Giao dịch không thành công do: Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày.";
+                    break;
+                case "75":
+                    payStatus.Content = "Ngân hàng thanh toán đang bảo trì.";
+                    break;
+                case "79":
+                    payStatus.Content = "Giao dịch không thành công do: KH nhập sai mật khẩu thanh toán quá số lần quy định. Xin quý khách vui lòng thực hiện lại giao dịch";
+                    break;
+                case "99":
+                    payStatus.Content = "Các lỗi khác.";
+                    break;
+            }
+
+            _context.PayStatuses.Add(payStatus);
+            _context.SaveChanges();
+
+            return View(payStatus);
+        }
+
+        [Route("/order-confirmed/{orderId:int}")]
+        public IActionResult OrderConfirmed(int orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null) return NotFound();
             return View(order);
+        }
+
+
+        [Route("/order-check")]
+        public IActionResult OrderCheck(string? PhoneNumber, string? Code)
+        {
+            if (PhoneNumber != null && Code != null)
+            {
+                var order = _context.Orders.Where(o => o.PhoneNumber == PhoneNumber && o.Code == Code)
+                                            .Include(o => o.OrderDetails)
+                                            .Include(o => o.OrderStatuses)
+                                            .Include(o => o.PayStatuses)
+                                            .AsSplitQuery()
+                                            .FirstOrDefault();
+
+                order?.OrderDetails.ForEach(o =>
+                {
+                    o.Product = _context.Products.FirstOrDefault(p => p.Id == o.ProductId);
+                    o.Color = _context.Colors.FirstOrDefault(c => c.Id == o.ColorId);
+                    o.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == o.CapacityId);
+                });
+
+                if (order?.OrderStatuses != null)
+                {
+                    order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
+                }
+                return View(order);
+            }
+
+            return View();
         }
     }
 }

@@ -1,0 +1,49 @@
+@model PayStatus
+@{
+    ViewData["Title"] = "Kết quả thanh toán";  
+    Layout = "/Views/Shared/_Layout.cshtml";
+    var Order = ViewBag.Order as Order;
+}
+
+<div class="payment-result">
+    <div class="payment-result-container">
+        @if(Model.ResponseCode == "00")
+        {
+            <div class="result-icon">
+            <img src="/images/success.png" alt="">
+        </div>
+        <div class="result-heading">
+            <p class="text-center primary-text">Thanh toán thành công</p>
+        </div>
+        <div class="result-content">
+            <div class="pay-success">
+                <p><span class="fw-semibold">Mã giao dịch:</span> @Model.BankTranNo</p>
+                <p><span class="fw-semibold">Nội dung:</span> <br> @Model.OrderInfo</p>
+                <p><span class="fw-semibold">Thời gian:</span> @((Model.Date ?? DateTime.Now).ToString("HH:mm dd/MM/yyyy"))</p>
+                <p><span class="fw-semibold">Số tiền:</span> @((Model.Amount/100 ?? 0).ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></p>
+                <p><span class="fw-semibold">Mã đơn hàng: </span> <span class="primary-text fw-semibold">@Model.PaymentCode</span> (Vui lòng lưu lại để tra cứu)</p>
+                <div class="text-center mt-4">
+                    <a href='@Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = Order?.PhoneNumber, Code = Order?.Code})' class="btn btn-order-info me-3">Chi tiết đơn hàng</a>
+                    <a href="/" class="btn primary-bg text-white ">Quay lại trang chủ</a>
+                </div>
+            </div>
+        </div>
+        }
+        else
+        {
+            <div class="result-icon">
+                <img src="/images/fail.png" alt="">
+            </div>
+            <div class="result-heading">
+                <p class="text-center text-danger">Thanh toán thất bại</p>
+            </div>
+            <div class="result-content">
+                <div class="pay-fail">
+                    <p class=" text-center fs-5">Vui lòng thử lại sau.</p>
+                    <p><span class="fw-semibold">Mã đơn hàng: </span> <span class="primary-text fw-semibold">@Model.PaymentCode</span> (Vui lòng lưu lại để tra cứu)</p>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>

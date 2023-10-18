@@ -1,0 +1,32 @@
+.payment-result {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    .payment-result-container {
+        width: 500px;
+        margin-top: 100px;
+        .result-icon {
+            text-align: center;
+            img {
+                width: 100px;
+            }
+        }
+        .result-heading {
+            p {
+                font-size: 32px;
+            }
+        }
+        .result-content {
+            .pay-success {
+                p {
+                    margin-bottom: 4px;
+                }
+            }
+
+            .btn-order-info {
+                border: 1px solid $primary-color;
+            }
+        }
+    }
+}
