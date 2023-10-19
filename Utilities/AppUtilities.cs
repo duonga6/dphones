@@ -1,5 +1,5 @@
-using System;
 using System.Globalization;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace App.Utilities
@@ -155,6 +155,22 @@ namespace App.Utilities
             return html;
         }
 
-    
+        public static async Task<string> GetServerIpAddress()
+        {
+            string url = "http://ipinfo.io/ip";
+            using(HttpClient client = new())
+            {
+                try
+                {
+                    string ipAddress = await client.GetStringAsync(url);
+                    return ipAddress;
+                }
+                catch
+                {
+                    return "127.0.0.1";
+                }
+            }
+        }
+
     }
 }

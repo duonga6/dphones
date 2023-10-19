@@ -21,13 +21,13 @@
                         <a asp-action="Delivered" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-primary btn-sm">Đánh dấu đã nhận được hàng</a>
                     break;
                 case (int)OrderStatusCode.Delivered:
-                        <a class="btn ms-3 btn-success btn-sm">Đã giao</a>
+                        <span class="btn ms-3 btn-success btn-sm">Đã giao</span>
                     break;
                 default:
-                        
+                       <span class="btn ms-3 btn-secondary btn-sm">Đã hủy</span> 
                     break;
             }
-            @if(Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered)
+            @if(Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered && Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
             {
                 <button class="btn ms-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Hủy đơn hàng</button>
             }
@@ -45,9 +45,9 @@
                         <p class="mb-1"><span class="">Địa chỉ:</span> @(Model.SpecificAddress + ", " +
                             Model.Commune + ", " + Model.District + ", " + Model.City)</p>
                         <p class="mb-1"><span class="">Ngày đặt:</span>
-                            @Model.OrderDate.ToString("dd/MM/yyyy")</p>
+                            @Model.OrderDate.ToString("HH:mm dd/MM/yyyy")</p>
                         <p class="mb-1"><span class="">Ngày nhận:</span> @(Model.ReceivedDate != null ?
-                            Model.ReceivedDate?.ToString("dd/MM/yyyy") : "--/--/---")</p>
+                            Model.ReceivedDate?.ToString("dd/MM/yyyy") : "-")</p>
                         <p class="mb-0"><span class="">Thành tiền:</span> <span
                                 class="fw-semibold">@Model.TotalCost.ToString("N0", new
                                 CultureInfo("vi-VN"))<sup>đ</sup></span></p>
@@ -63,11 +63,30 @@
                         </p>
                     </div>
                     <div class="col-6 order-status">
-                        <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
+                        <div>
+                            <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
                             @foreach (var item in Model.OrderStatuses)
                             {
                             <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") - @item.Status</p>
                             }
+                        </div>
+                        <div>
+                            @if(Model.PayType == "Online")
+                            {
+                                <p class="mb-1">Trạng thái thanh toán: </p>
+                                if(Model.PayStatuses.Count > 0)
+                                {
+                                    foreach(var item in Model.PayStatuses)
+                                    {
+                                        <p class="my-1 ms-4" style="font-size: 16px;">@((item.Date ?? DateTime.MinValue).ToString("hh:mm dd/MM/yyy")) - @item.CardType - @item.Content</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="my-1 ms-4" style="font-size: 16px;">Chưa thanh toán</p>
+                                }
+                            }
+                        </div>
                     </div>
                 </div>
                 <ul class="product-list mt-4">

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FY1MS+GMs8G5+CKCZXoJTPANMwAZZcLIFtjRguQy604=",
+  "Hash": "5EWpcWThgbOWNM0vCqenl5hg3//wp1FQmrF/zIVhBl0=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1258,6 +1258,23 @@
       "OriginalItemSpec": "wwwroot\\images\\Facebook.png"
     },
     {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\fail.png",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/fail.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\fail.png"
+    },
+    {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638264776256861272_F-C1_1200x300iP13 1.webp",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -1443,6 +1460,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\restore.svg"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\success.png",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/success.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\success.png"
     },
     {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Tiktok.png",

@@ -65,6 +65,10 @@
       "PackagePath": "staticwebassets\\images\\delivery.jpg"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\fail.png",
+      "PackagePath": "staticwebassets\\images\\fail.png"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638264776256861272_F-C1_1200x300iP13 1.webp",
       "PackagePath": "staticwebassets\\images\\home-slide\\638264776256861272_F-C1_1200x300iP13 1.webp"
     },
@@ -103,6 +107,10 @@
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\restore.svg",
       "PackagePath": "staticwebassets\\images\\restore.svg"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\success.png",
+      "PackagePath": "staticwebassets\\images\\success.png"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\upload_icon.png",

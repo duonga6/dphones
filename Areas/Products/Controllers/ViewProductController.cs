@@ -162,7 +162,7 @@ namespace App.Areas.Products.Controllers
                                     .ThenInclude(c => c.Product!)
                                     .Where(c => c.Color != null && c.Color.Product != null && c.Color.ProductId != product.Id)
                                     .AsSplitQuery()
-                                    .GroupBy(c => c.Color.Product.Id)
+                                    .GroupBy(c => c.Color!.Product!.Id!)
                                     .AsEnumerable()
                                     .Take(5)
                                     .ToList();

@@ -8,9 +8,9 @@ namespace App.Models.Products
         [Key]
         public int Id {set;get;}
         public int OrderId {set;get;}
-        public int ProductId {set;get;}
-        public int ColorId {set;get;}
-        public int CapacityId {set;get;}
+        public int? ProductId {set;get;}
+        public int? ColorId {set;get;}
+        public int? CapacityId {set;get;}
         public int Quantity {set;get;}
         
         [Column(TypeName = "decimal(18,2)")]
@@ -19,11 +19,13 @@ namespace App.Models.Products
         [ForeignKey("OrderId")]
         public Order? Order {set;get;}
 
-        [NotMapped]
+        [ForeignKey("ProductId")]
         public Product? Product {set;get;}
-        [NotMapped]
+        
+        [ForeignKey("ColorId")]
         public Color? Color {set;get;}
-        [NotMapped]
+        
+        [ForeignKey("CapacityId")]
         public Capacity? Capacity {set;get;}
 
     }

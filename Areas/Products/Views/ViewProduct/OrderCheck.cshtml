@@ -49,13 +49,16 @@
                     }
                     <p class="mb-0">
                         <span class="fw-semibold">Thành tiền:</span> <span class="fw-semibold primary-text">@Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
-                        @if(Model.PayStatuses.FirstOrDefault(p => p.ResponseCode == "00") != null)
+                        @if(Model.PayType == "Online")
                         {
-                            <span> - Đã thanh toán</span>
-                        }
-                        else
-                        {
-                            <span>- Chưa thanh toán. <a href='@Url.Action("Pay", "ViewProduct", new {area = "Products", orderId = Model.Id})'>Nhấn vào đây</a> để thanh toán</span>
+                            if(Model.PayStatuses.FirstOrDefault(p => p.ResponseCode == "00") != null)
+                            {
+                                <span> - Đã thanh toán</span>
+                            }
+                            else
+                            {
+                                <span>- Chưa thanh toán. <a href='@Url.Action("Pay", "ViewProduct", new {area = "Products", orderId = Model.Id})'>Nhấn vào đây</a> để thanh toán</span>
+                            }
                         }
                     </p>
                     <p class="mb-0"><span class="fw-semibold">Hình thức thanh toán:</span>

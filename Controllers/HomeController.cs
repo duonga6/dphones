@@ -56,6 +56,68 @@ public class HomeController : Controller
         ViewBag.CurrentPage = currentPage;
         ViewBag.CountPage = countPage;
 
+        ViewBag.SamsungHot = _context.Products
+                            .Where(p => p.Brand!.Name == "Samsung")
+                            .Include(p => p.Colors)
+                            .ThenInclude(c => c.Capacities)
+                            .AsSplitQuery()
+                            .Select(p => new {
+                                product = p,
+                                totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                            })
+                            .OrderByDescending(p => p.totalSold)
+                            .AsQueryable()
+                            .Take(10)
+                            .Select(p => p.product)
+                            .ToList();
+
+        ViewBag.IPhoneHot = _context.Products
+                            .Where(p => p.Brand!.Name == "Apple")
+                            .Include(p => p.Colors)
+                            .ThenInclude(c => c.Capacities)
+                            .AsSplitQuery()
+                            .Select(p => new {
+                                product = p,
+                                totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                            })
+                            .OrderByDescending(p => p.totalSold)
+                            .AsQueryable()
+                            .Take(10)
+                            .Select(p => p.product)
+                            .ToList();
+
+        ViewBag.XiaomiHot = _context.Products
+                            .Where(p => p.Brand!.Name == "Xiaomi")
+                            .Include(p => p.Colors)
+                            .ThenInclude(c => c.Capacities)
+                            .AsSplitQuery()
+                            .Select(p => new {
+                                product = p,
+                                totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                            })
+                            .OrderByDescending(p => p.totalSold)
+                            .AsQueryable()
+                            .Take(10)
+                            .Select(p => p.product)
+                            .ToList();
+        
+        ViewBag.RealmeHot = _context.Products
+                            .Where(p => p.Brand!.Name == "Realme")
+                            .Include(p => p.Colors)
+                            .ThenInclude(c => c.Capacities)
+                            .AsSplitQuery()
+                            .Select(p => new {
+                                product = p,
+                                totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                            })
+                            .OrderByDescending(p => p.totalSold)
+                            .AsQueryable()
+                            .Take(10)
+                            .Select(p => p.product)
+                            .ToList();
+
+
+
         return View();
     }
 

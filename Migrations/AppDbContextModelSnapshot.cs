@@ -305,16 +305,16 @@ namespace App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CapacityId")
+                    b.Property<int?>("CapacityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColorId")
+                    b.Property<int?>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -325,7 +325,13 @@ namespace App.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CapacityId");
+
+                    b.HasIndex("ColorId");
+
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -712,13 +718,31 @@ namespace App.Migrations
 
             modelBuilder.Entity("App.Models.Products.OrderDetail", b =>
                 {
+                    b.HasOne("App.Models.Products.Capacity", "Capacity")
+                        .WithMany()
+                        .HasForeignKey("CapacityId");
+
+                    b.HasOne("App.Models.Products.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId");
+
                     b.HasOne("App.Models.Products.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("App.Models.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Capacity");
+
+                    b.Navigation("Color");
+
                     b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("App.Models.Products.OrderStatus", b =>

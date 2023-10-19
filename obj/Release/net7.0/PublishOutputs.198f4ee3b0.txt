@@ -1,6 +1,17 @@
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.exe
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\web.config
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\appsettings.Development.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\App.deps.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\App.runtimeconfig.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\appsettings.Development.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\libman.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\package-lock.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\libman.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\package-lock.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\package.json
@@ -51,8 +62,7 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvata
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\qlms1xv2.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\test.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\tải xuống (2).jpg
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-16-08-42-05.bak
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-17-12-14-50.bak
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-19-12-11-51_payment.bak
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.dll
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.runtimeconfig.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.pdb

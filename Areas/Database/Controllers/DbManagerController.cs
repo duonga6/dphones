@@ -114,7 +114,7 @@ namespace App.Areas.Database.Controllers
             {
                 StartInfo =
                 {
-                    FileName = "sqlcmd",
+                    FileName = Environment.OSVersion.Platform == PlatformID.Unix ? "/opt/mssql-tools/bin/sqlcmd" : "sqlcmd",
                     WorkingDirectory = Directory.GetCurrentDirectory(),
                     Arguments = $"-S localhost -U sa -P 12345678Aa -Q \"BACKUP DATABASE dphones TO DISK = '{path}'\""
                 }
@@ -178,7 +178,7 @@ namespace App.Areas.Database.Controllers
                 {
                     StartInfo =
                 {
-                    FileName = "sqlcmd",
+                    FileName = Environment.OSVersion.Platform == PlatformID.Unix ? "/opt/mssql-tools/bin/sqlcmd" : "sqlcmd",
                     WorkingDirectory = Directory.GetCurrentDirectory(),
                     Arguments = $"-S localhost -U sa -P 12345678Aa -d master -Q \"{script}\""
                 }
