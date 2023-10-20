@@ -13,7 +13,7 @@
     </div>
     <hr class="primary-text opacity-25 mt-0">
     <div class="product-info row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-6">
             <div class="photo-slide">
                 <div id="product-proto-slide" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-indicators flex-wrap mx-3 my-0">
@@ -94,10 +94,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5 col-md-6">
             <div class="product-options">
                 <div class="options-color">
-                    <p class="fw-semibold">Chọn màu: </p>
+                    <p class="fw-semibold heading">Chọn màu: </p>
                     <ul class="colors-list" id="color-list">
                         @if(Model.Colors != null)
                         {
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="options-price">
-                    <p class="fw-semibold">Chọn bộ nhớ:</p>
+                    <p class="fw-semibold heading">Chọn bộ nhớ:</p>
                     @if(Model.Colors != null)
                     {
                         bool isFirst = true;
@@ -148,13 +148,13 @@
             </div>
             <div class="product-action">
                 <div class="row align-items-center">
-                    <div class="col-md-7 offset-md-1">
+                    <div class="col-lg-7 offset-lg-1 col-md-9">
                         <a class="btn primary-bg text-white fs-6 fw-normal w-100 pt-1 pb-2 btn-buy-now">
                             <span>Mua ngay</span>
                             <p>Giao tại nhà (COD) hoặc nhận tại cửa hàng</p>
                         </a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-3">
                         <span class="btn btn-add-to-cart" onclick="AddToCart()">
                             <i class="primary-text fa-solid fa-cart-plus"></i>
                             <p>Thêm vào giỏ</p>
@@ -164,7 +164,7 @@
             </div>
             
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3">
             <div class="other-product">
                 <h6 class="heading primary-bg text-white py-2 fw-normal text-center rounded">
                     Có thể bạn quan tâm
@@ -174,12 +174,12 @@
                     {
                         <li class="other-product-item">
                             <div class="row h-100 gx-0">
-                                <div class="col-4">
+                                <div class="col-lg-4">
                                     <div class="other-product-item-img">
                                         <img src="/files/Products/@item.Color?.Image" alt="">
                                     </div>
                                 </div>
-                                <div class="col-8 pe-4">
+                                <div class="col-lg-8">
                                     <div class="other-product-item-info">
                                         <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Color?.Product?.Slug})" class="other-product-item-name text-decoration-none text-dark">@item.Color?.Product?.Name</a>
                                         <span class="other-product-item-price primary-text mt-1">@item.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
@@ -194,7 +194,7 @@
         </div>
     </div>
     <div class="row ps-2">
-        <div class="col-md-8 product-description" id="product-description">
+        <div class="col-lg-8 product-description" id="product-description">
             <hr class="primary-text">
             <div class="desc-content">
                 @Html.Raw(Model.Description)
@@ -204,7 +204,7 @@
                 <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
             </div>
         </div>
-        <div class="col-md-4 product-configuration mt-4">
+        <div class="col-lg-4 product-configuration mt-4">
             <p class="product-configuration-heading primary-bg rounded text-white text-center py-2">Thông số kỹ thuật</p>
             <table class="configuration-table table table-striped">
                 <tr class="configuration-table-row">

@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\images\\Zalo.png"
     },
     {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\best.png",
+      "PackagePath": "staticwebassets\\images\\best.png"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\cart-empty.png",
       "PackagePath": "staticwebassets\\images\\cart-empty.png"
     },
@@ -91,6 +95,14 @@
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\home-slide\\638326123868033069_F-C1_1200x300.webp",
       "PackagePath": "staticwebassets\\images\\home-slide\\638326123868033069_F-C1_1200x300.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\hot-icon.webp",
+      "PackagePath": "staticwebassets\\images\\hot-icon.webp"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\hot.png",
+      "PackagePath": "staticwebassets\\images\\hot.png"
     },
     {
       "Id": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\logo-color.png",

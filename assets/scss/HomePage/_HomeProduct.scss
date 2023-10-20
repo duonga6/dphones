@@ -1,7 +1,9 @@
-
-
 .product-container {
     margin: 0 -6px 16px;
+
+    @include tablet {
+        margin: 0 0 16px;
+    }
 
     .product_grid {
         display: flex;
@@ -11,6 +13,10 @@
             width: calc(20% - 12px);
             margin: 6px;
 
+            @include tablet {
+                min-width: calc(25% - 12px);
+            }
+
             .card {
                 height: 434px;
                 position: relative;
@@ -19,6 +25,7 @@
                 transition: all 0.1s linear;
 
                 .card-img {
+                    padding: 8px;
                     height: 270px;
                     overflow: hidden;
 
@@ -31,6 +38,7 @@
                 }
 
                 .card-body {
+                    padding: 8px;
                     .card-title {
                         font-size: 16px;
                         line-height: 18px;
@@ -136,9 +144,7 @@
     }
 }
 
-
 .product-bestseller {
-    // background-color: $primary-color;
     background: linear-gradient(360deg, $primary-color, rgba($primary-color, 0.92));
     border-radius: 8px;
     margin-left: 0;
@@ -146,7 +152,41 @@
     margin-bottom: 24px;
     padding: 0 12px;
 
-    
+    .arrow {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        color: $primary-color;
+        background-color: rgb(255, 255, 255);
+        border: $border-gray-sm;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        &.left-arrow {
+            left: 20px;
+            top: 50%;
+            transform: translateY(50%);
+        }
+
+        &.right-arrow {
+            right: 20px;
+            top: 50%;
+            transform: translateY(50%);
+        }
+    }
+
+    @include tablet {
+        position: relative;
+
+        .arrow {
+            display: flex;
+        }
+    }
+
     .heading {
         color: white;
         font-size: 24px;
@@ -165,8 +205,21 @@
     }
 
     .product_grid {
-        margin-top: 20px;
+        margin-top: 12px;
         padding-bottom: 12px;
+
+        @include tablet {
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            position: relative;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .item {
+        }
     }
 }
 
@@ -181,7 +234,7 @@
     a {
         color: white;
         text-decoration: none;
-        transition: color .1s ease;
+        transition: color 0.1s ease;
 
         &:hover {
             color: $third-color;
@@ -193,7 +246,6 @@
         width: 20px;
     }
 }
-
 
 .home-pagination {
     margin-top: 24px;
@@ -223,3 +275,63 @@
     }
 }
 
+@include mobile {
+    .product-container {
+        .product_grid {
+            display: flex;
+            flex-wrap: wrap;
+
+            .item {
+                min-width: calc(50% - 12px);
+                margin: 6px;
+                .card {
+                    height: unset;
+    
+                    .card-img {
+                        height: 200px;
+                        padding-bottom: 0;
+    
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: contain;
+                            transition: transform 0.2s linear;
+                        }
+                    }
+
+                    .card-body {
+                        padding-top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .product-bestseller {
+        padding: 0 6px;
+
+        .arrow {
+            display: flex;
+
+            &.left-arrow {
+                left: 10px;
+                transform: translateY(-50%);
+            }
+    
+            &.right-arrow {
+                right: 10px;
+                transform: translateY(-50%);
+            }
+        }
+
+        .product_grid {
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            position: relative;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}

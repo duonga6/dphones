@@ -1,9 +1,8 @@
-@import '../variables';
+@import "../variables";
+@import "../mixin";
 
 .product-details-container {
-
     .product-heading {
-
         position: relative;
 
         p {
@@ -15,13 +14,10 @@
     }
 
     .product-info {
-
         .photo-slide {
-
             height: 500px;
 
             .carousel-indicators {
-
                 bottom: unset;
                 top: calc(100% + 12px);
 
@@ -33,7 +29,6 @@
                     border-top: unset;
 
                     .sm-photo-box {
-
                         width: 40px;
                         height: 40px;
                         display: flex;
@@ -48,7 +43,6 @@
                             height: 100%;
                             object-fit: contain;
                         }
-
                     }
                 }
 
@@ -72,13 +66,11 @@
                         max-height: 100%;
                         max-width: 100%;
                     }
-
                 }
             }
         }
 
         .product-options {
-
             .options-price {
                 height: 160px;
             }
@@ -97,7 +89,6 @@
                     margin: 0;
                     flex-wrap: wrap;
 
-
                     .color-item,
                     .price-item {
                         padding: 4px 14px;
@@ -108,7 +99,7 @@
                         align-items: center;
                         justify-content: center;
                         position: relative;
-                        transition: all .1s linear;
+                        transition: all 0.1s linear;
                         margin: 0 8px 8px;
 
                         .color-name,
@@ -124,8 +115,6 @@
                         .color-name {
                             font-size: 14px;
                         }
-
-
 
                         .color-default-price,
                         .price-default {
@@ -150,11 +139,10 @@
                             align-items: center;
                             visibility: hidden;
                             opacity: 0;
-                            transition: all .1s linear;
+                            transition: all 0.1s linear;
                         }
 
                         &.active {
-
                             border-color: $primary-color;
 
                             .color-checked,
@@ -183,26 +171,59 @@
                     }
                 }
             }
+
+            @include tablet {
+                .options-color,
+                .options-price {
+                    height: 110px;
+                    .heading {
+                        margin-bottom: 8px;
+                    }
+                    .colors-list {
+                        .color-item {
+                            padding: 6px 12px;
+                            .color-name {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+                .options-price {
+                    height: 140px;
+                    .prices-list {
+                        .price-item {
+                            .price-name {
+                                font-size: 12px;
+                            }
+
+                            .price-default {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .product-promotion {
-
             // margin-top: 64px;
             border-radius: 8px;
             padding: 12px;
             border: 1px solid rgba(0, 0, 0, 0.1);
 
             .product-promotion-list {
-
                 list-style: none;
                 padding: 0;
                 margin: 0;
 
                 .product-promotion-item {
-
                     font-size: 14px;
                     font-style: italic;
                     font-weight: 500;
+
+                    @include tablet {
+                        font-size: 12px;
+                    }
 
                     i {
                         font-size: 12px;
@@ -213,9 +234,7 @@
             }
         }
 
-
         .product-action {
-
             margin-top: 32px;
 
             .btn-add-to-cart {
@@ -223,7 +242,6 @@
             }
 
             .btn-buy-now {
-
                 height: 60px;
 
                 span {
@@ -259,19 +277,20 @@
                     color: $primary-color;
                 }
             }
+
+            @include tablet {
+            }
         }
 
         .other-product {
-
-            .heading {}
-
             .other-product-list {
                 list-style: none;
                 padding: 0;
                 margin: 0;
+                display: flex;
+                flex-direction: column;
 
                 .other-product-item {
-
                     background-color: rgba(0, 0, 0, 0.03);
                     border-radius: 8px;
                     height: 88px;
@@ -319,7 +338,6 @@
                     }
                 }
             }
-
         }
     }
 
@@ -332,7 +350,7 @@
         .desc-content {
             height: 600px;
             overflow: hidden;
-        }   
+        }
 
         img {
             object-fit: contain !important;
@@ -362,14 +380,19 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.9));
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0),
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0.9)
+            );
             z-index: 2;
         }
 
         &.active {
             .desc-content {
                 height: unset;
-            } 
+            }
 
             &::after {
                 display: none;
@@ -378,18 +401,16 @@
     }
 
     .product-configuration {
-
-        .product-configuration-heading {}
+        .product-configuration-heading {
+        }
 
         .configuration-table {
-
             outline: 1px solid rgba($color: #000000, $alpha: 0.1);
             border: 1px solid rgba($color: #000000, $alpha: 0.1);
             border-radius: 8px;
             overflow: hidden;
 
             .configuration-table-row {
-
                 .configuration-readmore-btn {
                     cursor: pointer;
                 }
@@ -399,4 +420,65 @@
             }
         }
     }
+}
+
+@include tablet-lg {
+    .product-details-container {
+        .product-info {
+            .other-product {
+                .other-product-list {
+                    display: flex;
+                    flex-direction: row;
+                    margin: 0 -6px;
+                    .other-product-item {
+                        height: unset;
+                        width: calc(20% - 12px);
+                        margin: 0 6px;
+                        .other-product-item-img {
+                            height: 140px;
+                            padding: 4px;
+                            img {
+                                width: 100%;
+                                object-fit: contain;
+                            }
+                        }
+                        .other-product-item-info {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            .other-product-item-name {
+                                font-size: 14px;
+                                text-align: center;
+                            }
+                            .other-product-item-link {
+                                margin-bottom: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .product-description {
+    
+            .desc-content {
+            }
+    
+            img {
+                object-fit: contain !important;
+            }
+    
+            .product-description-action {
+    
+            }
+        }
+    
+        .product-configuration {
+            .product-configuration-heading {
+            }
+    
+            .configuration-table {
+            }
+        }
+    }
+    
 }

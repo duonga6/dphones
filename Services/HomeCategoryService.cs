@@ -14,27 +14,25 @@ namespace App.Services
 
         public HomeCategory GetData()
         {
-            var color = _context.Colors.Include(c => c.Capacities!)
-                                    .Include(c => c.Product!)
-                                    .GroupBy(c => c.ProductId)
-                                    .AsEnumerable()
-                                    .OrderByDescending(c => c.Sum(cap => cap.Capacities.Sum(ca => ca.Sold)))
-                                    .Take(5)
-                                    .ToList();
+            var productBestSell = _context.Products
+                                            .Include(p => p.Colors.OrderBy(c => c.Name))
+                                            .Select(p => new {
+                                                product = p,
+                                                TotalSold = p.Colors
+                                                            .SelectMany(c => c.Capacities)
+                                                            .Sum(c => c.Sold)
+                                            })
+                                            .OrderByDescending(p => p.TotalSold)
+                                            .Take(5)
+                                            .Select(p => p.product)
+                                            .ToList();
 
-            var productsBestSeller = new List<Product>();
-            color.ForEach(c =>
-            {
-                var productItem = c.FirstOrDefault()?.Product;
-                if (productItem != null) 
-                    productsBestSeller.Add(productItem);
-            });
 
             HomeCategory data = new()
             {
                 Brands = _context.Brands.OrderBy(b => b.Name).ToList(),
                 Categories = _context.Categories.OrderBy(c => c.Name).ToList(),
-                Products = productsBestSeller,
+                Products = productBestSell,
                 PriceLevels = _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToList()
             };
 

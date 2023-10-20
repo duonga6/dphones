@@ -4,7 +4,7 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav ms-2 d-flex align-items-center">
+<ul class="login-section navbar-nav d-flex align-items-center">
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
@@ -45,8 +45,8 @@
     {
         <li class="nav-item">
             <a class="nav-link text-white" id="login" asp-area="Identity" asp-action="Login" asp-controller="Account">
-                <i class="fa-regular fa-user"></i>
-                Đăng nhập
+                <i class="user-icon fa-regular fa-user"></i>
+                <span class="login-text">Đăng nhập</span>
             </a>
         </li>
     }

@@ -3,66 +3,157 @@
     var topSecond = Model.Products.Take(2);
     var priceLevels = Model.PriceLevels as List<int>;
 }
-<div class="header-category position-absolute top-100">
-    <div class="category-container">
-        <p class="category-heading">Hãng sản xuất</p>
-        <ul class="category-brand-list category-list">
-            @foreach (var item in Model.Brands)
-            {
-                <li class="category-brand-item category-item">
-                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=item.Name})' class="">@item.Name</a>
-                </li>
-            }
-        </ul>
-    </div>
-    <div class="category-container category-price">
-        <p class="category-heading">Mức giá</p>
-        <ul class="category-list category-price-list">
-            @for (int i = 0; i < priceLevels.Count(); i++)
-            {
-                <li class="category-item category-price-item">
-                @if (i == 0)
+@if (Model.Type == CategoryType.PC)
+{
+    <div class="header-category position-absolute top-100">
+        <div class="category-container">
+            <p class="category-heading">Hãng sản xuất</p>
+            <ul class="category-brand-list category-list">
+                @foreach (var item in Model.Brands)
                 {
-                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"0-{priceLevels[i]}"})' class="">Dưới @priceLevels[i] triệu</a>
+                    <li class="category-brand-item category-item">
+                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=item.Name})'
+                            class="">@item.Name</a>
+                    </li>
                 }
-                else if (i == priceLevels.Count() - 1)
+            </ul>
+        </div>
+        <div class="category-container category-price">
+            <p class="category-heading">Mức giá</p>
+            <ul class="category-list category-price-list">
+                @for (int i = 0; i < priceLevels.Count(); i++)
                 {
-                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-max"})' class="">Trên @priceLevels[i] triệu</a>
+                    <li class="category-item category-price-item">
+                        @if (i == 0)
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"0-{priceLevels[i]}"})'
+                                class="">Dưới @priceLevels[i] triệu</a>
+                        }
+                        else if (i == priceLevels.Count() - 1)
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-max"})'
+                                class="">Trên @priceLevels[i] triệu</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-{priceLevels[i + 1]}"})'
+                                class="">Từ @priceLevels[i] - @priceLevels[i + 1] triệu</a>
+                        }
+                    </li>
                 }
-                else
+            </ul>
+        </div>
+        <div class="category-container category-purpose">
+            <p class="category-heading">Mục đích sử dụng</p>
+            <ul class="category-list category-purpose-list">
+                @foreach (var item in Model.Categories)
                 {
-                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-{priceLevels[i + 1]}"})' class="">Từ @priceLevels[i] - @priceLevels[i + 1] triệu</a>
+                    <li class="category-item category-purpose-item">
+                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", danhmuc=item.Slug})'
+                            class="">@item.Name</a>
+                    </li>
                 }
-                </li>
-            }
-        </ul>
+            </ul>
+        </div>
+        <div class="category-container category-best-sell">
+            <p class="category-heading">Bán chạy nhất</p>
+            <ul class="category-best-sell-list">
+                @foreach (var item in topSecond)
+                {
+                    <li class="category-best-sell-item">
+                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                            class="item-img">
+                            <img src="/files/Products/@item.Colors?.FirstOrDefault()?.Image" alt="">
+                        </a>
+                        <div class="item-content">
+                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                                class="item-name">@item.Name</a>
+                            <p class="item-price">
+                                @item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault()?.SellPrice.ToString("N0", new
+                                         CultureInfo("vi-VN"))<sup>đ</sup></p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
-    <div class="category-container category-purpose">
-        <p class="category-heading">Mục đích sử dụng</p>
-        <ul class="category-list category-purpose-list">
-            @foreach (var item in Model.Categories)
-            {
-                <li class="category-item category-purpose-item">
-                    <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", danhmuc=item.Slug})' class="">@item.Name</a>
-                </li>
-            }
-        </ul>
+}
+else
+{
+    <div class="tb-mb-category">
+        <div class="tb-mb-category-container">
+            <p class="heading">Hãng sản xuất</p>
+            <ul class="cate-list brand">
+                @foreach (var item in Model.Brands)
+                {
+                    <li class="cate-item">
+                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx=item.Name})'
+                            class="">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="tb-mb-category-container">
+            <p class="heading">Mức giá</p>
+            <ul class="cate-list price">
+                @for (int i = 0; i < priceLevels.Count(); i++)
+                {
+                    <li class="cate-item">
+                        @if (i == 0)
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"0-{priceLevels[i]}"})'
+                                class="">Dưới @priceLevels[i] triệu</a>
+                        }
+                        else if (i == priceLevels.Count() - 1)
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-max"})'
+                                class="">Trên @priceLevels[i] triệu</a>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", mucgia=$"{priceLevels[i]}-{priceLevels[i + 1]}"})'
+                                class="">Từ @priceLevels[i] - @priceLevels[i + 1] triệu</a>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="tb-mb-category-container">
+            <p class="heading">Mục đích sử dụng</p>
+            <ul class="cate-list purpose">
+                @foreach (var item in Model.Categories)
+                {
+                    <li class="cate-item">
+                        <a href='@Url.Action("Index", "ViewProduct", new {area = "Products", danhmuc=item.Slug})'
+                            class="">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="tb-mb-category-container">
+            <p class="heading">Bán chạy nhất</p>
+            <ul class="category-best-sell-list">
+                @foreach (var item in topSecond)
+                {
+                    var firstColor = item.Colors?.FirstOrDefault();
+                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
+                    <li class="category-best-sell-item">
+                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                            class="item-img">
+                            <img src="/files/Products/@firstColor?.Image" alt="">
+                        </a>
+                        <div class="item-content">
+                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                                class="item-name">@item.Name</a>
+                            <p class="item-price">
+                                @firstCapa?.SellPrice.ToString("N0", new
+                                         CultureInfo("vi-VN"))<sup>đ</sup></p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
-    <div class="category-container category-best-sell">
-        <p class="category-heading">Bán chạy nhất</p>
-        <ul class="category-best-sell-list">
-            @foreach(var item in topSecond)
-            {
-                <li class="category-best-sell-item">
-                    <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})" class="item-img">
-                        <img src="/files/Products/@item.Colors?.FirstOrDefault()?.Image" alt="">
-                    </a>
-                    <div class="item-content">
-                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})" class="item-name">@item.Name</a>
-                        <p class="item-price">@item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault()?.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></p>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-</div>
+}

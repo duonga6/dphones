@@ -329,14 +329,4 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\Uploads\Pr
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\Uploads\Products\20231014210636771_asus-rog-phone-7.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\Uploads\Products\20231014210858486_asus-rog-6-diablo.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\BackupDB\backup_file_2023-10-19-12-11-51_payment.bak
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\web.config
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\App.deps.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\App.runtimeconfig.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\appsettings.Development.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\appsettings.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\libman.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\package-lock.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\package.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
-J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Release\net7.0\BackupDB\backup_file_2023-10-20-12-12-56_kkkk.bak

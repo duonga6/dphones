@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7zY191Pid5NqGyftLRSZz4Eizr8O6usRuKXSmb/8lQk=",
+  "Hash": "Jvvh0PURadPqk90LpdmVlmdMmFOyM2/E9iXaldpNERY=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1207,6 +1207,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\best.png",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/best.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\best.png"
+    },
+    {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\cart-empty.png",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -1375,6 +1392,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\home-slide\\638326123868033069_F-C1_1200x300.webp"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\hot-icon.webp",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/hot-icon.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\hot-icon.webp"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\hot.png",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/hot.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\hot.png"
     },
     {
       "Identity": "J:\\CS\\NetCore\\NET_5\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Instagram.png",
