@@ -148,13 +148,13 @@
             </div>
             <div class="product-action">
                 <div class="row align-items-center">
-                    <div class="col-lg-7 offset-lg-1 col-md-9">
-                        <a class="btn primary-bg text-white fs-6 fw-normal w-100 pt-1 pb-2 btn-buy-now">
-                            <span>Mua ngay</span>
-                            <p>Giao tại nhà (COD) hoặc nhận tại cửa hàng</p>
+                    <div class="col-lg-8 offset-lg-1 col-md-9 col-9 col-xl-8">
+                        <a class="btn primary-bg text-white fs-6 fw-normal w-100 btn-buy-now">
+                            <span class="buy-now-text">Mua ngay</span>
+                            <p class="buy-now-desc">Giao tại nhà (COD) hoặc nhận tại cửa hàng</p>
                         </a>
                     </div>
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-2 col-md-3 col-3 col-xl-3">
                         <span class="btn btn-add-to-cart" onclick="AddToCart()">
                             <i class="primary-text fa-solid fa-cart-plus"></i>
                             <p>Thêm vào giỏ</p>
@@ -166,20 +166,20 @@
         </div>
         <div class="col-lg-3">
             <div class="other-product">
-                <h6 class="heading primary-bg text-white py-2 fw-normal text-center rounded">
+                <p class="heading primary-bg text-white py-2 fw-normal text-center rounded">
                     Có thể bạn quan tâm
-                </h6>
+                </p>
                 <ul class="other-product-list">
                     @foreach(var item in otherProduct)
                     {
                         <li class="other-product-item">
-                            <div class="row h-100 gx-0">
-                                <div class="col-lg-4">
+                            <div class="row h-100 gx-0 flex-md-column flex-xl-row justify-content-md-center flex-lg-row">
+                                <div class="col-lg-4 col-4 col-md-12">
                                     <div class="other-product-item-img">
                                         <img src="/files/Products/@item.Color?.Image" alt="">
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 col-8 col-md-12">
                                     <div class="other-product-item-info">
                                         <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Color?.Product?.Slug})" class="other-product-item-name text-decoration-none text-dark">@item.Color?.Product?.Name</a>
                                         <span class="other-product-item-price primary-text mt-1">@item.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>
@@ -193,9 +193,9 @@
             </div>
         </div>
     </div>
-    <div class="row ps-2">
+    <div class="row desc-configuration">
         <div class="col-lg-8 product-description" id="product-description">
-            <hr class="primary-text">
+            <hr class="primary-text mt-0">
             <div class="desc-content">
                 @Html.Raw(Model.Description)
             </div>
@@ -204,7 +204,7 @@
                 <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
             </div>
         </div>
-        <div class="col-lg-4 product-configuration mt-4">
+        <div class="col-lg-4 product-configuration">
             <p class="product-configuration-heading primary-bg rounded text-white text-center py-2">Thông số kỹ thuật</p>
             <table class="configuration-table table table-striped">
                 <tr class="configuration-table-row">

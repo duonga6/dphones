@@ -1,0 +1,126 @@
+.account-manager-container {
+    display: flex;
+    min-height: 500px;
+    .left-section {
+        box-shadow: $shadow-sm;
+        border-radius: 4px;
+        height: 100%;
+        width: 20%;
+        background-color: white;
+        .user-info {
+            padding: 16px 12px 0;
+            .user-avatar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+            .user-name-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                .user-name {
+                    color: $text-color;
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    line-height: 18px;
+                }
+                .edit-link {
+                    margin-bottom: 0;
+                    a {
+                        font-size: 14px;
+                        line-height: 16px;
+                        text-decoration: none;
+                        color: $text-color;
+                        i {
+                            font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .side-bar-list {
+            list-style: none;
+            padding: 8px 12px;
+            margin: 0;
+            .side-bar-item {
+                margin-bottom: 12px;
+                .side-bar-item-link {
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    color: $text-color;
+                    .icon {
+                        color: $fourth-color;
+                        width: 20px;
+                    }
+                    .content {
+                    }
+                }
+
+                &.active {
+                    .side-bar-item-link {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .right-section {
+        width: calc(80% - 12px);
+        margin-left: 12px;
+
+        .manager-user {
+            background-color: white;
+            box-shadow: $shadow-sm;
+            border-radius: 4px;
+            padding: 12px 32px;
+            .heading {
+                color: $text-color;
+                font-size: 22px;
+                font-weight: 500;
+                margin-top: 8px;
+                margin-bottom: 0;
+            }
+
+            .divider {
+                margin-bottom: 32px;
+            }
+
+            .user-infomation {
+                .user-left-section {
+                }
+                .user-right-section {
+                    .user-avatar {
+                        padding: 12px;
+                        border: $border-gray-ssm;
+                        border-radius: 8px;
+                        position: relative;
+
+                        img {
+                            width: 50%;
+                            object-fit: contain;
+                        }
+
+                        .btn-edit-avatar {
+                            position: absolute;
+                            bottom: 0;
+                            right: 12px;
+                            .edit-icon {
+                                color: rgb(148, 148, 148);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

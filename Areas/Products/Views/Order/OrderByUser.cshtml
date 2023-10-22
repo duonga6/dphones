@@ -1,0 +1,96 @@
+@{
+    Layout = "/Areas/Identity/Views/Shared/_ManageAccountLayout.cshtml";
+    ViewData["Title"] = "Đơn hàng";
+}
+<div class="order-by-user-container">
+    <div class="order-options">
+        <ul class="order-options-list">
+            <li class="order-option-item active">
+                Tất cả
+            </li>
+            <li class="order-option-item">
+                Chờ xác nhận
+            </li>
+            <li class="order-option-item">
+                Chờ thanh toán
+            </li>
+            <li class="order-option-item">
+                Đã xác nhận
+            </li>
+            <li class="order-option-item">
+                Đang giao
+            </li>
+            <li class="order-option-item">
+                Đã giao
+            </li>
+            <li class="order-option-item">
+                Đã hủy
+            </li>
+        </ul>
+    </div>
+    <ul class="order-list">
+        <li class="order-item">
+
+            <p class="order-status">
+                Đơn hàng đang giao
+            </p>
+            <ul class="product-list">
+                <li class="product-item">
+                    <div class="product-img">
+                        <img src="/files/Products/20231014200818645_xiaomi-13t.png" alt="">
+                    </div>
+                    <div class="product-desc">
+                        <p class="product-name">Xiaomi 13T</p>
+                        <div class="d-flex justify-content-between">
+                            <div class="product-info">
+                                Phân loại: Đen, 4GB/512GB
+                            </div>
+                            <div class="product-cost">
+                                <p class="product-quantity">x3</p>
+                                <p class="product-price">7.000.000<sup>đ</sup></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <hr class="m-0">
+                <li class="product-item">
+                    <div class="product-img">
+                        <img src="/files/Products/20231014200818645_xiaomi-13t.png" alt="">
+                    </div>
+                    <div class="product-desc">
+                        <p class="product-name">Xiaomi 13T</p>
+                        <div class="d-flex justify-content-between">
+                            <div class="product-info">
+                                Phân loại: Đen, 4GB/512GB
+                            </div>
+                            <div class="product-cost">
+                                <p class="product-quantity">x3</p>
+                                <p class="product-price">7.000.000<sup>đ</sup></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <hr class="m-0">
+            </ul>
+            <div class="order-footer">
+                <div class="order-total-cost">
+                    Thành tiền: <span class="fw-semibold primary-text">100.000.000<sup>đ</sup></span>
+                </div>
+                <div class="order-action">
+                    <button class="btn primary-bg text-white">Hủy đơn hàng</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    @* <div class="order-empty">
+    <div class="order-empty-container">
+    <div class="empty-img">
+    <img src="/images/order-empty.png" alt="">
+    </div>
+    <div class="empty-content">
+    <p>Chưa có đơn hàng</p>
+    </div>
+    </div>
+    </div> *@
+</div>

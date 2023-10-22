@@ -58,7 +58,7 @@ html {
 
 body {
     margin-bottom: 60px;
-    // background-color: rgb(248,248,248) !important;
+    background-color: #F5F5F5 !important;
 }
 
 @import "AdminCP/AddPhoto";
@@ -69,7 +69,8 @@ body {
 @import "AdminCP/CreateProduct";
 @import "AdminCP/EditUser";
 
-@import "login";
+@import "Identity/login";
+@import "Identity/AccountManager";
 
 @import "Cart/Cart";
 
@@ -77,6 +78,7 @@ body {
 @import "Order/OrderConfirmed";
 @import "Order/OrderCheck";
 @import "Order/PayResult";
+@import "Order/OrderByUser";
 
 @import "HomePage/ProductDetails";
 @import "HomePage/LayoutHome";

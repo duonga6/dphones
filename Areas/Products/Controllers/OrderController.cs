@@ -2,6 +2,7 @@ using App.Data;
 using App.Models;
 using App.Models.Products;
 using App.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,18 @@ namespace App.Areas.Products.Controllers
             });
 
             return View(order);
+        }
+
+        [Route("/user/order")]
+        [Authorize]
+        public async Task<IActionResult> OrderByUser()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return NotFound();
+
+            var order = _context.Orders.Where(o => o.UserId == user.Id);
+
+            return View(order.ToList());
         }
 
         // Trang chi tiết

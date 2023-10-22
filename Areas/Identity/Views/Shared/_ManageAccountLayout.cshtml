@@ -1,0 +1,67 @@
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    var displayName = "";
+    var userAvatar = "/files/UserAvatar/no-image.png";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    displayName = (user != null && !string.IsNullOrEmpty(user.FullName)) ? $"{user.FullName}" : $"{user?.Email}";
+    userAvatar = "/files/UserAvatar/" +  user?.UserAvatar;
+}
+
+<div class="account-manager-container">
+    <div class="row mt-4 w-100">
+            <div class="left-section">
+                <div class="left-side-bar">
+                    <div class="user-info row">
+                        <div class="user-avatar col-4">
+                            <img src="@userAvatar" alt="">
+                        </div>
+                        <div class="user-name-container col-8">
+                            <p class="user-name">@displayName</p>
+                            <p class="edit-link">
+                                <a href="#">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    Sửa thông tin
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <hr class="primary-text">
+                    <ul class="side-bar-list">
+                        <li class="side-bar-item active">
+                            <a href="" class="side-bar-item-link">
+                                <div class="icon">
+                                    <i class="fa-regular fa-user"></i>
+                                </div>
+                                <div class="content">
+                                    Thông tinh tài khoản
+                                </div>
+                            </a>
+                        </li>
+                        <li class="side-bar-item">
+                            <a href='@Url.Action("OrderByUser", "Order", new {area = "Products"})' class="side-bar-item-link">
+                                <div class="icon">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                                <div class="content">
+                                    Đơn hàng
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-section">
+                @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+}

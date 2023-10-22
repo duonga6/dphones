@@ -40,6 +40,30 @@
                 </ul>
             </div>
         </li>
+
+        <li class="nav-item mobile-account-info position-relative">
+            <a class="nav-link text-white dropdown-toggle d-flex align-items-center" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                
+                <div class="header-user-avatar d-flex justify-content-center align-items-center">
+                    <img src="@userAvatar" alt="">
+                </div>
+                <span class="user-name">@displayName</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" asp-area="Identity" asp-action="Index" asp-controller="Manage">Tài
+                        khoản của tôi</a></li>
+                <li><partial name="_MenuAdmin"/></li>
+                <li>
+                    <form method="post" class="form-inline" asp-action="LogOff" asp-controller="Account"
+                        asp-area="Identity">
+                        <button id="logout" type="submit"
+                            class="dropdown-item btn btn-link text-dark border-0">Đăng
+                            xuất</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
     }
     else
     {

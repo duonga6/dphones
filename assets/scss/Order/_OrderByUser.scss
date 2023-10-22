@@ -1,0 +1,139 @@
+.order-by-user-container {
+    .order-options {
+        .order-options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: $shadow-sm;
+            .order-option-item {
+                flex: 1;
+                text-align: center;
+                background-color: white;
+                height: 48px;
+                line-height: 48px;
+                position: relative;
+                cursor: pointer;
+                transition: all 0.1s ease;
+
+                &:hover {
+                    color: $primary-color;
+                }
+
+                &.active {
+                    color: $primary-color;
+                    &::after {
+                        position: absolute;
+                        z-index: 1;
+                        display: block;
+                        content: "";
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 4px;
+                        background-color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .order-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 12px;
+        .order-item {
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: $shadow-sm;
+            padding: 12px;
+
+            .order-status {
+                margin-bottom: 6px;
+            }
+
+            .product-list {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+
+                .product-item {
+                    display: flex;
+                    height: 100px;
+                    padding-right: 24px;
+                    .product-img {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        img {
+                            height: 90%;
+                            object-fit: contain;
+                        }
+                    }
+                    .product-desc {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        .product-name {
+                            font-weight: 500;
+                            margin-bottom: 0;
+                        }
+                        .product-info {
+                            margin-bottom: 0;
+                        }
+                        .product-cost {
+                            .product-quantity {
+                                margin-bottom: 0;
+                                text-align: right;
+                            }
+                            .product-price {
+                                margin-bottom: 0;
+                                color: $primary-color;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+            .order-footer {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+
+                .order-total-cost {
+                    margin: 12px 24px 12px;
+
+                }
+
+                .order-action {
+                    margin-right: 12px;
+                }
+            }
+
+        }
+    }
+
+    .order-empty {
+        margin-top: 12px;
+        min-height: 688px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: $shadow-sm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .order-empty-container {
+            .empty-img {
+            }
+            .empty-content {
+                margin-top: 4px;
+                text-align: center;
+            }
+        }
+    }
+}

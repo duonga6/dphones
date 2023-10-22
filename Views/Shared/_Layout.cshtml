@@ -24,12 +24,17 @@
     <div class="wrapper d-flex flex-column">
         <header>
             <nav class="header-navbar navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow primary-bg">
-                <div class="container-xxl py-1">
+                <div class="container-xxl">
                     <div class="navbar-container d-flex align-items-center justify-content-between position-relative w-100">
                         <ul class="left-nav-bar navbar-nav align-items-center">
                             <li class="nav-item nav-item-offcanvas">
                                 <a class="offcanvas-btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                                     <i class="offcanvas-icon fa-solid fa-bars"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item mobile-home">
+                                <a class="mobile-home-link" href="/">
+                                    <i class="mobile-home-icon fa-solid fa-house"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -54,7 +59,7 @@
                             @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData);
                         }
                         <form method="get" class="d-flex header-search-container flex-grow-1">
-                            <input class="header-search-input form-control me-2 px-3" type="text" name="s"
+                            <input class="header-search-input form-control px-3" type="text" name="s"
                                 placeholder="Bạn cần tìm gì... ?" aria-label="Search" value='@Context.Request.Query["s"]'>
                             <button class="btn header-search-btn" type="submit" 
                                 asp-action="Index" asp-controller="ViewProduct" asp-area="Products">

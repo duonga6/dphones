@@ -10,7 +10,8 @@
         margin-right: 4px;
 
         img {
-            width: 60px;
+            height: 100%;
+            width: 100%;
             object-fit: contain;
         }
     }
@@ -50,7 +51,6 @@
 
             .nav-item-offcanvas {
                 display: none;
-                margin-left: 6px;
                 .offcanvas-btn {
                     text-decoration: none;
                     display: flex;
@@ -59,6 +59,17 @@
                     .offcanvas-icon {
                         font-size: 24px;
                         color: white;
+                    }
+                }
+            }
+
+            .nav-item.mobile-home {
+                display: none;
+                .mobile-home-link {
+                    padding: 12px;
+                    color: white;
+                    .mobile-home-icon {
+                        transform: scale(1.4);
                     }
                 }
             }
@@ -122,6 +133,10 @@
                 }
                 .login-text {
                     margin-left: 2px;
+                }
+
+                .mobile-account-info {
+                    display: none;
                 }
             }
         }
@@ -385,8 +400,12 @@
 
 @include mobile {
     .header-navbar {
+        height: 54px;
+        padding: 0 !important;
+
         .navbar-container {
             .left-nav-bar {
+                flex-direction: row;
                 .home-header-logo {
                     display: none;
                 }
@@ -396,9 +415,19 @@
 
                 .nav-item-offcanvas {
                     display: block;
-                    width: 40px;
+                    width: 32px;
                     .offcanvas-btn {
                         .offcanvas-icon {
+                            transform: scale(0.8);
+                        }
+                    }
+                }
+
+                .nav-item.mobile-home {
+                    display: block;
+                    .mobile-home-link {
+                        padding: 8px;
+                        .mobile-home-icon {
                             transform: scale(1.2);
                         }
                     }
@@ -406,8 +435,10 @@
             }
 
             .header-search-container {
+                margin-left: 8px;
                 .header-search-input {
                     height: 36px;
+                    margin-right: 8px;
                 }
                 .header-search-btn {
                     top: 2px;
@@ -424,7 +455,6 @@
                     .header-item {
                         .header-item-icon {
                             font-size: 18px;
-                            padding: 4px 12px;
                         }
                     }
                 }
@@ -437,13 +467,32 @@
                 }
 
                 .login-section {
-                    width: 40px;
-                    margin-left: 4px;
-                    .user-icon {
-                        transform: scale(1.5);
+                    .nav-item {
+                        width: 32px;
+                        .user-icon {
+                            transform: scale(1.3);
+                        }
+                        .login-text {
+                            display: none;
+                        }
+
+                        .user-name {
+                            display: none;
+                        }
+
+                        .dropdown-toggle {
+                            &::after {
+                                display: none;
+                            }
+                        }
+
+                        .dropdown-menu {
+                            position: absolute;
+                        }
                     }
-                    .login-text {
-                        display: none;
+
+                    .mobile-account-info {
+                        display: block;
                     }
                 }
             }
@@ -464,6 +513,7 @@
                 }
                 .nav-item-offcanvas {
                     display: block;
+                    padding: 8px;
                 }
             }
             .right-nav-bar {

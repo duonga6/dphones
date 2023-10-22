@@ -1,10 +1,6 @@
 .product-container {
     margin: 0 -6px 16px;
 
-    @include tablet {
-        margin: 0 0 16px;
-    }
-
     .product_grid {
         display: flex;
         flex-wrap: wrap;
@@ -12,10 +8,6 @@
         .item {
             width: calc(20% - 12px);
             margin: 6px;
-
-            @include tablet {
-                min-width: calc(25% - 12px);
-            }
 
             .card {
                 height: 434px;
@@ -123,7 +115,7 @@
                 }
 
                 &:hover {
-                    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.08);
+                    box-shadow: $shadow-sm;
 
                     .card-img {
                         img {
@@ -150,40 +142,30 @@
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 24px;
-    padding: 0 12px;
+    padding: 0 6px;
+    position: relative;
 
     .arrow {
         display: none;
         position: absolute;
+        top: 50%;
+        transform: translateY(50%);
         z-index: 1;
         color: $primary-color;
         background-color: rgb(255, 255, 255);
         border: $border-gray-sm;
         width: 28px;
         height: 28px;
-        display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
 
         &.left-arrow {
             left: 20px;
-            top: 50%;
-            transform: translateY(50%);
         }
 
         &.right-arrow {
             right: 20px;
-            top: 50%;
-            transform: translateY(50%);
-        }
-    }
-
-    @include tablet {
-        position: relative;
-
-        .arrow {
-            display: flex;
         }
     }
 
@@ -207,16 +189,6 @@
     .product_grid {
         margin-top: 12px;
         padding-bottom: 12px;
-
-        @include tablet {
-            flex-wrap: nowrap;
-            overflow-x: scroll;
-            position: relative;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
 
         .item {
         }
@@ -277,20 +249,22 @@
 
 @include mobile {
     .product-container {
+        margin-top: 12px;
         .product_grid {
             display: flex;
             flex-wrap: wrap;
 
             .item {
                 min-width: calc(50% - 12px);
-                margin: 6px;
+                width: calc(50% - 12px);
+                margin: 0 6px;
                 .card {
                     height: unset;
-    
+
                     .card-img {
-                        height: 200px;
-                        padding-bottom: 0;
-    
+                        height: 180px;
+                        padding: 0;
+
                         img {
                             height: 100%;
                             width: 100%;
@@ -301,6 +275,17 @@
 
                     .card-body {
                         padding-top: 0;
+
+                        .product-info {
+                            .product-info-item {
+                                margin-right: 2px;
+                                margin-bottom: 2px;
+                            }
+                        }
+
+                        .card-price {
+                            margin: 2px 0;
+                        }
                     }
                 }
             }
@@ -308,19 +293,112 @@
     }
 
     .product-bestseller {
-        padding: 0 6px;
+        margin-top: 0;
+        padding: 0 12px;
+
+        .heading {
+            height: 60px;
+            font-size: 20px;
+            img {
+                width: 24px;
+            }
+        }
 
         .arrow {
             display: flex;
 
             &.left-arrow {
-                left: 10px;
-                transform: translateY(-50%);
+                left: 4px;
             }
-    
+
             &.right-arrow {
-                right: 10px;
-                transform: translateY(-50%);
+                right: 4px;
+            }
+        }
+
+        .product_grid {
+            margin-top: 0;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            position: relative;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .item {
+                min-width: calc(50% - 12px + 6px);
+                width: calc(50% - 12px + 6px);
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                .card {
+                    height: unset;
+
+                    .card-img {
+                        overflow: hidden;
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: contain;
+                            transition: transform 0.2s linear;
+                        }
+                    }
+                }
+            }
+        }
+
+        .heading {
+            padding: 0;
+            margin-left: 0;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .hot-heading {
+        background-color: $primary-color;
+        padding: 12px 20px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+
+        a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.1s ease;
+            font-size: 18px;
+
+            &:hover {
+                color: $third-color;
+            }
+        }
+
+        img {
+            margin-left: 12px;
+            width: 16px;
+        }
+    }
+}
+
+@include tablet {
+    .product-bestseller {
+        padding: 0 12px;
+        .arrow {
+            display: flex;
+            &.left-arrow {
+                left: 4px;
+            }
+
+            &.right-arrow {
+                right: 4px;
             }
         }
 
@@ -328,9 +406,35 @@
             flex-wrap: nowrap;
             overflow-x: scroll;
             position: relative;
+            padding-bottom: 6px;
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+        }
+    }
+
+    .product-container {
+        .product_grid {
+            .item {
+                min-width: calc(25% - 12px + 3px);
+                width: calc(25% - 12px + 3px);
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                .card {
+                    height: unset;
+                    .card-img {
+                        height: 190px;
+                        padding-bottom: 0;
+                    }
+                }
             }
         }
     }

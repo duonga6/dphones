@@ -341,3 +341,5 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\BackupDB\backup_file_2023-10-19-12-11-51_payment.bak
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\BackupDB\backup_file_2023-10-20-12-12-56_kkkk.bak
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\rjbveexy.png
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\wp1q1dyo.png

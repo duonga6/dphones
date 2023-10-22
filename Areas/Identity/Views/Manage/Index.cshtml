@@ -4,96 +4,104 @@
 }
 
 <div class="manager-user">
-    <h4>@ViewData["Title"]</h4>
-    <hr>
-    <form id="profile-form" asp-action="Index" asp-controller="Manage" asp-area="Identity" method="post"
-        enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6">
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Tên đăng nhập</label>
-                    @* <div class="col-md-8">
-                    <input asp-for="UserName" class="form-control" placeholder="Please choose your username."
-                    disabled />
-                    </div> *@
-                    <div class="col-md-8">
-                        <div class="input-group">
-                            <input asp-for="UserName" class="form-control" disabled>
-                            <span class="input-group-text">
-                                <a asp-action="ChangePassword" asp-controller="Manage" asp-area="Identity"
-                                    class="btn-link">Thay đổi mật khẩu</a>
-                            </span>
+    <h4 class="heading">@ViewData["Title"]</h4>
+    <hr class="divider primary-text">
+    <div class="user-infomation">
+        <form id="profile-form" asp-action="Index" asp-controller="Manage" asp-area="Identity" method="post"
+            enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="user-left-section">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Tên đăng nhập</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input asp-for="UserName" class="form-control" disabled>
+                                    <span class="input-group-text">
+                                        <a asp-action="ChangePassword" asp-controller="Manage" asp-area="Identity"
+                                            class="btn-link">Thay đổi mật khẩu</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Email</label>
+                            <div class="col-md-8">
+                                @if (ViewBag.IsConfirmedEmail)
+                                {
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" disabled value="@ViewBag.Email">
+                                        <span class="input-group-text"><i class="text-success fa-solid fa-check"></i></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" disabled value="@ViewBag.Email">
+                                        <span class="input-group-text"><i
+                                                class="text-danger fa-solid fa-exclamation"></i></span>
+                                    </div>
+                                    <a class="px-2" asp-action="ResendEmailConfirmed" asp-controller="Manage"
+                                        asp-area="Identity">Gửi
+                                        lại email xác thực</a>
+                                }
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Họ tên</label>
+                            <div class="col-md-8">
+                                <input asp-for="FullName" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Số điện thoại</label>
+                            <div class="col-md-8">
+                                <input asp-for="PhoneNumber" class="form-control" />
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Ngày sinh</label>
+                            <div class="col-md-8">
+                                <input asp-for="BirthDate" class="form-control" type="date" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Địa chỉ</label>
+                            <div class="col-md-8">
+                                <input asp-for="HomeAddress" class="form-control" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Email</label>
-                    <div class="col-md-8">
-                        @if (ViewBag.IsConfirmedEmail)
-                        {
-                            <div class="input-group">
-                                <input type="text" class="form-control" disabled value="@ViewBag.Email">
-                                <span class="input-group-text"><i class="text-success fa-solid fa-check"></i></span>
+                <div class="col-md-6">
+                    <div class="user-right-section">
+                        <div class="user-avatar w-100 d-flex justify-content-center align-items-center">
+                            @{
+                                Model.UserAvatar ??= "no-image.png";
+                            }
+                            <img id="ImageShow" src="~/files/UserAvatar/@Model.UserAvatar" alt="">
+
+                            <div class="btn-edit-avatar" id="file-upload">
+                                <input asp-for="ImageFile" class="form-control d-none" />
+                                <label asp-for="ImageFile" class="btn my-2 mx-auto">
+                                    <i class="edit-icon fa-regular fa-pen-to-square"></i>
+                                </label>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="input-group mb-2">
-                                <input type="text" class="form-control" disabled value="@ViewBag.Email">
-                                <span class="input-group-text"><i class="text-danger fa-solid fa-exclamation"></i></span>
-                            </div>
-                            <a class="px-2" asp-action="ResendEmailConfirmed" asp-controller="Manage"
-                                asp-area="Identity">Gửi
-                                lại email xác thực</a>
-                        }
+                        </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Họ tên</label>
-                    <div class="col-md-8">
-                        <input asp-for="FullName" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Số điện thoại</label>
-                    <div class="col-md-8">
-                        <input asp-for="PhoneNumber" class="form-control" />
-
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Ngày sinh</label>
-                    <div class="col-md-8">
-                        <input asp-for="BirthDate" class="form-control" type="date" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-md-4 col-form-label">Địa chỉ</label>
-                    <div class="col-md-8">
-                        <input asp-for="HomeAddress" class="form-control" />
-                    </div>
-                </div>
-                <button id="update-profile-button" type="submit" class="btn btn-primary mb-4">Cập nhật</button>
-                <partial name="_AlertMessage"></partial>
-            </div>
-            <div class="col-md-6">
-                <div class="user-avatar w-100 d-flex justify-content-center align-items-center">
-                    @{
-                        Model.UserAvatar ??= "no-image.png";
-                    }
-                    <img id="ImageShow" class="img-thumbnail w-75" style="object-fit: contain;"
-                        src="~/files/UserAvatar/@Model.UserAvatar" alt="">
-                </div>
-                <div class="form-group mb-3 d-flex justify-content-center" id="file-upload">
-                    <input asp-for="ImageFile" class="form-control d-none" />
-                    <label asp-for="ImageFile" class="btn btn-success my-2 mx-auto">Thay đổi</label>
+                <div class="col my-2">
+                    <button id="update-profile-button" type="submit" class="btn primary-bg text-white">Cập nhật</button>
+                    <partial name="_AlertMessage"></partial>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </div>
 
 @section Scripts {
