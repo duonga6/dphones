@@ -1,16 +1,120 @@
 @model List<Order>
 @{
     ViewData["Title"] = "Quản lý đơn hàng";
+    var querySearch = Context.Request.Query["s"].ToString();
+    var queryFilter = Context.Request.Query["f"].ToString();
+    var queryPage = Context.Request.Query["p"].ToString();
 }
 
 <div class="card h-100">
     <div class="card-header d-flex justify-content-between align-items-center">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
-            @ViewData["Title"] (@ViewBag.TotalProduct)
-            <a class="btn btn-primary btn-sm rounded-circle ms-2" asp-action="Create" asp-controller="Product"
-                asp-area="Products">
-                <i class="fa-solid fa-plus"></i>
+            @ViewData["Title"] (@ViewBag.TotalOrders)
+        </div>
+        <div class="header-right d-flex align-items-center">
+            <div class="form-group row align-items-center me-3">
+                <div class="col-auto gx-2">
+                    <label class="form-label mb-0">Lọc</label>
+                </div>
+                <div class="col-auto gx-2 d-flex justify-content-center align-items-center">
+                    <div class="dropdown">
+                        <a class="btn btn-sm dropdown-toggle" href="#" role="button"
+                            style="border: 1px solid #ced4da; background-color: #fff; min-width: 100px;" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            @switch (queryFilter)
+                            {
+                                case "-1":
+                                    @("Chưa thanh toán")
+                                    break;
+                                case "0":
+                                    @("Chờ xác nhận")
+                                    break;
+                                case "1":
+                                    @("Đã xác nhận")
+                                    break;
+                                case "2":
+                                    @("Đang giao")
+                                    break;
+                                case "3":
+                                    @("Đã giao")
+                                    break;
+                                case "4":
+                                    @("Đã hủy")
+                                    break;
+                                default:
+                                    @("Tất cả")
+                                    break;
+                            }
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, p = queryPage})'>
+                                    Tất cả
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "-1", p = queryPage})'>
+                                    Chưa thanh toán
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "0", p = queryPage})'>
+                                    Chờ xác nhận
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "1", p = queryPage})'>
+                                    Đã xác nhận
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "2", p = queryPage})'>
+                                    Đang giao
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "3", p = queryPage})'>
+                                    Đã giao
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href='@Url.Action("Index", "Order", new {area = "Products", s = querySearch, f = "4", p = queryPage})'>
+                                    Đã hủy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    @* <div style="font-size: 12px;">
+                        @{
+                            string orderSort = ViewBag.OrderSort == "desc" ? "asc" : "desc";
+                        }
+                        <a class="text-dark sort-order d-flex flex-column ms-3 text-decoration-none" href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>    
+                            <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {@("text-primary")}'></i>
+                            <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {@("text-primary")}'></i>
+                        </a>
+                    </div> *@
+                </div>
+            </div>
+            <form method="get">
+                <div class="input-group-sm d-flex justify-content-center align-items-center">
+                    <input class="form-control" type="text" name="s" placeholder="Nhập từ khóa tìm kiếm...."
+                        value="@querySearch">
+                    <button class="btn ms-1" type="submit">
+                        <i class="text-primary fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+            <a class="ms-1" asp-action="Index" asp-controller="Order" asp-area="Products">
+                <i class="text-danger fa-solid fa-xmark"></i>
             </a>
         </div>
     </div>
@@ -23,7 +127,8 @@
                     <th class="col-2">Khách hàng</th>
                     <th class="col-2">Tên đăng nhập</th>
                     <th class="col-2">Email</th>
-                    <th class="col-2">Ngày đặt</th>
+                    <th class="col-1">Tổng tiền</th>
+                    <th class="col-1">Ngày đặt</th>
                     <th class="col-1">Trạng thái</th>
                 </tr>
             </thead>
@@ -37,6 +142,7 @@
                         <td>@item.FullName</td>
                         <td>@item.User?.UserName</td>
                         <td>@item.Email</td>
+                        <td>@item.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
                         <td>@item.OrderDate.ToString("dd/MM/yyyy")</td>
                         <td>
                             @item.OrderStatuses.Last().Status
@@ -45,6 +151,15 @@
                 }
             </tbody>
         </table>
+        @{
+            var pagingModel = new PagingModel()
+            {
+                CurrentPage = ViewBag.CurrentPage,
+                CountPage = ViewBag.TotalPage,
+                GenerateUrl = p => Url.Action("Index", "Order", new { area = "Products", p, s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = Context.Request.Query["sortOrder"]}) ?? ""
+            };
+        }
+        <partial name="_Paging" model="@pagingModel"></partial>
+        <partial name="_AlertMessage"></partial>
     </div>
-
 </div>

@@ -347,3 +347,15 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\User
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\phovevog.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\wbcie5m0.webp
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\xb05qxhd.webp
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\web.config
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\App.deps.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\App.runtimeconfig.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\appsettings.Development.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\libman.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\package-lock.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\BackupDB\backup_file_2023-10-23-10-11-09_responsive.bak

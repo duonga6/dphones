@@ -246,6 +246,52 @@ body {
   height: unset;
 }
 
+.admin-dashboard .heading {
+  margin-bottom: 12px;
+}
+.admin-dashboard .card .card-body .content {
+  font-size: 32px;
+  text-align: center;
+}
+.admin-dashboard .order-info-container .info-list {
+  background-color: white;
+  border-radius: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link {
+  text-decoration: none;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  border-bottom: dashed 1px #ccc;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link:last-child {
+  border: none;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link .item-icon {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  width: 40px;
+  color: rgb(77, 77, 77);
+}
+.admin-dashboard .order-info-container .info-list .info-item-link .item-quantity {
+  font-size: 18px;
+  width: 32px;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link .item-content {
+  transition: all 0.2s ease;
+  color: #333;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link .item-nav-icon {
+  margin-left: auto;
+}
+.admin-dashboard .order-info-container .info-list .info-item-link:hover .item-content {
+  color: #00A9FF;
+}
+
 .login-page .form-check-input:checked {
   background-color: #F94C10 !important;
   border-color: #F94C10 !important;

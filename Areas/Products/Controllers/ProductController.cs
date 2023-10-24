@@ -35,7 +35,12 @@ namespace App.Areas.Products.Controllers
 
         public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "sort")] string? sortString, [FromQuery] string? sortOrder)
         {
-            var products = _context.Products.Select(p => p);
+            var products = _context.Products
+            .Include(p => p.Brand)
+            .Include(p => p.Colors)
+            .ThenInclude(c => c.Capacities)
+            .AsSplitQuery();
+
             if (searchString != null)
             {
                 searchString = searchString.ToLower();
@@ -51,6 +56,15 @@ namespace App.Areas.Products.Controllers
             {
                 case "name":
                     products = sortOrder == "asc" ? products.OrderBy(p => p.Name) : products.OrderByDescending(p => p.Name);
+                    break;
+                case "entrydate":
+                    products = sortOrder == "asc" ? products.OrderBy(p => p.EntryDate) : products.OrderByDescending(p => p.EntryDate);
+                    break;
+                case "sold":
+                    products = sortOrder == "asc" ? products.OrderBy(p => p.Colors.SelectMany(cl => cl.Capacities).Sum(ca => ca.Sold)) : products.OrderByDescending(p => p.Colors.SelectMany(cl => cl.Capacities).Sum(ca => ca.Sold));
+                    break;
+                case "sellprice":
+                    products = sortOrder == "asc" ? products.OrderBy(p => p.Colors.SelectMany(cl => cl.Capacities).Min(ca => ca.SellPrice)) : products.OrderByDescending(p => p.Colors.SelectMany(cl => cl.Capacities).Min(ca => ca.SellPrice));
                     break;
                 default:
                     products = sortOrder == "asc" ? products.OrderBy(p => p.EntryDate) : products.OrderByDescending(p => p.EntryDate);
@@ -76,8 +90,6 @@ namespace App.Areas.Products.Controllers
             var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
             return View(productInPage.ToList());
-            // return Json(productInPage.ToList());
-            // return View(products.ToList());
         }
 
         [HttpGet]

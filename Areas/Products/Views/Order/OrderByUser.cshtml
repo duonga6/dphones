@@ -5,6 +5,17 @@
     ViewData["Title"] = "Đơn hàng";
     var queryStatus = Context.Request.Query["status"].ToString();
 }
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header align-items-center">
+            <i class="text-warning fs-6 fa-solid fa-circle-exclamation"></i>
+            <span class="ms-2 me-auto fs-6">Đã thêm sản phẩm vào giỏ hàng</span>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <div class="order-by-user-container">
     <div class="mobile-order-heading">
         <p class="heading-text position-relative">
@@ -71,7 +82,7 @@
                 <p class="order-status">
                     <span>@item.OrderStatuses.Last().Status</span>
 
-                    @if (item.PayType == "Online" && !item.PayStatuses.Any(p => p.ResponseCode == "00"))
+                    @if (item.PayType == "Online" && !item.PayStatuses.Any(p => p.ResponseCode == "00") && item.OrderStatuses.Last().Code == (int)OrderStatusCode.WaitAccept)
                     {
                         <span>Chưa thanh toán - <a
                                 href='@Url.Action("Pay", "ViewProduct", new {area = "Products", orderId = item.Id})'>Nhấn vào
@@ -112,7 +123,7 @@
                         @if (item.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered &&
                        item.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
                         {
-                            <button class="btn primary-bg text-white">Hủy đơn hàng</button>
+                            <button class="btn primary-bg text-white" onclick="openModal('@item.Id')">Hủy đơn hàng</button>
                         }
                     </div>
                 </div>
@@ -135,18 +146,97 @@
     }
 </div>
 
+<div class="modal fade" id="cancel-order-modal" tabindex="-1" aria-labelledby="cancel-order-modalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-dialog-centered" method="post">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-6" id="cancel-order-modalLabel">Lý do hủy đơn hàng</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                <input type="hidden" name="Id" id="orderId-canceled" value="">
+                <textarea name="note" class="form-control w-100" id="canceled-note" rows="5" placeholder="Vui lòng nhập lý do hủy"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary" onclick="sendRequsetDelete()">Xác nhận</button>
+        </div>
+        </div>
+    </form>
+</div>
+
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            const activeOption = $(".order-option-item.active").get(0);
-            if (activeOption) {
-                const optionsBox = $(".order-options");
-                const offsetBox = optionsBox.get(0).offsetLeft;
-                const scrollPosition = (activeOption.offsetLeft - offsetBox) / 2;
-                optionsBox.animate({
-                    scrollLeft: scrollPosition
-                }, 0);
+        const toastElement = $('#liveToast');
+        const toast = new bootstrap.Toast(toastElement.get(0));
+        const showToast = function(status, message) {
+            const iconClass = status == 1 ? "text-success fa-solid fa-circle-check" : "text-warning fs-6 fa-solid fa-circle-exclamation";
+            const toastHtml = `
+                <div class="toast-header align-items-center">
+                    <i class="${iconClass}"></i>
+                    <span class="ms-2 me-auto fs-6">${message}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastElement.html("");
+            toastElement.append(toastHtml);
+            toast.show();
+        }
+
+        // Modal hủy đơn hàng
+        var modal = new bootstrap.Modal('#cancel-order-modal');
+        var idCancelInput = $("#orderId-canceled");
+        const openModal = function(Id) {
+            idCancelInput.val(Id);
+            modal.show();
+        }
+
+        var cancelNoteInput = $("#canceled-note");
+        const sendRequsetDelete = function() {
+            const formData = new FormData();
+
+            if(!cancelNoteInput.val()) {
+                cancelNoteInput.focus();
+                return;
             }
-        });
+
+            formData.append("Id", idCancelInput.val());
+            formData.append("note", cancelNoteInput.val());
+
+
+
+            $.ajax({
+                url: '@Url.Action("CancelOrderAPI", "Order", new {area = "Products"})',
+                data: formData,
+                processData: false,
+                cache: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                    modal.hide();
+                    showToast(data.status, data.message);
+                    if (data.status == 1)
+                    {
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                },
+                error: function() {
+
+                }
+            });
+        }
+
+
+        var activeOption = $(".order-option-item.active").get(0);
+        if (activeOption) {
+            const optionsBox = $(".order-options");
+            const offsetBox = optionsBox.get(0).offsetLeft;
+            const scrollPosition = (activeOption.offsetLeft - offsetBox) / 2;
+            optionsBox.animate({
+                scrollLeft: scrollPosition
+            }, 0);
+        }
     </script>
 }

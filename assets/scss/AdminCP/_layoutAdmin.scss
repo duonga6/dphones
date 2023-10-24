@@ -4,9 +4,64 @@
     }
 }
 
-
 .admin-dashboard {
     .heading {
-        
+        margin-bottom: 12px;
+    }
+    .card {
+        .card-body {
+            .title {
+            }
+            .content {
+                font-size: 32px;
+                text-align: center;
+            }
+        }
+    }
+
+    .order-info-container {
+        .info-list {
+            background-color: white;
+            border-radius: 4px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            .info-item-link {
+                text-decoration: none;
+                padding: 16px 24px;
+                display: flex;
+                align-items: center;
+                border-bottom: dashed 1px #ccc;
+
+                &:last-child {
+                    border: none;
+                }
+
+                .item-icon {
+                    display: flex;
+                    align-items: center;
+                    font-size: 24px;
+                    width: 40px;
+                    color: rgb(77, 77, 77);
+                }
+                .item-quantity {
+                    font-size: 18px;
+                    width: 32px;
+                }
+                .item-content {
+                    transition: all 0.2s ease;
+                    color: $text-color;
+                }
+                .item-nav-icon {
+                    margin-left: auto;
+                }
+
+                &:hover {
+                    .item-content {
+                        color: $fourth-color;
+                    }
+                }
+            }
+        }
     }
 }

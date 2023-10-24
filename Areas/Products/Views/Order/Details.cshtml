@@ -71,20 +71,17 @@
                             }
                         </div>
                         <div>
-                            @if(Model.PayType == "Online")
+                            <p class="mb-1">Trạng thái thanh toán: </p>
+                            @if(Model.PayStatuses.Count > 0)
                             {
-                                <p class="mb-1">Trạng thái thanh toán: </p>
-                                if(Model.PayStatuses.Count > 0)
+                                foreach(var item in Model.PayStatuses)
                                 {
-                                    foreach(var item in Model.PayStatuses)
-                                    {
-                                        <p class="my-1 ms-4" style="font-size: 16px;">@((item.Date ?? DateTime.MinValue).ToString("hh:mm dd/MM/yyy")) - @item.CardType - @item.Content</p>
-                                    }
+                                    <p class="my-1 ms-4" style="font-size: 16px;">@((item.Date ?? DateTime.MinValue).ToString("hh:mm dd/MM/yyy")) - @item.CardType - @item.Content</p>
                                 }
-                                else
-                                {
-                                    <p class="my-1 ms-4" style="font-size: 16px;">Chưa thanh toán</p>
-                                }
+                            }
+                            else
+                            {
+                                <p class="my-1 ms-4" style="font-size: 16px;">Chưa thanh toán</p>
                             }
                         </div>
                     </div>

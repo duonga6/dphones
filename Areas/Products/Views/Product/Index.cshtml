@@ -92,7 +92,10 @@
                 <tr class="text-center">
                     <th>@Html.DisplayNameFor(model => model.Code)</th>
                     <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>Hãng</th>
                     <th>@Html.DisplayNameFor(model => model.EntryDate)</th>
+                    <th>Giá bán (Min)</th>
+                    <th>Đã bán</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -107,7 +110,10 @@
                                 @item.Name
                             </a>
                         </td>
+                        <td>@item.Brand?.Name</td>
                         <td>@item.EntryDate.ToShortDateString()</td>
+                        <td>@item.Colors.SelectMany(c => c.Capacities).Min(c => c.SellPrice).ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
+                        <td>@item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)</td>
                         <td>
                             <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
                                 asp-area="Products" asp-route-Id="@item.Id">
