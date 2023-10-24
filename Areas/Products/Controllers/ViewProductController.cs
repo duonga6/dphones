@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace App.Areas.Products.Controllers
 {
@@ -511,11 +512,20 @@ Xin cảm ơn.";
         [Route("/ket-qua-thanh-toan")]
         public IActionResult PaymentResult([FromQuery] PayResponse model)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Code == model.vnp_TxnRef);
+            MatchCollection matches = Regex.Matches(model.vnp_OrderInfo??"", @"\d{22}");
+            string orderId = "";
+            if (matches.Count > 0)
+            {
+                foreach (Match item in matches)
+                {
+                    orderId = item.Value;
+                }
+            }
+            var order = _context.Orders.FirstOrDefault(o => o.Code == orderId);
             if (order == null) return NotFound();
             ViewBag.Order = order;
 
-            var payStatusCheck = _context.PayStatuses.FirstOrDefault(p => p.PaymentCode == model.vnp_TxnRef);
+            var payStatusCheck = _context.PayStatuses.FirstOrDefault(p => p.PaymentCode == orderId);
             if (payStatusCheck != null)
                 return View(payStatusCheck);
 

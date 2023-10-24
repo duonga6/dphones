@@ -2,8 +2,23 @@
 @import "../mixin";
 
 .cart-container {
+    min-height: 500px;
+
+    .cart-heading {
+        background-color: white;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 4px;
+        box-shadow: $shadow-sm;
+    }
     .empty-cart {
-        margin-top: 24px;
+        height: 100%;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: $shadow-sm;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
         .empty-cart-img {
             height: 200px;
@@ -38,9 +53,9 @@
         .table-header {
             height: 40px;
             background-color: white;
-            border-radius: 8px;
-            border: 1px solid rgba($color: $primary-color, $alpha: 0.1);
-            margin-bottom: 12px;
+            border-radius: 4px;
+            box-shadow: $shadow-sm;
+            margin-bottom: 8px;
         }
 
         .cart-list {
@@ -175,7 +190,8 @@
         .total-cost {
             height: 200px;
             background-color: white;
-            border-radius: 8px;
+            border-radius: 4px;
+            box-shadow: $shadow-sm;
 
             .btn-add-order {
                 margin-top: auto;
@@ -203,6 +219,7 @@
                     height: 140px;
                     .cart-item-container {
                         .cart-item-info {
+                            overflow: hidden;
                             .cart-item-img {
                                 img {
                                     height: 100px;

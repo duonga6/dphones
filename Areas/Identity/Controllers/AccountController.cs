@@ -128,7 +128,7 @@ namespace App.Areas.Identity.Controllers
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.ActionLink(
                     action: nameof(ResetPassword),
-                    values: new { area = "Identity", code },
+                    values: new { area = "Identity", code, email = user.Email },
                     protocol: Request.Scheme);
 
                 string emailContent = @$"
@@ -136,6 +136,7 @@ Bạn đã thực hiện yêu cầu đặt lại mật khẩu. Hãy <a href='{Ht
 
 Xin cảm ơn.
                 ";
+                
 
                 string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, emailContent);
 
@@ -159,7 +160,7 @@ Xin cảm ơn.
 
         [AllowAnonymous]
         [HttpGet("/reset-password")]
-        public IActionResult ResetPassword(string? code)
+        public IActionResult ResetPassword(string? code, string? email)
         {
             return code == null ? NotFound() : View();
         }

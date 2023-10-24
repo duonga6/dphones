@@ -1,6 +1,17 @@
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.exe
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\web.config
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\appsettings.Development.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\App.deps.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\App.runtimeconfig.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\appsettings.Development.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\appsettings.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\libman.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\package-lock.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\package.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\bower.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\composer.json
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\app\publish\wwwroot\lib\froala_editor_4.1.2\package.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\libman.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\package-lock.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\package.json
@@ -48,11 +59,18 @@ J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvata
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\icnhiiob.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\mtjtzcn1.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\no-image.png
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\ooqhd3gb.png
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\phovevog.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\qlms1xv2.jpg
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\rjbveexy.png
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\test.jpg
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\tải xuống (2).jpg
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\wbcie5m0.webp
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\wp1q1dyo.png
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\xb05qxhd.webp
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-19-12-11-51_payment.bak
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-20-12-12-56_kkkk.bak
+J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-10-23-10-11-09_responsive.bak
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.dll
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.runtimeconfig.json
 J:\CS\NetCore\NET_5\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.pdb

@@ -2,7 +2,14 @@
     ViewData["Title"] = "Xác thực email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<p>
-    Bạn đã hoàn thành xác thực. <a asp-action="Login" asp-controller="Account" asp-area="Identity">Bấm vào đây</a> để đăng nhập.
-</p>
+<div class="forgot-pw-container">
+    <div class="forgot-pw-page">
+        <p class="forgot-pw-heading">@ViewData["Title"]</p>
+        <div class="page-logo">
+            <img src="~/images/logo-color.png">
+        </div>
+        <section>
+            <p class="text-center">Bạn đã hoàn thành xác thực. <a asp-action="Login" asp-controller="Account" asp-area="Identity">Bấm vào đây</a> để đăng nhập.</p>
+        </section>
+    </div>
+</div>

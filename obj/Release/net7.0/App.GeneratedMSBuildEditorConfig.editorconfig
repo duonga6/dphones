@@ -112,8 +112,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Identity/Views/Shared/_ManageLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcU2hhcmVkXF9NYW5hZ2VMYXlvdXQuY3NodG1s
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Identity/Views/Shared/_ManageAccountLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcU2hhcmVkXF9NYW5hZ2VBY2NvdW50TGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Identity/Views/User/AddClaim.cshtml]
@@ -194,6 +194,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Order/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcT3JkZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Order/OrderByUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcT3JkZXJcT3JkZXJCeVVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [J:/CS/NetCore/NET_5/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Product/AddPhoto.cshtml]

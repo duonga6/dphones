@@ -40,7 +40,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="#">Trang quản trị</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -54,7 +54,7 @@
             </div>
         </form>
         <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 ">
+        <ul class="navbar-nav navbar-nav-admin ms-auto ms-md-0 me-3 me-lg-4 ">
             <li class="nav-item dropdown header-navbar ">
                 <a class="nav-link dropdown-toggle d-flex align-items-center " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -83,15 +83,15 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         @{
-                            var controller = ViewContext.RouteData.Values["controller"] as string ?? "";
-                            var area = ViewContext.RouteData.Values["area"] as string ?? "";
+                            var controller = ViewContext.RouteData.Values["controller"].ToString() ?? "";
+                            var area = ViewContext.RouteData.Values["area"].ToString() ?? "";
                         }
                         @Html.Raw(_sidebarService.RenderHtml(controller, area))
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <div class="small">Đã đăng nhập:</div>
+                    @displayName
                 </div>
             </nav>
         </div>

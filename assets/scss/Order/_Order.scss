@@ -1,8 +1,23 @@
+@import "../mixin";
 .order-container {
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: $shadow-sm;
+    padding-bottom: 40px;
+
+    .heading {
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
     .order-infor {
         background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba($color: #000000, $alpha: 0.05);
+        border-radius: 4px;
+        box-shadow: $shadow-sm;
+        border: $border-gray-sm;
         position: relative;
         overflow: hidden;
 
@@ -53,6 +68,7 @@
                 background-color: rgba($color: #000000, $alpha: 0.03);
                 border-radius: 8px;
                 margin-bottom: 8px;
+                overflow: hidden;
 
                 height: 120px;
                 .product-item-img {
@@ -120,10 +136,74 @@
                         height: 52px;
                         background-color: rgba($color: #000000, $alpha: 0.025);
                         border-radius: 8px;
-                        
+
                         input {
+                            margin-right: 6px;
                             &:checked {
                                 accent-color: $primary-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include mobile {
+    .order-container {
+        .order-infor {
+            .product-list {
+                .product-item {
+                    .product-item-img {
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        img {
+                            height: 80%;
+                            object-fit: contain;
+                        }
+                    }
+
+                    .product-item-info {
+                        .product-item-name {
+                        }
+
+                        .product-item-color {
+                        }
+
+                        .product-item-capacity {
+                        }
+
+                        .product-item-quantity {
+                        }
+
+                        .product-item-price {
+                        }
+                    }
+
+                    .product-item-total-price {
+                        padding-left: 0;
+                    }
+                }
+            }
+            .payments {
+                .total-cost {
+                    padding: 12px;
+                    border-radius: 4px;
+                }
+
+                .payments-method {
+                    .pay-options {
+                        .pay-option-item {
+                            justify-content: start;
+
+                            input {
+                                &:checked {
+                                    accent-color: $primary-color;
+                                }
                             }
                         }
                     }

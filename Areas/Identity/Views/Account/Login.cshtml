@@ -5,21 +5,22 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-<div class="row login-page">
-    <div class="col-md-4 offset-md-4">
-        <h4 class="text-center text-dark fw-semibold">Đăng nhập với chúng tôi</h4>
-        <img src="~/images/logo-color.png" style="width: 100%; height: 100px; object-fit: cover;">
+<div class="login-container">
+    <div class="login-page mt-3 mt-md-4">
+        <p class="login-heading">Đăng nhập</p>
+        <div class="page-logo">
+            <img src="~/images/logo-color.png">
+        </div>
         <section>
             <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@ViewData["returnUrl"]">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <input asp-for="Email" class="form-control" placeholder="example@gmail.com"/>
                     <label asp-for="Email" class="form-label primary-text opacity-100"></label>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" autocomplete="current-password"
-                        aria-required="true" />
+                    <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
                     <label asp-for="Password" class="form-label primary-text opacity-100"></label>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
@@ -28,8 +29,8 @@
                         <input class="form-check-input" asp-for="RememberMe" />
                         Ghi nhớ đăng nhập
                     </label>
-                    <a id="forgot-password" asp-action="ForgotPassword" asp-controller="Account"
-                        asp-area="Identity" class="text-decoration-none  primary-text">Quên mật khẩu ?</a>
+                    <a id="forgot-password" asp-action="ForgotPassword" asp-controller="Account" asp-area="Identity"
+                        class="text-decoration-none">Quên mật khẩu ?</a>
                 </div>
                 <div>
                     <button type="submit" class="w-100 btn primary-bg text-white">Đăng nhập</button>
@@ -37,55 +38,19 @@
             </form>
 
             <div>
-                <p>
-                    
-                </p>
-                <p>
+                <p class="mt-4 mb-1">
                     Chưa có tài khoản ?
-                    <a class="primary-text text-decoration-none" asp-action="Register" asp-controller="Account" asp-area="Identity"
-                        asp-route-returnUrl="@ViewData["returnUrl"]">Đăng ký</a>
+                    <a class="primary-text text-decoration-none" asp-action="Register" asp-controller="Account"
+                        asp-area="Identity" asp-route-returnUrl="@ViewData["returnUrl"]">Đăng ký</a>
                 </p>
-                <p>
-                    <a class="text-decoration-none  primary-text" id="resend-confirmation" asp-action="ResendEmailConfirmation" asp-controller="Account"
-                        asp-area="Identity">Gửi lại email xác thực</a>
+                <p class="">
+                    <a class="text-decoration-none" id="resend-confirmation"
+                        asp-action="ResendEmailConfirmation" asp-controller="Account" asp-area="Identity">Gửi lại
+                        email xác thực</a>
                 </p>
             </div>
         </section>
     </div>
-    @* <div class="col-md-6 col-md-offset-2">
-    <section>
-    <h3>Use another service to log in.</h3>
-    <hr />
-    @{
-    var externalLogin = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-    if ((externalLogin?.Count ?? 0) == 0)
-    {
-    <div>
-    <p>
-    There are no external authentication services configured. See this <a
-    href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-    about setting up this ASP.NET application to support logging in via external services</a>.
-    </p>
-    </div>
-    }
-    else
-    {
-    <form id="external-account" asp-action="ExternalLogin" asp-controller="Account" asp-area="Identity"
-    asp-route-returnUrl="@ViewData["returnUrl"]" method="post" class="form-horizontal">
-    <div>
-    <p>
-    @foreach (var provider in externalLogin!)
-    {
-    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
-    title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-    }
-    </p>
-    </div>
-    </form>
-    }
-    }
-    </section>
-    </div> *@
 </div>
 
 

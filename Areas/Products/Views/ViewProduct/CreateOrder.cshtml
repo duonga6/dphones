@@ -13,12 +13,12 @@
     var user = await _userManager.GetUserAsync(User);
 }
 
-<div class="order-container">
-    <h5 class="text-center mt-2">Đặt hàng</h5>
+<div class="order-container mt-2 mt-md-4">
+    <p class="heading">Đặt hàng</p>
     <hr class="primary-text mt-2 mb-3">
 
     <div class="row">
-        <div class="col-md-8 offset-2">
+        <div class="col-lg-8 offset-lg-2">
             <div class="order-infor px-4 py-4">
                 <h5 class="mb-3">Thông tin nhận hàng</h5>
                 <partial name="_StatusMessage"/>
@@ -80,7 +80,7 @@
                             foreach(var item in cartList) 
                             {
                                 <li class="product-item ">
-                                    <div class="row h-100">
+                                    <div class="row h-100 m-0">
                                         <div class="product-item-img col-3">
                                             <img src="/files/Products/@item.Color.Image" alt="">
                                         </div>
@@ -125,11 +125,11 @@
                             <h6 class="mt-4">Hình thức thanh toán</h6>
                             <div class="pay-options">
                                 <div class="row">
-                                    <div class="col-6 pay-option-item pay-online active">
+                                    <div class="col-sm-6 col-12 pay-option-item pay-online active">
                                         <input type="radio" class="inpPayType" name="PayType" id="Online" value="Online" checked>
                                         <label for="Online"> Thanh toán trực tuyến (VNPAY)</label>
                                     </div>
-                                    <div class="col-6 pay-option-item pay-offline">
+                                    <div class="col-sm-6 col-12 pay-option-item pay-offline">
                                         <input type="radio" class="inpPayType" name="PayType" id="COD" value="COD">
                                         <label for="COD"> Thanh toán khi nhận hàng</label>
                                     </div>

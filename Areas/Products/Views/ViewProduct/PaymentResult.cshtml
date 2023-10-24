@@ -5,7 +5,7 @@
     var Order = ViewBag.Order as Order;
 }
 
-<div class="payment-result">
+<div class="payment-result mt-2 mt-md-4">
     <div class="payment-result-container">
         @if(Model.ResponseCode == "00")
         {
@@ -17,11 +17,26 @@
         </div>
         <div class="result-content">
             <div class="pay-success">
-                <p><span class="fw-semibold">Mã giao dịch:</span> @Model.BankTranNo</p>
-                <p><span class="fw-semibold">Nội dung:</span> <br> @Model.OrderInfo</p>
-                <p><span class="fw-semibold">Thời gian:</span> @((Model.Date ?? DateTime.Now).ToString("HH:mm dd/MM/yyyy"))</p>
-                <p><span class="fw-semibold">Số tiền:</span> @((Model.Amount/100 ?? 0).ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></p>
-                <p><span class="fw-semibold">Mã đơn hàng: </span> <span class="primary-text fw-semibold">@Model.PaymentCode</span> (Vui lòng lưu lại để tra cứu)</p>
+                <div class="row m-0">
+                    <span class="fw-semibold col-4 col-md-5">Mã giao dịch:</span>
+                    <span class="col-8 col-md-7">@Model.BankTranNo</span>
+                </div>
+                <div class="row m-0">
+                    <span class="fw-semibold col-4 col-md-5">Nội dung:</span>
+                    <span class="col-8 col-md-7">@Model.OrderInfo</span>
+                </div>
+                <div class="row m-0">
+                    <span class="fw-semibold col-4 col-md-5">Thời gian:</span>
+                    <span class="col-8 col-md-7">@((Model.Date ?? DateTime.Now).ToString("HH:mm dd/MM/yyyy"))</span>
+                </div>
+                <div class="row m-0">
+                    <span class="fw-semibold col-4 col-md-5">Số tiền:</span>
+                    <span class="col-8 col-md-7 primary-text fw-semibold" >@((Model.Amount/100 ?? 0).ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
+                </div>
+                <div class="row m-0">
+                    <span class="fw-semibold col-4 col-md-5">Mã đơn hàng: </span>
+                    <span class="col-8 col-md-7">@Order?.Code  (Vui lòng lưu lại để tra cứu)</span>
+                </div>
                 <div class="text-center mt-4">
                     <a href='@Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = Order?.PhoneNumber, Code = Order?.Code})' class="btn btn-order-info me-3">Chi tiết đơn hàng</a>
                     <a href="/" class="btn primary-bg text-white ">Quay lại trang chủ</a>
@@ -40,7 +55,14 @@
             <div class="result-content">
                 <div class="pay-fail">
                     <p class=" text-center fs-5">Vui lòng thử lại sau.</p>
-                    <p><span class="fw-semibold">Mã đơn hàng: </span> <span class="primary-text fw-semibold">@Model.PaymentCode</span> (Vui lòng lưu lại để tra cứu)</p>
+                    <div class="row m-0">
+                        <span class="col-5 col-md-4 fw-semibold">Mã đơn hàng: </span>
+                        <span class="col-7 col-md-8 primary-text fw-semibold">@Order?.Code (Vui lòng lưu lại để tra cứu)</span> 
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href='@Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = Order?.PhoneNumber, Code = Order?.Code})' class="btn btn-order-info me-3">Chi tiết đơn hàng</a>
+                    <a href="/" class="btn primary-bg text-white ">Quay lại trang chủ</a>
                 </div>
             </div>
         }

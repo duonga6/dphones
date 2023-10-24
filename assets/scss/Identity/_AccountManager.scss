@@ -1,3 +1,4 @@
+@import "../mixin";
 .account-manager-container {
     display: flex;
     min-height: 500px;
@@ -5,6 +6,7 @@
         box-shadow: $shadow-sm;
         border-radius: 4px;
         height: 100%;
+        max-height: 600px;
         width: 20%;
         background-color: white;
         .user-info {
@@ -83,39 +85,140 @@
             box-shadow: $shadow-sm;
             border-radius: 4px;
             padding: 12px 32px;
+            padding: 8px 12px;
             .heading {
-                color: $text-color;
-                font-size: 22px;
-                font-weight: 500;
-                margin-top: 8px;
+                margin-top: 0;
                 margin-bottom: 0;
+                font-size: 18px;
+                font-weight: 500;
+                height: 27px;
+                line-height: 27px;
             }
-
             .divider {
-                margin-bottom: 32px;
+                margin-top: 4px;
+                margin-bottom: 8px;
             }
 
             .user-infomation {
+                padding: 12px;
                 .user-left-section {
                 }
                 .user-right-section {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                     .user-avatar {
                         padding: 12px;
                         border: $border-gray-ssm;
-                        border-radius: 8px;
-                        position: relative;
-
+                        border-radius: 50%;
+                        width: 50%;
+                        aspect-ratio: 1/1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        overflow: hidden;
                         img {
-                            width: 50%;
-                            object-fit: contain;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
                         }
+                    }
 
+                    .btn-edit-avatar {
+                        .btn {
+                            border: 1px solid $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include tablet {
+    .account-manager-container {
+        .left-section {
+            width: 30%;
+        }
+        .right-section {
+            width: 70%;
+            .manager-user {
+                padding: 8px 12px;
+                .heading {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 18px;
+                    font-weight: 500;
+                    height: 27px;
+                    line-height: 27px;
+                }
+                .divider {
+                    margin-top: 4px;
+                    margin-bottom: 4px;
+                }
+                .user-infomation {
+                    padding: 8px 12px;
+                    .user-right-section {
+                        display: flex;
+                        justify-content: center;
+                        .user-avatar {
+                            width: 30%;
+                        }
                         .btn-edit-avatar {
-                            position: absolute;
-                            bottom: 0;
-                            right: 12px;
-                            .edit-icon {
-                                color: rgb(148, 148, 148);
+                            .btn {
+                                padding: 4px 8px;
+                            }
+                            margin-bottom: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include table-lg-desktop {
+    .account-manager-container {
+        .right-section {
+            .manager-user {
+                .user-infomation {
+                    .user-right-section {
+                        .user-avatar {
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include mobile {
+    .account-manager-container {
+        .left-section {
+            display: none;
+        }
+        .right-section {
+            width: 100%;
+            margin-left: 0;
+            .manager-user {
+                padding: 12px;
+                .heading {
+                    font-size: 18px;
+                    margin-top: 0;
+                }
+                .divider {
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                }
+                .user-infomation {
+                    .user-right-section {
+                        .user-avatar {
+                        }
+                        .btn-edit-avatar {
+                            .btn {
+                                padding: 4px 8px;
+                                font-size: 12px;
                             }
                         }
                     }

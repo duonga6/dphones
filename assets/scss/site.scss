@@ -61,31 +61,34 @@ body {
     background-color: #F5F5F5 !important;
 }
 
-@import "AdminCP/AddPhoto";
-@import "AdminCP/ProductDetails";
-@import "AdminCP/UserManager";
-@import "AdminCP/ModalEditImg";
-@import "AdminCP/OrderDetails";
-@import "AdminCP/CreateProduct";
-@import "AdminCP/EditUser";
+@import "admincp/addPhoto";
+@import "admincp/productDetails";
+@import "admincp/userManager";
+@import "admincp/modalEditImg";
+@import "admincp/orderDetails";
+@import "admincp/createProduct";
+@import "admincp/editUser";
+@import "admincp/layoutAdmin";
 
-@import "Identity/login";
-@import "Identity/AccountManager";
+@import "identity/login";
+@import "identity/forgotPassword";
+@import "identity/register";
+@import "identity/accountManager";
 
-@import "Cart/Cart";
+@import "cart/cart";
 
-@import "Order/Order";
-@import "Order/OrderConfirmed";
-@import "Order/OrderCheck";
-@import "Order/PayResult";
-@import "Order/OrderByUser";
+@import "order/order";
+@import "order/orderConfirmed";
+@import "order/orderCheck";
+@import "order/payResult";
+@import "order/orderByUser";
 
-@import "HomePage/ProductDetails";
-@import "HomePage/LayoutHome";
-@import "HomePage/Breadcrumb";
-@import "HomePage/HomeProduct";
-@import "HomePage/HomeProductFilter";
-@import "HomePage/HomeSlide";
+@import "homePage/productDetails";
+@import "homePage/layoutHome";
+@import "homePage/breadcrumb";
+@import "homePage/homeProduct";
+@import "homePage/homeProductFilter";
+@import "homePage/homeSlide";
 
 @import "media-queries";
 @import "mixin";

@@ -38,7 +38,7 @@ namespace App.Services
 
             OrderInfo order = new()
             {
-                OrderId = orderCode, // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
+                OrderId = DateTime.Now.Ticks.ToString(), // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
                 Amount = amount, // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
                 Status = "0", //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending" khởi tạo giao dịch chưa có IPN
                 CreatedDate = DateTime.Now
@@ -59,7 +59,7 @@ namespace App.Services
             vnpay.AddRequestData("vnp_OrderType", "110000"); //default value: other
 
             vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
-            vnpay.AddRequestData("vnp_TxnRef", orderCode); // Mã tham chiếu của giao dịch tại hệ thống của merchant. Mã này là duy nhất dùng để phân biệt các đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
+            vnpay.AddRequestData("vnp_TxnRef", order.OrderId); // Mã tham chiếu của giao dịch tại hệ thống của merchant. Mã này là duy nhất dùng để phân biệt các đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
 
             string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
             // _logger.LogInformation($"VNPAY URL: {paymentUrl}");

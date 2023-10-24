@@ -1,29 +1,60 @@
+@import "../mixin";
 .order-by-user-container {
+    .mobile-order-heading {
+        background-color: white;
+        padding: 8px 12px 0;
+
+        .heading-text {
+            margin-bottom: 0;
+            font-size: 18px;
+            font-weight: 500;
+            display: inline-block;
+
+            .order-count {
+                font-size: 8px;
+                font-weight: normal;
+            }
+        }
+
+        .div-heading {
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+    }
     .order-options {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
         .order-options-list {
             list-style: none;
             padding: 0;
             margin: 0;
             display: flex;
-            border-radius: 4px;
-            overflow: hidden;
             box-shadow: $shadow-sm;
             .order-option-item {
                 flex: 1;
                 text-align: center;
                 background-color: white;
-                height: 48px;
-                line-height: 48px;
                 position: relative;
                 cursor: pointer;
                 transition: all 0.1s ease;
+
+                .order-option-link {
+                    display: block;
+                    height: 48px;
+                    line-height: 48px;
+                    text-decoration: none;
+                    color: $text-color;
+                }
 
                 &:hover {
                     color: $primary-color;
                 }
 
                 &.active {
-                    color: $primary-color;
+                    .order-option-link {
+                        color: $primary-color;
+                    }
                     &::after {
                         position: absolute;
                         z-index: 1;
@@ -50,9 +81,12 @@
             border-radius: 4px;
             box-shadow: $shadow-sm;
             padding: 12px;
+            margin-bottom: 8px;
 
             .order-status {
                 margin-bottom: 6px;
+                display: flex;
+                justify-content: space-between;
             }
 
             .product-list {
@@ -81,6 +115,8 @@
                         .product-name {
                             font-weight: 500;
                             margin-bottom: 0;
+                            text-decoration: none;
+                            color: $text-color;
                         }
                         .product-info {
                             margin-bottom: 0;
@@ -106,20 +142,18 @@
 
                 .order-total-cost {
                     margin: 12px 24px 12px;
-
                 }
 
                 .order-action {
                     margin-right: 12px;
                 }
             }
-
         }
     }
 
     .order-empty {
         margin-top: 12px;
-        min-height: 688px;
+        min-height: 540px;
         background-color: white;
         border-radius: 4px;
         box-shadow: $shadow-sm;
@@ -133,6 +167,54 @@
             .empty-content {
                 margin-top: 4px;
                 text-align: center;
+            }
+        }
+    }
+}
+
+@include tablet {
+    .order-by-user-container {
+        .order-options {
+            overflow-x: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            .order-options-list {
+                .order-option-item {
+                    flex: none;
+                    width: 120px;
+                    .order-option-link {
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include mobile {
+    .order-by-user-container {
+        .order-options {
+            overflow-x: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            .order-options-list {
+                .order-option-item {
+                    flex: none;
+                    width: 110px;
+                    .order-option-link {
+                        height: 42px;
+                        line-height: 42px;
+                    }
+                }
+            }
+        }
+
+        .order-list {
+            .order-item {
+                .order-status {
+                    flex-direction: column;
+                }
             }
         }
     }

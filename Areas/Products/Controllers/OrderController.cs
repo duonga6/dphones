@@ -36,6 +36,7 @@ namespace App.Areas.Products.Controllers
             var order = _context.Orders
                                 .OrderByDescending(o => o.OrderDate)
                                 .Include(o => o.OrderStatuses)
+                                .Include(o => o.User)
                                 .ToList();
 
             order.ForEach(o =>
@@ -48,12 +49,34 @@ namespace App.Areas.Products.Controllers
 
         [Route("/user/order")]
         [Authorize]
-        public async Task<IActionResult> OrderByUser()
+        public async Task<IActionResult> OrderByUser(int? status)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return NotFound();
 
-            var order = _context.Orders.Where(o => o.UserId == user.Id);
+            var order = _context.Orders.Where(o => o.UserId == user.Id)
+                                        .Include(o => o.OrderDetails)
+                                        .ThenInclude(o => o.Product)
+                                        .Include(o => o.OrderDetails)
+                                        .ThenInclude(o => o.Color)
+                                        .Include(o => o.OrderDetails)
+                                        .ThenInclude(o => o.Capacity)
+                                        .Include(o => o.OrderStatuses.OrderBy(os => os.DateUpdate))
+                                        .Include(o => o.PayStatuses)
+                                        .OrderByDescending(o => o.OrderDate)
+                                        .AsSplitQuery();
+
+            if (status != null)
+            {
+                if (status == -1)
+                {
+                    order = order.Where(o => o.PayType == "Online" && !o.PayStatuses.Any(p => p.ResponseCode == "00"));
+                }
+                else
+                {
+                    order = order.Where(o => o.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == status);
+                }
+            }
 
             return View(order.ToList());
         }

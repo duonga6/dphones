@@ -4,15 +4,19 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="order-check-container">
-    <h5 class="text-center mt-2">Tra cứu đơn hàng</h5>
+<div class="order-check-container mt-2 mt-xl-4">
+    <p class="heading text-center">Tra cứu đơn hàng</p>
     <hr class="primary-text mt-2">
-
     <div class="order-input">
-        <div class="banner w-75 m-auto">
-            <div class="row h-100">
-                <div class="col-6 ms-auto">
-                    <div class="h-100 d-flex justify-content-center align-items-center">
+        <div class="banner">
+            <div class="row h-100 flex-column flex-md-row">
+                <div class="col-12 h-100 col-md-6">
+                    <div class="order-check-banner">
+                        <img src="/images/delivery.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="input-form">
                         <form class="w-75" method="post">
                             <div class="form-group mb-2">
                                 <label asp-for="PhoneNumber" class="form-label">Số điện thoại (bắt buộc)</label>
@@ -81,11 +85,11 @@
                 @foreach(var item in Model.OrderDetails)
                 {
                     <li class="product-item">
-                        <div class="row h-100">
-                            <div class="product-item-img col-3">
+                        <div class="row h-100 m-0">
+                            <div class="product-item-img col-3 col-md-3">
                                 <img src="/files/Products/@item.Color.Image" alt="">
                             </div>
-                            <div class="product-item-info col-6">
+                            <div class="product-item-info col-6 col-md-6">
                                 <div class="product-item-name">
                                     <span>@item.Product?.Name</span>
                                 </div>
@@ -104,7 +108,7 @@
                                 CultureInfo("vi-VN"))</span><sup>đ</sup>
                                 </div>
                             </div>
-                            <div class="product-item-total-price col-3">
+                            <div class="product-item-total-price col-3 col-md-3">
                                 <span>Tổng tiền:</span>
                                 <div class="primary-text fw-semibold">
                                     <span>@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
