@@ -37,19 +37,12 @@ public class HomeController : Controller
             
         var products = _context.Products.Include(p => p.Brand)
                                         .Include(p => p.Photos)
-                                        .Include(p => p.Colors)
-                                        .ThenInclude(c => c.Capacities)
+                                        .Include(p => p.Colors.OrderBy(c => c.Name))
+                                        .ThenInclude(c => c.Capacities.OrderBy(c => c.Rom))
                                         .AsSingleQuery()
                                         .OrderByDescending(p => p.EntryDate)
                                         .Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE)
                                         .ToList();
-        
-        products.ForEach(p => {
-            p.Colors = p.Colors.OrderBy(c => c.Name).ToList();
-            p.Colors.ForEach(cl => {
-                cl.Capacities = cl.Capacities.OrderBy(ca => ca.Rom).ToList();
-            });
-        });
         
         
         ViewBag.Products = products;

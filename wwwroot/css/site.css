@@ -253,6 +253,35 @@ body {
   font-size: 32px;
   text-align: center;
 }
+.admin-dashboard .best-selling {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+}
+.admin-dashboard .best-selling .heading {
+  font-size: 18px;
+  font-weight: 500;
+}
+.admin-dashboard .best-selling .best-sell-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.admin-dashboard .best-selling .best-sell-list .best-sell-item .best-sell-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.admin-dashboard .best-selling .best-sell-list .best-sell-item .best-sell-link .product-img img {
+  width: 100px;
+}
 .admin-dashboard .order-info-container .info-list {
   background-color: white;
   border-radius: 4px;

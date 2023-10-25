@@ -16,6 +16,8 @@ namespace App.Services
         {
             var productBestSell = _context.Products
                                             .Include(p => p.Colors.OrderBy(c => c.Name))
+                                            .ThenInclude(c => c.Capacities)
+                                            .AsSplitQuery()
                                             .Select(p => new {
                                                 product = p,
                                                 TotalSold = p.Colors

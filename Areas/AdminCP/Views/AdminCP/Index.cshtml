@@ -1,4 +1,8 @@
 @using System.Globalization;
+@using App.Services;
+
+@inject HomeCategoryService _homeCategory;
+
 @{
     ViewData["Title"] = "Trang quản trị";
     Layout = "/Views/Shared/_LayoutAdminCP.cshtml";
@@ -6,6 +10,7 @@
     decimal TotalRevenue = ViewBag.TotalRevenue;
     var queryRevenue = Context.Request.Query["revenure"].ToString();
     var dataRevenure = ViewBag.DataRevenure as Dictionary<string, string>;
+    var productsBestSeller = _homeCategory.GetData().Products;
 }
 
 <div class="admin-dashboard">
@@ -161,11 +166,29 @@
                 <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
             </div>
             <div class="best-selling">
-                <div class="best-sell-list">
-                    <div class="best-sell-item">
-
-                    </div>
+                <div class="heading">
+                    Sản phẩm bán chạy
                 </div>
+                <ul class="best-sell-list">
+                    @foreach (var item in productsBestSeller)
+                    {
+                        <li class="best-sell-item">
+                            <a href='@Url.Action("Details", "Product", new {area = "Products", Id = item.Id})' class="best-sell-link">
+                                <div class="product-img">
+                                    <img src="/files/Products/@item.Colors!.FirstOrDefault()!.Image" alt="">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">
+                                        @item.Name
+                                    </div>
+                                    <div class="product-sold">
+                                        Đã bán: @item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
         <div class="order-info-container mb-4 col-6">
@@ -301,7 +324,7 @@
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            max: @dataRevenure.Max(c => c.Value) * 2,
+                            max: @(dataRevenure.Max(c => c.Value) == "0" ? "10000000" : dataRevenure.Max(c => c.Value)) * 1.5,
                             maxTicksLimit: 5
                         },
                         gridLines: {
