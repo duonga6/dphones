@@ -1,22 +1,40 @@
 @model UserIndexModel
 
 @{
-    ViewData["Title"] = "Quản lý User";
+    ViewData["Title"] = "Quản lý khách hàng";
 }
 <div class="admin-manager-user h-100">
     <div class="card table-user-manager mb-4 h-100">
-        <div class="card-header table-heading">
-            <i class="fas fa-table me-1"></i>
-            @ViewData["Title"]
+        <div class="card-header table-heading d-flex justify-content-between align-items-center">
+            <div class="header-left">
+                <i class="fas fa-table me-1"></i>
+                @ViewData["Title"]
+            </div>
+            <div class="header-right d-flex align-items-center">
+                <form method="get">
+                    <div class="input-group-sm d-flex justify-content-end align-items-center">
+                        <input class="form-control w-50" type="text" name="s" placeholder="Tìm kiếm...."
+                            value="@Context.Request.Query["s"]">
+                        <button class="btn ms-1" type="submit">
+                            <i class="text-primary fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </form>
+                <a class="ms-1" asp-action="Index" asp-controller="User" asp-area="Identity">
+                    <i class="text-danger fa-solid fa-xmark"></i>
+                </a>
+            </div>
         </div>
         <div class="card-body table-content mb-4">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th class="col-2">Tên đăng nhập</th>
-                        <th class="col-4">Email</th>
-                        <th class="col-4">Vai trò</th>
-                        <th class="col-2">Tác vụ</th>
+                    <tr class="text-center">
+                        <th class="col">Tên đăng nhập</th>
+                        <th class="col">Họ tên</th>
+                        <th class="col">Email</th>
+                        <th class="col">Số điện thoại</th>
+                        @* <th class="col">Vai trò</th> *@
+                        <th class="col-1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +44,7 @@
                         {
                             <tr>
                                 <td>@item.UserName</td>
+                                <td>@item.FullName</td>
                                 <td>
                                     <div class="d-flex justify-content-between">
                                         @item.Email
@@ -43,42 +62,55 @@
                                         }
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="role-container d-flex justify-content-between">
-                                        <div class="role-list">
+                                <td>@item.PhoneNumber</td>
+                                @* <td>
+                                    <div class="role-container d-flex justify-content-center">
+                                        <div class="role-list text-center">
                                             @if (item.Roles is not null)
                                             {
-                                                var styleText = "";
+                                                var classText = "";
                                                 foreach (var role in item.Roles)
                                                 {
                                                     if (role == RoleName.Administrator)
                                                     {
-                                                        styleText = "text-success";
+                                                        classText = "role-admin";
                                                     }
                                                     else if (role == RoleName.Editor)
                                                     {
-                                                        styleText = "text-info";
+                                                        classText = "role-editor";
                                                     }
-                                                    else
+                                                    else if (role == RoleName.Staff)
                                                     {
-                                                        styleText = "";
+                                                        classText = "role-staff";
                                                     }
-                                                    <p class="role-item fw-bold mb-0 @(styleText)">@role</p>
+                                                    else if (role == RoleName.Customer)
+                                                    {
+                                                        classText = "role-customer";
+                                                    }
+                                                    <p class="role-item fw-bold mb-0 @(classText)">@role</p>
                                                 }
                                             }
                                         </div>
-                                        <a class="btn btn-sm" asp-action="AddRole" asp-controller="User" asp-area="Identity"
-                                            asp-route-userid="@item.Id" data-bs-toggle="tooltip" title=""
-                                            data-bs-original-title="Cập nhật">
-                                            <i class="text-primary fa-regular fa-pen-to-square"></i>
-                                        </a>
                                     </div>
-                                </td>
+                                </td> *@
                                 <td>
-                                    <a asp-action="SetPassword" asp-controller="User" asp-area="Identity"
-                                        asp-route-userid="@item.Id" class="btn btn-warning btn-sm">Reset mật khẩu <i
-                                            class="fa-solid fa-key"></i></a>
-                                    
+                                    <div class="more-action">
+                                        <div class="dropdown">
+                                            <span class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </span>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" asp-action="SetPassword" asp-controller="User"
+                                                        asp-area="Identity" asp-route-userid="@item.Id">Đặt lại mật khẩu</a>
+                                                </li>
+                                                <li><a class="dropdown-item" asp-action="AddRole" asp-controller="User"
+                                                        asp-area="Identity" asp-route-userid="@item.Id">Cập nhật vai trò</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </td>
                             </tr>
                         }
@@ -87,11 +119,11 @@
             </table>
             @{
                 var pageModel = new PagingModel()
-                {
-                    CountPage = ViewBag.CountPage,
-                    CurrentPage = ViewBag.CurrentPage,
-                    GenerateUrl = p => Url.Action("Index", "User", new {area = "Identity", p}) ?? ""
-                };
+            {
+                CountPage = ViewBag.CountPage,
+                CurrentPage = ViewBag.CurrentPage,
+                GenerateUrl = p => Url.Action("Index", "User", new { area = "Identity", p }) ?? ""
+            };
             }
             <partial name="_Paging" model="@pageModel" />
             <partial name="_AlertMessage" />

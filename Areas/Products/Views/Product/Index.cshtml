@@ -6,21 +6,21 @@
 }
 
 <div class="card h-100">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"] (@ViewBag.TotalProduct)
-            <a class="btn btn-primary btn-sm rounded-circle ms-2" asp-action="Create" asp-controller="Product"
+            <a class="btn btn-primary btn-sm rounded-circle ms-1" asp-action="Create" asp-controller="Product"
                 asp-area="Products">
                 <i class="fa-solid fa-plus"></i>
             </a>
         </div>
-        <div class="right-header d-flex align-items-center">
-            <div class="form-group row align-items-center me-3">
-                <div class="col-auto gx-2">
-                    <label class="form-label mb-0">Sắp xếp theo</label>
+        <div class="right-header d-flex align-items-center justify-content-end mt-2 mt-md-0">
+            <div class="form-group d-flex align-items-center justify-content-end me-3">
+                <div class="col-auto gx-0">
+                    <label class="form-label mb-0 me-1 ms-2 ms-md-0 ">Sắp xếp</label>
                 </div>
-                <div class="col-auto gx-2 d-flex justify-content-center align-items-center">
+                <div class="col-auto gx-0 d-flex justify-content-end align-items-center">
                     <div class="dropdown">
                         <a class="btn btn-sm dropdown-toggle" href="#" role="button"
                             style="border: 1px solid #ced4da; background-color: #fff;" data-bs-toggle="dropdown"
@@ -61,18 +61,25 @@
                         @{
                             string orderSort = ViewBag.OrderSort == "desc" ? "asc" : "desc";
                         }
-                        <a class="text-dark sort-order d-flex flex-column ms-3 text-decoration-none" href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>    
-                            <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {@("text-primary")}'></i>
-                            <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {@("text-primary")}'></i>
+                        <a class="text-dark sort-order d-flex flex-column ms-2 text-decoration-none"
+                            href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>
+                            <i
+                                class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {
+                            @("text-primary")
+}'></i>
+                            <i
+                                class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {
+                            @("text-primary")
+}'></i>
                         </a>
                     </div>
                 </div>
             </div>
             <form method="get">
-                <div class="input-group-sm d-flex justify-content-center align-items-center">
-                    <input class="form-control" type="text" name="s" placeholder="Nhập từ khóa tìm kiếm...."
+                <div class="input-group-sm d-flex justify-content-end align-items-center">
+                    <input class="form-control" type="text" name="s" placeholder="Tìm kiếm...."
                         value="@Context.Request.Query["s"]">
-                    <button class="btn ms-1" type="submit">
+                    <button class="btn" type="submit">
                         <i class="text-primary fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
@@ -82,7 +89,7 @@
             </a>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body scroll-x">
         @if (!string.IsNullOrEmpty(Context.Request.Query["s"]))
         {
             <span class="mb-1">Kết quả tìm kiếm cho: <span class="fw-semibold">@Context.Request.Query["s"]</span></span>
@@ -112,17 +119,20 @@
                         </td>
                         <td>@item.Brand?.Name</td>
                         <td>@item.EntryDate.ToShortDateString()</td>
-                        <td>@item.Colors.SelectMany(c => c.Capacities).Min(c => c.SellPrice).ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
+                        <td>@item.Colors.SelectMany(c => c.Capacities).Min(c => c.SellPrice).ToString("N0", new
+                                     CultureInfo("vi-VN"))<sup>đ</sup></td>
                         <td>@item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)</td>
                         <td>
-                            <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
-                                asp-area="Products" asp-route-Id="@item.Id">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            <a class="text-danger ms-2" asp-action="Delete" asp-controller="Product" asp-area="Products"
-                                asp-route-Id="@item.Id">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </a>
+                            <div class="d-flex">
+                                <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
+                                    asp-area="Products" asp-route-Id="@item.Id">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                                <a class="text-danger ms-2" asp-action="Delete" asp-controller="Product" asp-area="Products"
+                                    asp-route-Id="@item.Id">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -133,7 +143,14 @@
             {
                 CurrentPage = ViewBag.CurrentPage,
                 CountPage = ViewBag.TotalPage,
-                GenerateUrl = p => Url.Action("Index", "Product", new { area = "Products", p, s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = Context.Request.Query["sortOrder"]}) ?? ""
+                GenerateUrl = p => Url.Action("Index", "Product", new
+                {
+                    area = "Products",
+                    p,
+                    s = Context.Request.Query["s"],
+                    sort = Context.Request.Query["sort"],
+                    sortOrder = Context.Request.Query["sortOrder"]
+                }) ?? ""
             };
         }
         <partial name="_Paging" model="@pagingModel"></partial>
@@ -143,7 +160,4 @@
 
 @section Scripts
     {
-    <script>
-
-    </script>
 }

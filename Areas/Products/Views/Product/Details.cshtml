@@ -4,86 +4,104 @@
     ViewData["Title"] = "Chi tiết sản phẩm";
 }
 
-<div class="card">
-    <div class="card-header">
-        Chi tiết sản phẩm
-    </div>
-    <div class="card-body">
-        <div class="product-manager-detail">
-            <h4>@Model.Name</h4>
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <div class="product-manager-detail-main-photo">
-
+<div class="product-manager-detail">
+    <div class="card">
+        <div class="card-header">
+            Chi tiết sản phẩm
+            <a class="ms-2 text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
+                asp-area="Products" asp-route-Id="@Model.Id">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+            <a class="ms-2 text-primary text-decoration-none" href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = Model.Slug})'>Xem trên web</a>
+        </div>
+        <div class="card-body">
+            <div class="product-manager-container">
+                <h4>@Model.Name</h4>
+                <div class="product-img">
+                    <h5>Hình ảnh</h5>
+                    <div class="row mb-4">
+                        @foreach (var item in Model.Photos!)
+                        {
+                            <div class="col-xl-3 col-md-4 col-6 mb-4">
+                                <img src="~/files/Products/@item.Name" alt="">
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <ul class="product-manager-detail-sub-photo row">
-
-                    </ul>
+                <div class="product-color mb-2">
+                    <h5>Màu sắc</h5>
+                    <div class="row">
+                        @foreach (var item in Model.Colors)
+                        {
+                            <div class="col-xl-3 col-md-4 col-12 mb-4">
+                                <div class="color-container">
+                                    <div class="color-img d-flex justify-content-center align-items-center">
+                                        <img src="~/files/Products/@item.Image" alt="" style="width: 200px;">
+                                    </div>
+                                    <div class="color-name">
+                                        @item.Name
+                                    </div>
+                                    <ul class="color-capacity-list">
+                                        @foreach (var capa in item.Capacities)
+                                        {
+                                            <li class="color-capacity-item text-center">
+                                                @(capa.Ram)GB/@(capa.Rom)GB: @capa.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
+                <div class="product-info my-4">
+                    <h5>Thông tin</h5>
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="col-4">Tên sản phẩm</td>
+                            <td class="col-6">@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4">Hãng sản xuất</td>
+                            <td class="col-6">@Model.Brand?.Name</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4">Năm ra mắt</td>
+                            <td class="col-6">@Model.ReleaseDate?.ToString("MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td class="col-4">Kích thước màn hình</td>
+                            <td class="col-6">@Model.ScreenSize"</td>
+                        </tr>
+                        <tr>
+                            <td>Camera</td>
+                            <td>@Model.Camera</td>
+                        </tr>
+                        <tr>
+                            <td>Chipset</td>
+                            <td>@Model.Chipset</td>
+                        </tr>
+                        <tr>
+                            <td>Pin</td>
+                            <td>@(Model.Battery)mAh (@(Model.Charger)W)</td>
+                        </tr>
+                        <tr>
+                            <td>Thẻ sim</td>
+                            <td>@Model.SIM</td>
+                        </tr>
+                        <tr>
+                            <td>Hệ điều hành</td>
+                            <td>@Model.OS</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="product-desc">
+                    <h5>Mô tả</h5>
+                    @Html.Raw(Model.Description)
+                </div>
+                <a class="btn btn-primary mt-4" asp-action="Index" asp-controller="Product" asp-area="Products">Quay
+                    lại</a>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <dt class="col-4">Mã sản phẩm</dt>
-                        <dd class="col-8">@Model.Code</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Url</dt>
-                        <dd class="col-8">@Model.Slug</dd>
-                    </div>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Màn hình</dt>
-                        <dd class="col-8">@Model.ScreenSize Inches</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Camera</dt>
-                        <dd class="col-8">@Model.Camera</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Vi xử lý</dt>
-                        <dd class="col-8">@Model.Chipset</dd>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <dt class="col-4">Dung lượng pin</dt>
-                        <dd class="col-8">@Model.Battery mAh</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Công suất sạc</dt>
-                        <dd class="col-8">@Model.Charger W</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">SIM</dt>
-                        <dd class="col-8">@Model.SIM</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">HDH</dt>
-                        <dd class="col-8">@Model.OS</dd>
-                    </div>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Ngày nhập</dt>
-                        <dd class="col-8">@Model.EntryDate</dd>
-                    </div>
-                    <div class="row">
-                        <dt class="col-4">Ngày sản xuất</dt>
-                        <dd class="col-8">@Model.ReleaseDate</dd>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="card">
-                    <div class="card-body">
-                        <dt>Mô tả</dt>
-                        @Model.Description
-                    </div>
-                </div>
-            </div>
-            <a class="btn btn-primary mt-4" asp-action="Index" asp-controller="Product" asp-area="Products">Quay lại</a>
         </div>
     </div>
 </div>
@@ -92,42 +110,5 @@
 @section Scripts
     {
     <script>
-        const mainPhoto = $(".product-manager-detail-main-photo");
-        const subPhoto = $(".product-manager-detail-sub-photo");
-
-        const LoadPhoto = function () {
-            var formData = new FormData();
-            formData.append("Id", @Model.Id);
-            $.ajax({
-                url: '@Url.Action("GetPhoto", "Product")',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (data) {
-                    if (data.mainPhoto != null) {
-                        const html = `<img src="/files/Products/${data.mainPhoto.filename}" class="product-manager-detail-main-photo-img img-fluid">`;
-                        mainPhoto.append(html);
-                    }
-
-                    if (data.subPhoto.length > 0) {
-                        let html = '';
-                        data.subPhoto.forEach(item => {
-                            html += `
-                                            <li class="product-manager-detail-sub-photo-item col-md-4 mb-2">
-                                                <img src="/files/Products/${item.filename}" class="product-manager-detail-sub-photo-img">
-                                            </li>
-                                        `;
-                        });
-                        subPhoto.append(html);
-                    }
-                }
-            })
-        }
-
-        $(document).ready(function () {
-            LoadPhoto();
-        })
     </script>
 }

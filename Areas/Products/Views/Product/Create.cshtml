@@ -12,7 +12,7 @@
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="form-group mb-2">
                         <label asp-for="Code" class="form-label fw-semibold"></label>
                         <input asp-for="Code" class="form-control">
@@ -37,7 +37,7 @@
                         <span asp-validation-for="Slug" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="form-group mb-2">
                         <label asp-for="Battery" class="form-label fw-semibold"></label>
                         <input asp-for="Battery" class="form-control">
@@ -95,12 +95,12 @@
             <div class="product-img-container mt-2">
                 <p class="mt-2 fw-semibold">Hình ảnh</p>
                 <div class="sub-img-container w-100 d-flex flex-lg-wrap">
-                    <div class="sub-img-item col-2 d-flex justify-content-center align-items-center" data-id="0">
-                        <label asp-for="SubImage[0].FileUpload" class="btn btn-choose-sub-img">
+                    <div class="sub-img-item col-xl-3 col-md-4 d-flex justify-content-center align-items-center" data-id="0">
+                        <label asp-for="SubImage![0].FileUpload" class="btn btn-choose-sub-img">
                             <img src="~/images/upload_icon.png" alt="">
                         </label>
                         <input type="hidden" name="SubImage.Index" value="0">
-                        <input asp-for="SubImage[0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
+                        <input asp-for="SubImage![0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
                         <div class="sub-img-show position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
                             <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
@@ -127,28 +127,28 @@
                         <div class="card color-group" data-index="0">
                             <div class="card-header position-relative">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4">
                                         <div class="row">
                                             <input type="hidden" name="ProductColor.Index" value="0">
                                             <div class="col-md-6">
-                                                <label asp-for="ProductColor[0].Name" class="form-label"></label>
-                                                <input asp-for="ProductColor[0].Name" class="form-control">
-                                                <span asp-validation-for="ProductColor[0].Name"
+                                                <label asp-for="ProductColor![0].Name" class="form-label"></label>
+                                                <input asp-for="ProductColor![0].Name" class="form-control">
+                                                <span asp-validation-for="ProductColor![0].Name"
                                                     class="text-danger"></span>
                                             </div>
                                             <div class="col-md-6">
-                                                <label asp-for="ProductColor[0].Code" class="form-label"></label>
-                                                <input asp-for="ProductColor[0].Code"
+                                                <label asp-for="ProductColor![0].Code" class="form-label"></label>
+                                                <input asp-for="ProductColor![0].Code"
                                                     class="form-control form-control-color" type="color">
-                                                <span asp-validation-for="ProductColor[0].Code"
+                                                <span asp-validation-for="ProductColor![0].Code"
                                                     class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="color-image mt-2">
-                                            <label asp-for="ProductColor[0].ImageFile" class="btn btn-choose-img">
+                                            <label asp-for="ProductColor![0].ImageFile" class="btn btn-choose-img">
                                                 <img src="~/images/upload_icon.png" alt="">
                                             </label>
-                                            <input asp-for="ProductColor[0].ImageFile" class="color-input-img" hidden
+                                            <input asp-for="ProductColor![0].ImageFile" class="color-input-img" hidden
                                                 accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
                                             <div class="color-img-show-container position-relative"
                                                 style="display: none;">
@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-lg-8">
                                         <div class="option-group">
                                             <div>
                                                 Options
@@ -178,54 +178,44 @@
                                             <div class="row option-item" data-id="0">
                                                 <div class="col-md-2">
                                                     <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> 
-                                                    <label asp-for="ProductColor[0].Capacities[0].Ram"
+                                                    <label asp-for="ProductColor![0].Capacities[0].Ram"
                                                         class="form-label"></label>
-                                                    <input asp-for="ProductColor[0].Capacities[0].Ram"
+                                                    <input asp-for="ProductColor![0].Capacities[0].Ram"
                                                         class="form-control">
-                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Ram"
+                                                    <span asp-validation-for="ProductColor![0].Capacities[0].Ram"
                                                         class="text-danger"></span>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    @* <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> *@
-                                                    <label asp-for="ProductColor[0].Capacities[0].Rom"
+                                                    <label asp-for="ProductColor![0].Capacities[0].Rom"
                                                         class="form-label"></label>
-                                                    <input asp-for="ProductColor[0].Capacities[0].Rom"
+                                                    <input asp-for="ProductColor![0].Capacities[0].Rom"
                                                         class="form-control">
-                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Rom"
+                                                    <span asp-validation-for="ProductColor![0].Capacities[0].Rom"
                                                         class="text-danger"></span>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    @* <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> *@
-                                                    <label asp-for="ProductColor[0].Capacities[0].Quantity"
-                                                        class="form-label"></label>
-                                                    <input asp-for="ProductColor[0].Capacities[0].Quantity"
+                                                    <label asp-for="ProductColor![0].Capacities[0].Quantity"
+                                                        class="form-label">SL</label>
+                                                    <input asp-for="ProductColor![0].Capacities[0].Quantity"
                                                         class="form-control">
-                                                    <span asp-validation-for="ProductColor[0].Capacities[0].Quantity"
+                                                    <span asp-validation-for="ProductColor![0].Capacities[0].Quantity"
                                                         class="text-danger"></span>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    @* <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> *@
-                                                    <label asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                <div class="col-md-3">
+                                                    <label asp-for="ProductColor![0].Capacities[0].EntryPrice"
                                                         class="form-label"></label>
-                                                    <input asp-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                    <input asp-for="ProductColor![0].Capacities[0].EntryPrice"
                                                         class="form-control">
-                                                    <span asp-validation-for="ProductColor[0].Capacities[0].EntryPrice"
+                                                    <span asp-validation-for="ProductColor![0].Capacities[0].EntryPrice"
                                                         class="text-danger"></span>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    @* <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> *@
-                                                    <label asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                <div class="col-md-3">
+                                                    <label asp-for="ProductColor![0].Capacities[0].SellPrice"
                                                         class="form-label"></label>
-                                                    <input asp-for="ProductColor[0].Capacities[0].SellPrice"
+                                                    <input asp-for="ProductColor![0].Capacities[0].SellPrice"
                                                         class="form-control">
-                                                    <span asp-validation-for="ProductColor[0].Capacities[0].SellPrice"
+                                                    <span asp-validation-for="ProductColor![0].Capacities[0].SellPrice"
                                                         class="text-danger"></span>
-                                                </div>
-                                                <div class="col-md-2 mb-1 mt-auto">
-                                                    @* <span class="btn btn-danger btn-sm" id="delete-option"
-                                                    onclick="deleteOption(this)">
-                                                    <i class="fa-solid fa-minus"></i>
-                                                    </span> *@
                                                 </div>
                                             </div>
                                         </div>
@@ -281,12 +271,12 @@
 </div>
 @section Scripts
 {
+    <script src="~/js/Products/CreateProduct.js"></script>
     <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css">
     <script src="~/lib/cropperjs/cropper.min.js"></script>
 
     <partial name="_RichTextEditor" model="@("Description")"/>
 
-    <script src="~/js/Products/CreateProduct.js"></script>
 
     <partial name="_MultipleSelect" model="@("CategoryId")"></partial>
     <partial name="_ValidationScriptsPartial" />

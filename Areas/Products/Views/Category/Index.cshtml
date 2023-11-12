@@ -29,39 +29,43 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-bordered mt-3 w-50">
-            <thead>
-                <tr class="text-center">
-                    <th>Tên danh mục</th>
-                    <th>Địa chỉ Url</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <a class="text-decoration-none" asp-action="Details" asp-controller="Category"
-                                asp-area="Products" asp-route-id="@item.Id">@item.Name</a>
-                        </td>
-                        <td>@item.Slug</td>
-                        <td>
-                            <div class="d-flex justify-content-center">
-                                <a class="text-primary text-decoration-none" asp-action="Edit" asp-controller="Category"
-                                    asp-area="Products" asp-route-Id="@item.Id">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
-                                <a class="text-danger ms-2" asp-action="Delete" asp-controller="Category"
-                                    asp-area="Products" asp-route-Id="@item.Id">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-xl-8">
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Tên danh mục</th>
+                            <th>Địa chỉ Url</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a class="text-decoration-none" asp-action="Details" asp-controller="Category"
+                                        asp-area="Products" asp-route-id="@item.Id">@item.Name</a>
+                                </td>
+                                <td>@item.Slug</td>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <a class="text-primary text-decoration-none" asp-action="Edit"
+                                            asp-controller="Category" asp-area="Products" asp-route-Id="@item.Id">
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="text-danger ms-2" asp-action="Delete" asp-controller="Category"
+                                            asp-area="Products" asp-route-Id="@item.Id">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
         @{
             var pageModel = new PagingModel()
             {

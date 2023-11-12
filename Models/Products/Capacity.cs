@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace App.Models.Products {
     public class Capacity
@@ -32,6 +33,7 @@ namespace App.Models.Products {
         public int ColorId {set;get;}
 
         [ForeignKey("ColorId")]
+        [JsonIgnore]
         public Color? Color {set;get;}
     }
 }

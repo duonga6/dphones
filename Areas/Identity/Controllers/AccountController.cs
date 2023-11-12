@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Encodings.Web;
 using App.Areas.Identity.Models.Account;
+using App.Data;
 using App.Models;
 using App.Utilities;
 using Microsoft.AspNetCore.Authentication;
@@ -230,6 +231,7 @@ Xin cảm ơn.
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, RoleName.Customer);
                     _logger.LogInformation($"Tài khoản {model.UserName} được đăng ký.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

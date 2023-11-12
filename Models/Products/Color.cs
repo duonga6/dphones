@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace App.Models.Products
 {
@@ -21,6 +22,7 @@ namespace App.Models.Products
         public int ProductId {set;get;}
 
         [ForeignKey("ProductId")]
+        [JsonIgnore]
         public Product? Product {set;get;}
 
         public List<Capacity> Capacities {set;get;} = new();

@@ -1,5 +1,6 @@
 @using System.Globalization;
 @using App.Services;
+@using App.Areas.AdminCP.Controllers;
 
 @inject HomeCategoryService _homeCategory;
 
@@ -8,21 +9,24 @@
     Layout = "/Views/Shared/_LayoutAdminCP.cshtml";
 
     decimal TotalRevenue = ViewBag.TotalRevenue;
+    decimal RevenureToday = ViewBag.RevenureToday;
     var queryRevenue = Context.Request.Query["revenure"].ToString();
     var dataRevenure = ViewBag.DataRevenure as Dictionary<string, string>;
     var productsBestSeller = _homeCategory.GetData().Products;
+    var productsBestSellMonth = ViewBag.ProductBSM as List<AdminCPController.ProductWithSold>
+    ?? new List<AdminCPController.ProductWithSold>();
 }
 
 <div class="admin-dashboard">
     <h4 class="heading">Dashboard</h4>
     <div class="row">
-        <div class="col-6">
+        <div class="col-xxl-6">
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="card bg-primary text-white mb-4">
                         <div class="card-body">
                             <div class="title">
-                                Sản phẩm (Tổng kho @ViewBag.ProductTotal)
+                                Sản phẩm (Tổng @ViewBag.ProductTotal)
                             </div>
                             <div class="content">
                                 @ViewBag.ProductCount
@@ -35,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="card bg-warning text-white mb-4">
                         <div class="card-body">
                             <div class="title">
@@ -52,11 +56,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="card bg-info text-white mb-4">
                         <div class="card-body">
                             <div class="title">
-                                Tổng doanh thu (Đã bán @ViewBag.TotalSold)
+                                Tổng doanh thu
                             </div>
                             <div class="content">
                                 @TotalRevenue.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
@@ -68,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body">
                             <div class="title">
@@ -85,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="card bg-danger text-white mb-4">
                         <div class="card-body">
                             <div class="title">
@@ -102,10 +106,131 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card bg-light text-dark mb-4">
+                        <div class="card-body">
+                            <div class="title">
+                                Doanh thu hôm nay
+                            </div>
+                            <div class="content">
+                                @RevenureToday.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href='#'></a>
+                            <div class="small text-white opacity-0"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-info-container mb-4 col-12">
+                <ul class="info-list">
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "-1"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-money-check-dollar"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderNotPayed
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng chưa thanh toán
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "0"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-cart-arrow-down"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderWaiting
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng chưa xác nhận
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "1"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-cart-flatbed"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderNotDelivering
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng chưa giao
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "2"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-truck-arrow-right"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderDelivering
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng đang giao
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "3"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-people-carry-box"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderDelivered
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng đã hoàn tất
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="info-item">
+                        <a href='@Url.Action("Index", "Order", new {area = "Products", f = "4"})'
+                            class="info-item-link">
+                            <div class="item-icon">
+                                <i class="fa-solid fa-rectangle-xmark"></i>
+                            </div>
+                            <div class="item-quantity text-primary fw-semibold">
+                                @ViewBag.OrderCanceled
+                            </div>
+                            <div class="item-content">
+                                Đơn hàng đã hủy
+                            </div>
+                            <div class="item-nav-icon">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-
-        <div class="col-6">
+        <div class="col-xxl-6">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div class="left-header">
@@ -163,179 +288,77 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                <div class="card-body">
+                    <canvas id="myBarChart" width="100%" height="40"></canvas>
+                </div>
             </div>
             <div class="best-selling">
-                <div class="heading">
-                    Sản phẩm bán chạy
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="heading">
+                            Sản phẩm bán chạy nhất
+                        </div>
+                        <ul class="best-sell-list">
+                            @foreach (var item in productsBestSeller)
+                            {
+                                <li class="best-sell-item">
+                                    <a href='@Url.Action("Details", "Product", new {area = "Products", Id = item.Id})'
+                                        class="best-sell-link">
+                                        <div class="product-img">
+                                            <img src="/files/Products/@item.Colors!.FirstOrDefault()!.Image" alt="">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-name">
+                                                @item.Name
+                                            </div>
+                                            <div class="product-sold">
+                                                Đã bán: @item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="heading">
+                            Sản phẩm bán chạy nhất tháng
+                        </div>
+                        <ul class="best-sell-list">
+                            @foreach (var item in productsBestSellMonth)
+                            {
+                                <li class="best-sell-item">
+                                    <a href='@Url.Action("Details", "Product", new {area = "Products", Id = item.Id})'
+                                        class="best-sell-link">
+                                        <div class="product-img">
+                                            <img src="/files/Products/@item.Image" alt="">
+                                        </div>
+                                        <div class="product-info">
+                                            <div class="product-name">
+                                                @item.Name
+                                            </div>
+                                            <div class="product-sold">
+                                                Đã bán: @item.Sold
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-                <ul class="best-sell-list">
-                    @foreach (var item in productsBestSeller)
-                    {
-                        <li class="best-sell-item">
-                            <a href='@Url.Action("Details", "Product", new {area = "Products", Id = item.Id})' class="best-sell-link">
-                                <div class="product-img">
-                                    <img src="/files/Products/@item.Colors!.FirstOrDefault()!.Image" alt="">
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-name">
-                                        @item.Name
-                                    </div>
-                                    <div class="product-sold">
-                                        Đã bán: @item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
             </div>
         </div>
-        <div class="order-info-container mb-4 col-6">
-            <ul class="info-list">
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "-1"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-money-check-dollar"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderNotPayed
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng chưa thanh toán
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "0"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-cart-arrow-down"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderWaiting
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng chưa xác nhận
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "1"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-cart-flatbed"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderNotDelivering
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng chưa giao
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "2"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-truck-arrow-right"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderDelivering
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng đang giao
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "3"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-people-carry-box"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderDelivered
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng đã hoàn tất
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-                <li class="info-item">
-                    <a href='@Url.Action("Index", "Order", new {area = "Products", f = "4"})' class="info-item-link">
-                        <div class="item-icon">
-                            <i class="fa-solid fa-rectangle-xmark"></i>
-                        </div>
-                        <div class="item-quantity text-primary fw-semibold">
-                            @ViewBag.OrderCanceled
-                        </div>
-                        <div class="item-content">
-                            Đơn hàng đã hủy
-                        </div>
-                        <div class="item-nav-icon">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
     </div>
 </div>
 
 @section Scripts {
     <script>
-        var ctx = document.getElementById("myBarChart");
-        var myLineChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [@Html.Raw(string.Join(",", dataRevenure!.Select(c => $"\"{c.Key}\"")))],
-                datasets: [{
-                    label: "Doanh thu",
-                    backgroundColor: "rgba(2,117,216,1)",
-                    borderColor: "rgba(2,117,216,1)",
-                    data: [@string.Join(",", dataRevenure!.Select(c => c.Value))],
-                }],
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        time: {
-                            unit: 'month'
-                        },
-                        gridLines: {
-                            display: true
-                        },
-                        ticks: {
-                            maxTicksLimit: @dataRevenure!.Count
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            min: 0,
-                            max: @(dataRevenure.Max(c => c.Value) == "0" ? "10000000" : dataRevenure.Max(c => c.Value)) * 1.5,
-                            maxTicksLimit: 5
-                        },
-                        gridLines: {
-                            display: true
-                        }
-                    }],
-                },
-                legend: {
-                    display: false
-                }
-            }
-        });
+        var labels = [@Html.Raw(string.Join(",", dataRevenure!.Select(c => $"'{c.Key}'")))];
+        var datas = [@string.Join(",", dataRevenure!.Select(c => c.Value))]
+        var maxLimits = @dataRevenure!.Count;
+        var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == "0" ? "10000000" : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
     </script>
+    <script src="~/js/Admin/dashboard.js"></script>
 }

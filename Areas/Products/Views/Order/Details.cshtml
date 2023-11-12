@@ -5,40 +5,49 @@
 }
 
 <div class="card h-100">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex justify-content-between align-items-md-center flex-column flex-md-row">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"]: @Model.Code
-            @switch(Model.OrderStatuses.Last().Code)
+        </div>
+        <div class="right-header mt-2 mt-md-0">
+            <button class="btn btn-secondary btn-sm" id="generate-bill-btn">In hóa đơn</button>
+            @switch (Model.OrderStatuses.Last().Code)
             {
                 case (int)OrderStatusCode.WaitAccept:
-                        <a asp-action="AcceptOrder" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-warning btn-sm">Xác nhận đơn hàng</a>
+                    <a asp-action="AcceptOrder" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id"
+                        class="btn btn-warning btn-sm">Xác nhận đơn hàng</a>
                     break;
                 case (int)OrderStatusCode.Accepted:
-                        <a asp-action="Delivery" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-primary btn-sm">Giao hàng</a>
+                    <a asp-action="Delivery" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id"
+                        class="btn btn-primary btn-sm">Giao hàng</a>
                     break;
                 case (int)OrderStatusCode.Delivering:
-                        <a asp-action="Delivered" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id" class="btn ms-3 btn-primary btn-sm">Đánh dấu đã nhận được hàng</a>
+                    <a asp-action="Delivered" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id"
+                        class="btn btn-primary btn-sm">Đánh dấu đã nhận được hàng</a>
                     break;
                 case (int)OrderStatusCode.Delivered:
-                        <span class="btn ms-3 btn-success btn-sm">Đã giao</span>
+                    <span class="btn btn-success btn-sm">Đã giao</span>
                     break;
                 default:
-                       <span class="btn ms-3 btn-secondary btn-sm">Đã hủy</span> 
+                    <span class="btn btn-secondary btn-sm">Đã hủy</span>
                     break;
             }
-            @if(Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered && Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
+            @if (Model.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered && Model.OrderStatuses.Last().Code !=
+            (int)OrderStatusCode.Canceled)
             {
-                <button class="btn ms-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Hủy đơn hàng</button>
+                <button class="btn ms-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Hủy đơn
+                    hàng</button>
             }
         </div>
-        
+
     </div>
     <div class="card-body">
-        <div class="order-container">
+        <div class="order-container p-0 border-0 shadow-none">
             <div class="order-info">
+                <input id="order-id" type="hidden" value="@Model.Id">
                 <div class="order-head row">
-                    <div class="person-info col-6">
+                    <div class="person-info col-md-8">
                         <p class="fw-semibold">Thông tin người nhận</p>
                         <p class="mb-1"><span class="">Họ tên:</span> @Model.FullName</p>
                         <p class="mb-1"><span class="">Số điện thoại:</span> @Model.PhoneNumber</p>
@@ -52,36 +61,38 @@
                                 class="fw-semibold">@Model.TotalCost.ToString("N0", new
                                 CultureInfo("vi-VN"))<sup>đ</sup></span></p>
                         <p class="mb-0"><span class="">Hình thức thanh toán:</span>
-                                @if (Model.PayType == "Online")
-                                {
-                                    <text>Thanh toán trực tuyến</text>
-                                }
-                                else
-                                {
-                                    <text>Thanh toán khi nhận hàng</text>
-                                }
+                            @if (Model.PayType == "Online")
+                            {
+                                <text>Thanh toán trực tuyến</text>
+                            }
+                            else
+                            {
+                                <text>Thanh toán khi nhận hàng</text>
+                            }
                         </p>
                     </div>
-                    <div class="col-6 order-status">
+                    <div class="col-md-4 order-status">
                         <div>
                             <p class="mb-1"><span class="">Trạng thái đơn hàng:</span>
-                            @foreach (var item in Model.OrderStatuses)
-                            {
-                            <p class="my-1 ms-4" style="font-size: 16px;">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") - @item.Status</p>
-                            }
+                                @foreach (var item in Model.OrderStatuses)
+                                {
+                                <p class="my-1 ms-4">@item.DateUpdate.ToString("hh:mm dd/MM/yyy") -
+                                        @item.Status</p>
+                                }
                         </div>
                         <div>
                             <p class="mb-1">Trạng thái thanh toán: </p>
-                            @if(Model.PayStatuses.Count > 0)
+                            @if (Model.PayStatuses.Count > 0)
                             {
-                                foreach(var item in Model.PayStatuses)
+                                foreach (var item in Model.PayStatuses)
                                 {
-                                    <p class="my-1 ms-4" style="font-size: 16px;">@((item.Date ?? DateTime.MinValue).ToString("hh:mm dd/MM/yyy")) - @item.CardType - @item.Content</p>
+                                    <p class="my-1 ms-4">@((item.Date ??
+                                DateTime.MinValue).ToString("hh:mm dd/MM/yyy")) - @item.Content</p>
                                 }
                             }
                             else
                             {
-                                <p class="my-1 ms-4" style="font-size: 16px;">Chưa thanh toán</p>
+                                <p class="my-1 ms-4">Chưa thanh toán</p>
                             }
                         </div>
                     </div>
@@ -90,14 +101,15 @@
                     <p class="mb-3">Sản phẩm mua:</p>
                     @foreach (var item in Model.OrderDetails)
                     {
-                        <li class="product-item">
+                        <li class="product-item w-100">
                             <div class="row h-100">
                                 <div class="product-item-img col-3">
                                     <img src="/files/Products/@item.Color?.Image" alt="">
                                 </div>
                                 <div class="product-item-info col-6">
                                     <div class="product-item-name">
-                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products" asp-route-slug="@item.Product?.Slug" class="fw-semibold">@item.Product?.Name</a>
+                                        <a asp-action="Details" asp-controller="ViewProduct" asp-area="Products"
+                                            asp-route-slug="@item.Product?.Slug" class="fw-semibold">@item.Product?.Name</a>
                                     </div>
                                     <div class="product-item-color">
                                         <span>Màu sắc: @item.Color?.Name</span>
@@ -125,7 +137,7 @@
                                 <div class="product-item-total-price col-3">
                                     <span>Tổng tiền:</span>
                                     <div class="fw-semibold">
-                                        <span>@((item.Capacity.SellPrice * item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                        <span>@((item.Capacity!.SellPrice * item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +146,101 @@
                 </ul>
             </div>
         </div>
+        @* <div class="row">
+            <div class="col-xl-8">
+                <div class="bill-container">
+                    <div class="heading">
+                        <div class="row">
+                            <div class="col-6 left-section">
+                                <img src="/images/logo-color.png" alt="">
+                            </div>
+                            <div class="col-6 right-section">
+                                <p>Địa chỉ: Số 289, Cầu Diễn, Bắc Từ Liêm, Hà Nội</p>
+                                <p>Số điện thoại: 1800.1789 - 1800.1879</p>
+                                <p>Email: shopdienthoai@gmail.com</p>
+                                <p>Số: @Model.Code</p>
+                            </div>
+                        </div>
+                        <h4 class="text-center mt-4">HÓA ĐƠN BÁN HÀNG</h4>
+                    </div>
+                    <div class="customer-info">
+                        <div class="row">
+                            <div class="col-8">
+                                <p>Tên khách hàng: @Model.FullName</p>
+                            </div>
+                            <div class="col-4">
+                                <p>SDT: @Model.PhoneNumber</p>
+                            </div>
+                        </div>
+                        <p>
+                            Địa chỉ: @(Model.SpecificAddress + ", " +
+                        Model.Commune + ", " + Model.District + ", " + Model.City)
+                        </p>
+                        <p>
+                            Email: @Model.Email
+                        </p>
+                    </div>
+                    <table class="table table-bordered primary-text mt-4">
+                        <tr class="text-center">
+                            <td>STT</td>
+                            <td>Tên hàng</td>
+                            <td>Số lượng</td>
+                            <td>Đơn giá</td>
+                            <td>Thành tiền</td>
+                        </tr>
+                        @{
+                            int stt = 0;
+                            var now = DateTime.Now;
+                        }
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            stt++;
+                            <tr>
+                                <td class="text-center">@stt</td>
+                                <td>@item.Product!.Name (@item.Color!.Name, @(item.Capacity!.Ram)GB/@(item.Capacity.Rom)GB)</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-center">@item.Capacity.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
+                                <td class="text-center">@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></td>
+                            </tr>
+                        }
+                        @if(Model.OrderDetails.Count < 10)
+                        {
+                            for(int i = 1; i <= 10- Model.OrderDetails.Count; i++)
+                            {
+                                <tr>
+                                    <td><span class="opacity-0">abc</span></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    <div class="bill-footer">
+                        <p>Tổng cộng: @Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></p>
+                        <p id="text-total-cost">Viết bằng chữ: </p>
+                        <div class="bill-sign">
+                            <p class="date-time mt-2">Hà Nội, Ngày @now.Day Tháng @now.Month Năm @now.Year</p>
+                            <div class="row mt-2">
+                                <div class="col-6 d-flex justify-content-center align-items-center">
+                                    <div class="customer-sign">
+                                        <p class="fw-semibold">Người mua hàng</p>
+                                        <p><i>(Ký, ghi rõ họ tên)</i></p>
+                                    </div>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center align-items-center">
+                                    <div class="store-sign">
+                                        <p class="fw-semibold">Người bán hàng</p>
+                                        <p><i>(Ký, ghi rõ họ tên)</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> *@
     </div>
     <partial name="_AlertMessage" />
 </div>
@@ -142,17 +249,23 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form class="modal-dialog modal-dialog-centered" method="post">
         <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-6" id="exampleModalLabel">Lý do hủy đơn hàng</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+            <div class="modal-header">
+                <h1 class="modal-title fs-6" id="exampleModalLabel">Lý do hủy đơn hàng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <textarea name="note" class="form-control w-100" rows="5"></textarea>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="submit" class="btn btn-primary"  asp-action="CancelOrder" asp-controller="Order" asp-area="Products" asp-route-Id="@Model.Id">Xác nhận</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary" asp-action="CancelOrder" asp-controller="Order"
+                    asp-area="Products" asp-route-Id="@Model.Id">Xác nhận</button>
+            </div>
         </div>
     </form>
 </div>
+
+@section Scripts 
+{
+    <script src="~/js/Order/details.js"></script>
+}

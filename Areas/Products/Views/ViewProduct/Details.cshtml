@@ -13,6 +13,7 @@
     </div>
     <hr class="primary-text opacity-25 mt-0">
     <div class="product-info row">
+        <input type="hidden" id="product-id" value="@Model.Id">
         <div class="col-lg-4 col-md-6">
             <div class="photo-slide">
                 <div id="product-proto-slide" class="carousel slide" data-bs-ride="true">
@@ -149,10 +150,10 @@
             <div class="product-action">
                 <div class="row align-items-center">
                     <div class="col-lg-8 offset-lg-1 col-md-9 col-9 col-xl-8">
-                        <a class="btn primary-bg text-white fs-6 fw-normal w-100 btn-buy-now">
+                        <span class="btn primary-bg text-white fs-6 fw-normal w-100 btn-buy-now" onclick="BuyNow()">
                             <span class="buy-now-text">Mua ngay</span>
                             <p class="buy-now-desc">Giao tại nhà (COD) hoặc nhận tại cửa hàng</p>
-                        </a>
+                        </span>
                     </div>
                     <div class="col-lg-2 col-md-3 col-3 col-xl-3">
                         <span class="btn btn-add-to-cart" onclick="AddToCart()">
@@ -221,7 +222,7 @@
                 </tr>
                 <tr class="configuration-table-row">
                     <td class="col-4">Kích thước màn hình</td>
-                    <td class="col-6">@Model.ScreenSize</td>
+                    <td class="col-6">@Model.ScreenSize"</td>
                 </tr>
                 <tr class="configuration-table-row">
                     <td>Camera</td>
@@ -235,7 +236,7 @@
                     <td>Dung lượng Ram</td>
                     <td>@{
                             var ram = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Ram.ToString() + " GB").Distinct();
-                            <text>@string.Join(", ", ram)</text>
+                            <text>@string.Join(", ", ram!)</text>
                         }
                     </td>
                 </tr>
@@ -243,7 +244,7 @@
                     <td>Bộ nhớ trong</td>
                     <td>@{
                             var rom = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Rom.ToString() + " GB").Distinct();
-                            <text>@string.Join(", ", rom)</text>
+                            <text>@string.Join(", ", rom!)</text>
                         }
                     </td>
                 </tr>
@@ -276,123 +277,5 @@
 
 @section Scripts
 {
-    <script>
-
-        const toastElement = $('#liveToast');
-        const toast = new bootstrap.Toast(toastElement.get(0));
-        const showToast = function(status, message) {
-            const iconClass = status == 1 ? "text-success fa-solid fa-circle-check" : "text-warning fs-6 fa-solid fa-circle-exclamation";
-            const toastHtml = `
-                <div class="toast-header align-items-center">
-                    <i class="${iconClass}"></i>
-                    <span class="ms-2 me-auto fs-6">${message}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            `;
-            toastElement.html("");
-            toastElement.append(toastHtml);
-            toast.show();
-        }
-
-        const updateCartQuantity = function(qtt)
-        {
-            const cartElement = $("#cart-quantity");
-            if (qtt == 0)
-                cartElement.css("display", "none");
-            else {
-                cartElement.css("display", "flex");
-                cartElement.html(qtt);
-            }
-        }
-
-        const AddToCart = function() {
-            const productId = @Model.Id;
-            const colorId = $(".color-item.active").data("id");
-            const capaId = $(".price-item.active").data("id");
-
-            if (!productId || !colorId || !capaId) {
-                showToast(0, "Có lỗi xảy ra")
-                return;
-            }
-            
-            const formData = new FormData();
-            formData.append("productId", productId);
-            formData.append("colorId", colorId);
-            formData.append("capaId", capaId);
-
-            $.ajax({
-                type: "post",
-                url: '@Url.Action("AddToCart", "ViewProduct", new {area = "Products"})',
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(data) {
-                    showToast(data.status, data.message);
-                    if (data.qtt > 0)   updateCartQuantity(data.qtt)
-                },
-                error: function() {{
-                    showToast(0, "Có lỗi xảy ra!");
-                }}
-            });
-
-        }
-        
-    </script>
-    <script>
-        const btnShowDesc = $("#btn-show-desc");
-        const btnHideDesc = $("#btn-hide-desc");
-        const descContent = $("#product-description");
-
-        btnShowDesc.click(function() {
-            btnHideDesc.show();
-            btnShowDesc.hide();
-            descContent.addClass("active");
-        });
-
-        btnHideDesc.click(function() {
-            btnShowDesc.show();
-            btnHideDesc.hide();
-            descContent.removeClass("active");
-        });
-    </script>
-    <script>
-        const resetActice = function() {
-            $(".color-item").removeClass("active");
-            $(".prices-list").removeClass("active");
-            $(".price-item").removeClass("active");
-        }
-
-        const setActive = function(colorId, capaId = null)
-        {
-            $(".color-item").each((i, e) => {
-                if ($(e).data("id") == colorId) $(e).addClass("active");
-            });
-
-            $(".prices-list").each((i, e) => {
-                if ($(e).data("id") == colorId) {
-                    $(e).addClass("active");
-                    if (capaId) {
-                        $(e).children(".price-item").each((index, element) => {
-                            if ($(element).data("id") == capaId)
-                            {
-                                $(element).addClass("active");
-                            }
-                        });
-                    } else
-                    {
-                        $(e).children(".price-item").first().addClass("active");
-                    }
-                }
-            });
-
-            $(`#btn-show-color-image-${colorId}`).click();
-        }
-
-        const chooseOption = function(colorId, capaId = null)
-        {
-            resetActice();
-            setActive(colorId, capaId);
-        }
-    </script>
+    <script src="~/js/Products/details.js"></script>
 }

@@ -62,5 +62,64 @@
                 }
             }
         }
+
+        .bill-container {
+            padding: 16px;
+            border-radius: 4px;
+            border: $border-gray-sm;
+            color: $primary-color;
+            .left-section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 60%;
+                }
+            }
+
+            .right-section {
+                p {
+                    margin-bottom: 0;
+                    text-align: right;
+                }
+            }
+
+            .customer-info {
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            .table {
+                border-color: $primary-color;
+            }
+
+            .bill-footer {
+                p {
+                    margin-bottom: 0;
+                }
+
+                .bill-sign {
+                    min-height: 200px;
+                    .date-time {
+                        text-align: right;
+                    }    
+                }
+            }
+        }
+    }
+}
+
+.ad-create-order-container {
+    .card-body {
+        .result-search {
+            .list-group {
+                .list-group-item {
+                    &:hover {
+                        background-color: rgb(235, 235, 235)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "12345678Aa" 
+      ACCEPT_EULA: "Y"
+    ports:
+    - "1433:1433"
+    volumes:
+      - backup-db-volume:/app/BackupDB
+
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - sqlserver
+    ports:
+      - 8090:8090
+    restart: always
+    volumes:
+      - backup-db-volume:/app/BackupDB
+
+  certs:
+    build:
+      context: .
+      dockerfile: cert
+    container_name: certs
+    volumes:
+      - certs-volume:/etc/nginx/ssl
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - certs
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./proxy.conf:/etc/nginx/proxy.conf:ro
+      - certs-volume:/etc/nginx/ssl
+volumes:
+  certs-volume:
+  backup-db-volume:

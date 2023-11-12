@@ -28,7 +28,7 @@ namespace App.Services
                 Title = "Trang chính",
                 Type = SidebarItemType.Heading
             });
-
+            
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
@@ -44,24 +44,35 @@ namespace App.Services
                 Title = "Quản lý",
                 Type = SidebarItemType.Heading
             });
+            
 
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
-                Title = "Quản lý người dùng",
+                Title = "Database",
+                Action = "Index",
+                Controller = "DbManager",
+                Area = "Database",
+                AwIcon = "fa-solid fa-database"
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
+                Title = "Tài khoản",
                 AwIcon = "fa-solid fa-users",
                 CollapseID = "user-manager",
                 Items = new List<SidebarItem>() {
                     new() {
                         Type = SidebarItemType.NavItem,
-                        Title = "Quản lý User",
+                        Title = "Quản lý KH",
                         Action = "Index",
                         Controller = "User",
                         Area = "Identity"
                     },
                     new() {
                         Type = SidebarItemType.NavItem,
-                        Title = "Quản lý Role",
+                        Title = "Quản lý quyền",
                         Action = "Index",
                         Controller = "Roles",
                         Area = "Identity"
@@ -72,27 +83,27 @@ namespace App.Services
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
-                Title = "Quản lý sản phẩm",
+                Title = "Sản phẩm",
                 AwIcon = "fa-solid fa-box-archive",
                 CollapseID = "product-manager",
                 Items = new List<SidebarItem>() {
                     new() {
                         Type = SidebarItemType.NavItem,
-                        Title = "Quản lý sản phẩm",
+                        Title = "Tất cả sản phẩm",
                         Action = "Index",
                         Controller = "Product",
                         Area = "Products"
                     },
                     new() {
                         Type = SidebarItemType.NavItem,
-                        Title = "Quản lý hãng",
+                        Title = "Hãng sản xuất",
                         Action = "Index",
                         Controller = "Brand",
                         Area = "Products"
                     },
                     new() {
                         Type = SidebarItemType.NavItem,
-                        Title = "Quản lý danh mục",
+                        Title = "Danh mục",
                         Action = "Index",
                         Controller = "Category",
                         Area = "Products"
@@ -103,7 +114,7 @@ namespace App.Services
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
-                Title = "Quản lý đơn hàng",
+                Title = "Đơn hàng",
                 Action = "Index",
                 Controller = "Order",
                 Area = "Products",

@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using App.Areas.Products.Models;
 using App.Areas.Products.Services;
 using App.Data;
@@ -27,11 +28,14 @@ namespace App.Areas.Products.Controllers
         private readonly IEmailSender _emailSender;
         private readonly int ITEM_PER_PAGE = 10;
         private readonly VnPayService _vnPay;
+        private readonly IHttpClientFactory _httpClient;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
         [TempData]
         public string? StatusMessage { set; get; }
 
-        public ViewProductController(ILogger<ProductController> logger, AppDbContext context, CartService cart, UserManager<AppUser> userManager, IEmailSender emailSender, VnPayService vnPay)
+        public ViewProductController(ILogger<ProductController> logger, AppDbContext context, CartService cart, UserManager<AppUser> userManager, IEmailSender emailSender, VnPayService vnPay, IHttpClientFactory httpClient, IConfiguration configuration, IWebHostEnvironment environment)
         {
             _logger = logger;
             _context = context;
@@ -39,6 +43,9 @@ namespace App.Areas.Products.Controllers
             _userManager = userManager;
             _emailSender = emailSender;
             _vnPay = vnPay;
+            _httpClient = httpClient;
+            _configuration = configuration;
+            _environment = environment;
         }
 
         [Route("/dien-thoai")]
@@ -206,14 +213,34 @@ namespace App.Areas.Products.Controllers
         {
             return View();
         }
+        
+        // [Route("/buy-now")]
+        // public async Task<IActionResult> BuyNow(int productId, int colorId, int capaId)
+        // {
+        //     var product = _context.Products.FirstOrDefault(p => p.Id == productId);
+        //     var color = _context.Colors.FirstOrDefault(c => c.Id == colorId);
+        //     var capa = _context.Capacities.FirstOrDefault(c => c.Id == capaId);
+
+        //     if (product == null || color == null || capa == null)   return BadRequest();
+
+        //     var cartItem = new CartItem
+
+        // }
+
+        public class AddToCartRequest 
+        {
+            public int productId {set;get;}
+            public int colorId {set;get;}
+            public int capaId {set;get;}
+        }
 
         [HttpPost]
         [Route("/cart/add-to-cart")]
-        public IActionResult AddToCart(int productId, int colorId, int capaId)
+        public IActionResult AddToCart([FromBody] AddToCartRequest request)
         {
-            var product = _context.Products.AsNoTracking().FirstOrDefault(p => p.Id == productId);
-            var color = _context.Colors.AsNoTracking().FirstOrDefault(c => c.Id == colorId && c.ProductId == productId);
-            var capa = _context.Capacities.AsNoTracking().FirstOrDefault(c => c.Id == capaId && c.ColorId == colorId);
+            var product = _context.Products.AsNoTracking().FirstOrDefault(p => p.Id == request.productId);
+            var color = _context.Colors.AsNoTracking().FirstOrDefault(c => c.Id == request.colorId && c.ProductId == request.productId);
+            var capa = _context.Capacities.AsNoTracking().FirstOrDefault(c => c.Id == request.capaId && c.ColorId == request.colorId);
 
             if (product == null || color == null || capa == null)
             {
@@ -237,7 +264,7 @@ namespace App.Areas.Products.Controllers
 
             var cartList = _cart.GetCart();
             cartList ??= new List<CartItem>();
-            var productInCart = cartList.FirstOrDefault(p => p.Product.Id == productId && p.Color.Id == colorId && p.Capacity.Id == capaId);
+            var productInCart = cartList.FirstOrDefault(p => p.Product.Id == request.productId && p.Color.Id == request.colorId && p.Capacity.Id == request.capaId);
             if (productInCart == null)
             {
                 cartList.Add(cartItem);
@@ -264,7 +291,8 @@ namespace App.Areas.Products.Controllers
             {
                 status = 1,
                 message = "Đã thêm vào giỏ hàng!",
-                qtt = cartList.Count()
+                qtt = cartList.Count(),
+                id = productInCart == null ? cartItem.Id : productInCart.Id
             });
         }
 

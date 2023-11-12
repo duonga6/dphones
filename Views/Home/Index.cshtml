@@ -491,16 +491,17 @@
 
         const AddToCart = function(productId, colorId = null, capaId = null) {
             
-            var formData = new FormData();
-            formData.append("productId", productId);
-            formData.append("colorID", colorId);
-            formData.append("capaId", capaId);
+            var dataRequest = {
+                productId,
+                colorId,
+                capaId
+            }
 
             $.ajax({
                 type: "post",
                 url: '@Url.Action("AddToCart", "ViewProduct", new {area = "Products"})',
-                data: formData,
-                contentType: false,
+                data: JSON.stringify(dataRequest),
+                contentType: "application/json",
                 processData: false,
                 cache: false,
                 success: function(data) {

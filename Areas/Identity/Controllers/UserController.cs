@@ -25,7 +25,7 @@ namespace App.Areas.Identity.Controllers
         [TempData]
         public string? StatusMessage { set; get; }
 
-        private readonly int ITEM_PER_PAGE = 5;
+        private readonly int ITEM_PER_PAGE = 10;
 
         public UserController(ILogger<UserController> logger, AppDbContext context, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
         {
@@ -35,7 +35,7 @@ namespace App.Areas.Identity.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
+        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
         {
             var users = _context.Users.Select(u => new UserModel
             {
@@ -45,8 +45,16 @@ namespace App.Areas.Identity.Controllers
                 Id = u.Id,
                 EmailConfirmed = u.EmailConfirmed,
                 LockoutEnabled = u.LockoutEnabled,
-                LockoutEnd = u.LockoutEnd
-            }).OrderBy(u => u.UserName);
+                LockoutEnd = u.LockoutEnd,
+                PhoneNumber = u.PhoneNumber
+            }).OrderBy(u => u.UserName)
+            .AsQueryable();
+
+            if (searchString != null)
+            {
+                searchString = searchString.ToLower();
+                users = users.Where(u => u.UserName!.ToLower().Contains(searchString) || u.Email!.ToLower().Contains(searchString));
+            }
 
             int pageCount = (int)Math.Ceiling((double)users.Count() / ITEM_PER_PAGE);
 

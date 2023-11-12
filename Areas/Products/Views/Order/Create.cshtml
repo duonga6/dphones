@@ -1,0 +1,94 @@
+@{
+    ViewData["Title"] = "Tạo đơn hàng";
+}
+
+<div class="card h-100 ad-create-order-container">
+    <div class="card-header d-flex justify-content-between align-items-md-center flex-column flex-md-row">
+        <div class="left-header">
+            <i class="fas fa-table me-1"></i>
+            Tạo đơn hàng
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="search-container position-relative">
+                    <div class="row">
+                        <div class="col-12 col-md-8 col-xl-4">
+                            <label for="search-input">Tìm kiếm</label>
+                            <input id="search-input" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div style="display: none;max-height: 200px; width: 400px; overflow-y: scroll; z-index: 99;" class="result-search position-absolute start-0 top-100">
+                        <ul class="list-group"></ul>
+                    </div>
+                </div>
+                <div class="product-select-container mt-4">
+                    <ul id="product-data" class="list-group">
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="form-group mb-2">
+                    <label class="form-label">Họ tên</label>
+                    <input id="customer-name" class="form-control" type="text"></input>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="form-label">Địa chỉ</label>
+                    <input id="customer-address" type="text" class="form-control mb-2">
+                    <div class="d-flex">
+                        <select id="City" class="form-control me-2">
+                            <option value="" selected>Chọn tỉnh thành</option>
+                        </select>
+                        <select id="District" class="form-control mx-2">
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+                        <select id="Commune" class="form-control ms-2">
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="form-label">Số điện thoại</label>
+                    <input id="customer-phone" class="form-control" type="text"></input>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="form-label">Email</label>
+                    <input id="customer-email" class="form-control" type="email"></input>
+                </div>
+                <hr>
+                <div class="form-group mb-2">
+                    <h5>Thanh toán (<span id="product-count">0</span> sản phẩm)</h5>
+                    <div class="d-flex justify-content-between">
+                        <p>Tổng cộng</p>
+                        <p id="total-price">0<sup>đ</sup></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group mb-2">
+                    <input id="in-store" class="" type="radio" name="a" value="" checked>
+                    <label for="in-store" class="form-label">Nhận tại cửa hàng (Đã thanh toán)</label>
+                    <input id="in-ship" class="ms-4" type="radio" name="a" value="">
+                    <label for="in-ship" class="form-label">Giao tận nơi</label>
+                </div>
+                <hr>
+                <div class="form-group mb-2 pay-status" style="display: none;">
+                    <input id="paid" class="" type="radio" name="b" value="" checked>
+                    <label for="paid" class="form-label">Đã thanh toán</label>
+                    <input id="not-paid" class="ms-4" type="radio" name="b" value="">
+                    <label for="not-paid" class="form-label">Chưa thanh toán</label>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" onclick="createOrder()">Tạo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_AlertMessage" />
+
+@section Scripts {
+    <script src="/js/Order/createByAdmin.js"></script>
+    <script src="/js/addressData.js"></script>
+}

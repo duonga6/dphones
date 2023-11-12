@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 //=========================== Start Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddOptions();
+builder.Services.AddHttpClient();
 
 builder.WebHost.UseUrls("http://0.0.0.0:8090");
 
@@ -24,7 +28,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
-
 
 // Identity
 builder.Services.AddIdentity<AppUser, IdentityRole>()
@@ -105,6 +108,14 @@ builder.Services.AddTransient<CartService>();
 builder.Services.AddTransient<HomeCategoryService>();
 
 
+// builder.Services.AddDataProtection()
+//         .PersistKeysToFileSystem("")
+//         .ProtectKeysWithDpapi()
+//         .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+//         {
+//             EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
+//             ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+//         });
 
 //=========================== End Add services to the container.
 

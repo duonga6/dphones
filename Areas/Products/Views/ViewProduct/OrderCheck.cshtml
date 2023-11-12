@@ -87,7 +87,7 @@
                     <li class="product-item">
                         <div class="row h-100 m-0">
                             <div class="product-item-img col-3 col-md-3">
-                                <img src="/files/Products/@item.Color.Image" alt="">
+                                <img src="/files/Products/@item.Color!.Image" alt="">
                             </div>
                             <div class="product-item-info col-6 col-md-6">
                                 <div class="product-item-name">
@@ -97,21 +97,19 @@
                                     <span>Màu sắc: @item.Color?.Name</span>
                                 </div>
                                 <div class="product-item-capacity">
-                                    <span>@(item.Capacity?.Ram)GB/</span><span>@if(item.Capacity?.Rom % 1024 == 0){@(item.Capacity?.Rom / 1024 +
-                                "TB")}else{@(item.Capacity?.Rom + "GB")}</span>
+                                    <span>@(item.Capacity?.Ram)GB/</span><span>@if(item.Capacity?.Rom % 1024 == 0){@(item.Capacity?.Rom / 1024 + "TB")}else{@(item.Capacity?.Rom + "GB")}</span>
                                 </div>
                                 <div class="product-item-quantity">
                                     <span>Số lượng: @item.Quantity</span>
                                 </div>
                                 <div class="product-item-price">
-                                    <span>@item.Capacity?.SellPrice.ToString("N0", new
-                                CultureInfo("vi-VN"))</span><sup>đ</sup>
+                                    <span>@item.Capacity?.SellPrice.ToString("N0", new CultureInfo("vi-VN"))</span><sup>đ</sup>
                                 </div>
                             </div>
                             <div class="product-item-total-price col-3 col-md-3">
                                 <span>Tổng tiền:</span>
                                 <div class="primary-text fw-semibold">
-                                    <span>@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                    <span>@((item.Capacity!.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
                                 </div>
                             </div>
                         </div>

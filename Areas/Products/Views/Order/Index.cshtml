@@ -7,12 +7,15 @@
 }
 
 <div class="card h-100">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"] (@ViewBag.TotalOrders)
+            <a href='@Url.Action("Create", "Order", new {area = "Products"})' class="btn btn-sm btn-primary ms-3">
+                Tạo mới
+            </a>
         </div>
-        <div class="header-right d-flex align-items-center">
+        <div class="header-right d-flex align-items-center mt-2 mt-md-0 ms-2 ms-md-0">
             <div class="form-group row align-items-center me-3">
                 <div class="col-auto gx-2">
                     <label class="form-label mb-0">Lọc</label>
@@ -119,7 +122,7 @@
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body scroll-x">
         <table class="table table-bordered mt-2">
             <thead>
                 <tr class="text-center">

@@ -18,8 +18,10 @@ namespace App.Areas.AdminCP.Controllers
         private readonly UserManager<AppUser> _userManager;
 
         public class ProductWithSold {
-            public required Product Product {set;get;}
+            public int Id {set;get;}
+            public string Name {set;get;} = null!;
             public int Sold {set;get;}
+            public string Image {set;get;} = null!;
         }
 
         public AdminCPController(AppDbContext context, UserManager<AppUser> userManager)
@@ -30,8 +32,17 @@ namespace App.Areas.AdminCP.Controllers
 
         public async Task<IActionResult> Index([FromQuery] string? revenure)
         {
-            var orderQuery = _context.Orders;
+            // Ngày/tháng/năm hôm nay
+            var today = DateTime.Today;
+            // Ngày hiện tại
+            var dayNow = today.Day;
+            // Tháng hiện tại
+            var monthNow = today.Month;
+            // Năm hiện tại
+            var yearNow = today.Year;
 
+
+            var orderQuery = _context.Orders;
             var soldQuery = _context.OrderDetails
             .Where(o => o.Order!.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.Delivered);
 
@@ -59,10 +70,9 @@ namespace App.Areas.AdminCP.Controllers
             {
                 case "thisweek":
                     {
-                        var today = DateTime.Today;
                         int thisDay = (int)today.DayOfWeek;
                         var firstDayOfWeek = today.AddDays(-thisDay);
-                        for (int i = 1; i <= 7; i++)
+                        for (int i = 0; i <= 6; i++)
                         {
                             var dateFrom = firstDayOfWeek.AddDays(i);
                             var dateTo = firstDayOfWeek.AddDays(i + 1);
@@ -78,32 +88,29 @@ namespace App.Areas.AdminCP.Controllers
                 case "thismonth":
                     {
                         int stepDay = 4;
-                        int thisMonth = DateTime.Now.Month;
-                        int thisDay = DateTime.Now.Day;
-                        int dayOfMonth = DateTime.DaysInMonth(DateTime.Now.Year, thisMonth);
+                        int dayOfMonth = DateTime.DaysInMonth(DateTime.Now.Year, monthNow);
                         for (int i = 1; i < dayOfMonth; i += stepDay)
                         {
-                            var dateFrom = DateTime.Now.AddDays(-thisDay + i);
+                            var dateFrom = DateTime.Now.AddDays(-dayNow + i);
                             var dateTo = new DateTime();
                             if (i + stepDay > dayOfMonth)
-                                dateTo = DateTime.Now.AddDays(-thisDay + dayOfMonth);
+                                dateTo = DateTime.Now.AddDays(-dayNow + dayOfMonth);
                             else
-                                dateTo = DateTime.Now.AddDays(-thisDay + i + stepDay);
+                                dateTo = DateTime.Now.AddDays(-dayNow + i + stepDay);
                             var result = orderQuery
                             .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                             .SelectMany(o => o.OrderDetails)
                             .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity)
                             .ToString("0");
-                            dataRevenure.Add($"{i}-{(i + stepDay > dayOfMonth ? dayOfMonth : i + stepDay)}/{thisMonth}", result);
+                            dataRevenure.Add($"{i}-{(i + stepDay > dayOfMonth ? dayOfMonth : i + stepDay)}/{monthNow}", result);
                         }
                     }
                     break;
                 case "thisyear":
-                    var thisYear = DateTime.Now.Year;
                     for (int i = 1; i <= 11; i++)
                     {
                         var result = orderQuery
-                        .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date!.Value.Year == thisYear && ps.Date.Value.Month == i))
+                        .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date!.Value.Year == yearNow && ps.Date.Value.Month == i))
                         .SelectMany(o => o.OrderDetails)
                         .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity)
                         .ToString("0");
@@ -129,10 +136,31 @@ namespace App.Areas.AdminCP.Controllers
             }
             ViewBag.DataRevenure = dataRevenure;
 
-            // Sản phẩm bán chạy
+            // Sản phẩm bán chạy tháng
+            var Month = DateTime.Now.Month;
+            var Year = DateTime.Now.Year;
+            
+            var productBSM = _context.OrderDetails
+            .Where(od => od.Order!.OrderDate.Month == Month && od.Order.OrderDate.Year ==  Year && od.Order.OrderStatuses.Any(os => os.Code == (int)OrderStatusCode.Delivered))
+            .Include(p => p.Color)
+            .GroupBy(od => od.Product)
+            .Select(od => new ProductWithSold{
+                Id = od.Key!.Id,
+                Image = od.FirstOrDefault()!.Color!.Image!,
+                Name = od.Key!.Name,
+                Sold = od.Sum(c => c.Quantity)
+            })
+            .OrderByDescending(p => p.Sold)
+            .Take(5)
+            .ToList();
 
-            // var productsBestSell 
+            // return Ok(productBSM);
 
+            ViewBag.ProductBSM = productBSM;
+
+            // Doanh thu hôm nay
+            var revenureToday = soldQuery.Where(od => od.Order!.OrderDate.Date == today.Date).Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+            ViewBag.RevenureToday = revenureToday;
 
             return View();
         }

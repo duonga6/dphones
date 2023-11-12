@@ -1,3 +1,4 @@
+using App.Areas.Products.Models;
 using App.Data;
 using App.Models;
 using App.Models.Products;
@@ -34,7 +35,7 @@ namespace App.Areas.Products.Controllers
         }
 
         // Trang thống kê
-        public IActionResult Index([FromQuery(Name = "p")]int currentPage,[FromQuery(Name = "s")]string? searchString, [FromQuery(Name = "f")] int? filter)
+        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "f")] int? filter)
         {
             var order = _context.Orders
                                 .OrderByDescending(o => o.OrderDate)
@@ -71,7 +72,7 @@ namespace App.Areas.Products.Controllers
                         order = order.Where(o => o.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.Canceled);
                         break;
                     default:
-                    
+
                         break;
                 }
             }
@@ -93,7 +94,8 @@ namespace App.Areas.Products.Controllers
         }
 
         [Route("/user/order")]
-        [Authorize(Roles = null)]
+        [AllowAnonymous]
+        [Authorize(Roles = RoleName.Customer)]
         public async Task<IActionResult> OrderByUser(int? status)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -124,6 +126,172 @@ namespace App.Areas.Products.Controllers
             }
 
             return View(order.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] OrderCreate model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Forbid();
+
+            var orderDetails = new List<OrderDetail>();
+            var totalCost = 0.0m;
+            foreach (var item in model.Products)
+            {
+                var product = _context.Products.Where(p => p.Id == item.ProductId)
+                .Include(p => p.Colors)
+                .ThenInclude(c => c.Capacities)
+                .AsSplitQuery()
+                .FirstOrDefault();
+                if (product == null) return BadRequest();
+
+                var color = product.Colors.FirstOrDefault(c => c.Id == item.ColorId);
+                if (color == null) return BadRequest();
+
+                var capacity = color.Capacities.FirstOrDefault(c => c.Id == item.CapaId);
+                if (capacity == null) return BadRequest();
+
+
+                orderDetails.Add(new OrderDetail()
+                {
+                    CapacityId = capacity.Id,
+                    ColorId = color.Id,
+                    ProductId = product.Id,
+                    Quantity = item.Quantity,
+                    SellPrice = capacity.SellPrice
+                });
+
+                totalCost += capacity.SellPrice * item.Quantity;
+            }
+
+            var now = DateTime.Now;
+
+            var newOrder = new Order()
+            {
+                FullName = model.Name,
+                City = model.City,
+                Code = now.ToString("yyyyMMddHHmm") + model.Phone,
+                Commune = model.Commune,
+                District = model.District,
+                Email = model.Email,
+                PhoneNumber = model.Phone,
+                SpecificAddress = model.Address,
+                PayType = model.BuyType == "store" ? "InStore" : "COD",
+                OrderDate = now,
+                OrderDetails = orderDetails,
+                TotalCost = totalCost,
+                UserId = user.Id
+            };
+
+            string emailHeader = "";
+            string emailContent = "";
+
+            if (model.BuyType == "store")
+            {
+                newOrder.PayType = "InStore";
+                newOrder.PayStatuses = new List<PayStatus>()
+                {
+                    new() {
+                       Content = "Đã thanh toán tại cửa hàng",
+                       Date = now,
+                       ResponseCode = "00",
+                       Amount = newOrder.TotalCost
+                    }
+                };
+                newOrder.OrderStatuses = new List<OrderStatus>()
+                {
+                    new()
+                    {
+                        Code = (int)OrderStatusCode.Delivered,
+                        DateUpdate = now,
+                        Note = "Khách hàng mua tại cửa hàng",
+                        UserId = user.Id,
+                        Status = OrderStatuses.Delivered
+                    }
+                };
+                emailHeader = "Mua hàng thành công";
+                emailContent =
+$@"
+Thông báo, bạn đã mua hàng thành công vào lúc {now.ToString("hh:mm dd/MM/yyy")}.
+Cảm ơn bạn đã tin tưởng vào sản phẩm của chúng tôi.
+
+Mã đơn hàng: ${newOrder.Code}
+
+Mọi thông tin chi tiết vui lòng liên hệ 1800.1789.
+Xin cảm ơn.";
+            }
+            else if (model.BuyType == "ship")
+            {
+                if (model.Paid)
+                {
+                    newOrder.PayType = "Online";
+                    newOrder.PayStatuses = new List<PayStatus>()
+                    {
+                        new() {
+                        Content = "Đã trả tiền khi đặt hàng",
+                        Date = now,
+                        ResponseCode = "00",
+                        Amount = newOrder.TotalCost
+                        }
+                    };
+                    newOrder.OrderStatuses = new List<OrderStatus>()
+                    {
+                        new()
+                        {
+                            Code = (int)OrderStatusCode.Accepted,
+                            DateUpdate = now,
+                            Note = "Đơn hàng đã được xác nhận",
+                            UserId = user.Id,
+                            Status = OrderStatuses.Accepted
+                        }
+                    };
+                }
+                else
+                {
+                    newOrder.PayType = "COD";
+                    newOrder.OrderStatuses = new List<OrderStatus>()
+                    {
+                        new()
+                        {
+                            Code = (int)OrderStatusCode.Accepted,
+                            DateUpdate = now,
+                            Note = "Đơn hàng đã được xác nhận",
+                            UserId = user.Id,
+                            Status = OrderStatuses.Accepted
+                        }
+                    };
+                }
+                    
+                emailHeader = "Đặt hàng thành công";
+                emailContent =
+$@"
+Thông báo, bạn đã hàng thành công vào lúc {now.ToString("hh:mm dd/MM/yyy")}.
+Cảm ơn bạn đã tin tưởng vào sản phẩm của chúng tôi.
+
+Mã đơn hàng: ${newOrder.Code}
+
+Mọi thông tin chi tiết vui lòng liên hệ 1800.1789.
+Xin cảm ơn.";
+            }
+
+            await _context.Orders.AddAsync(newOrder);
+            await _context.SaveChangesAsync();
+
+
+            string emailHtml = AppUtilities.GenerateHtmlEmail(newOrder.FullName, emailContent);
+
+            await _emailSender.SendEmailAsync(newOrder.Email, emailHeader, emailHtml);
+
+            return Ok(new
+            {
+                newOrder.Id
+            });
         }
 
         // Trang chi tiết
@@ -297,32 +465,36 @@ Xin cảm ơn.";
             }
 
             var user = await _userManager.GetUserAsync(User);
-
             var dateTimeNow = DateTime.Now;
-
+            
             order.OrderStatuses.Add(new OrderStatus()
             {
                 Code = (int)OrderStatusCode.Delivered,
                 DateUpdate = dateTimeNow,
                 Status = OrderStatuses.Delivered,
                 UserId = user?.Id,
-                Note = $"Đơn hàng đã được giao cho khách hàng.",
+                Note = $"Khách hàng đã nhận được hàng.",
             });
+
+            if (order.PayType == "COD")
+            {
+                var payStatus = new PayStatus()
+                {
+                    Content = "Đã thanh toán khi nhận hàng",
+                    ResponseCode = "00",
+                    Date = DateTime.Now,
+                    CardType = "COD",
+                    Amount = order.TotalCost
+                };
+
+                order.PayStatuses.Add(payStatus);
+            }
 
             order.OrderDetails.ForEach(item =>
             {
                 if (item.Capacity != null)
                     item.Capacity.Sold += item.Quantity;
             });
-
-            var payStatus = new PayStatus() {
-                Content = "Đã trả tiền khi nhận hàng",
-                ResponseCode = "00",
-                Date = DateTime.Now,
-                CardType = "COD"
-            };
-
-            order.PayStatuses.Add(payStatus);
 
             await _context.SaveChangesAsync();
 
@@ -358,8 +530,9 @@ Xin cảm ơn.";
                                 .AsSplitQuery()
                                 .FirstOrDefault();
 
-            if (order == null) 
-                return Json(new {
+            if (order == null)
+                return Json(new
+                {
                     status = 0,
                     message = "Không tìm thấy đơn hàng này"
                 });
@@ -368,7 +541,8 @@ Xin cảm ơn.";
 
             if (order.OrderStatuses.Last().Status == OrderStatuses.Delivered)
             {
-                return Json(new {
+                return Json(new
+                {
                     status = 0,
                     message = "Đơn hàng đã giao thành công. Không thể hủy."
                 });
@@ -376,7 +550,8 @@ Xin cảm ơn.";
 
             if (order.OrderStatuses.Last().Status == OrderStatuses.Canceled)
             {
-                return Json(new {
+                return Json(new
+                {
                     status = 0,
                     message = "Đơn hàng đã được hủy từ trước rồi"
                 });
@@ -384,7 +559,8 @@ Xin cảm ơn.";
 
             if (order.PayStatuses.Any(p => p.ResponseCode == "00"))
             {
-                return Json(new {
+                return Json(new
+                {
                     status = 0,
                     message = "Chưa hỗ trợ chức năng hoàn tiền, không thể hủy."
                 });
@@ -429,11 +605,12 @@ Xin cảm ơn.";
             string emailHtml = AppUtilities.GenerateHtmlEmail(order.FullName, emailContent);
 
             await _emailSender.SendEmailAsync(order.Email, "Hủy đơn hàng", emailHtml);
-            
-            return Json(new {
+
+            return Json(new
+            {
                 status = 1,
                 message = "Đã hủy đơn hàng"
-            });;
+            }); ;
         }
 
         // Hủy
@@ -514,6 +691,48 @@ Xin cảm ơn.";
 
             await _emailSender.SendEmailAsync(order.Email, "Hủy đơn hàng", emailHtml);
             return RedirectToAction(nameof(Details), new { Id });
+        }
+
+        [HttpGet("{Id}")]
+        [AllowAnonymous]
+        public IActionResult GenerateBill(int Id)
+        {
+            var order = _context.Orders.Where(o => o.Id == Id)
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Product)
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Capacity)
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Color)
+            .AsSplitQuery()
+            .FirstOrDefault();
+            if (order == null)
+            {
+                return Json(new
+                {
+                    status = 0,
+                    message = "order null"
+                });
+            }
+
+            string result = AppUtilities.GenerateBill(order);
+
+            if (result.Contains("error"))
+            {
+
+                return Json(new
+                {
+                    status = 0,
+                    message = result
+                });
+            }
+
+            return Ok(new
+            {
+                status = 1,
+                message = result
+            });
+
         }
     }
 }

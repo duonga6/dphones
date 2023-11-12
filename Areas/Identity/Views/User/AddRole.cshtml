@@ -13,7 +13,7 @@
     <div class="cart-body p-4">
         <p class="mb-2 fw-semibold">Các role gán cho user</p>
         <div class="row mb-4">
-            <div class="col-md-4">
+            <div class="col-xl-4 col-md-6">
                 <form method="post" asp-route-userid="@Model.User.Id">
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     @Html.ListBoxFor(m => m.RolesName, (IEnumerable<SelectListItem>)ViewBag.allRoles, new {@class =

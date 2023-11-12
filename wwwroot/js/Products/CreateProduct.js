@@ -215,7 +215,7 @@ const addOption = function (element) {
     const optionIndex = ($(element).closest(".option-group").children(".option-item").last().data("id")) + 1;
     const colorIndex = ($(element).closest(".color-group").data("index"));
     const html = `
-                <div class="row option-item" data-id="${optionIndex}">
+                <div class="row option-item position-relative" data-id="${optionIndex}">
                     <div class="col-md-2">
                         <input type="hidden" name="ProductColor[${colorIndex}].Capacities.Index" value="${optionIndex}"> 
                         <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Ram">Ram</label>
@@ -228,22 +228,22 @@ const addOption = function (element) {
                         <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Rom" data-valmsg-replace="true"></span>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Quantity">Số lượng</label>
+                        <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__Quantity">SL</label>
                         <input class="form-control" type="number" data-val="true" data-val-required="The Số lượng field is required." id="ProductColor_${colorIndex}__Capacities_${optionIndex}__Quantity" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity" value=""><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity">
                         <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].Quantity" data-valmsg-replace="true"></span>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__EntryPrice">Giá nhập vào</label>
                         <input class="form-control" type="text" data-val="true" data-val-number="The field Giá nhập vào must be a number." data-val-required="Giá nhập vào không được trống" id="ProductColor_${colorIndex}__Capacities_${optionIndex}__EntryPrice" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].EntryPrice" value="">
                         <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].EntryPrice" data-valmsg-replace="true"></span>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label class="form-label" for="ProductColor_${colorIndex}__Capacities_${optionIndex}__SellPrice">Giá bán ra</label>
                         <input class="form-control" type="text" data-val="true" data-val-number="The field Giá bán ra must be a number." data-val-required="Giá bán ra không được trống" id="ProductColor_${colorIndex}__Capacities_${optionIndex}__SellPrice" name="ProductColor[${colorIndex}].Capacities[${optionIndex}].SellPrice" value="">
                         <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[${optionIndex}].SellPrice" data-valmsg-replace="true"></span>
                     </div>
-                    <div class="col-md-2 mb-1 mt-auto">
-                        <span class="btn btn-danger btn-sm" id="delete-option" onclick="deleteOption(this)">
+                    <div class="position-absolute top-0 end-0">
+                        <span class="btn btn-sm position-absolute top-0 end-0 me-2 text-danger" id="delete-option" onclick="deleteOption(this)">
                             <i class="fa-solid fa-minus"></i>
                         </span>
                     </div>
@@ -268,7 +268,7 @@ $(document).ready(function () {
                                         <div class="card mt-2 color-group" data-index="${colorIndex}">
                                             <div class="card-header position-relative">
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-lg-4">
                                                         <input type="hidden" name="ProductColor.Index" value="${colorIndex}">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -299,7 +299,7 @@ $(document).ready(function () {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-8">
+                                                    <div class="col-lg-8">
                                                         <div class="option-group">
                                                             <div>
                                                                 Options
@@ -324,18 +324,15 @@ $(document).ready(function () {
                                                                     <input class="form-control" type="number" data-val="true" data-val-required="The Số lượng field is required." id="ProductColor_${colorIndex}__Capacities_0__Quantity" name="ProductColor[${colorIndex}].Capacities[0].Quantity" required><input name="__Invariant" type="hidden" value="ProductColor[${colorIndex}].Capacities[0].Quantity">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].Quantity" data-valmsg-replace="true"></span>
                                                                 </div>
-                                                                <div class="col-md-2">
+                                                                <div class="col-md-3">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__EntryPrice">Giá nhập vào</label>
                                                                     <input class="form-control valid" type="text" data-val="true" data-val-number="The field Giá nhập vào must be a number." data-val-required="Giá nhập vào không được trống" id="ProductColor_${colorIndex}__Capacities_0__EntryPrice" name="ProductColor[${colorIndex}].Capacities[0].EntryPrice" value="" aria-describedby="ProductColor_${colorIndex}__Capacities_0__EntryPrice-error" aria-invalid="false">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].EntryPrice" data-valmsg-replace="true"></span>
                                                                 </div>
-                                                                <div class="col-md-2">
+                                                                <div class="col-md-3">
                                                                     <label class="form-label" for="ProductColor_${colorIndex}__Capacities_0__SellPrice">Giá bán ra</label>
                                                                     <input class="form-control valid" type="text" data-val="true" data-val-number="The field Giá bán ra must be a number." data-val-required="Giá bán ra không được trống" id="ProductColor_${colorIndex}__Capacities_0__SellPrice" name="ProductColor[${colorIndex}].Capacities[0].SellPrice" value="" aria-describedby="ProductColor_${colorIndex}__Capacities_0__SellPrice-error" aria-invalid="false">
                                                                     <span class="text-danger field-validation-valid" data-valmsg-for="ProductColor[${colorIndex}].Capacities[0].SellPrice" data-valmsg-replace="true"></span>
-                                                                </div>
-                                                                <div class="col-md-2 mb-1 mt-auto">
-
                                                                 </div>
                                                             </div>
                                                         </div>

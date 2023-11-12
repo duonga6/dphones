@@ -147,10 +147,9 @@ namespace App.Areas.Database.Controllers
             }
             else
             {
-                string script = $@"
+                FormattableString  script = $@"
                     ALTER DATABASE dphones
                     SET OFFLINE WITH ROLLBACK IMMEDIATE
-                    GO
 
                     DECLARE @mdfPath NVARCHAR(255);
                     DECLARE @ldfPath NVARCHAR(255);
@@ -164,34 +163,15 @@ namespace App.Areas.Database.Controllers
                     WHERE name = 'dphones_log';
 
                     RESTORE DATABASE dphones 
-                    FROM DISK = '{path}' 
+                    FROM DISK = {path}
                     WITH REPLACE,
                     MOVE 'dphones' TO @mdfPath,
                     MOVE 'dphones_log' TO @ldfPath;
-                    GO
 
                     ALTER DATABASE dphones
                     SET ONLINE
-                    GO
                 ";
-                var p = new Process
-                {
-                    StartInfo =
-                {
-                    FileName = Environment.OSVersion.Platform == PlatformID.Unix ? "/opt/mssql-tools/bin/sqlcmd" : "sqlcmd",
-                    WorkingDirectory = Directory.GetCurrentDirectory(),
-                    Arguments = $"-S localhost -U sa -P 12345678Aa -d master -Q \"{script}\""
-                }
-                };
-
-                p.Start();
-
-                p.WaitForExit();
-
-                if (p.ExitCode != 0)
-                {
-                    StatusMessage = $"Phục hồi thất bại \n {p.StandardError.ReadToEnd()}";
-                }
+                _context.Database.ExecuteSqlInterpolated(script);
 
                 StatusMessage = $"Phục hồi thành công";
             }

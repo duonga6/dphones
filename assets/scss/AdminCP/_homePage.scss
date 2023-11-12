@@ -1,3 +1,10 @@
+@import "../mixin";
+.admin-page-container {
+    .card-body.scroll-x {
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+}
 .admin-dashboard {
     .heading {
         margin-bottom: 12px;
@@ -39,7 +46,7 @@
                     margin-bottom: 12px;
                     border: $border-gray-ssm;
                     .product-img {
-                        
+                        padding: 6px;
                         img {
                             width: 100px;
                         }
@@ -104,3 +111,21 @@
         }
     }
 }
+
+@include mobile {
+    .admin-dashboard {
+        .heading {
+            margin-bottom: 12px;
+        }
+        .card {
+            .card-body {
+                .title {
+                }
+                .content {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}
+

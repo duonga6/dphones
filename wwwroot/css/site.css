@@ -116,21 +116,67 @@ body {
   visibility: hidden;
 }
 
-.product-manager-detail .product-manager-detail-main-photo .product-manager-detail-main-photo-img {
-  border-radius: 8px;
+.product-manager-detail .product-manager-container .product-img img {
+  border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.product-manager-detail .product-manager-detail-sub-photo {
+.product-manager-detail .product-manager-container .product-color .color-container .color-img img {
+  width: 100%;
+}
+.product-manager-detail .product-manager-container .product-color .color-container .color-name {
+  text-align: center;
+  font-weight: 500;
+}
+.product-manager-detail .product-manager-container .product-color .color-container .color-capacity-list {
   list-style: none;
-  width: 100%;
+  padding: 0;
+  margin: 0;
 }
-.product-manager-detail .product-manager-detail-sub-photo .product-manager-detail-sub-photo-item .product-manager-detail-sub-photo-img {
+.product-manager-detail .product-manager-container .product-desc img {
   object-fit: contain;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.admin-manager-user .table-user-manager .table-content .role-container .role-admin {
+  color: rgb(185, 0, 232);
+}
+.admin-manager-user .table-user-manager .table-content .role-container .role-editor {
+  color: rgb(0, 203, 44);
+}
+.admin-manager-user .table-user-manager .table-content .role-container .role-staff {
+  color: rgb(212, 205, 0);
+}
+.admin-manager-user .table-user-manager .table-content .role-container .role-customer {
+  color: rgb(0, 187, 255);
+}
+
+.more-action {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.more-action .dropdown .dropdown-toggle {
+  background-color: rgb(242, 242, 242);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.more-action .dropdown .dropdown-toggle:hover {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.more-action .dropdown .dropdown-toggle::after {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .admin-manager-user .card .card-body {
+    overflow-x: scroll;
+  }
+}
 .modal-edit-img {
   z-index: 9999;
   position: fixed;
@@ -201,6 +247,43 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+.card .card-body .bill-container {
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #F94C10;
+}
+.card .card-body .bill-container .left-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .card-body .bill-container .left-section img {
+  width: 60%;
+}
+.card .card-body .bill-container .right-section p {
+  margin-bottom: 0;
+  text-align: right;
+}
+.card .card-body .bill-container .customer-info p {
+  margin-bottom: 0;
+}
+.card .card-body .bill-container .table {
+  border-color: #F94C10;
+}
+.card .card-body .bill-container .bill-footer p {
+  margin-bottom: 0;
+}
+.card .card-body .bill-container .bill-footer .bill-sign {
+  min-height: 200px;
+}
+.card .card-body .bill-container .bill-footer .bill-sign .date-time {
+  text-align: right;
+}
+
+.ad-create-order-container .card-body .result-search .list-group .list-group-item:hover {
+  background-color: rgb(235, 235, 235);
+}
 
 .product-img-container .sub-img-container .sub-img-item {
   height: 350px;
@@ -246,6 +329,11 @@ body {
   height: unset;
 }
 
+.admin-page-container .card-body.scroll-x {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
 .admin-dashboard .heading {
   margin-bottom: 12px;
 }
@@ -278,6 +366,9 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.admin-dashboard .best-selling .best-sell-list .best-sell-item .best-sell-link .product-img {
+  padding: 6px;
 }
 .admin-dashboard .best-selling .best-sell-list .best-sell-item .best-sell-link .product-img img {
   width: 100px;
@@ -321,6 +412,14 @@ body {
   color: #00A9FF;
 }
 
+@media (max-width: 767px) {
+  .admin-dashboard .heading {
+    margin-bottom: 12px;
+  }
+  .admin-dashboard .card .card-body .content {
+    font-size: 24px;
+  }
+}
 .login-page .form-check-input:checked {
   background-color: #F94C10 !important;
   border-color: #F94C10 !important;
@@ -1331,7 +1430,7 @@ body {
 }
 .order-by-user-container .order-empty {
   margin-top: 12px;
-  min-height: 540px;
+  min-height: 500px;
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -1374,6 +1473,10 @@ body {
   .order-by-user-container .order-list .order-item .order-status {
     flex-direction: column;
   }
+}
+.product-details-container {
+  margin-top: 16px;
+  border-radius: 8px;
 }
 .product-details-container .product-heading {
   position: relative;
@@ -2562,8 +2665,9 @@ body {
 }
 .product-bestseller .product_grid {
   margin-top: 12px;
-  padding-bottom: 12px;
+  padding-bottom: 6px;
 }
+
 .hot-heading {
   background-color: #F94C10;
   display: inline-block;

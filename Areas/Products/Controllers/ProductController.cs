@@ -1,4 +1,7 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Transactions;
 using App.Areas.Products.Models;
@@ -246,8 +249,13 @@ namespace App.Areas.Products.Controllers
         public IActionResult Details(int Id)
         {
             var product = _context.Products.Where(p => p.Id == Id)
+                                            .Include(p => p.Brand)
+                                            .Include(p => p.Photos)
                                             .Include(p => p.ProductCategories)
                                             .ThenInclude(p => p.Category)
+                                            .Include(p => p.Colors)
+                                            .ThenInclude(p => p.Capacities)
+                                            .AsSplitQuery()
                                             .FirstOrDefault();
 
             if (product == null) return NotFound();
@@ -671,18 +679,39 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddPhoto(int Id)
+        public IActionResult SearchProduct(string name)
         {
-            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
-            if (product == null)
-            {
-                StatusMessage = "Có lỗi khi thêm sản phẩm";
-                return RedirectToAction(nameof(Index));
-            }
+            var product = _context.Products.Where(p => p.Name.Contains(name))
+            .Include(p => p.Colors)
+            .ThenInclude(p => p.Capacities)
+            .AsSplitQuery()
+            .Select(p => new {
+                p.Id,
+                p.Name,
+                p.Colors
+            })
+            .ToList();
 
-            ViewBag.Product = product;
-
-            return View();
+            return Ok(product);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GetProduct(int productId, int colorId, int capaId)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.Id == productId);
+            var color = _context.Colors.FirstOrDefault(c => c.Id == colorId);
+            var capa = _context.Capacities.FirstOrDefault(ca => ca.Id == capaId);
+
+            if (product == null || color == null || capa == null)   return BadRequest();
+
+            return Ok(new {
+                product,
+                color,
+                capacity = capa
+            });
+        }
+
+
     }
 }

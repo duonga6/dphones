@@ -588,21 +588,16 @@
     </div>
 </div>
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header align-items-center">
+            <i class="text-warning fs-6 fa-solid fa-circle-exclamation"></i>
+            <span class="ms-2 me-auto fs-6">Đã thêm sản phẩm vào giỏ hàng</span>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
-    <script>
-        const clickFilter = function(e) {
-            const link = $(e).closest("a").get(0);
-            window.location.href = link.href;
-        }
-
-        @* $(document).ready(function() {
-            var targetElement = $(".home-product-with-filter");
-            $('html, body').scrollTop(targetElement.offset().top - 40);
-        }) *@
-
-        $("#sort-table-mobile").change(function() {
-            window.location.href = $(this).val();
-        });
-        
-    </script>
+    <script src="~/js/Products/filterPage.js"></script>
 }

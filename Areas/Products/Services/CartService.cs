@@ -32,7 +32,9 @@ namespace App.Areas.Products.Services {
         public void SaveCart(List<CartItem>? cartList)
         {
             var session = httpContext.Session;
-            var jsonCart = JsonConvert.SerializeObject(cartList);
+            var jsonCart = JsonConvert.SerializeObject(cartList, new JsonSerializerSettings{
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore 
+            });
             session.SetString(CARTKEY, jsonCart);
         }
     }
