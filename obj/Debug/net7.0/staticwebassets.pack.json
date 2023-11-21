@@ -141,6 +141,10 @@
       "PackagePath": "staticwebassets\\js\\Admin\\dashboard.js"
     },
     {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Helper\\index.js",
+      "PackagePath": "staticwebassets\\js\\Helper\\index.js"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Order\\createByAdmin.js",
       "PackagePath": "staticwebassets\\js\\Order\\createByAdmin.js"
     },
@@ -171,6 +175,10 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\filterPage.js",
       "PackagePath": "staticwebassets\\js\\Products\\filterPage.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\homePage.js",
+      "PackagePath": "staticwebassets\\js\\Products\\homePage.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\addressData.js",

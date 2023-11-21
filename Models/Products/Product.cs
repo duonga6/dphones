@@ -76,5 +76,6 @@ namespace App.Models.Products
 
         public List<Color> Colors {set;get;} = new();
 
+        public List<Review> Reviews {set;get;} = new();
     }
 }

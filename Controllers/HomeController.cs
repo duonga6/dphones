@@ -1,9 +1,8 @@
-﻿using System.Net.Mime;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using App.Models;
 using Microsoft.EntityFrameworkCore;
-using App.Models.Products;
+using App.Areas.Products.Models;
 
 namespace App.Controllers;
 
@@ -34,18 +33,6 @@ public class HomeController : Controller
         if (currentPage > countPage)
             currentPage = countPage;
 
-            
-        var products = _context.Products.Include(p => p.Brand)
-                                        .Include(p => p.Photos)
-                                        .Include(p => p.Colors.OrderBy(c => c.Name))
-                                        .ThenInclude(c => c.Capacities.OrderBy(c => c.Rom))
-                                        .AsSingleQuery()
-                                        .OrderByDescending(p => p.EntryDate)
-                                        .Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE)
-                                        .ToList();
-        
-        
-        ViewBag.Products = products;
         ViewBag.CurrentPage = currentPage;
         ViewBag.CountPage = countPage;
 
@@ -53,6 +40,7 @@ public class HomeController : Controller
                             .Where(p => p.Brand!.Name == "Samsung")
                             .Include(p => p.Colors)
                             .ThenInclude(c => c.Capacities)
+                            .Include(p => p.Reviews)
                             .AsSplitQuery()
                             .Select(p => new {
                                 product = p,
@@ -61,13 +49,17 @@ public class HomeController : Controller
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => p.product)
+                            .Select(p => new ProductWithRate {
+                                Product = p.product,
+                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
+                            })
                             .ToList();
 
         ViewBag.IPhoneHot = _context.Products
                             .Where(p => p.Brand!.Name == "Apple")
                             .Include(p => p.Colors)
                             .ThenInclude(c => c.Capacities)
+                            .Include(p => p.Reviews)
                             .AsSplitQuery()
                             .Select(p => new {
                                 product = p,
@@ -76,13 +68,17 @@ public class HomeController : Controller
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => p.product)
+                            .Select(p => new ProductWithRate {
+                                Product = p.product,
+                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
+                            })
                             .ToList();
 
         ViewBag.XiaomiHot = _context.Products
                             .Where(p => p.Brand!.Name == "Xiaomi")
                             .Include(p => p.Colors)
                             .ThenInclude(c => c.Capacities)
+                            .Include(p => p.Reviews)
                             .AsSplitQuery()
                             .Select(p => new {
                                 product = p,
@@ -91,13 +87,17 @@ public class HomeController : Controller
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => p.product)
+                            .Select(p => new ProductWithRate {
+                                Product = p.product,
+                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
+                            })
                             .ToList();
         
         ViewBag.RealmeHot = _context.Products
                             .Where(p => p.Brand!.Name == "Realme")
                             .Include(p => p.Colors)
                             .ThenInclude(c => c.Capacities)
+                            .Include(p => p.Reviews)
                             .AsSplitQuery()
                             .Select(p => new {
                                 product = p,
@@ -106,11 +106,11 @@ public class HomeController : Controller
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => p.product)
+                            .Select(p => new ProductWithRate {
+                                Product = p.product,
+                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
+                            })
                             .ToList();
-
-
-
         return View();
     }
 

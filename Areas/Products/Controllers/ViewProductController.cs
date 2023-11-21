@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using App.Areas.Products.Models.Cart;
 
 namespace App.Areas.Products.Controllers
 {
@@ -54,6 +55,7 @@ namespace App.Areas.Products.Controllers
             var products = _context.Products.Include(p => p.Brand)
                                             .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
                                             .Include(p => p.Colors.OrderBy(c => c.Name)).ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
+                                            .Include(p => p.Reviews)
                                             .OrderByDescending(p => p.ReleaseDate)
                                             .AsSplitQuery();
 
@@ -136,14 +138,17 @@ namespace App.Areas.Products.Controllers
             ViewBag.CurrentPage = currentPage;
 
 
-            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).Select(p => new ProductWithRate {
+                Product = p,
+                Rate = p.Reviews.Count == 0 ? 0 : p.Reviews.Average(r => r.Rate)
+            });
 
             return View(productInPage.ToList());
         }
 
 
         [Route("/{slug}")]
-        public IActionResult Details(string slug)
+        public async Task<IActionResult> Details(string slug)
         {
             var product = _context.Products.Where(p => p.Slug == slug)
                                             .Include(p => p.Brand)
@@ -185,6 +190,8 @@ namespace App.Areas.Products.Controllers
 
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            ViewBag.User = user;
             ViewBag.OtherProduct = listOtherProduct;
 
             return View(product);
@@ -213,26 +220,7 @@ namespace App.Areas.Products.Controllers
         {
             return View();
         }
-        
-        // [Route("/buy-now")]
-        // public async Task<IActionResult> BuyNow(int productId, int colorId, int capaId)
-        // {
-        //     var product = _context.Products.FirstOrDefault(p => p.Id == productId);
-        //     var color = _context.Colors.FirstOrDefault(c => c.Id == colorId);
-        //     var capa = _context.Capacities.FirstOrDefault(c => c.Id == capaId);
 
-        //     if (product == null || color == null || capa == null)   return BadRequest();
-
-        //     var cartItem = new CartItem
-
-        // }
-
-        public class AddToCartRequest 
-        {
-            public int productId {set;get;}
-            public int colorId {set;get;}
-            public int capaId {set;get;}
-        }
 
         [HttpPost]
         [Route("/cart/add-to-cart")]

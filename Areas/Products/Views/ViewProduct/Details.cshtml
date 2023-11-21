@@ -1,4 +1,6 @@
 @model Product
+@using Microsoft.AspNetCore.Identity;
+
 @{
     ViewData["Title"] = Model.Name;
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -9,7 +11,7 @@
 
 <div class="product-details-container bg-white px-2">
     <div class="product-heading pt-2">
-        <p>@Model.Name</p>
+        <p>@Model.Name <span id="rating-heading" class="ms-2 fs-6"></span></p>
     </div>
     <hr class="primary-text opacity-25 mt-0">
     <div class="product-info row">
@@ -194,74 +196,118 @@
             </div>
         </div>
     </div>
-    <div class="row desc-configuration">
-        <div class="col-lg-8 product-description" id="product-description">
-            <hr class="primary-text mt-0">
-            <div class="desc-content">
-                @Html.Raw(Model.Description)
+    <div class="desc-configuration">
+        <div class="row">
+            <div class="col-lg-8 product-description" id="product-description">
+                <hr class="primary-text mt-0">
+                <div class="desc-content">
+                    @Html.Raw(Model.Description)
+                </div>
+                <div class="product-description-action">
+                    <button class="btn" id="btn-show-desc">Xem thêm</button>
+                    <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
+                </div>
             </div>
-            <div class="product-description-action">
-                <button class="btn" id="btn-show-desc">Xem thêm</button>
-                <button class="btn" id="btn-hide-desc" style="display: none;">Ẩn bớt</button>
+            <div class="col-lg-4 product-configuration">
+                <p class="product-configuration-heading primary-bg rounded text-white text-center py-2">Thông số kỹ thuật</p>
+                <table class="configuration-table table table-striped">
+                    <tr class="configuration-table-row">
+                        <td class="col-4">Tên sản phẩm</td>
+                        <td class="col-6">@Model.Name</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td class="col-4">Hãng sản xuất</td>
+                        <td class="col-6">@Model.Brand?.Name</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td class="col-4">Năm ra mắt</td>
+                        <td class="col-6">@Model.ReleaseDate?.ToString("MM/yyyy")</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td class="col-4">Kích thước màn hình</td>
+                        <td class="col-6">@Model.ScreenSize"</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Camera</td>
+                        <td>@Model.Camera</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Chipset</td>
+                        <td>@Model.Chipset</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Dung lượng Ram</td>
+                        <td>@{
+                                var ram = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Ram.ToString() + " GB").Distinct();
+                                <text>@string.Join(", ", ram!)</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Bộ nhớ trong</td>
+                        <td>@{
+                                var rom = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Rom.ToString() + " GB").Distinct();
+                                <text>@string.Join(", ", rom!)</text>
+                            }
+                        </td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Pin</td>
+                        <td>@(Model.Battery)mAh (@(Model.Charger)W)</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Thẻ sim</td>
+                        <td>@Model.SIM</td>
+                    </tr>
+                    <tr class="configuration-table-row">
+                        <td>Hệ điều hành</td>
+                        <td>@Model.OS</td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <div class="col-lg-4 product-configuration">
-            <p class="product-configuration-heading primary-bg rounded text-white text-center py-2">Thông số kỹ thuật</p>
-            <table class="configuration-table table table-striped">
-                <tr class="configuration-table-row">
-                    <td class="col-4">Tên sản phẩm</td>
-                    <td class="col-6">@Model.Name</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td class="col-4">Hãng sản xuất</td>
-                    <td class="col-6">@Model.Brand?.Name</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td class="col-4">Năm ra mắt</td>
-                    <td class="col-6">@Model.ReleaseDate?.ToString("MM/yyyy")</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td class="col-4">Kích thước màn hình</td>
-                    <td class="col-6">@Model.ScreenSize"</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Camera</td>
-                    <td>@Model.Camera</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Chipset</td>
-                    <td>@Model.Chipset</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Dung lượng Ram</td>
-                    <td>@{
-                            var ram = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Ram.ToString() + " GB").Distinct();
-                            <text>@string.Join(", ", ram!)</text>
-                        }
-                    </td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Bộ nhớ trong</td>
-                    <td>@{
-                            var rom = Model.Colors?.FirstOrDefault()?.Capacities.Select(c => c.Rom.ToString() + " GB").Distinct();
-                            <text>@string.Join(", ", rom!)</text>
-                        }
-                    </td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Pin</td>
-                    <td>@(Model.Battery)mAh (@(Model.Charger)W)</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Thẻ sim</td>
-                    <td>@Model.SIM</td>
-                </tr>
-                <tr class="configuration-table-row">
-                    <td>Hệ điều hành</td>
-                    <td>@Model.OS</td>
-                </tr>
-            </table>
+    </div>
+</div>
+
+<div class="product-details-review">
+    <div class="heading px-2">
+        <h5>Đánh giá và nhận xét - 
+        <span id="review-avg-rate mb-0">
+            <span id="review-avg-rate">0</span>/5
+        </span>
+        <i class="fa-solid fa-star fw-semibold third-text"></i>
+        </h5>
+    </div>
+    <div class="review-container">
+        <div class="create-review px-2">
+            @{
+                if (ViewBag.User == null)
+                {
+                    <p class="mt-2">Bạn phải <a href='@Url.Action("Login", "Account", new {area = "Identity", returnUrl = $"/{Model.Slug}"})' class="text-decoration-none primary-text">đăng nhập</a> để đánh giá và nhận xét</p>
+                }
+                else
+                {
+                    <div class="heading d-flex align-items-center mb-2 mt-2">
+                        <p class="mb-0">Đánh giá của bạn</p>
+                        <div class="d-flex flex-column ms-2">
+                            <div class="rate-star">
+                                <i role="button" class="fa-solid fa-star third-text star-create-review" id="star-index-1" onclick="updateRate(1)"></i>
+                                <i role="button" class="fa-solid fa-star third-text star-create-review" id="star-index-2" onclick="updateRate(2)"></i>
+                                <i role="button" class="fa-solid fa-star third-text star-create-review" id="star-index-3" onclick="updateRate(3)"></i>
+                                <i role="button" class="fa-solid fa-star third-text star-create-review" id="star-index-4" onclick="updateRate(4)"></i>
+                                <i role="button" class="fa-solid fa-star third-text star-create-review" id="star-index-5" onclick="updateRate(5)"></i>
+                            </div>
+                            <input type="hidden" id="total-star-review" value="5">
+                        </div>
+                    </div>
+                    <textarea id="create-review-content" rows="5" class="w-100 form-control"></textarea>
+                    <button class="btn primary-bg text-white px-3 mt-2 mt-md-3" onclick="sendReview()">Gửi</button>
+                }
+            }
         </div>
+        <ul class="review-list px-md-4" id="review-list">
+            <p class="mt-4">Chưa có đánh giá</p>
+        </ul>
     </div>
 </div>
 
@@ -277,5 +323,6 @@
 
 @section Scripts
 {
+    <script src="~/js/Helper/index.js"></script>
     <script src="~/js/Products/details.js"></script>
 }

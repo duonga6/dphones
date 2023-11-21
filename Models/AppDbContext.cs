@@ -64,18 +64,23 @@ namespace App.Models
                 entity.HasIndex(c => c.SellPrice);
             }); 
 
+            builder.Entity<Review>(entity => {
+                entity.HasIndex(c => c.ProductId);
+            });
+
         }
 
-        public required DbSet<Product> Products {set;get;}
-        public required DbSet<Category> Categories {set;get;}
-        public required DbSet<ProductPhoto> ProductPhotos {set;get;}
-        public required DbSet<Brand> Brands {set;get;}
-        public required DbSet<ProductCategory> ProductCategories {set;get;}
-        public required DbSet<Color> Colors {set;get;}
-        public required DbSet<Capacity> Capacities {set;get;}
-        public required DbSet<Order> Orders {set;get;}
-        public required DbSet<OrderDetail> OrderDetails {set;get;}
-        public required DbSet<PriceLevel> PriceLevels {set;get;}
-        public required DbSet<PayStatus> PayStatuses {set;get;}
+        public DbSet<Product> Products {set;get;} = null!;
+        public DbSet<Category> Categories {set;get;} = null!;
+        public DbSet<ProductPhoto> ProductPhotos {set;get;} = null!;
+        public DbSet<Brand> Brands {set;get;} = null!;
+        public DbSet<ProductCategory> ProductCategories {set;get;} = null!;
+        public DbSet<Color> Colors {set;get;} = null!;
+        public DbSet<Capacity> Capacities {set;get;} = null!;
+        public DbSet<Order> Orders {set;get;} = null!;
+        public DbSet<OrderDetail> OrderDetails {set;get;} = null!;
+        public DbSet<PriceLevel> PriceLevels {set;get;} = null!;
+        public DbSet<PayStatus> PayStatuses {set;get;} = null!;
+        public DbSet<Review> Reviews {set;get;} = null!;
     }
 }

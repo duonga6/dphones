@@ -1,5 +1,5 @@
 @using System.Linq;
-@model List<Product>
+@model List<ProductWithRate>
 @{
     ViewData["Title"] = "Sản phẩm";
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -371,23 +371,24 @@
                     {
                         foreach(var item in Model)
                         {
-                            var firstColor = item.Colors.FirstOrDefault();
+                            var product = item.Product;
+                            var firstColor = product.Colors.FirstOrDefault();
                             var firstCapa = firstColor?.Capacities.FirstOrDefault();
 
                             <div class="item">
                                 <div class="card w-100">
                                     <div class="card-img d-flex align-items-center">
                                         <a class="d-block w-100 h-100"
-                                            href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'
+                                            href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'
                                             >
                                             <img src="/files/Products/@firstColor?.Image" class="card-img-top rounded-1" alt="...">
                                         </a>
                                     </div>
-                                    <div class="card-body d-flex flex-column mb-1">
+                                    <div class="card-body d-flex flex-column">
                                         <div class="card-title">
                                             <a 
-                                                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Slug})'>
-                                                    @item.Name
+                                                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
+                                                    @product.Name
                                             </a>
                                         </div>
                                         <div class="product-info">
@@ -408,17 +409,17 @@
                                                 }
                                             </div>
                                             <div class="product-info-item">
-                                                @if (item.ScreenSize != null)
+                                                @if (product.ScreenSize != null)
                                                 {
                                                     <i class="fa-solid fa-mobile-screen"></i>
-                                                    @(item.ScreenSize.Value + "\"")
+                                                    @(product.ScreenSize.Value + "\"")
                                                 }
                                             </div>
                                             <div class="product-info-item">
-                                                @if (item.Battery != null)
+                                                @if (product.Battery != null)
                                                 {
                                                     <i class="fa-solid fa-battery-three-quarters"></i>
-                                                    @(item.Battery.Value + " mAh")
+                                                    @(product.Battery.Value + " mAh")
                                                 }
                                             </div>
                                         </div>
@@ -429,15 +430,10 @@
                                             </span>
                                             <del class="old-price text-dark opacity-50"></del>
                                         </div>
-                                        <div class="product-rating d-flex mt-1">
-                                            <i class="star-rate active fa-solid fa-star"></i>
-                                            <i class="star-rate active fa-solid fa-star"></i>
-                                            <i class="star-rate active fa-solid fa-star"></i>
-                                            <i class="star-rate active fa-solid fa-star"></i>
-                                            <i class="star-rate active fa-solid fa-star"></i>
+                                        <div class="product-rating d-flex" data-rate="@item.Rate">
                                         </div>
                                         <div class="add-to-cart-btn ">
-                                            <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@item.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
+                                            <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -599,5 +595,6 @@
 </div>
 
 @section Scripts {
+    <script src="~/js/Helper/index.js"></script>
     <script src="~/js/Products/filterPage.js"></script>
 }

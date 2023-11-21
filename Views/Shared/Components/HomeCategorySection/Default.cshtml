@@ -60,16 +60,17 @@
             <ul class="category-best-sell-list">
                 @foreach (var item in topSecond)
                 {
+                    var product = item.Product;
                     <li class="category-best-sell-item">
-                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = product.Slug})"
                             class="item-img">
-                            <img src="/files/Products/@item.Colors?.FirstOrDefault()?.Image" alt="">
+                            <img src="/files/Products/@product.Colors?.FirstOrDefault()?.Image" alt="">
                         </a>
                         <div class="item-content">
-                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
-                                class="item-name">@item.Name</a>
+                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = product.Slug})"
+                                class="item-name">@product.Name</a>
                             <p class="item-price">
-                                @item.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault()?.SellPrice.ToString("N0", new
+                                @product.Colors?.FirstOrDefault()?.Capacities?.FirstOrDefault()?.SellPrice.ToString("N0", new
                                          CultureInfo("vi-VN"))<sup>đ</sup></p>
                         </div>
                     </li>
@@ -137,16 +138,17 @@ else
             <ul class="category-best-sell-list">
                 @foreach (var item in topSecond)
                 {
-                    var firstColor = item.Colors?.FirstOrDefault();
+                    var product = item.Product;
+                    var firstColor = product.Colors?.FirstOrDefault();
                     var firstCapa = firstColor?.Capacities.FirstOrDefault();
                     <li class="category-best-sell-item">
-                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
+                        <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = product.Slug})"
                             class="item-img">
                             <img src="/files/Products/@firstColor?.Image" alt="">
                         </a>
                         <div class="item-content">
-                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})"
-                                class="item-name">@item.Name</a>
+                            <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = product.Slug})"
+                                class="item-name">@product.Name</a>
                             <p class="item-price">
                                 @firstCapa?.SellPrice.ToString("N0", new
                                          CultureInfo("vi-VN"))<sup>đ</sup></p>

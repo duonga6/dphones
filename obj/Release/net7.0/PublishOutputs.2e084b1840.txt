@@ -61,6 +61,7 @@ J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvata
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\wbcie5m0.webp
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\wp1q1dyo.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\xb05qxhd.webp
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\zpecizkn.PNG
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-12-08-10-25_backup-12-11.bak
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.dll
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.runtimeconfig.json

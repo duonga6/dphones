@@ -1827,8 +1827,7 @@ body {
 }
 .product-details-container .product-description {
   position: relative;
-  padding: 0 12px 120px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 0 16px 120px;
   transition: height 1s linear;
 }
 .product-details-container .product-description .desc-content {
@@ -1856,8 +1855,7 @@ body {
   display: block;
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   bottom: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.9));
   z-index: 2;
@@ -1877,6 +1875,51 @@ body {
 .product-details-container .product-configuration .configuration-table .configuration-table-row .configuration-readmore-btn {
   cursor: pointer;
 }
+.product-details-review {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-top: 12px;
+  padding: 16px 12px;
+}
+.product-details-review .review-container .review-list {
+  margin-top: 16px;
+  list-style: none;
+  padding: 0;
+}
+.product-details-review .review-container .review-list .review-item {
+  position: relative;
+  padding: 16px 0;
+}
+.product-details-review .review-container .review-list .review-item .heading .user-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.product-details-review .review-container .review-list .review-item .heading .user-info .time {
+  margin-left: 16px;
+  font-size: 14px;
+}
+.product-details-review .review-container .review-list .review-item .heading .rate-star {
+  font-size: 12px;
+}
+.product-details-review .review-container .review-list .review-item .content {
+  margin-left: 78px;
+}
+.product-details-review .review-container .review-list .review-item::after {
+  position: absolute;
+  content: "";
+  display: block;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background-color: #F94C10;
+  opacity: 0.2;
+}
+
 @media (max-width: 767px) {
   .product-details-container .product-info .photo-slide {
     height: 430px;
@@ -2520,7 +2563,7 @@ body {
   margin: 6px;
 }
 .product-container .product_grid .item .card {
-  height: 434px;
+  height: 424px;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.05);
   background-color: white;
@@ -2560,19 +2603,15 @@ body {
   cursor: pointer;
 }
 .product-container .product_grid .item .card .card-body .card-price .selling-price {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 }
 .product-container .product_grid .item .card .card-body .card-price .old-price {
   font-weight: 500;
   font-size: 16px;
 }
-.product-container .product_grid .item .card .card-body .product-rating .star-rate {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.2);
-}
-.product-container .product_grid .item .card .card-body .product-rating .star-rate.star-rate.active {
-  color: gold;
+.product-container .product_grid .item .card .card-body .product-rating {
+  font-size: 14px;
 }
 .product-container .product_grid .item .card .card-body .product-info {
   display: flex;
@@ -2721,7 +2760,7 @@ body {
     margin: 0 6px;
   }
   .product-container .product_grid .item .card {
-    height: unset;
+    height: 324px;
   }
   .product-container .product_grid .item .card .card-img {
     height: 180px;
@@ -2745,7 +2784,7 @@ body {
   }
   .product-bestseller {
     margin-top: 0;
-    padding: 0 12px;
+    padding: 0 12px 6px;
   }
   .product-bestseller .heading {
     height: 60px;
@@ -2781,9 +2820,6 @@ body {
   }
   .product-bestseller .product_grid .item:last-child {
     margin-right: 0;
-  }
-  .product-bestseller .product_grid .item .card {
-    height: unset;
   }
   .product-bestseller .product_grid .item .card .card-img {
     overflow: hidden;
@@ -3071,6 +3107,9 @@ body {
 }
 .home-product-with-filter .right-section .product-container .product_grid .item .card .card-img {
   padding: 0;
+}
+.home-product-with-filter .right-section .product-container .product_grid .item .card .card-body .product-rating {
+  font-size: 14px;
 }
 .home-product-with-filter .right-section .pagination {
   justify-content: center;

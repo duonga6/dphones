@@ -314,8 +314,7 @@
 
     .product-description {
         position: relative;
-        padding: 0 12px 120px;
-        box-shadow: 0px 4px 20px rgba($color: #000000, $alpha: 0.05);
+        padding: 0 16px 120px;
         transition: height 1s linear;
 
         .desc-content {
@@ -348,8 +347,7 @@
             display: block;
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
             bottom: 0;
             background: linear-gradient(
                 to bottom,
@@ -387,6 +385,62 @@
                 }
 
                 &:last-child {
+                }
+            }
+        }
+    }
+}
+
+.product-details-review {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
+    margin-top: 12px;
+    padding: 16px 12px;
+
+    .review-container {
+        .review-list {
+            margin-top: 16px;
+            list-style: none;
+            padding: 0;
+            .review-item {
+                position: relative;
+                padding: 16px 0;
+                .heading {
+                    .user-img {
+                        width: 52px;
+                        height: 52px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        border: $border-gray-sm;
+                    }
+
+                    .user-info {
+                        .time {
+                            margin-left: 16px;
+                            font-size: 14px;
+                        }
+                    }
+
+                    .rate-star {
+                        font-size: 12px;
+                    }
+                }
+
+                .content {
+                    margin-left: 78px;
+                }
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    display: block;
+                    bottom: 0;
+                    left: 12px;
+                    right: 12px;
+                    height: 1px;
+                    background-color: $primary-color;
+                    opacity: 0.2;
                 }
             }
         }
@@ -460,7 +514,6 @@
                             height: 100%;
                             width: 100%;
                             img {
-
                             }
                         }
                         .other-product-item-info {
@@ -554,7 +607,6 @@
         }
     }
 }
-
 
 @include tablet-lg {
     .product-details-container {

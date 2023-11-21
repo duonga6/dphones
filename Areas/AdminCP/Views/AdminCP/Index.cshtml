@@ -301,18 +301,19 @@
                         <ul class="best-sell-list">
                             @foreach (var item in productsBestSeller)
                             {
+                                var product = item.Product;
                                 <li class="best-sell-item">
-                                    <a href='@Url.Action("Details", "Product", new {area = "Products", Id = item.Id})'
+                                    <a href='@Url.Action("Details", "Product", new {area = "Products", Id = product.Id})'
                                         class="best-sell-link">
                                         <div class="product-img">
-                                            <img src="/files/Products/@item.Colors!.FirstOrDefault()!.Image" alt="">
+                                            <img src="/files/Products/@product.Colors!.FirstOrDefault()!.Image" alt="">
                                         </div>
                                         <div class="product-info">
                                             <div class="product-name">
-                                                @item.Name
+                                                @product.Name
                                             </div>
                                             <div class="product-sold">
-                                                Đã bán: @item.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                                                Đã bán: @product.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
                                             </div>
                                         </div>
                                     </a>
@@ -361,4 +362,5 @@
         var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == "0" ? "10000000" : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
     </script>
     <script src="~/js/Admin/dashboard.js"></script>
+    <script src="~/js/Helper/index.js"></script>
 }

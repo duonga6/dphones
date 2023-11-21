@@ -698,3 +698,5 @@ J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Microsoft.Ex
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\System.Security.Cryptography.Xml.dll
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\Products\OrderPdf\2023102421460862297225.pdf
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\BackupDB\backup_file_2023-11-12-08-10-25_backup-12-11.bak
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\Uploads\UserAvatar\zpecizkn.PNG
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\bin\Debug\net7.0\BackupDB\backup_file_2023-11-13-06-40-31_back-up-13-11.bak

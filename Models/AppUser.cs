@@ -16,5 +16,6 @@ namespace App.Models
         public DateTime BirthDate {set;get;}
         
         public List<Order> Orders {set;get;} = new();
+        public List<Review> Reviews {set;get;} = new();
     }
 }

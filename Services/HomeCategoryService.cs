@@ -1,3 +1,4 @@
+using App.Areas.Products.Models;
 using App.Models;
 using App.Models.Products;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,10 @@ namespace App.Services
                                             })
                                             .OrderByDescending(p => p.TotalSold)
                                             .Take(5)
-                                            .Select(p => p.product)
+                                            .Select(p => new ProductWithRate {
+                                                Product = p.product,
+                                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
+                                            })
                                             .ToList();
 
 

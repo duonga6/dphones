@@ -152,4 +152,126 @@ const chooseOption = function (colorId, capaId = null) {
     setActive(colorId, capaId);
 }
 
+// Review comment
 
+const updateRate = function (index) {
+
+    $("#total-star-review").val(index);
+
+    for (let i = 1; i <= index; i++) {
+        $(`#star-index-${i}`).addClass("third-text").removeClass("text-muted");
+    }
+
+    for (let i = index + 1; i <= 5; i++) {
+        $(`#star-index-${i}`).removeClass("third-text").addClass("text-muted");
+    }
+}
+
+// send review
+
+const sendReview = function () {
+    const productId = Number($("#product-id").val());
+    const content = $("#create-review-content").val();
+    const star = Number($("#total-star-review").val());
+
+    if (!productId || !star) {
+        showToast(0, "Thiếu thông tin");
+        return;
+    }
+
+    if (!content) {
+        showToast(0, "Vui lòng nhập đánh giá");
+        return;
+    }
+
+    const dataRequest = {
+        productId: productId,
+        content: content,
+        rate: star
+    }
+
+    $.ajax({
+        type: 'post',
+        url: '/review',
+        data: JSON.stringify(dataRequest),
+        contentType: 'application/json',
+        success: function (data) {
+            showToast(1, "Gửi đánh giá thành công");
+            $("#create-review-content").val("");
+            $("#total-star-review").val(5);
+            updateRate(5);
+            loadReview();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showToast(0, jqXHR.responseJSON.message);
+        }
+    })
+
+}
+
+const loadReview = function () {
+    const productId = Number($("#product-id").val());
+    console.log(productId);
+
+    $.ajax({
+        type: 'get',
+        url: `/review/${productId}`,
+        processData: false,
+        contentType: false,
+        caches: false,
+        success: function (data) {
+            let html = "";
+            if (data.reviews) {
+                data.reviews.forEach(item => {
+                    rateHtml = "";
+
+                    for (let i = 1; i <= item.rate; i++) {
+                        rateHtml += `<i class="fa-solid fa-star third-text"></i>`;
+                    }
+
+                    for (let i = item.rate + 1; i <= 5; i++) {
+                        rateHtml += `<i class="fa-solid fa-star text-muted"></i>`;
+                    }
+
+                    html += `
+                    <li class="review-item">
+                        <div class="heading d-flex align-items-center">
+                            <img class="user-img" src="/files/UserAvatar/${item.image}" alt="">
+                            <div class="d-flex flex-column ms-4">
+                                <div class="user-info d-flex align-items-baseline">
+                                    <p class="user-name mb-0 fw-semibold">${item.userName}</p>
+                                    <p class="time mb-0">
+                                        <i class="fa-regular fa-clock clock"></i>
+                                        ${item.dateCreated}
+                                    </p>
+                                </div>
+                                <div class="rate-star">
+                                    ${rateHtml}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            ${item.content}
+                        </div>
+                    </li>
+                    `;
+                });
+            } else {
+                html = "<p class='mt-4'>Chưa có đánh giá</p>";
+            }
+
+            $("#review-list").html(html);
+
+            $("#review-avg-rate").html(data.averageRate);
+
+            $("#rating-heading").html(generateStarRateHtml(data.averageRate));
+        },
+        error: function () {
+
+        }
+    })
+}
+
+$(document).ready(function () {
+    loadReview();
+});

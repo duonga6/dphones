@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hg+ns2g1NkIitkmpx59GlUIbD55LvI6njmLNGbIP9Ts=",
+  "Hash": "dFZ9txSHq9SJ7EmNjqsh47ltb1jDMLoeJduSR3tuYpc=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1666,6 +1666,23 @@
       "OriginalItemSpec": "wwwroot\\js\\Admin\\dashboard.js"
     },
     {
+      "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Helper\\index.js",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "js/Helper/index.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Helper\\index.js"
+    },
+    {
       "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Order\\createByAdmin.js",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -1800,6 +1817,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Products\\filterPage.js"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\homePage.js",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "js/Products/homePage.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Products\\homePage.js"
     },
     {
       "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\scripts.js",
