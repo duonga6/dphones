@@ -12,6 +12,10 @@ $("#search-input").focus(function () {
         resultSearch.show();
 })
 
+const soldOut = () => {
+    alert("Sản phẩm đã hết hàng");
+}
+
 $("#search-input").on("input", function () {
 
     const searchValue = $(this).val();
@@ -35,9 +39,19 @@ $("#search-input").on("input", function () {
             data.forEach(e => {
                 e.colors.forEach(c => {
                     c.capacities.forEach(cap => {
-                        html += `
-                                    <li class="list-group-item" role="button" onclick="selectProduct(${e.id}, ${c.id}, ${cap.id})">${e.name} - ${c.name} - ${cap.ram}GB/${cap.rom}GB - ${cap.sellPrice.toLocaleString()}<sup>đ</sup></li>
-                                `;
+                        if (cap.quantity > 0)
+                        {
+
+                            html += `
+                            <li class="list-group-item" role="button" onclick="selectProduct(${e.id}, ${c.id}, ${cap.id})">${e.name} - ${c.name} - ${cap.ram}GB/${cap.rom}GB - ${cap.sellPrice.toLocaleString()}<sup>đ</sup></li>
+                        `;
+                        }
+                        else
+                        {
+                            html += `
+                                        <li class="list-group-item" role="button" onclick="soldOut()">${e.name} - ${c.name} - ${cap.ram}GB/${cap.rom}GB - ${cap.sellPrice.toLocaleString()}<sup>đ</sup></li>
+                                    `;
+                        }
                     })
                 })
             })

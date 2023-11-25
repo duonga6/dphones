@@ -33,7 +33,7 @@
                     <div class="row">
                         @foreach (var item in Model.Colors)
                         {
-                            <div class="col-xl-3 col-md-4 col-12 mb-4">
+                            <div class="col-xl-4 col-md-4 col-12 mb-4">
                                 <div class="color-container">
                                     <div class="color-img d-flex justify-content-center align-items-center">
                                         <img src="~/files/Products/@item.Image" alt="" style="width: 200px;">
@@ -41,11 +41,23 @@
                                     <div class="color-name">
                                         @item.Name
                                     </div>
-                                    <ul class="color-capacity-list">
+                                    <ul class="color-capacity-list border mt-1">
                                         @foreach (var capa in item.Capacities)
                                         {
-                                            <li class="color-capacity-item text-center">
-                                                @(capa.Ram)GB/@(capa.Rom)GB: @capa.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                                            <li class="color-capacity-item text-center p-2">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <div class="col">
+                                                        @(capa.Ram)GB/@(capa.Rom)GB: <br/>
+                                                    </div>
+                                                    <div class="col">
+                                                        Nhập: @capa.EntryPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup> <br/>
+                                                        Bán: @capa.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                                                    </div>
+                                                    <div class="col">
+                                                        Đã bán: @capa.Sold <br>
+                                                        SL sẵn: @capa.Quantity
+                                                    </div>
+                                                </div>
                                             </li>
                                         }
                                     </ul>

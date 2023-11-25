@@ -11,7 +11,7 @@
     decimal TotalRevenue = ViewBag.TotalRevenue;
     decimal RevenureToday = ViewBag.RevenureToday;
     var queryRevenue = Context.Request.Query["revenure"].ToString();
-    var dataRevenure = ViewBag.DataRevenure as Dictionary<string, string>;
+    var dataRevenure = ViewBag.DataRevenure as Dictionary<string, decimal>;
     var productsBestSeller = _homeCategory.GetData().Products;
     var productsBestSellMonth = ViewBag.ProductBSM as List<AdminCPController.ProductWithSold>
     ?? new List<AdminCPController.ProductWithSold>();
@@ -359,7 +359,7 @@
         var labels = [@Html.Raw(string.Join(",", dataRevenure!.Select(c => $"'{c.Key}'")))];
         var datas = [@string.Join(",", dataRevenure!.Select(c => c.Value))]
         var maxLimits = @dataRevenure!.Count;
-        var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == "0" ? "10000000" : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
+        var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == 0 ? 10000000 : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
     </script>
     <script src="~/js/Admin/dashboard.js"></script>
     <script src="~/js/Helper/index.js"></script>

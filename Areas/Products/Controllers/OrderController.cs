@@ -167,6 +167,8 @@ namespace App.Areas.Products.Controllers
                     SellPrice = capacity.SellPrice
                 });
 
+                capacity.Quantity -= item.Quantity;
+
                 totalCost += capacity.SellPrice * item.Quantity;
             }
 
@@ -195,6 +197,7 @@ namespace App.Areas.Products.Controllers
             if (model.BuyType == "store")
             {
                 newOrder.PayType = "InStore";
+                newOrder.ReceivedDate = now;
                 newOrder.PayStatuses = new List<PayStatus>()
                 {
                     new() {
@@ -496,6 +499,8 @@ Xin cảm ơn.";
                     item.Capacity.Sold += item.Quantity;
             });
 
+            order.ReceivedDate = dateTimeNow;
+
             await _context.SaveChangesAsync();
 
             string emailContent =
@@ -659,7 +664,6 @@ Xin cảm ơn.";
             {
                 order.OrderDetails.ForEach(item =>
                 {
-                    _logger.LogInformation("ABC");
                     if (item.Capacity != null)
                         item.Capacity.Quantity += item.Quantity;
                 });

@@ -2,6 +2,12 @@
 
 #### Deploy: https://103.188.82.129
 
+Default account:
+```
+Username: admin
+Password: admin
+```
+
 ### Technology
 * HTML, CSS(SCSS), JS, Bootstrap, Jquery
 * ASP.NET Core MVC, Sql Server, Docker, Nginx

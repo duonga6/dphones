@@ -11,7 +11,10 @@
             @ViewData["Title"]: @Model.Code
         </div>
         <div class="right-header mt-2 mt-md-0">
-            <button class="btn btn-secondary btn-sm" id="generate-bill-btn">In hóa đơn</button>
+            @if (!Model.OrderStatuses.Any(x => x.Code == (int)OrderStatusCode.Canceled))
+            {
+                <button class="btn btn-secondary btn-sm" id="generate-bill-btn">In hóa đơn</button>
+            }
             @switch (Model.OrderStatuses.Last().Code)
             {
                 case (int)OrderStatusCode.WaitAccept:
