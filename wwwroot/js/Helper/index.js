@@ -6,7 +6,7 @@ const generateStarRateHtml = function (rate) {
         ratingHeading += `<i class="fa-solid fa-star third-text"></i>`;
     }
 
-    if (!isNaN(realPartRate)) {
+    if (!isNaN(realPartRate) && realPartRate > 0) {
         ratingHeading += `<span class="fa-solid fa-star text-muted position-relative" style="z-index: 1">
             <i class="fa-solid fa-star-half position-absolute start-0 end-0 third-text" style="z-index: 0"></i>
         </span>`;
