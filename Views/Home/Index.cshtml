@@ -3,10 +3,12 @@
 @{
     ViewData["Title"] = "Trang chủ";
     List<ProductWithRate>? productsBestSeller = _homeCategory.GetData().Products;
-    List<ProductWithRate>? SamsungHot = ViewBag.SamsungHot;
-    List<ProductWithRate>? IPhoneHot = ViewBag.IPhoneHot;
-    List<ProductWithRate>? XiaomiHot = ViewBag.XiaomiHot;
-    List<ProductWithRate>? RealmeHot = ViewBag.RealmeHot;
+    List<Product>? SamsungHot = ViewBag.SamsungHot;
+    List<Product>? IPhoneHot = ViewBag.IPhoneHot;
+    List<Product>? XiaomiHot = ViewBag.XiaomiHot;
+    List<Product>? RealmeHot = ViewBag.RealmeHot;
+
+    List<Product>? productDiscount = ViewBag.Discount;
 }
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -31,383 +33,109 @@
         <img src="/images/best.png" alt="">
         <span>SẢN PHẨM BÁN CHẠY</span>
     </div>
-        <div class="product_grid">
-            
-            @if(productsBestSeller != null)
+    <div class="product_grid">
+
+        @if (productsBestSeller != null)
+        {
+            foreach (var item in productsBestSeller)
             {
-                foreach(var item in productsBestSeller)
-                {
-                    var product = item.Product;
-                    var firstColor = product.Colors?.FirstOrDefault();
-                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
-                    <div class="item">
-                        <div class="card w-100">
-                            <div class="card-img d-flex align-items-center">
-                                <a class="d-block w-100 h-100"
-                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
-                                    <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="card-title">
-                                    <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>@product.Name</a>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-info-item">
-                                        @{
-                                            if (firstCapa != null)
-                                            {
-                                                <i class="fa-solid fa-memory"></i>
-                                                @(firstCapa.Ram + " GB")
-                                            }
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (firstCapa != null)
-                                        {
-                                            <i class="fa-solid fa-hard-drive"></i>
-                                            @(firstCapa.Rom + " GB")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.ScreenSize != null)
-                                        {
-                                            <i class="fa-solid fa-mobile-screen"></i>
-                                            @(product.ScreenSize.Value + "\"")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.Battery != null)
-                                        {
-                                            <i class="fa-solid fa-battery-three-quarters"></i>
-                                            @(product.Battery.Value + " mAh")
-                                        }
-                                    </div>
-                                </div>
-                                <div class="card-price d-flex justify-content-between px-2">
-                                    <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
-                                    <del class="old-price text-dark opacity-50"></del>
-                                </div>
-                                <div class="product-rating d-flex" data-rate="@item.Rate">
-                                        </div>
-                                <div class="add-to-cart-btn ">
-                                    <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                @await Component.InvokeAsync("App.Components.ProductComponent", item.Product)
+                ;
             }
-        </div>
+        }
     </div>
 </div>
 
-<div class="container-xl">
-    <h4 class="hot-heading"><a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Apple"})'>IPHONE NỔI BẬT</a> <img src="/images/hot-icon.webp" alt=""></h4>
-    <div class="product-container">
-        <div class="product_grid">
-            @if(IPhoneHot != null)
-            {
-                foreach(var item in IPhoneHot)
+@if (productDiscount != null)
+{
+    <div class="container-xl">
+        <h4 class="hot-heading"><a class="text-white">ĐANG GIẢM GIÁ</a> <img src="/images/Discount.png" alt=""></h4>
+        <div class="product-container">
+            <div class="product_grid">
+                @foreach (var item in productDiscount)
                 {
-                    var product = item.Product;
-                    var firstColor = product.Colors?.FirstOrDefault();
-                    var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
-                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
-                    <div class="item">
-                        <div class="card w-100">
-                            <div class="card-img d-flex align-items-center">
-                                <a class="d-block w-100 h-100"
-                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
-                                    <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="card-title">
-                                    <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>@product.Name</a>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-info-item">
-                                        @{
-                                            if (firstCapa != null)
-                                            {
-                                                <i class="fa-solid fa-memory"></i>
-                                                @(firstCapa.Ram + " GB")
-                                            }
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (firstCapa != null)
-                                        {
-                                            <i class="fa-solid fa-hard-drive"></i>
-                                            @(firstCapa.Rom + " GB")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.ScreenSize != null)
-                                        {
-                                            <i class="fa-solid fa-mobile-screen"></i>
-                                            @(product.ScreenSize.Value + "\"")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.Battery != null)
-                                        {
-                                            <i class="fa-solid fa-battery-three-quarters"></i>
-                                            @(product.Battery.Value + " mAh")
-                                        }
-                                    </div>
-                                </div>
-                                <div class="card-price d-flex justify-content-between px-2">
-                                    <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
-                                    <del class="old-price text-dark opacity-50"></del>
-                                </div>
-                                <div class="product-rating d-flex" data-rate="@item.Rate">
-                                        </div>
-                                <div class="add-to-cart-btn ">
-                                    <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("App.Components.ProductComponent", item)
+                    ;
                 }
-            }
-            
+            </div>
         </div>
     </div>
-</div>
+}
 
-<div class="container-xl">
-    <h4 class="hot-heading"><a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Samsung"})'>SAMSUNG NỔI BẬT</a> <img src="/images/hot-icon.webp" alt=""></h4>
-    <div class="product-container">
-        <div class="product_grid">
-            @if(SamsungHot != null)
-            {
-                foreach(var item in SamsungHot)
+@if (IPhoneHot != null)
+{
+    <div class="container-xl">
+        <h4 class="hot-heading"><a
+                href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Apple"})'>IPHONE NỔI BẬT</a> <img
+                src="/images/hot-icon.webp" alt=""></h4>
+        <div class="product-container">
+            <div class="product_grid">
+                @foreach (var item in IPhoneHot)
                 {
-                    var product = item.Product;
-                    var firstColor = product.Colors?.FirstOrDefault();
-                    var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
-                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
-                    <div class="item">
-                        <div class="card w-100">
-                            <div class="card-img d-flex align-items-center">
-                                <a class="d-block w-100 h-100"
-                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
-                                    <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="card-title">
-                                    <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>@product.Name</a>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-info-item">
-                                        @{
-                                            if (firstCapa != null)
-                                            {
-                                                <i class="fa-solid fa-memory"></i>
-                                                @(firstCapa.Ram + " GB")
-                                            }
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (firstCapa != null)
-                                        {
-                                            <i class="fa-solid fa-hard-drive"></i>
-                                            @(firstCapa.Rom + " GB")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.ScreenSize != null)
-                                        {
-                                            <i class="fa-solid fa-mobile-screen"></i>
-                                            @(product.ScreenSize.Value + "\"")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.Battery != null)
-                                        {
-                                            <i class="fa-solid fa-battery-three-quarters"></i>
-                                            @(product.Battery.Value + " mAh")
-                                        }
-                                    </div>
-                                </div>
-                                <div class="card-price d-flex justify-content-between px-2">
-                                    <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
-                                    <del class="old-price text-dark opacity-50"></del>
-                                </div>
-                                <div class="product-rating d-flex" data-rate="@item.Rate">
-                                        </div>
-                                <div class="add-to-cart-btn ">
-                                    <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("App.Components.ProductComponent", item)
+                    ;
                 }
-            }
-            
-        </div>
-    </div>
-</div>
 
-<div class="container-xl">
-    <h4 class="hot-heading"><a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Xiaomi"})'>XIAOMI NỔI BẬT</a> <img src="/images/hot-icon.webp" alt=""></h4>
-    <div class="product-container">
-        <div class="product_grid">
-            @if(XiaomiHot != null)
-            {
-                foreach(var item in XiaomiHot)
-                {
-                    var product = item.Product;
-                    var firstColor = product.Colors?.FirstOrDefault();
-                    var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
-                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
-                    <div class="item">
-                        <div class="card w-100">
-                            <div class="card-img d-flex align-items-center">
-                                <a class="d-block w-100 h-100"
-                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
-                                    <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="card-title">
-                                    <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>@product.Name</a>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-info-item">
-                                        @{
-                                            if (firstCapa != null)
-                                            {
-                                                <i class="fa-solid fa-memory"></i>
-                                                @(firstCapa.Ram + " GB")
-                                            }
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (firstCapa != null)
-                                        {
-                                            <i class="fa-solid fa-hard-drive"></i>
-                                            @(firstCapa.Rom + " GB")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.ScreenSize != null)
-                                        {
-                                            <i class="fa-solid fa-mobile-screen"></i>
-                                            @(product.ScreenSize.Value + "\"")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.Battery != null)
-                                        {
-                                            <i class="fa-solid fa-battery-three-quarters"></i>
-                                            @(product.Battery.Value + " mAh")
-                                        }
-                                    </div>
-                                </div>
-                                <div class="card-price d-flex justify-content-between px-2">
-                                    <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
-                                    <del class="old-price text-dark opacity-50"></del>
-                                </div>
-                                <div class="product-rating d-flex" data-rate="@item.Rate">
-                                        </div>
-                                <div class="add-to-cart-btn ">
-                                    <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            
+            </div>
         </div>
     </div>
-</div>
+}
 
-<div class="container-xl">
-    <h4 class="hot-heading"><a href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Realme"})'>REALME NỔI BẬT</a> <img src="/images/hot-icon.webp" alt=""></h4>
-    <div class="product-container">
-        <div class="product_grid">
-            @if(RealmeHot != null)
-            {
-                foreach(var item in RealmeHot)
+@if (SamsungHot != null)
+{
+    <div class="container-xl">
+        <h4 class="hot-heading"><a
+                href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Samsung"})'>SAMSUNG NỔI BẬT</a>
+            <img src="/images/hot-icon.webp" alt="">
+        </h4>
+        <div class="product-container">
+            <div class="product_grid">
+                @foreach (var item in SamsungHot)
                 {
-                    var product = item.Product;
-                    var firstColor = product.Colors?.FirstOrDefault();
-                    var srcImg = firstColor?.Image != null ? firstColor.Image : "no-image.png";
-                    var firstCapa = firstColor?.Capacities.FirstOrDefault();
-                    <div class="item">
-                        <div class="card w-100">
-                            <div class="card-img d-flex align-items-center">
-                                <a class="d-block w-100 h-100"
-                                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>
-                                    <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
-                                </a>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <div class="card-title">
-                                    <a href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @product.Slug})'>@product.Name</a>
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-info-item">
-                                        @{
-                                            if (firstCapa != null)
-                                            {
-                                                <i class="fa-solid fa-memory"></i>
-                                                @(firstCapa.Ram + " GB")
-                                            }
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (firstCapa != null)
-                                        {
-                                            <i class="fa-solid fa-hard-drive"></i>
-                                            @(firstCapa.Rom + " GB")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.ScreenSize != null)
-                                        {
-                                            <i class="fa-solid fa-mobile-screen"></i>
-                                            @(product.ScreenSize.Value + "\"")
-                                        }
-                                    </div>
-                                    <div class="product-info-item">
-                                        @if (product.Battery != null)
-                                        {
-                                            <i class="fa-solid fa-battery-three-quarters"></i>
-                                            @(product.Battery.Value + " mAh")
-                                        }
-                                    </div>
-                                    @* <div class="product-info-item">
-                                        @if (item.Chipset != null)
-                                        {
-                                            <i class="fa-solid fa-microchip"></i>
-                                            @(item.Chipset)
-                                        }
-                                    </div> *@
-                                </div>
-                                <div class="card-price d-flex justify-content-between px-2">
-                                    <span class="selling-price primary-text">@(firstCapa?.SellPrice.ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></span>
-                                    <del class="old-price text-dark opacity-50"></del>
-                                </div>
-                                <div class="product-rating d-flex" data-rate="@item.Rate">
-                                        </div>
-                                <div class="add-to-cart-btn ">
-                                    <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus" onclick="AddToCart(@product.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("App.Components.ProductComponent", item)
+                    ;
                 }
-            }
-            
+
+            </div>
         </div>
     </div>
-</div>
+}
+@if (XiaomiHot != null)
+{
+    <div class="container-xl">
+        <h4 class="hot-heading"><a
+                href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Xiaomi"})'>XIAOMI NỔI BẬT</a> <img
+                src="/images/hot-icon.webp" alt=""></h4>
+        <div class="product-container">
+            <div class="product_grid">
+                @foreach (var item in XiaomiHot)
+                {
+                    @await Component.InvokeAsync("App.Components.ProductComponent", item)
+                    ;
+                }
+
+            </div>
+        </div>
+    </div>
+}
+@if (RealmeHot != null)
+{
+    <div class="container-xl">
+        <h4 class="hot-heading"><a
+                href='@Url.Action("Index", "ViewProduct", new {area = "Products", hangsx="Realme"})'>REALME NỔI BẬT</a> <img
+                src="/images/hot-icon.webp" alt=""></h4>
+        <div class="product-container">
+            <div class="product_grid">
+                @foreach (var item in RealmeHot)
+                {
+                    @await Component.InvokeAsync("App.Components.ProductComponent", item)
+                    ;
+                }
+
+            </div>
+        </div>
+    </div>
+}
 
 
 @section Scripts {

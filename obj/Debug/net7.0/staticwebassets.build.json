@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "eydSfl7W/ZO9tey3aPkeZlGa+IKqu2RVgM5s7gbgQno=",
+  "Hash": "xZung9Br8QfYAJ8IzdPkINyIACMRgJttwrwD2R2pImo=",
   "Source": "App",
   "BasePath": "_content/App",
   "Mode": "Default",
@@ -1404,6 +1404,25 @@
       "OriginalItemSpec": "wwwroot\\images\\delivery.jpg"
     },
     {
+      "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Discount.png",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "images/Discount.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Discount.png"
+    },
+    {
       "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Facebook.png",
       "SourceId": "App",
       "SourceType": "Discovered",
@@ -1839,6 +1858,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\addressData.js"
+    },
+    {
+      "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Admin\\contact.js",
+      "SourceId": "App",
+      "SourceType": "Discovered",
+      "ContentRoot": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\",
+      "BasePath": "_content/App",
+      "RelativePath": "js/Admin/contact.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Admin\\contact.js"
     },
     {
       "Identity": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Admin\\dashboard.js",

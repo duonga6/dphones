@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
 
@@ -14,7 +14,9 @@ services:
       - backup-db-volume:/app/BackupDB
 
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: appasp
     container_name: app
     depends_on:
       - sqlserver

@@ -56,10 +56,10 @@ namespace App.Areas.Identity.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation($"{DateTime.Now} User {model.Email} logged in");
+                    _logger.LogInformation($"{DateTime.Now} User {model.Email} đã đăng nhập");
                     return LocalRedirect(returnUrl);
                 }
-                else if(result.IsLockedOut)
+                else if (result.IsLockedOut)
                 {
                     ModelState.AddModelError(string.Empty, "Tài khoản này đang bị khóa.");
                     return View(model);
@@ -73,7 +73,7 @@ namespace App.Areas.Identity.Controllers
                         var results = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
                         if (results.Succeeded)
                         {
-                            _logger.LogInformation($"{DateTime.Now} User {user.UserName} logged in");
+                            _logger.LogInformation($"{DateTime.Now} User {user.UserName} đã đăng nhập");
                             return LocalRedirect(returnUrl);
                         }
                         else
@@ -100,7 +100,7 @@ namespace App.Areas.Identity.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             await _signInManager.SignOutAsync();
-            _logger.LogInformation($"{DateTime.Now} User {user?.UserName} logged out");
+            _logger.LogInformation($"{DateTime.Now} User {user?.UserName} đã đăng xuất");
             return RedirectToAction("Index", "Home");
         }
 
@@ -137,7 +137,6 @@ Bạn đã thực hiện yêu cầu đặt lại mật khẩu. Hãy <a href='{Ht
 
 Xin cảm ơn.
                 ";
-                
 
                 string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, emailContent);
 
@@ -297,7 +296,7 @@ Xin cảm ơn.
         {
             return View();
         }
-        
+
         [HttpPost("/resend-email-confirm")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

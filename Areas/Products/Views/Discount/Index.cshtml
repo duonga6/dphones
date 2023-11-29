@@ -1,0 +1,75 @@
+@model List<Discount>
+@{
+    ViewData["Title"] = "Khuyến mại - giảm giá";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-tags"></i>
+        @ViewData["Title"]
+        <a class="btn btn-primary btn-sm rounded-circle ms-2"
+            href='@Url.Action("Create", "Discount", new {area = "Products"})'>
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Phần trăm giảm</th>
+                    <th>Tiền giảm</th>
+                    <th>SP áp dụng</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            @item.Id
+
+                        </td>
+                        <td>
+                            @item.StartAt.ToString("dd-MM-yyyy HH:mm")
+                        </td>
+                        <td>
+                            @item.EndAt.ToString("dd-MM-yyyy HH:mm")
+                        </td>
+                        <td>@item.PercentDiscount</td>
+                        <td>@item.MoneyDiscount</td>
+                        <td>@item.ProductDiscounts.Count</td>
+                        <td>
+                            @{
+                                var now = DateTime.Now;
+                                if (item.StartAt > now)
+                                {
+                                    @("Sắp diễn ra")
+                                }
+                                else if (item.EndAt < now)
+                                {
+                                    @("Đã kết thúc")
+                                }
+                                else
+                                {
+                                    @("Đang diễn ra")
+                                }
+                            }
+                            <a href='@Url.Action("Details", "Discount", new { area = "Products", item.Id})'>[Xem]</a>
+                        </td>
+                        <td>
+                            <a class="text-primary text-decoration-none ms-2"
+                                href='@Url.Action("Edit", "Discount", new {area = "Products", item.Id})'>
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

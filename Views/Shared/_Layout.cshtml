@@ -24,12 +24,15 @@
 <body>
     <div class="wrapper d-flex flex-column">
         <header>
-            <nav class="header-navbar navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow primary-bg">
+            <nav
+                class="header-navbar navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow primary-bg">
                 <div class="container-xxl">
-                    <div class="navbar-container d-flex align-items-center justify-content-between position-relative w-100">
+                    <div
+                        class="navbar-container d-flex align-items-center justify-content-between position-relative w-100">
                         <ul class="left-nav-bar navbar-nav align-items-center">
                             <li class="nav-item nav-item-offcanvas">
-                                <a class="offcanvas-btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                                <a class="offcanvas-btn" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                                    role="button" aria-controls="offcanvasExample">
                                     <i class="offcanvas-icon fa-solid fa-bars"></i>
                                 </a>
                             </li>
@@ -51,19 +54,21 @@
                                     <div class="header-item-text">
                                         <p class="mb-0 text-white category-text">Danh mục</p>
                                     </div>
-                                    
+
                                 </div>
                             </li>
                         </ul>
                         @{
                             categoryData.Type = CategoryType.PC;
-                            @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData);
+                            @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData)
+                            ;
                         }
                         <form method="get" class="center-nav-bar d-flex header-search-container flex-grow-1">
                             <input class="header-search-input form-control px-3" type="text" name="s"
-                                placeholder="Bạn cần tìm gì... ?" aria-label="Search" value='@Context.Request.Query["s"]'>
-                            <button class="btn header-search-btn" type="submit" 
-                                asp-action="Index" asp-controller="ViewProduct" asp-area="Products">
+                                placeholder="Bạn cần tìm gì... ?" aria-label="Search"
+                                value='@Context.Request.Query["s"]'>
+                            <button class="btn header-search-btn" type="submit" asp-action="Index"
+                                asp-controller="ViewProduct" asp-area="Products">
                                 <i class="primary-text fa-solid fa-magnifying-glass"></i>
                             </button>
                         </form>
@@ -75,14 +80,17 @@
                                             <i class="text-white fa-solid fa-phone"></i>
                                         </div>
                                         <div class="header-item-text">
-                                            <p class="mb-0 text-white text-top" style="font-size: 12px;">Gọi mua hàng</p>
+                                            <p class="mb-0 text-white text-top" style="font-size: 12px;">Gọi mua hàng
+                                            </p>
                                             <p class="mb-0 text-center text-white fw-semibold text-bot">1800.1789</p>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="mb-0 text-white text-center lh-lg text-decoration-none" asp-action="Cart" asp-controller="ViewProduct" asp-area="Products">
-                                        <div class="header-item rounded p-1 d-flex align-items-center position-relative">
+                                    <a class="mb-0 text-white text-center lh-lg text-decoration-none" asp-action="Cart"
+                                        asp-controller="ViewProduct" asp-area="Products">
+                                        <div
+                                            class="header-item rounded p-1 d-flex align-items-center position-relative">
                                             <div class="header-item-icon d-flex align-items-center">
                                                 <i class="text-white fa-solid fa-cart-shopping"></i>
                                             </div>
@@ -91,11 +99,20 @@
                                             </div>
                                             @{
                                                 var cartList = _cart.GetCart();
-                                                
+
                                             }
                                             <div class="position-absolute top-0 end-0">
-                                                <div id="cart-quantity" class="cart-quantity rounded-circle bg-white primary-text justify-content-center align-items-center fw-semibold" style="width: 16px; height: 16px; font-size: 10px; @if(cartList == null || cartList.Count() == 0){@("display: none")}else{@("display: flex")}">
-                                                    @if(cartList != null && cartList.Count() > 0) {@cartList.Count()}
+                                                <div id="cart-quantity"
+                                                    class="cart-quantity rounded-circle bg-white primary-text justify-content-center align-items-center fw-semibold"
+                                                    style="width: 16px; height: 16px; font-size: 10px; @if(cartList == null || cartList.Count() == 0){
+                                                @("display: none")
+}else{
+                                                @("display: flex")
+}">
+                                                    @if (cartList != null && cartList.Count() > 0)
+                                                    {
+                                                        @cartList.Count()
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +124,8 @@
                                             <i class="text-white fa-solid fa-truck-arrow-right"></i>
                                         </div>
                                         <div class="ps-2 pe-2">
-                                            <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products" class="text-white text-decoration-none lh-sm">
+                                            <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products"
+                                                class="text-white text-decoration-none lh-sm">
                                                 <p class="mb-0 text-center">Tra cứu <br> đơn hàng</p>
                                             </a>
                                         </div>
@@ -116,18 +134,29 @@
                             </ul>
                             <ul class="order-action-table-mobile navbar-nav align-items-center">
                                 <li class="nav-item">
-                                    <a class="mb-0 text-white text-center lh-lg text-decoration-none" asp-action="Cart" asp-controller="ViewProduct" asp-area="Products">
-                                        <div class="header-item rounded p-1 d-flex align-items-center position-relative">
+                                    <a class="mb-0 text-white text-center lh-lg text-decoration-none" asp-action="Cart"
+                                        asp-controller="ViewProduct" asp-area="Products">
+                                        <div
+                                            class="header-item rounded p-1 d-flex align-items-center position-relative">
                                             <div class="header-item-icon d-flex align-items-center">
                                                 <i class="text-white fa-solid fa-cart-shopping"></i>
                                             </div>
                                             @{
                                                 var cart = _cart.GetCart();
-                                                
+
                                             }
                                             <div class="position-absolute top-0 end-0">
-                                                <div id="cart-quantity" class="cart-quantity rounded-circle bg-white primary-text justify-content-center align-items-center fw-semibold" style="width: 16px; height: 16px; font-size: 12px; @if(cart == null || cart.Count() == 0){@("display: none")}else{@("display: flex")}">
-                                                    @if(cart != null && cart.Count() > 0) {@cart.Count()}
+                                                <div id="cart-quantity"
+                                                    class="cart-quantity rounded-circle bg-white primary-text justify-content-center align-items-center fw-semibold"
+                                                    style="width: 16px; height: 16px; font-size: 12px; @if(cart == null || cart.Count() == 0){
+                                                @("display: none")
+}else{
+                                                @("display: flex")
+}">
+                                                    @if (cart != null && cart.Count() > 0)
+                                                    {
+                                                        @cart.Count()
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -257,8 +286,9 @@
             </div>
         </footer>
 
-        
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel">Danh mục</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -268,32 +298,43 @@
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingOne">
-                            <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Danh mục sản phẩm
-                            </span>
+                                <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    Danh mục sản phẩm
+                                </span>
                             </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body pt-2">
                                     @{
                                         categoryData.Type = CategoryType.Tablet;
-                                        @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData);
+                                        @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData)
+                                        ;
                                     }
                                 </div>
                             </div>
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-headingTwo">
-                            <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products" class="tb-mb-check-order accordion-button collapsed">
-                                Tra cứu đơn hàng
-                            </a>
+                                <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products"
+                                    class="tb-mb-check-order accordion-button collapsed">
+                                    Tra cứu đơn hàng
+                                </a>
                             </h2>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </div>
+
+    <a href='@Url.Action("Create", "Contact", new {area = "Contacts"})' class="contact-btn text-decoration-none">
+        <i class="contact-icon fa-solid fa-envelope"></i>
+    </a>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

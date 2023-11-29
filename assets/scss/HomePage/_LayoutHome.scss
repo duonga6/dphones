@@ -394,6 +394,25 @@
     }
 }
 
+.contact-btn {
+    position: fixed;
+    bottom: 52px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid $primary-color;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .contact-icon {
+        font-size: 22px;
+        color: $primary-color;
+    }
+}
+
 @include mobile {
     .header-navbar {
         height: 54px;
@@ -501,9 +520,8 @@
                 font-size: 16px;
                 line-height: 20px;
             }
-    
+
             .footer-list {
-    
                 .footer-item {
                     line-height: 20px;
                     font-size: 14px;

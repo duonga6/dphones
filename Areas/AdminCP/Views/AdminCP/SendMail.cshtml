@@ -1,0 +1,88 @@
+@model App.Areas.AdminCP.Models.SendMailModel
+@{
+    ViewData["Title"] = "Gửi mail";
+    Layout = "/Views/Shared/_LayoutAdminCP.cshtml";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-envelope"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group mb-2">
+                <label asp-for="Subject" class="form-label"></label>
+                <input asp-for="Subject" class="form-control">
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Content" class="form-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="7"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="flexRadioDefault1" type="radio" name="Type" value="One"
+                @if (Model != null && (Model.Type == null || Model.Type == "One") || Model == null)
+                {
+                    @("checked")
+                }>
+                <label for="flexRadioDefault1">Gửi tới 1 người</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="flexRadioDefault2" type="radio" name="Type" value="Many" @if (Model != null && Model.Type == "Many")
+                {
+                    @("checked")
+                }>
+                <label for="flexRadioDefault2">Gửi tới nhiều người</label>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" id="flexRadioDefault3" type="radio" name="Type" value="All" @if (Model != null && Model.Type == "All")
+                {
+                    @("checked")
+                }>
+                <label for="flexRadioDefault3">Gửi tới tất cả người dùng</label>
+            </div>
+            <div class="form-group mb-2" id="receiver-input">
+                <label id="receiver-label" class="form-label">Người nhận</label>
+                <input asp-for="Receiver" class="form-control">
+                <span asp-validation-for="Receiver" class="text-danger"></span>
+            </div>
+            <div class="form-group my-4">
+                <button class="btn btn-primary">Gửi</button>
+            </div>
+        </form>
+        <partial name="_AlertMessage"></partial>
+        @if(ViewBag.Error != null)
+        {
+            <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
+            </div>
+        }
+        @if(ViewBag.Success != null)
+        {
+            <div class="alert alert-success" role="alert">
+            @ViewBag.Success
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("input[name='Type']").on("change", function () {
+            if ($(this).val() == 'All')
+                $("#receiver-input").hide();
+            else
+                $("#receiver-input").show();
+
+            if ($(this).val() == 'Many')
+                $("#receiver-label").html("Người nhận (cách nhau bằng dấu phẩy)");
+            else
+                $("#receiver-label").html("Người nhận");
+        });
+    </script>
+}

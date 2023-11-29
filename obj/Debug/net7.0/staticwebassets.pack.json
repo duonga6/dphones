@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Discount.png",
+      "PackagePath": "staticwebassets\\images\\Discount.png"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\Facebook.png",
       "PackagePath": "staticwebassets\\images\\Facebook.png"
     },
@@ -135,6 +139,10 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\upload_icon.png",
       "PackagePath": "staticwebassets\\images\\upload_icon.png"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Admin\\contact.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\contact.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Admin\\dashboard.js",

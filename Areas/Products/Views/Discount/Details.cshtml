@@ -1,0 +1,46 @@
+@model Discount
+
+@{
+    ViewData["Title"] = "Thông tin khuyến mại";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-tags"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <p class="mb-2"><span class="fw-semibold me-2">Ngày bắt đầu: </span>@Model.StartAt.ToString("dd-MM-yyyy HH:mm")
+        </p>
+        <p class="mb-2"><span class="fw-semibold me-2">Ngày kết thúc: </span>@Model.EndAt.ToString("dd-MM-yyyy HH:mm")
+        </p>
+        <p class="mb-2"><span class="fw-semibold me-2">Phần trăm giảm: </span>@Model.PercentDiscount%</p>
+        <p class="mb-2"><span class="fw-semibold me-2">Số tiền giảm: </span>@Model.MoneyDiscount.ToString("N0", new
+            CultureInfo("vi-VN"))<sup>đ</sup></p>
+        <p class="mb-2"><span class="fw-semibold me-2">Nội dung chương trình: </span>
+        <div class="px-3">
+                @Model.Content
+        </div>
+        </p>
+        <div class="product-discount">
+            <p class="mb-2"><span class="fw-semibold me-2">Sản phẩm áp dụng: </span>
+            <ul class="list-unstyled row">
+                    @foreach (var item in Model.ProductDiscounts)
+                    {
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <div class="product-info">
+                            <div class="product-info-img" style="width: 200px;">
+                                <img class="w-100 h-100 img-fluid"
+                                    src="~/files/Products/@item.Product.Colors.FirstOrDefault()?.Image" alt="">
+                                <div class="product-info-name text-center">
+                                    <a href='@Url.Action("Details", "Product", new {area = "Products", item.Product.Id})'
+                                        class="fw-semibold">@item.Product.Name</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    }
+            </ul>
+        </div>
+    </div>
+</div>

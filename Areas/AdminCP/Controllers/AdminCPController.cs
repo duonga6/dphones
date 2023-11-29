@@ -1,9 +1,12 @@
+using App.Areas.AdminCP.Models;
 using App.Data;
 using App.Models;
 using App.Models.Products;
+using App.Utilities;
 using Bogus.DataSets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,18 +19,22 @@ namespace App.Areas.AdminCP.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
-
-        public class ProductWithSold {
-            public int Id {set;get;}
-            public string Name {set;get;} = null!;
-            public int Sold {set;get;}
-            public string Image {set;get;} = null!;
+        private readonly IEmailSender _emailSender;
+        [TempData]
+        public string StatusMessage { set; get; } = "";
+        public class ProductWithSold
+        {
+            public int Id { set; get; }
+            public string Name { set; get; } = null!;
+            public int Sold { set; get; }
+            public string Image { set; get; } = null!;
         }
 
-        public AdminCPController(AppDbContext context, UserManager<AppUser> userManager)
+        public AdminCPController(AppDbContext context, UserManager<AppUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         public async Task<IActionResult> Index([FromQuery] string? revenure)
@@ -48,6 +55,7 @@ namespace App.Areas.AdminCP.Controllers
             // .Where(o => o.Order!.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.Delivered);
 
 
+            // Thống kê tổng quát
             ViewBag.ProductCount = _context.Products.Count();
             ViewBag.BrandCount = _context.Brands.Count();
             ViewBag.OrderCount = orderQuery.Count();
@@ -60,6 +68,7 @@ namespace App.Areas.AdminCP.Controllers
             ViewBag.TotalSold = soldQuery.SelectMany(o => o.OrderDetails)
                                 .Sum(od => od.Quantity);
 
+            // Dánh sách trạng thái đơn hàng
             ViewBag.OrderNotPayed = orderQuery.Where(o => !o.PayStatuses.Any(ps => ps.ResponseCode == "00") && !o.OrderStatuses.Any(od => od.Code == (int)OrderStatusCode.Canceled)).Count();
             ViewBag.OrderWaiting = orderQuery.Where(o => o.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.WaitAccept).Count();
             ViewBag.OrderNotDelivering = orderQuery.Where(o => o.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.Accepted).Count();
@@ -72,6 +81,7 @@ namespace App.Areas.AdminCP.Controllers
             Dictionary<string, decimal> dataRevenure = new();
             switch (revenure)
             {
+
                 case "thisweek":
                     {
                         int thisDay = (int)today.DayOfWeek;
@@ -88,6 +98,7 @@ namespace App.Areas.AdminCP.Controllers
                         }
                     }
                     break;
+
                 case "thismonth":
                     {
                         int stepDay = 4;
@@ -137,15 +148,16 @@ namespace App.Areas.AdminCP.Controllers
             }
             ViewBag.DataRevenure = dataRevenure;
 
-            // Sản phẩm bán chạy tháng
             var Month = DateTime.Now.Month;
             var Year = DateTime.Now.Year;
-            
+
+            // Sản phẩm bán chạy tháng
             var productBSM = _context.OrderDetails
-            .Where(od => od.Order!.OrderDate.Month == Month && od.Order.OrderDate.Year ==  Year && od.Order.OrderStatuses.Any(os => os.Code == (int)OrderStatusCode.Delivered))
+            .Where(od => od.Order!.OrderDate.Month == Month && od.Order.OrderDate.Year == Year && od.Order.OrderStatuses.Any(os => os.Code == (int)OrderStatusCode.Delivered))
             .Include(p => p.Color)
             .GroupBy(od => od.Product)
-            .Select(od => new ProductWithSold{
+            .Select(od => new ProductWithSold
+            {
                 Id = od.Key!.Id,
                 Image = od.FirstOrDefault()!.Color!.Image!,
                 Name = od.Key!.Name,
@@ -154,9 +166,6 @@ namespace App.Areas.AdminCP.Controllers
             .OrderByDescending(p => p.Sold)
             .Take(5)
             .ToList();
-
-            // return Ok(productBSM);
-
             ViewBag.ProductBSM = productBSM;
 
             // Doanh thu hôm nay
@@ -165,6 +174,94 @@ namespace App.Areas.AdminCP.Controllers
             ViewBag.RevenureToday = revenureToday;
 
             return View();
+        }
+
+
+        // Gửi Mail
+        [HttpGet]
+        public IActionResult SendMail()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName(nameof(SendMail))]
+        public async Task<IActionResult> SendMailAsync(SendMailModel model)
+        {
+            try
+            {
+                var mailContent = AppUtilities.GenerateHtmlEmail("quý khách", model.Content);
+                if (model.Type == "One")
+                {
+                    if (model.Receiver == null || !AppUtilities.IsValidEmail(model.Receiver))
+                    {
+                        ViewBag.Error = "Email không hợp lệ";
+                        return View(model);
+                    }
+
+                    await _emailSender.SendEmailAsync(model.Receiver, model.Subject, mailContent);
+                }
+                else if (model.Type == "Many")
+                {
+                    if (model.Receiver == null)
+                    {
+                        ViewBag.Error = "Chưa nhập email";
+                        return View(model);
+                    }
+
+                    var emailSplit = model.Receiver.Split(",").ToList();
+                    emailSplit = emailSplit.Select(x => x.Trim()).ToList();
+                    if (emailSplit.Any(x => !AppUtilities.IsValidEmail(x)))
+                    {
+                        ViewBag.Error = "Có một email chưa hợp lệ";
+                        return View(model);
+                    }
+
+                    foreach (var item in emailSplit)
+                    {
+                        await _emailSender.SendEmailAsync(item, model.Subject, mailContent);
+                    }
+                }
+                else if (model.Type == "All")
+                {
+                    var emailUserList = _context.Users.Where(x => x.Email != null).Select(x => x.Email).ToList() as List<string>;
+                    foreach (var item in emailUserList)
+                    {
+                        await _emailSender.SendEmailAsync(item, model.Subject, mailContent);
+                    }
+                }
+
+                StatusMessage = "Gửi thành công";
+                return RedirectToAction(nameof(SendMail));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Có lỗi trong quá trình gửi: " + ex.Message;
+                return View(model);
+            }
+
+        }
+
+        [Route("/send-mail-api")]
+        [HttpPost]
+        public async Task<IActionResult> SendMailApiAsync([FromBody] SendMailModel model)
+        {
+            var mailContent = AppUtilities.GenerateHtmlEmail("quý khách", model.Content);
+            if (model.Receiver == null || !AppUtilities.IsValidEmail(model.Receiver))
+            {
+                return BadRequest(new
+                {
+                    StatusCode = 0,
+                    Message = "Email không hợp lệ"
+                });
+            }
+
+            await _emailSender.SendEmailAsync(model.Receiver, model.Subject, mailContent);
+
+            return Ok(new
+            {
+                StatusCode = 0,
+                Message = "Gủi mail thành công"
+            });
         }
     }
 }

@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Gửi thành công";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="order-confirmed mt-2 mt-md-4">
+    <div class="order-confirmed-container text-center">
+        <div class="icon-success">
+            <img src="/images/success.png" alt="">
+        </div>
+        <div class="heading">
+            <p>Thông tin của bạn đã được gửi thành công</p>
+        </div>
+        <div class="desc">
+            <p>
+                Chúng tôi chân thành cảm ơn về nhưng đóng góp của bạn
+            </p>
+        </div>
+        <div class="btn-navigate">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-home text-white">Về trang chủ</a>
+        </div>
+    </div>
+</div>

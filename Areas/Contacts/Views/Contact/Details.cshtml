@@ -1,0 +1,44 @@
+@model Contact
+@{
+    ViewData["Title"] = "Chi tiết liên hệ";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-envelope"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="contact-info">
+                    <p class="mb-2"><span class="fw-semibold">Ngày tạo: </span>@Model.CreatedAt.ToString("dd-MM-yyyy HH:mm")</p>
+                    <p class="mb-2"><span class="fw-semibold">Họ tên: </span>@Model.FullName</p>
+                    <p class="mb-2"><span class="fw-semibold">Email: </span>@Model.Email</p>
+                    <p class="mb-2"><span class="fw-semibold">Số điện thoại: </span>@Model.PhoneNumber</p>
+                    <p class="mb-2"><span class="fw-semibold">Nội dung:</p>
+                    <p class="p-2" readonly rows="10">@Model.Content</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <input type="hidden" id="user-email" value="@Model.Email">
+                <input type="hidden" id="subject-email" value="Phản hồi khách hàng">
+                <div class="contact-reply">
+                    <form action="">
+                        <p class="mb-2"><span class="fw-semibold">Gửi email phản hồi lại khách hàng:</p>
+                        <p class="mb-2"><span class="">Nội dung:</p>
+                        <textarea class="form-control bg-white" rows="5" id="content-reply" required></textarea>
+                        <button class="btn btn-primary px-3 mt-3" onclick="SendReply(event)">Gửi</button>
+                    </form>
+                </div>
+                <div id="send-mail-result" class="mt-2"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts 
+{
+    <script src="~/js/Admin/contact.js"></script>
+}

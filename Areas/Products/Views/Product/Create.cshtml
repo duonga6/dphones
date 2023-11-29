@@ -10,7 +10,7 @@
     </div>
     <div class="card-body">
         <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
                 <div class="col-xl-3 col-md-6">
                     <div class="form-group mb-2">
@@ -95,7 +95,8 @@
             <div class="product-img-container mt-2">
                 <p class="mt-2 fw-semibold">Hình ảnh</p>
                 <div class="sub-img-container w-100 d-flex flex-lg-wrap">
-                    <div class="sub-img-item col-xl-3 col-md-4 d-flex justify-content-center align-items-center" data-id="0">
+                    <div class="sub-img-item col-xl-3 col-md-4 d-flex justify-content-center align-items-center"
+                        data-id="0">
                         <label asp-for="SubImage![0].FileUpload" class="btn btn-choose-sub-img">
                             <img src="~/images/upload_icon.png" alt="">
                         </label>
@@ -103,7 +104,8 @@
                         <input asp-for="SubImage![0].FileUpload" hidden class="sub-input" oninput="changeSubImg(this)">
                         <div class="sub-img-show position-relative" style="display: none;">
                             <img class="sub-img w-100" style="object-fit: contain; height: 300px;">
-                            <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                            <span
+                                class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
                                 onclick="editSubImg(this)">
                                 <i class="text-white fa-regular fa-pen-to-square"></i>
                             </span>
@@ -152,9 +154,9 @@
                                                 accept=".png, .jpg, .jpeg, .webp" oninput="changeColorImg(this)">
                                             <div class="color-img-show-container position-relative"
                                                 style="display: none;">
-                                                <img class="color-img-show mt-2" src=""
-                                                    style="object-fit: contain;">
-                                                <span class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
+                                                <img class="color-img-show mt-2" src="" style="object-fit: contain;">
+                                                <span
+                                                    class="btn btn-primary btn-sm position-absolute top-0 end-0 mt-1 me-4 translate-middle-x"
                                                     onclick="editColorImg(this)">
                                                     <i class="text-white fa-regular fa-pen-to-square"></i>
                                                 </span>
@@ -177,7 +179,8 @@
                                             </div>
                                             <div class="row option-item" data-id="0">
                                                 <div class="col-md-2">
-                                                    <input type="hidden" name="ProductColor[0].Capacities.Index" value="0"> 
+                                                    <input type="hidden" name="ProductColor[0].Capacities.Index"
+                                                        value="0">
                                                     <label asp-for="ProductColor![0].Capacities[0].Ram"
                                                         class="form-label"></label>
                                                     <input asp-for="ProductColor![0].Capacities[0].Ram"
@@ -232,11 +235,11 @@
             </div>
 
             <div class="row">
-                    <div class="col-md form-group mb-2">
-                        <label asp-for="Description" class="form-label fw-semibold my-3"></label>
-                        <textarea asp-for="Description" class="form-control"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
+                <div class="col-md form-group mb-2">
+                    <label asp-for="Description" class="form-label fw-semibold my-3"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
             </div>
 
             <div class="row">
@@ -275,7 +278,7 @@
     <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css">
     <script src="~/lib/cropperjs/cropper.min.js"></script>
 
-    <partial name="_RichTextEditor" model="@("Description")"/>
+    <partial name="_RichTextEditor" model="@("Description")" />
 
 
     <partial name="_MultipleSelect" model="@("CategoryId")"></partial>

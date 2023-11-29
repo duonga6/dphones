@@ -1,0 +1,42 @@
+@model Contact
+
+@{
+    ViewData["Title"] = "Tạo liên hệ";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="contact-container mt-2 mt-md-4">
+    <h5 class="text-center">Điền thông tin của bạn và nội dung</h5>
+    <div class="input-container mt-4">
+        <form method="post">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="form-floating mb-2">
+                        <input asp-for="FullName" class="form-control" placeholder="Họ tên">
+                        <label asp-for="FullName" class="form-label primary-text"></label>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Họ tên">
+                        <label asp-for="PhoneNumber" class="form-label primary-text"></label>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Email" class="form-control" placeholder="Họ tên">
+                        <label asp-for="Email" class="form-label primary-text"></label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <textarea asp-for="Content" class="form-control" placeholder=""
+                            style="height: 260px;"></textarea>
+                        <label asp-for="Content" class="form-label primary-text"></label>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn primary-bg text-white px-3 mt-2" type="submit">Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

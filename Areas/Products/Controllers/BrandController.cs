@@ -16,7 +16,7 @@ namespace App.Areas.Products.Controllers
         private readonly ILogger<BrandController> _logger;
 
         [TempData]
-        public string? StatusMessage {set;get;}
+        public string? StatusMessage { set; get; }
 
         private readonly int ITEM_PER_PAGE = 10;
 
@@ -26,12 +26,12 @@ namespace App.Areas.Products.Controllers
             _context = context;
         }
 
-        public IActionResult Index([FromQuery(Name = "p")]int currentPage, [FromQuery(Name = "s")] string? searchString)
+        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
         {
             var brands = _context.Brands.Select(b => b);
 
             if (searchString != null)
-            {   
+            {
                 searchString = searchString.ToLower();
                 brands = brands.Where(b => b.Name.ToLower().Contains(searchString) || (b.Description != null && b.Description.ToLower().Contains(searchString)));
             }
@@ -64,9 +64,9 @@ namespace App.Areas.Products.Controllers
         [HttpPost, ActionName(nameof(Create))]
         public IActionResult Create(Brand model)
         {
-            if(!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);
 
-            if(_context.Brands.Where(b => b.Name == model.Name).Any())
+            if (_context.Brands.Where(b => b.Name == model.Name).Any())
             {
                 ModelState.AddModelError(string.Empty, "Hãng này đã tồn tại");
                 return View();
@@ -78,7 +78,7 @@ namespace App.Areas.Products.Controllers
             _context.SaveChanges();
 
             StatusMessage = "Thêm hãng thành công";
-            
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -86,8 +86,8 @@ namespace App.Areas.Products.Controllers
         public IActionResult Edit(int id)
         {
             var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-            if (brand == null)  return NotFound("Không tìm thấy hãng này");
-            
+            if (brand == null) return NotFound("Không tìm thấy hãng này");
+
             return View(brand);
         }
 
@@ -95,9 +95,9 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> EditAsync(int id, Brand model)
         {
             var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-            if (brand == null)  return NotFound("Không tìm thấy hãng này");
+            if (brand == null) return NotFound("Không tìm thấy hãng này");
 
-            if(_context.Brands.Where(b => b.Name == model.Name && b.Id != id).Any())
+            if (_context.Brands.Where(b => b.Name == model.Name && b.Id != id).Any())
             {
                 ModelState.AddModelError(string.Empty, "Đã có hãng này");
                 return View(model);
@@ -117,18 +117,18 @@ namespace App.Areas.Products.Controllers
         public IActionResult Delete(int id)
         {
             var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-            if (brand == null)  return NotFound("Không tìm thấy hãng này");
+            if (brand == null) return NotFound("Không tìm thấy hãng này");
 
             ViewBag.Brand = brand;
 
             return View();
         }
-        
+
         [HttpPost("{id}"), ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-            if (brand == null)  return NotFound("Không tìm thấy hãng này");
+            if (brand == null) return NotFound("Không tìm thấy hãng này");
 
             _context.Brands.Remove(brand);
             await _context.SaveChangesAsync();
@@ -141,7 +141,7 @@ namespace App.Areas.Products.Controllers
         public IActionResult Details(int id)
         {
             var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
-            if (brand == null)  return NotFound();
+            if (brand == null) return NotFound();
 
 
             return View(brand);

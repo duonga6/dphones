@@ -1,0 +1,49 @@
+@model List<Contact>
+@{
+    ViewData["Title"] = "Liên hệ khách hàng";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-envelope"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr class="text-center">
+                    <th>Ngày tạo</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Nội dung</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            <a href='@Url.Action("Details", "Contact", new {area = "Contacts", Id = item.Id})'
+                                class="text-decoration-none">@item.CreatedAt.ToString("dd-MM-yyyy HH:mm")</a>
+                        </td>
+                        <td>@item.FullName</td>
+                        <td>@item.Email</td>
+                        <td>@item.PhoneNumber</td>
+                        <td class="text-truncate text-start">@item.Content</td>
+                        <td>@if (item.Seen)
+                            {
+                                <span>Đã xem</span>
+                            }
+                            else
+                            {
+                                <span>Chưa xem</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

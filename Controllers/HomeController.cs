@@ -19,7 +19,7 @@ public class HomeController : Controller
         _context = context;
     }
 
-    public IActionResult Index([FromQuery(Name = "p")]int currentPage)
+    public IActionResult Index([FromQuery(Name = "p")] int currentPage)
     {
 
         int countPage = (int)Math.Ceiling((double)_context.Products.Count() / ITEM_PER_PAGE);
@@ -29,12 +29,31 @@ public class HomeController : Controller
 
         if (currentPage < 1)
             currentPage = 1;
-        
+
         if (currentPage > countPage)
             currentPage = countPage;
 
         ViewBag.CurrentPage = currentPage;
         ViewBag.CountPage = countPage;
+
+        ViewBag.Discount = _context.Products
+                            .Where(p => p.ProductDiscounts.Count > 0)
+                            .Include(p => p.Colors)
+                            .ThenInclude(c => c.Capacities)
+                            .Include(p => p.Reviews)
+                            .Include(p => p.ProductDiscounts.Where(c => c.Discount.StartAt <= DateTime.Now && c.Discount.EndAt >= DateTime.Now))
+                            .ThenInclude(p => p.Discount)
+                            .AsSplitQuery()
+                            .Select(p => new
+                            {
+                                product = p,
+                                totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
+                            })
+                            .OrderByDescending(p => p.totalSold)
+                            .AsQueryable()
+                            .Take(10)
+                            .Select(p => p.product)
+                            .ToList();
 
         ViewBag.SamsungHot = _context.Products
                             .Where(p => p.Brand!.Name == "Samsung")
@@ -42,17 +61,15 @@ public class HomeController : Controller
                             .ThenInclude(c => c.Capacities)
                             .Include(p => p.Reviews)
                             .AsSplitQuery()
-                            .Select(p => new {
+                            .Select(p => new
+                            {
                                 product = p,
                                 totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
                             })
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => new ProductWithRate {
-                                Product = p.product,
-                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
-                            })
+                            .Select(p => p.product)
                             .ToList();
 
         ViewBag.IPhoneHot = _context.Products
@@ -61,17 +78,15 @@ public class HomeController : Controller
                             .ThenInclude(c => c.Capacities)
                             .Include(p => p.Reviews)
                             .AsSplitQuery()
-                            .Select(p => new {
+                            .Select(p => new
+                            {
                                 product = p,
                                 totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
                             })
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => new ProductWithRate {
-                                Product = p.product,
-                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
-                            })
+                            .Select(p => p.product)
                             .ToList();
 
         ViewBag.XiaomiHot = _context.Products
@@ -80,36 +95,32 @@ public class HomeController : Controller
                             .ThenInclude(c => c.Capacities)
                             .Include(p => p.Reviews)
                             .AsSplitQuery()
-                            .Select(p => new {
+                            .Select(p => new
+                            {
                                 product = p,
                                 totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
                             })
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => new ProductWithRate {
-                                Product = p.product,
-                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
-                            })
+                            .Select(p => p.product)
                             .ToList();
-        
+
         ViewBag.RealmeHot = _context.Products
                             .Where(p => p.Brand!.Name == "Realme")
                             .Include(p => p.Colors)
                             .ThenInclude(c => c.Capacities)
                             .Include(p => p.Reviews)
                             .AsSplitQuery()
-                            .Select(p => new {
+                            .Select(p => new
+                            {
                                 product = p,
                                 totalSold = p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold)
                             })
                             .OrderByDescending(p => p.totalSold)
                             .AsQueryable()
                             .Take(10)
-                            .Select(p => new ProductWithRate {
-                                Product = p.product,
-                                Rate = p.product.Reviews.Count == 0 ? 0 : p.product.Reviews.Average(r => r.Rate)
-                            })
+                            .Select(p => p.product)
                             .ToList();
         return View();
     }

@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .order-confirmed {
     display: flex;
@@ -6,13 +6,13 @@
     width: 100%;
     height: 100%;
     background-color: white;
-    height: 90vh;
+    height: 75vh;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
 
     .order-confirmed-container {
-
         margin-top: 100px;
         .icon-success {
-            
             img {
                 width: 100px;
             }
@@ -23,9 +23,8 @@
             font-size: 24px;
             color: $primary-color;
         }
-        
-        .desc {
 
+        .desc {
         }
 
         .btn-navigate {
@@ -37,10 +36,9 @@
             }
 
             .btn-home {
-                
                 background-color: $primary-color;
                 &:hover {
-                    background-color: rgba($color: $primary-color, $alpha: .9);
+                    background-color: rgba($color: $primary-color, $alpha: 0.9);
                 }
             }
         }

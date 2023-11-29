@@ -138,7 +138,8 @@ namespace App.Areas.Products.Controllers
             ViewBag.CurrentPage = currentPage;
 
 
-            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).Select(p => new ProductWithRate {
+            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).Select(p => new ProductWithRate
+            {
                 Product = p,
                 Rate = p.Reviews.Count == 0 ? 0 : p.Reviews.Average(r => r.Rate)
             });
@@ -155,6 +156,8 @@ namespace App.Areas.Products.Controllers
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
                                             .ThenInclude(c => c.Capacities)
+                                            .Include(p => p.ProductDiscounts.Where(c => c.Discount.StartAt <= DateTime.Now && c.Discount.EndAt >= DateTime.Now))
+                                            .ThenInclude(p => p.Discount)
                                             .AsSplitQuery()
                                             .FirstOrDefault();
 
@@ -492,7 +495,7 @@ namespace App.Areas.Products.Controllers
             string emailContent =
 $@"
 Cảm ơn bạn đã đặt hàng. {orderMessage}
-Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new { area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code }, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
 
 Mã đơn hàng: {order.Code}
 
@@ -528,7 +531,7 @@ Xin cảm ơn.";
         [Route("/ket-qua-thanh-toan")]
         public IActionResult PaymentResult([FromQuery] PayResponse model)
         {
-            MatchCollection matches = Regex.Matches(model.vnp_OrderInfo??"", @"\d{22}");
+            MatchCollection matches = Regex.Matches(model.vnp_OrderInfo ?? "", @"\d{22}");
             string orderId = "";
             if (matches.Count > 0)
             {
@@ -567,7 +570,7 @@ Xin cảm ơn.";
                     string emailContent =
 $@"
 Bạn đã thanh toán đơn hàng {order.Code}. Chúng tôi đang chuẩn bị đơn hàng giao cho đơn vị vận chuyển.
-Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new {area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code}, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
+Vui lòng theo dõi đơn hàng trong mục Theo dõi đơn hàng hoặc <a href='{Url.Action("OrderCheck", "ViewProduct", new { area = "Products", PhoneNumber = order.PhoneNumber, Code = order.Code }, HttpContext.Request.Scheme, HttpContext.Request.Host.Value)}'>nhấn vào đây</a>.
 
 Mã đơn hàng: {order.Code}
 Mã giao dịch: {payStatus.BankTranNo}

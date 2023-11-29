@@ -187,7 +187,7 @@ namespace App.Utilities
 
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                XFont fontsm = new XFont("Arial", 12, XFontStyle.Regular); 
+                XFont fontsm = new XFont("Arial", 12, XFontStyle.Regular);
                 XFont font = new XFont("Arial", 14, XFontStyle.Regular);
                 XFont fontItalic = new XFont("Arial", 14, XFontStyle.Italic);
                 XFont fontBig = new XFont("Arial", 22, XFontStyle.Bold);
@@ -292,7 +292,7 @@ namespace App.Utilities
                         XStringFormats.Center);
 
                     gfx.DrawString(
-                        $"{orderDetails[i - 1].Product?.Name} ({orderDetails[i-1].Color?.Name}, {orderDetails[i-1].Capacity?.Ram}/{orderDetails[i-1].Capacity?.Rom})", fontsm, XBrushes.Black,
+                        $"{orderDetails[i - 1].Product?.Name} ({orderDetails[i - 1].Color?.Name}, {orderDetails[i - 1].Capacity?.Ram}/{orderDetails[i - 1].Capacity?.Rom})", fontsm, XBrushes.Black,
                         new XRect(col2Offset, tableYStart + rowHeight * (1 + i), col3Offset - col2Offset, rowHeight),
                         XStringFormats.Center);
 

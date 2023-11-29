@@ -33,9 +33,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css" />
     <link rel="stylesheet" href="~/App.styles.css" asp-append-version="true" />
-    
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -47,13 +47,13 @@
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            
+
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav navbar-nav-admin ms-auto ms-md-0 me-3 me-lg-4 ">
             <li class="nav-item dropdown header-navbar ">
-                <a class="nav-link dropdown-toggle d-flex align-items-center " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <a class="nav-link dropdown-toggle d-flex align-items-center " id="navbarDropdown" href="#"
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="header-user-avatar d-flex justify-content-center align-items-center">
                         <img src="@avatarPath" alt="">
                     </div>
@@ -62,9 +62,8 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li>
                         <form method="post" class="form-inline" asp-action="LogOff" asp-controller="Account"
-                                    asp-area="Identity">
-                            <button type="submit" 
-                            class="dropdown-item btn btn-link text-dark border-0" >
+                            asp-area="Identity">
+                            <button type="submit" class="dropdown-item btn btn-link text-dark border-0">
                                 Đăng xuất
                             </button>
                         </form>
@@ -81,8 +80,9 @@
                         @{
                             var controller = ViewContext.RouteData.Values["controller"]!.ToString() ?? "";
                             var area = ViewContext.RouteData.Values["area"]!.ToString() ?? "";
+                            var action = ViewContext.RouteData.Values["action"]!.ToString() ?? "";
                         }
-                        @Html.Raw(_sidebarService.RenderHtml(controller, area))
+                        @Html.Raw(_sidebarService.RenderHtml(controller, area, action))
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -108,7 +108,8 @@
     </div>
     <script src="~/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script> *@
+    @* <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

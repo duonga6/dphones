@@ -34,6 +34,7 @@ namespace App.Areas.Identity.Controllers
         [TempData]
         public string? StatusMessage { set; get; }
 
+        // Thông tin user
         [HttpGet("/user")]
         public async Task<IActionResult> Index()
         {
@@ -56,6 +57,7 @@ namespace App.Areas.Identity.Controllers
             return View(model);
         }
 
+        // Cập nhật thông tin
         [HttpPost("/user")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IndexViewModel model)
@@ -93,6 +95,7 @@ namespace App.Areas.Identity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Gửi lại email xác nhận
         [HttpGet]
         public async Task<IActionResult> ResendEmailConfirmed()
         {
@@ -126,6 +129,7 @@ namespace App.Areas.Identity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Đổi mk
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
@@ -167,7 +171,7 @@ namespace App.Areas.Identity.Controllers
             }
             else
             {
-                foreach(var item in result.Errors)
+                foreach (var item in result.Errors)
                     ModelState.AddModelError(string.Empty, item.Description);
                 return View();
             }

@@ -28,7 +28,7 @@ namespace App.Services
                 Title = "Trang chính",
                 Type = SidebarItemType.Heading
             });
-            
+
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
@@ -44,7 +44,7 @@ namespace App.Services
                 Title = "Quản lý",
                 Type = SidebarItemType.Heading
             });
-            
+
 
             Items.Add(new SidebarItem()
             {
@@ -120,11 +120,56 @@ namespace App.Services
                 Area = "Products",
                 AwIcon = "fa-solid fa-cart-shopping"
             });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
+                Title = "KM - Giảm giá",
+                Action = "Index",
+                Controller = "Discount",
+                Area = "Products",
+                AwIcon = "fa-solid fa-tags"
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Title = "Tiện ích",
+                Type = SidebarItemType.Heading
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
+                Title = "Gửi mail",
+                Action = "SendMail",
+                Controller = "AdminCP",
+                Area = "AdminCP",
+                AwIcon = "fa-solid fa-envelope"
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Title = "Khác",
+                Type = SidebarItemType.Heading
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
+                Title = "Liên hệ",
+                Action = "Index",
+                Controller = "Contact",
+                Area = "Contacts",
+                AwIcon = "fa-solid fa-address-card"
+            });
         }
 
-        public string RenderHtml(string controller, string area)
+        public string RenderHtml(string controller, string area, string action = "")
         {
-            SetActive(controller, area);
+            SetActive(controller, area, action);
+
+            _logger.LogInformation(controller + " " + area);
+
             var html = new StringBuilder();
 
             foreach (var item in Items)
@@ -135,13 +180,13 @@ namespace App.Services
             return html.ToString();
         }
 
-        public void SetActive(string Controller, string Area)
+        public void SetActive(string Controller, string Area, string Action)
         {
             if (Items == null) return;
 
             foreach (var item in Items)
             {
-                if (item.Controller == Controller && item.Area == Area)
+                if (item.Controller == Controller && item.Area == Area && item.Action == Action)
                 {
                     item.IsActive = true;
                     return;
@@ -152,7 +197,7 @@ namespace App.Services
                     {
                         foreach (var subitem in item.Items)
                         {
-                            if (subitem.Controller == Controller && subitem.Area == Area)
+                            if (subitem.Controller == Controller && subitem.Area == Area && subitem.Action == Action)
                             {
                                 subitem.IsActive = true;
                                 item.IsActive = true;

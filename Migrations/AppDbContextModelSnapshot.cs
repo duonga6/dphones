@@ -100,6 +100,71 @@ namespace App.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("App.Models.Contacts.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("Seen")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("App.Models.Posts.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("App.Models.Products.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -126,7 +191,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("App.Models.Products.Capacity", b =>
@@ -194,7 +259,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("App.Models.Products.Color", b =>
@@ -224,6 +289,40 @@ namespace App.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("App.Models.Products.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("EndAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("MoneyDiscount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0.0m);
+
+                    b.Property<int>("PercentDiscount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<DateTime>("StartAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts");
                 });
 
             modelBuilder.Entity("App.Models.Products.Order", b =>
@@ -511,7 +610,7 @@ namespace App.Migrations
                         .IsUnique()
                         .HasFilter("[Slug] IS NOT NULL");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("App.Models.Products.ProductCategory", b =>
@@ -526,7 +625,22 @@ namespace App.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCategory");
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("App.Models.Products.ProductDiscount", b =>
+                {
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscountId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductDiscounts");
                 });
 
             modelBuilder.Entity("App.Models.Products.ProductPhoto", b =>
@@ -548,7 +662,7 @@ namespace App.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductPhoto");
+                    b.ToTable("ProductPhotos");
                 });
 
             modelBuilder.Entity("App.Models.Products.Review", b =>
@@ -837,6 +951,25 @@ namespace App.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("App.Models.Products.ProductDiscount", b =>
+                {
+                    b.HasOne("App.Models.Products.Discount", "Discount")
+                        .WithMany("ProductDiscounts")
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Products.Product", "Product")
+                        .WithMany("ProductDiscounts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("App.Models.Products.ProductPhoto", b =>
                 {
                     b.HasOne("App.Models.Products.Product", "Product")
@@ -935,6 +1068,11 @@ namespace App.Migrations
                     b.Navigation("Capacities");
                 });
 
+            modelBuilder.Entity("App.Models.Products.Discount", b =>
+                {
+                    b.Navigation("ProductDiscounts");
+                });
+
             modelBuilder.Entity("App.Models.Products.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -951,6 +1089,8 @@ namespace App.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("ProductCategories");
+
+                    b.Navigation("ProductDiscounts");
 
                     b.Navigation("Reviews");
                 });

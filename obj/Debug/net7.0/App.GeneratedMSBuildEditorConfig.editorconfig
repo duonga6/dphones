@@ -22,6 +22,42 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5DUFxWaWV3c1xBZG1pbkNQXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/AdminCP/Views/AdminCP/SendMail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5DUFxWaWV3c1xBZG1pbkNQXFNlbmRNYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/AdminCP/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5DUFxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/AdminCP/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5DUFxWaWV3c1xfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/Contact/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcQ29udGFjdFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/Contact/CreateConfirmed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcQ29udGFjdFxDcmVhdGVDb25maXJtZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/Contact/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcQ29udGFjdFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/Contact/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Contacts/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdHNcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Database/Views/DbManager/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGF0YWJhc2VcVmlld3NcRGJNYW5hZ2VyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -190,6 +226,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Discount/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcRGlzY291bnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Discount/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcRGlzY291bnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Discount/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcRGlzY291bnRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Discount/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcRGlzY291bnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Areas/Products/Views/Order/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUHJvZHVjdHNcVmlld3NcT3JkZXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -268,6 +320,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Views/Shared/Components/HomeCategorySection/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcSG9tZUNhdGVnb3J5U2VjdGlvblxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Views/Shared/Components/ProductComponent/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUHJvZHVjdENvbXBvbmVudFxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [j:/CS/NetCore/Learn/ASP_NET_MVC/bandienthoaivn/App/Views/Shared/Error.cshtml]

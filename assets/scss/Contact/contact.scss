@@ -1,0 +1,15 @@
+.contact-container {
+    background-color: white;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
+    min-height: 600px;
+
+    .form-control {
+        &:focus {
+            border-color: $primary-color;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    }
+}

@@ -255,7 +255,10 @@ namespace App.Areas.Products.Controllers
                                             .ThenInclude(p => p.Category)
                                             .Include(p => p.Colors)
                                             .ThenInclude(p => p.Capacities)
+                                            .Include(x => x.ProductDiscounts)
+                                            .ThenInclude(x => x.Discount)
                                             .AsSplitQuery()
+                                            .AsNoTracking()
                                             .FirstOrDefault();
 
             if (product == null) return NotFound();
@@ -336,12 +339,6 @@ namespace App.Areas.Products.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync(int Id, CreateProductModel model)
         {
-
-            // return Json(new
-            // {
-            //     model
-            // });
-
             var productUpdate = _context.Products.Where(p => p.Id == Id)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Brand)
@@ -685,7 +682,8 @@ namespace App.Areas.Products.Controllers
             .Include(p => p.Colors)
             .ThenInclude(p => p.Capacities)
             .AsSplitQuery()
-            .Select(p => new {
+            .Select(p => new
+            {
                 p.Id,
                 p.Name,
                 p.Colors
@@ -703,9 +701,10 @@ namespace App.Areas.Products.Controllers
             var color = _context.Colors.FirstOrDefault(c => c.Id == colorId);
             var capa = _context.Capacities.FirstOrDefault(ca => ca.Id == capaId);
 
-            if (product == null || color == null || capa == null)   return BadRequest();
+            if (product == null || color == null || capa == null) return BadRequest();
 
-            return Ok(new {
+            return Ok(new
+            {
                 product,
                 color,
                 capacity = capa

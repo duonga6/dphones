@@ -74,7 +74,7 @@
 
         .product-options {
             .options-price {
-                height: 160px;
+                height: 180px;
             }
 
             .options-color {
@@ -106,7 +106,7 @@
                         justify-content: center;
                         position: relative;
                         transition: all 0.1s linear;
-                        margin: 0 8px 8px;
+                        margin: 0 6px 8px;
 
                         .color-name,
                         .price-name {
@@ -166,6 +166,11 @@
 
                     .color-item {
                         padding: 8px 16px;
+                    }
+
+                    .price-item {
+                        width: calc(25% - 12px);
+                        margin: 0 6px;
                     }
                 }
 
@@ -475,6 +480,8 @@
                     margin-bottom: 12px;
                     .prices-list {
                         .price-item {
+                            width: calc(33.333333% - 12px);
+                            margin: 0 6px 6px;
                             .price-name {
                                 font-size: 12px;
                             }
@@ -556,7 +563,13 @@
                 }
 
                 .options-price {
-                    height: 140px;
+                    height: 172px;
+                    .prices-list {
+                        .price-item {
+                            width: calc(33.333333% - 12px);
+                            margin: 0 6px 6px;
+                        }
+                    }
                 }
             }
             .product-promotion {
