@@ -133,6 +133,16 @@ namespace App.Services
 
             Items.Add(new SidebarItem()
             {
+                Type = SidebarItemType.NavItem,
+                Title = "Tin tức",
+                Action = "Index",
+                Controller = "Post",
+                Area = "Posts",
+                AwIcon = "fa-solid fa-newspaper"
+            });
+
+            Items.Add(new SidebarItem()
+            {
                 Title = "Tiện ích",
                 Type = SidebarItemType.Heading
             });

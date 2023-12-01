@@ -9,7 +9,7 @@
     Layout = "/Views/Shared/_Layout.cshtml";
     var cartList = ViewBag.CartList as List<CartItem>;
     cartList ??= new List<CartItem>();
-    var totalCost = cartList.Sum(c => c.Quantity * c.Capacity.SellPrice);
+    var totalCost = 0.0m;
     var user = await _userManager.GetUserAsync(User);
 }
 
@@ -21,7 +21,7 @@
         <div class="col-lg-8 offset-lg-2">
             <div class="order-infor px-4 py-4">
                 <h5 class="mb-3">Thông tin nhận hàng</h5>
-                <partial name="_StatusMessage"/>
+                <partial name="_StatusMessage" />
                 <form method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row mb-2">
@@ -32,7 +32,8 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label asp-for="PhoneNumber" class="form-label"></label>
-                            <input asp-for="PhoneNumber" class="form-control" value="@(user == null ? "" : user.PhoneNumber)">
+                            <input asp-for="PhoneNumber" class="form-control"
+                                value="@(user == null ? "" : user.PhoneNumber)">
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                     </div>
@@ -69,16 +70,25 @@
                     <div class="row mb-2">
                         <div class="col form-group">
                             <label asp-for="SpecificAddress" class="form-label"></label> (Đường, ngõ, số nhà, ...)
-                            <input asp-for="SpecificAddress" class="form-control " value="@(user == null ? "" : user.HomeAddress)">
+                            <input asp-for="SpecificAddress" class="form-control "
+                                value="@(user == null ? "" : user.HomeAddress)">
                             <span asp-validation-for="SpecificAddress" class="text-danger"></span>
                         </div>
                     </div>
                     <ul class="product-list">
                         <h6 class="mb-3">Sản phẩm mua:</h6>
-                        @if(cartList != null)
+                        @if (cartList != null)
                         {
-                            foreach(var item in cartList) 
+                            foreach (var item in cartList)
                             {
+                                var percentDiscount = item.Product.ProductDiscounts.Sum(x => x.Discount.PercentDiscount);
+                                var moneyDiscount = item.Product.ProductDiscounts.Sum(x => x.Discount.MoneyDiscount);
+
+                                var originPrice = item.Capacity.SellPrice;
+                                var sellPrice = originPrice * (100 - percentDiscount) / 100 - moneyDiscount;
+
+                                totalCost += sellPrice * item.Quantity;
+
                                 <li class="product-item ">
                                     <div class="row h-100 m-0">
                                         <div class="product-item-img col-3">
@@ -93,19 +103,38 @@
                                             </div>
                                             <div class="product-item-capacity">
                                                 <span>@(item.Capacity.Ram)GB /</span>
-                                                <span>@if(item.Capacity.Rom % 1024 == 0){@(item.Capacity.Rom / 1024 + "TB")}else{@(item.Capacity.Rom + "GB")}</span>
+                                                <span>@if (item.Capacity.Rom % 1024 == 0)
+                                                    {
+                                                        @(item.Capacity.Rom / 1024 +
+                                                            "TB")
+                                                    }
+                                                    else
+                                                    {
+                                                        @(item.Capacity.Rom + "GB")
+                                                    }</span>
                                             </div>
                                             <div class="product-item-quantity">
                                                 <span>Số lượng: @item.Quantity</span>
                                             </div>
                                             <div class="product-item-price">
-                                                <span>@item.Capacity.SellPrice.ToString("N0", new CultureInfo("vi-VN"))</span><sup>đ</sup>
+                                                <div class="fw-semibold">@sellPrice.ToString("N0", new
+                                            CultureInfo("vi-VN"))<sup>đ</sup></div>
+                                                @if (sellPrice != originPrice)
+                                                {
+                                                    <div>
+                                                        <del>
+                                                            @originPrice.ToString("N0", new CultureInfo("vi-VN"))
+                                                            <sup>đ</sup>
+                                                        </del>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                         <div class="product-item-total-price col-3">
                                             <span>Tổng tiền:</span>
                                             <div class="primary-text fw-semibold">
-                                                <span>@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                                <span>@((sellPrice * item.Quantity).ToString("N0", new
+                                                      CultureInfo("vi-VN")))</span><sup>đ</sup>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +155,8 @@
                             <div class="pay-options">
                                 <div class="row">
                                     <div class="col-sm-6 col-12 pay-option-item pay-online active">
-                                        <input type="radio" class="inpPayType" name="PayType" id="Online" value="Online" checked>
+                                        <input type="radio" class="inpPayType" name="PayType" id="Online" value="Online"
+                                            checked>
                                         <label for="Online"> Thanh toán trực tuyến (VNPAY)</label>
                                     </div>
                                     <div class="col-sm-6 col-12 pay-option-item pay-offline">
@@ -137,7 +167,8 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger" id="online-pay-note">(*) Vui lòng lưu lại mã đơn hàng để thuận tiện theo dõi khi hủy thanh toán</span>
+                    <span class="text-danger" id="online-pay-note">(*) Vui lòng lưu lại mã đơn hàng để thuận tiện theo
+                        dõi khi hủy thanh toán</span>
                     <div class="form-btn mt-4">
                         <button type="submit" class="btn text-white btn-order">Đặt hàng</button>
                     </div>

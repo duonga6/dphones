@@ -1,4 +1,4 @@
-@model App.Models.Products.Product
+@model Product
 
 @{
     var firstColor = Model.Colors?.FirstOrDefault();
@@ -22,7 +22,7 @@
         <div class="card-img d-flex align-items-center">
             <a class="d-block w-100 h-100"
                 href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = Model.Slug})'>
-                <img src="/files/Products/@firstColor!.Image" class="card-img-top rounded-1" alt="...">
+                <img src="/files/Products/@firstColor?.Image" class="card-img-top rounded-1" alt="...">
             </a>
         </div>
         <div class="card-body d-flex flex-column">
@@ -62,7 +62,7 @@
                     }
                 </div>
             </div>
-            <div class="card-price d-flex justify-content-between px-2">
+            <div class="card-price d-flex justify-content-between px-1">
                 @if (newPrice != originPrice)
                 {
                     <span class="selling-price primary-text">@(newPrice.ToString("N0", new
@@ -79,11 +79,11 @@
 
 
             </div>
-            <div class="product-rating d-flex mt-1" data-rate="@rating">
+            <div class="product-rating d-flex mt-md-1" data-rate="@rating">
             </div>
             <div class="add-to-cart-btn ">
                 <i class="add-to-cart-icon primary-text fa-solid fa-cart-plus"
-                    onclick="AddToCart(Model.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
+                    onclick="AddToCart(@Model.Id@(firstColor?.Id == null ? "" : "," + firstColor.Id)@(firstCapa?.Id == null ? "" : "," + firstCapa.Id))"></i>
             </div>
         </div>
         <div class="discount-info">

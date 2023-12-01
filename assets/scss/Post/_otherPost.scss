@@ -1,0 +1,38 @@
+.other-post {
+    padding-top: 8px;
+    .other-post-heading {
+        background-color: $primary-color;
+        padding: 8px;
+        color: white;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .other-post-item {
+        display: flex;
+        margin: 4px 0;
+        .other-post-img {
+            padding: 4px;
+            img {
+                width: 100%;
+                border-radius: 4px;
+            }
+        }
+
+        .other-post-info {
+            padding: 4px 8px;
+            display: flex;
+            flex-direction: column;
+            .other-post-title {
+                font-size: 14px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                -webkit-line-clamp: 2; /* Đặt số dòng muốn hiển thị */
+            }
+            .other-post-date {
+                font-size: 13px;
+            }
+        }
+    }
+}

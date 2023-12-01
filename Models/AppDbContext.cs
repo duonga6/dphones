@@ -106,6 +106,12 @@ namespace App.Models
                 });
             });
 
+            builder.Entity<Post>(entity =>
+            {
+                entity.Property(x => x.Slug).IsRequired();
+                entity.HasIndex(x => x.Slug).IsUnique();
+            });
+
         }
 
         public DbSet<Product> Products { set; get; } = null!;

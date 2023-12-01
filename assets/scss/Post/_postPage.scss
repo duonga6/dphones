@@ -1,0 +1,65 @@
+.post-view-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
+    min-height: 700px;
+
+    .heading {
+        font-size: 22px;
+        padding: 12px 24px;
+    }
+
+    .list-post {
+        .post-item {
+            display: flex;
+            height: 180px;
+            .post-img {
+                padding: 12px;
+                img {
+                    width: 220px;
+                    object-fit: contain;
+                    border-radius: 8px;
+                }
+            }
+            .post-info {
+                padding: 16px 12px;
+                .post-title {
+                    margin-bottom: 8px;
+                }
+                .post-created-time {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .search-post {
+        .search-title {
+            margin-bottom: 4px;
+        }
+        .form-control {
+            &:focus {
+                border-color: $primary-color;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .pagination {
+        justify-content: center;
+        .page-item {
+            &.active {
+                .page-link {
+                    background-color: $primary-color;
+                    border-color: $primary-color;
+                    color: white;
+                }
+            }
+
+            .page-link {
+                color: $primary-color;
+            }
+        }
+    }
+}

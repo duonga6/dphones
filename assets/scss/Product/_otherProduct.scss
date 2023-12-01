@@ -1,0 +1,56 @@
+@import "../mixin";
+.other-product-list {
+    .other-product-item {
+        display: flex;
+        border-radius: 8px;
+        transition: all 0.1s linear;
+        margin: 8px 0;
+        .other-product-img {
+            padding: 8px;
+            img {
+                width: 100%;
+            }
+        }
+
+        .other-product-info {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .other-product-name {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                -webkit-line-clamp: 1;
+            }
+            .other-product-capacity {
+                font-size: 14px;
+            }
+            .other-product-price {
+                .sell-price {
+                }
+                .origin-price {
+                    margin-left: 8px;
+                }
+            }
+            .other-product-rate {
+                font-size: 12px;
+            }
+        }
+
+        &:hover {
+            box-shadow: $shadow-sm;
+        }
+    }
+}
+
+@include tablet {
+    .other-product-list {
+        display: flex;
+        flex-wrap: wrap;
+        // width: 100%;
+        .other-product-item {
+            width: calc(50% - 12px);
+        }
+    }
+}

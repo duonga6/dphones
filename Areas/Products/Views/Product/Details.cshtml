@@ -12,7 +12,9 @@
                 asp-area="Products" asp-route-Id="@Model.Id">
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
-            <a class="ms-2 text-primary text-decoration-none" href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = Model.Slug})'>Xem trên web</a>
+            <a class="ms-2 text-primary text-decoration-none"
+                href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = Model.Slug})'>Xem trên
+                web</a>
         </div>
         <div class="card-body">
             <div class="product-manager-container">
@@ -47,11 +49,13 @@
                                             <li class="color-capacity-item text-center p-2">
                                                 <div class="d-flex align-items-center justify-content-center">
                                                     <div class="col">
-                                                        @(capa.Ram)GB/@(capa.Rom)GB: <br/>
+                                                        @(capa.Ram)GB/@(capa.Rom)GB: <br />
                                                     </div>
                                                     <div class="col">
-                                                        Nhập: @capa.EntryPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup> <br/>
-                                                        Bán: @capa.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                                                        Nhập: @capa.EntryPrice.ToString("N0", new
+                                                           CultureInfo("vi-VN"))<sup>đ</sup> <br />
+                                                        Bán: @capa.SellPrice.ToString("N0", new
+                                                            CultureInfo("vi-VN"))<sup>đ</sup>
                                                     </div>
                                                     <div class="col">
                                                         Đã bán: @capa.Sold <br>
@@ -66,6 +70,49 @@
                         }
                     </div>
                 </div>
+
+                <div class="product-discount">
+                    @if (Model.ProductDiscounts != null && Model.ProductDiscounts.Count > 0)
+                    {
+                        <h5>Khuyến mại</h5>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Phần trăm giảm</th>
+                                <th>Số tiền giảm</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            @foreach (var item in Model.ProductDiscounts)
+                            {
+                                <tr>
+                                    <td>@item.Discount.PercentDiscount%</td>
+                                    <td>@item.Discount.MoneyDiscount.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
+                                    <td>@item.Discount.StartAt.ToString("dd-MM-yyyy HH:ss")</td>
+                                    <td>@item.Discount.EndAt.ToString("dd-MM-yyyy HH:ss")</td>
+                                    <td>
+                                        @{
+                                            var now = DateTime.Now;
+                                            if (item.Discount.StartAt > now)
+                                            {
+                                                @("Sắp diễn ra")
+                                            }
+                                            else if (item.Discount.EndAt < now)
+                                            {
+                                                @("Đã kết thúc")
+                                            }
+                                            else
+                                            {
+                                                @("Đang diễn ra")
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+                </div>
+
                 <div class="product-info my-4">
                     <h5>Thông tin</h5>
                     <table class="table table-striped">
@@ -120,7 +167,7 @@
 
 
 @section Scripts
-    {
+{
     <script>
     </script>
 }

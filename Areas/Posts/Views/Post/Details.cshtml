@@ -1,0 +1,27 @@
+@model Post
+
+@{
+    ViewData["Title"] = "Tin tức";
+}
+<div class="card h-100">
+    <div class="card-header">
+        <a class="me-3" href='@Url.Action("Index", "Post", new {area = "Posts"})'><i
+                class="fa-solid fa-arrow-left"></i></a>
+        <i class="fa-solid fa-newspaper"></i>
+        @ViewData["Title"]
+        <a class="ms-2" href='@Url.Action("Edit", "Post", new {area = "Posts", Model.Id})'>
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+    </div>
+    <div class="card-body">
+        <p class="mb-2"><span class="fw-semibold">Ngày tạo: </span>@Model.CreatedAt.ToString("dd-MM-yyyy HH:mm")</p>
+        <p class="mb-2"><span class="fw-semibold">Tiêu đề: </span>@Model.Title</p>
+        <p class="mb-2"><span class="fw-semibold">Url: </span>@Model.Slug</p>
+        <p class="mb-2"><span class="fw-semibold">Hình ảnh: </span></p>
+        <img src="/files/Posts/@Model.Image" alt="" style="height: 200px;" class="img-thumbnail">
+        <p class="mb-2 mt-2"><span class="fw-semibold">Nội dung: </span></p>
+        <div class="border rounded">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>

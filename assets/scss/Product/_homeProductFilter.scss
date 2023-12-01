@@ -228,7 +228,6 @@
                         margin-bottom: 6px;
                         .filter-result-content {
                             color: $text-color;
-
                         }
                         .filter-result-icon {
                             margin-left: 6px;
@@ -397,6 +396,28 @@
             }
             .mobile-sort-section {
                 display: block;
+            }
+
+            .product-container {
+                .product_grid {
+                    margin: 0;
+                    .item {
+                        width: calc(50% - 8px);
+                        margin: 4px;
+                        .card {
+                            .card-img {
+                            }
+
+                            .card-body {
+                                .card-title {
+                                }
+
+                                .product-info {
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

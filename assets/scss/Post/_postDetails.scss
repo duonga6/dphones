@@ -1,0 +1,32 @@
+@import "../mixin";
+.post-details-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
+    padding: 18px 20px;
+    .post-details {
+        .post-title {
+            font-size: 24px;
+        }
+        .post-date {
+            margin: 8px 12px 12px;
+            font-size: 14px;
+        }
+        .post-content {
+            padding: 8px;
+        }
+    }
+
+    .outstanding-products {
+        .outstanding-heading {
+            background-color: $primary-color;
+            padding: 8px;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+    }
+}
+
+@include tablet {
+}

@@ -52,10 +52,13 @@ namespace App.Areas.Products.Controllers
         [Route("/dien-thoai")]
         public IActionResult Index([FromQuery] string hangsx, [FromQuery] string danhmuc, [FromQuery] string mucgia, [FromQuery] string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
+            var now = DateTime.Now;
             var products = _context.Products.Include(p => p.Brand)
                                             .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
                                             .Include(p => p.Colors.OrderBy(c => c.Name)).ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
                                             .Include(p => p.Reviews)
+                                            .Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt >= now && x.Discount.EndAt <= now))
+                                            .ThenInclude(x => x.Discount)
                                             .OrderByDescending(p => p.ReleaseDate)
                                             .AsSplitQuery();
 
@@ -138,11 +141,7 @@ namespace App.Areas.Products.Controllers
             ViewBag.CurrentPage = currentPage;
 
 
-            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).Select(p => new ProductWithRate
-            {
-                Product = p,
-                Rate = p.Reviews.Count == 0 ? 0 : p.Reviews.Average(r => r.Rate)
-            });
+            var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
             return View(productInPage.ToList());
         }
@@ -229,7 +228,8 @@ namespace App.Areas.Products.Controllers
         [Route("/cart/add-to-cart")]
         public IActionResult AddToCart([FromBody] AddToCartRequest request)
         {
-            var product = _context.Products.AsNoTracking().FirstOrDefault(p => p.Id == request.productId);
+            var now = DateTime.Now;
+            var product = _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now)).ThenInclude(x => x.Discount).AsNoTracking().FirstOrDefault(p => p.Id == request.productId);
             var color = _context.Colors.AsNoTracking().FirstOrDefault(c => c.Id == request.colorId && c.ProductId == request.productId);
             var capa = _context.Capacities.AsNoTracking().FirstOrDefault(c => c.Id == request.capaId && c.ColorId == request.colorId);
 
@@ -426,21 +426,26 @@ namespace App.Areas.Products.Controllers
                 return View(model);
             }
 
-            var totalCost = cartItemSelected.Sum(c => c.Capacity.SellPrice * c.Quantity);
 
             var orderDetailList = new List<OrderDetail>();
 
             cartItemSelected?.ForEach(item =>
             {
+                var percentDiscount = item.Product.ProductDiscounts.Sum(x => x.Discount.PercentDiscount);
+                var moneyDiscount = item.Product.ProductDiscounts.Sum(x => x.Discount.MoneyDiscount);
+
                 orderDetailList.Add(new OrderDetail()
                 {
                     ProductId = item.Product.Id,
                     ColorId = item.Color.Id,
                     CapacityId = item.Capacity.Id,
                     Quantity = item.Quantity,
-                    SellPrice = item.Capacity.SellPrice
+                    SellPrice = item.Capacity.SellPrice * (100 - percentDiscount) / 100 - moneyDiscount
                 });
             });
+
+            var totalCost = orderDetailList.Sum(x => x.SellPrice);
+
 
             var now = DateTime.Now;
 

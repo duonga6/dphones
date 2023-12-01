@@ -8,6 +8,13 @@ J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Images\ad
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Images\add-photo.jpg
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Images\add-photo.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Images\add-picture.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231130223316072_.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201013520161.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201091502805.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201091648937.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201091926668.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201091956690.png
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Posts\20231201092029239.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Products\20231014195432319_iphone-15-pro-max.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Products\20231014195432392_iphone-15-pro-max.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\Products\20231014195432400_iphone-15-pro-max.png
@@ -65,6 +72,7 @@ J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvata
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-12-08-10-25_backup-12-11.bak
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-13-06-40-31_back-up-13-11.bak
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-29-09-08-36_discount.bak
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-12-01-04-24-14_disount-update.bak
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.dll
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.runtimeconfig.json
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.pdb

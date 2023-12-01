@@ -36,6 +36,10 @@ html {
     font-size: 14px;
 }
 
+.text-color {
+    color: $text-color !important;
+}
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -86,12 +90,19 @@ body {
 @import "order/payResult";
 @import "order/orderByUser";
 
-@import "homePage/productDetails";
+@import "Product/productDetails";
+@import "Product/homeProductFilter";
+@import "Product/homeProduct";
+@import "Product/otherProduct";
+
 @import "homePage/layoutHome";
 @import "homePage/breadcrumb";
-@import "homePage/homeProduct";
-@import "homePage/homeProductFilter";
 @import "homePage/homeSlide";
+
+@import "Post/postDetails";
+@import "Post/listPost";
+@import "Post/postPage";
+@import "Post/otherPost";
 
 @import "Contact/contact.scss";
 

@@ -40,6 +40,19 @@ const loadCart = function () {
             let html = ``;
             Array.from(JSON.parse(data)).forEach(item => {
                 const rom = Number(item.Capacity.Rom) % 1024 == 0 ? item.Capacity.Rom / 1024 + "TB" : item.Capacity.Rom + "GB";
+                let percentDiscount = 0;
+                let moneyDiscount = 0;
+
+                if (item.Product.ProductDiscounts.length > 0) {
+                    item.Product.ProductDiscounts.forEach(discount => {
+                        percentDiscount += discount.Discount.PercentDiscount;
+                        moneyDiscount += discount.Discount.MoneyDiscount
+                    });
+                }
+
+                const originPrice = item.Capacity.SellPrice;
+                const sellPrice = originPrice * (100 - percentDiscount) / 100 - moneyDiscount;
+
                 html += `
                             <li class="cart-item mb-2" data-id="${item.Id}">
                                 <div class="cart-item-container position-relative">
@@ -70,8 +83,8 @@ const loadCart = function () {
                                                                             <span class="rom">${rom}</span>
                                                                         </div>
                                                                         <div class="price">
-                                                                            <span class="product-sell-price">${item.Capacity.SellPrice.toLocaleString("vi-VN")}</span><sup>
-                                                                                đ</sup>
+                                                                            <div class="fw-semibold"><span class="product-sell-price">${sellPrice.toLocaleString("vi-VN")}</span><sup>đ</sup></div>
+                                                                            <div class="" style="font-size: 14px"><del>${sellPrice != originPrice ? item.Capacity.SellPrice.toLocaleString("vi-VN") + "<sup>đ</sup>" : ""}</del></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -96,7 +109,7 @@ const loadCart = function () {
                                                             <div class="col-md-3 total-cost-container">
                                                                 <div class="total-cost h-100">
                                                                     <span class="total-price fw-semibold primary-text"><span
-                                                                            class="total-product-money">${(item.Capacity.SellPrice * item.Quantity).toLocaleString("vi-VN")}</span>
+                                                                            class="total-product-money">${(sellPrice * item.Quantity).toLocaleString("vi-VN")}</span>
                                                                         <sup>đ</sup></span>
                                                                 </div>
                                                             </div>
@@ -156,6 +169,8 @@ const updateProductMoney = function () {
     allCheckbox.each((i, e) => {
         const price = Number($(e).find(".product-sell-price").html().replace(/[.]+/g, ""));
         const quantity = Number($(e).find(".product-quantity").html());
+
+        console.log(price + " " + quantity);
 
         $(e).closest(".cart-item-container").find(".total-product-money").html((price * quantity).toLocaleString("vi-VN"));
     });

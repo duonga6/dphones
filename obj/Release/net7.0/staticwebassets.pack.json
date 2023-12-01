@@ -121,6 +121,10 @@
       "PackagePath": "staticwebassets\\images\\logo-white.png"
     },
     {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\news.png",
+      "PackagePath": "staticwebassets\\images\\news.png"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\images\\order-empty.png",
       "PackagePath": "staticwebassets\\images\\order-empty.png"
     },
@@ -163,6 +167,10 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Order\\orderByUser.js",
       "PackagePath": "staticwebassets\\js\\Order\\orderByUser.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Post\\create.js",
+      "PackagePath": "staticwebassets\\js\\Post\\create.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\CreateProduct.js",

@@ -323,6 +323,14 @@
                                 </a>
                             </h2>
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <a href='@Url.Action("Create", "Contact", new {area = "Contacts"})'
+                                    class="tb-mb-check-order accordion-button collapsed">
+                                    Gửi ý kiến, phản hồi
+                                </a>
+                            </h2>
+                        </div>
                     </div>
 
                 </div>
@@ -330,7 +338,8 @@
         </div>
     </div>
 
-    <a href='@Url.Action("Create", "Contact", new {area = "Contacts"})' class="contact-btn text-decoration-none">
+    <a id="create-contact-btn" href='@Url.Action("Create", "Contact", new {area = "Contacts"})'
+        class="contact-btn text-decoration-none">
         <i class="contact-icon fa-solid fa-envelope"></i>
     </a>
 

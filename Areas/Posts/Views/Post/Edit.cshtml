@@ -1,0 +1,88 @@
+@model PostWithImage
+
+@{
+    ViewData["Title"] = "Tin tức";
+}
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-newspaper"></i>
+        @ViewData["Title"]
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="form-group mb-2 col-12 col-md-6 col-lg-4">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-12 col-md-6 col-lg-4">
+                    <label asp-for="Slug" class="form-label"></label>
+                    <input asp-for="Slug" class="form-control">
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group mb-2 col-12 col-md-6 col-lg-4" style="height: 300px;">
+                    <label class="form-label">Ảnh</label>
+                    <br>
+                    <label asp-for="ImageFile">
+                        <span class="btn btn-primary">Chọn ảnh</span>
+                    </label>
+                    <input asp-for="Image" class="form-control" hidden>
+                    <input asp-for="ImageFile" class="form-control" hidden oninput="ChooseImg(this)"
+                        accept=".png, .jpg, .jpeg, .webp">
+                    <div class="my-1 position-relative" id="preview-contaner" @if (Model.Image == null)
+                    {
+                        <text>
+                            style="display: none;"</text>
+                    }>
+                        <img id="img-preview" height="200" src="/files/Posts/@Model.Image">
+                        <span class="position-absolute top-0 end-0 m-2 btn btn-danger" onclick="RemoveImg()">X</span>
+                    </div>
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Content" class="form-label"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Cập nhật</button>
+                <a class="btn btn-primary" href='@Url.Action("Index", "Post", new {area = "Posts"})'>Quay
+                    lại</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div id="modal-edit-img" class="modal-edit-img">
+    <div class="card">
+        <div class="card-header">
+            Chỉnh sửa ảnh
+        </div>
+        <div class="card-body">
+            <div class="result">
+                <img id="result-img">
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <span class="btn btn-primary btn-sm" onclick="SaveEditedFile(this)">Lưu về máy</span>
+            <span class="btn btn-danger btn-sm ms-auto me-2" onclick="CancelEdit(this)">Hủy bỏ</span>
+            <span class="btn btn-success btn-sm" onclick="ApplyEdit(this)">Đồng ý</span>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <link rel="stylesheet" href="~/lib/cropperjs/cropper.min.css">
+    <script src="~/lib/cropperjs/cropper.min.js"></script>
+    <script src="~/js/Post/create.js"></script>
+    <partial name="_RichTextEditor" model="@("Content")" />
+    <partial name="_ValidationScriptsPartial" />
+}

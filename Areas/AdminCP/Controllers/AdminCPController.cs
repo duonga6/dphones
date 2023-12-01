@@ -63,7 +63,7 @@ namespace App.Areas.AdminCP.Controllers
             ViewBag.ProductTotal = _context.Capacities.Sum(c => c.Quantity);
 
             ViewBag.TotalRevenue = soldQuery.SelectMany(o => o.OrderDetails)
-                                .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                                .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
 
             ViewBag.TotalSold = soldQuery.SelectMany(o => o.OrderDetails)
                                 .Sum(od => od.Quantity);
@@ -93,7 +93,7 @@ namespace App.Areas.AdminCP.Controllers
                             var result = orderQuery
                                 .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                                 .SelectMany(o => o.OrderDetails)
-                                .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                                .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
                             dataRevenure.Add($"{dateFrom.DayOfWeek}", result);
                         }
                     }
@@ -114,7 +114,7 @@ namespace App.Areas.AdminCP.Controllers
                             var result = orderQuery
                             .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                             .SelectMany(o => o.OrderDetails)
-                            .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                            .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
                             dataRevenure.Add($"{i}-{(i + stepDay > dayOfMonth ? dayOfMonth : i + stepDay)}/{monthNow}", result);
                         }
                     }
@@ -125,7 +125,7 @@ namespace App.Areas.AdminCP.Controllers
                         var result = soldQuery
                         .Where(o => o.PayStatuses.Any(ps => ps.Date!.Value.Year == yearNow && ps.Date.Value.Month == i))
                         .SelectMany(o => o.OrderDetails)
-                        .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                        .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
 
                         dataRevenure.Add($"Tháng {i}", result);
                     }
@@ -140,7 +140,7 @@ namespace App.Areas.AdminCP.Controllers
                             var result = orderQuery
                             .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                             .SelectMany(o => o.OrderDetails)
-                            .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                            .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
                             dataRevenure.Add($"{i}-{i + stepDay}h", result);
                         }
                     }
@@ -170,7 +170,7 @@ namespace App.Areas.AdminCP.Controllers
 
             // Doanh thu hôm nay
             var revenureToday = soldQuery.Where(od => od.OrderDate.Date == today.Date).SelectMany(o => o.OrderDetails)
-                                .Sum(od => (od.Capacity!.SellPrice - od.Capacity.EntryPrice) * od.Quantity);
+                                .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
             ViewBag.RevenureToday = revenureToday;
 
             return View();

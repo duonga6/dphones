@@ -6,7 +6,8 @@
 }
 
 <div class="card h-100">
-    <div class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
+    <div
+        class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"] (@ViewBag.TotalProduct)
@@ -63,12 +64,10 @@
                         }
                         <a class="text-dark sort-order d-flex flex-column ms-2 text-decoration-none"
                             href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>
-                            <i
-                                class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {
+                            <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {
                             @("text-primary")
 }'></i>
-                            <i
-                                class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {
+                            <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {
                             @("text-primary")
 }'></i>
                         </a>
@@ -161,5 +160,5 @@
 </div>
 
 @section Scripts
-    {
+{
 }

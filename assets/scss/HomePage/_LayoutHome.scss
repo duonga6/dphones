@@ -529,6 +529,10 @@
             }
         }
     }
+
+    #create-contact-btn {
+        display: none;
+    }
 }
 
 @include tablet {

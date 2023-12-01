@@ -1,0 +1,65 @@
+@model List<Post>
+
+@{
+    ViewData["Title"] = "Tin tức";
+    Layout = "/Views/Shared/_Layout.cshtml";
+    var searchString = Context.Request.Query["s"];
+}
+
+<div class="container-xl">
+    <div class="post-view-container mt-2 mt-md-4">
+        <h5 class="heading mb-0">Tin tức</h5>
+        <div class="row">
+            <div class="col-8">
+                <div class="list-post">
+                    @foreach (var item in Model)
+                    {
+                        <div class="post-item">
+                            <div class="post-img">
+                                <a href='@Url.Action("Details", "ViewPost", new {area = "Post", item.Id})'><img
+                                        src="/files/Posts/@item.Image" alt=""></a>
+                            </div>
+                            <div class="post-info">
+                                <p class="post-title fw-semibold">
+                                    <a class="text-decoration-none text-color"
+                                        href='@Url.Action("Details", "ViewPost", new {area = "Posts", slug = item.Slug})'>@item.Title</a>
+                                </p>
+                                <p class="post-created-time fw-semibold text-secondary">
+                                    @item.CreatedAt.ToString("dd/MM/yyyy")
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @{
+                    var pagingModel = new PagingModel()
+            {
+                CountPage = ViewBag.TotalPage,
+                CurrentPage = ViewBag.CurrentPage,
+                GenerateUrl = p => Url.Action("Index", "ViewPost", new
+                {
+                    area = "Posts",
+                    p,
+                    s = searchString
+                }) ?? ""
+            };
+                }
+                <partial name="_Paging" model="@pagingModel"></partial>
+            </div>
+            <div class="col-4">
+                <div class="search-post px-4">
+                    <p class="search-title fw-semibold">Tìm kiếm tin tức</p>
+                    <hr class="primary-text mt-2">
+                    <form method="get">
+                        <div class="form-group d-flex">
+                            <input class="form-control form-control-sm" type="text" name="s" value="@searchString">
+                            <button type="submit" class="btn primary-bg btn-sm text-white ms-1">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

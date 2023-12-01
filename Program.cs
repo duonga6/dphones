@@ -36,7 +36,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 
 // Cache + Session
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(cfg => {
+builder.Services.AddSession(cfg =>
+{
     cfg.Cookie.Name = "gio-hang";
     cfg.IdleTimeout = new TimeSpan(1, 0, 0, 0);
 });

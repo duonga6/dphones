@@ -1,0 +1,28 @@
+.post-container {
+    margin: 0 -6px;
+    .post-item {
+        background-color: white;
+        padding: 8px;
+        border-radius: 8px;
+        margin: 0 0 12px;
+        .post-img {
+            img {
+                width: 100%;
+                object-fit: contain;
+                border-radius: 4px;
+            }
+        }
+
+        .post-title {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            -webkit-line-clamp: 2; /* Đặt số dòng muốn hiển thị */
+            max-height: 48px; /* Đặt giới hạn chiều cao */
+        }
+
+        .post-date-created {
+            font-size: 14px;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+@model List<Post>
+
+@{
+    ViewData["Title"] = "Tin tức";
+}
+<div class="card h-100">
+    <div class="card-header">
+        <i class="fa-solid fa-newspaper"></i>
+        @ViewData["Title"]
+        <a class="btn btn-primary btn-sm rounded-circle ms-2"
+            href='@Url.Action("Create", "Post", new {area = "Posts"})'>
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6">
+                <table class="table table-bordered my-2">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col-3">Ngày đăng</th>
+                            <th class="col-6">Tiêu đề</th>
+                            <th class="col-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@item.CreatedAt.ToString("dd-MM-yyyy HH:mm")</td>
+                                <td>@item.Title</td>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <a class="text-decoration-none"
+                                            href='@Url.Action("Details", "Post", new {area = "Posts", item.Id})'>
+                                            [Xem]
+                                        </a>
+                                        <a class="text-decoration-none mx-2"
+                                            href='@Url.Action("Edit", "Post", new {area = "Posts", item.Id})'>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+
+                                        <span class="text-danger" style="cursor: pointer;"
+                                            onclick="DeleteItem('@Url.Action("Delete", "Post", new {area = "Posts", item.Id})')">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <partial name="_AlertMessage"></partial>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ModalDelete"></partial>
+}

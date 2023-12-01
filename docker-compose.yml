@@ -16,7 +16,7 @@ services:
   app:
     build: 
       context: .
-      dockerfile: appasp
+      dockerfile: appasp.Dockerfile
     container_name: app
     depends_on:
       - sqlserver
@@ -29,7 +29,7 @@ services:
   certs:
     build:
       context: .
-      dockerfile: cert
+      dockerfile: cert.Dockerfile
     container_name: certs
     volumes:
       - certs-volume:/etc/nginx/ssl
