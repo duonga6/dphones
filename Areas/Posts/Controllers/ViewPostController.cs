@@ -47,6 +47,18 @@ namespace App.Areas.Posts.Controllers
 
             var postInPage = posts.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
+            // Sản phẩm nổi bật
+            var outstandingProducts = _context.Products.Include(p => p.ProductDiscounts)
+                                                            .ThenInclude(p => p.Discount)
+                                                        .Include(p => p.Colors.OrderBy(x => x.Name))
+                                                            .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))
+                                                        .Include(p => p.Reviews)
+                                                        .OrderByDescending(p => p.Colors.SelectMany(c => c.Capacities).Sum(cap => cap.Sold))
+                                                        .AsSingleQuery()
+                                                        .Take(6);
+
+            ViewBag.OutStandingProducts = outstandingProducts.ToList();
+
 
             return View(await postInPage.ToListAsync());
         }

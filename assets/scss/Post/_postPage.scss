@@ -1,3 +1,4 @@
+@import "../mixin";
 .post-view-container {
     background-color: white;
     border-radius: 8px;
@@ -31,6 +32,9 @@
                 }
             }
         }
+        .divider-mobile {
+            display: none;
+        }
     }
 
     .search-post {
@@ -59,6 +63,91 @@
 
             .page-link {
                 color: $primary-color;
+            }
+        }
+    }
+}
+
+.mobile-show {
+    display: none;
+}
+
+@include tablet {
+    .post-view-container {
+        .list-post {
+            .post-item {
+                height: 134px;
+                .post-img {
+                    img {
+                        width: 180px;
+                    }
+                }
+                .post-info {
+                    .post-title {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        -webkit-line-clamp: 3;
+                    }
+                }
+            }
+        }
+    }
+    .other-product-list {
+        display: flex;
+        flex-wrap: wrap;
+        .other-product-item {
+            width: 100%;
+        }
+    }
+}
+
+@include mobile {
+    .mobile-hide {
+        display: none;
+    }
+
+    .mobile-show {
+        display: block;
+    }
+
+    .post-view-container {
+        flex-direction: column-reverse;
+
+        .search-post {
+            padding: 0 12px;
+            margin-bottom: 24px;
+        }
+
+        .list-post {
+            .post-item {
+                flex-direction: column;
+                height: unset;
+                .post-img {
+                    img {
+                        width: 100%;
+                    }
+                }
+                .post-info {
+                    padding-top: 0;
+                    .post-title {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        -webkit-line-clamp: 3;
+
+                        margin-bottom: 4px;
+                    }
+                    .post-created-time {
+                        margin-left: 8px;
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .divider-mobile {
+                display: block;
+                margin: 8px 16px 4px;
             }
         }
     }

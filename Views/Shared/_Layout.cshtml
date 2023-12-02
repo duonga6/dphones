@@ -310,7 +310,6 @@
                                     @{
                                         categoryData.Type = CategoryType.Tablet;
                                         @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData)
-                                        ;
                                     }
                                 </div>
                             </div>
@@ -343,6 +342,55 @@
         <i class="contact-icon fa-solid fa-envelope"></i>
     </a>
 
+    <div id="chat-container">
+        <div class="chat-btn">
+            <i class="chat-icon fa-solid fa-comment-dots"></i>
+        </div>
+        <div class="chat-content">
+            <div class="heading">
+                <span>Chat với nhân viên cửa hàng</span>
+                <span id="close-chat-btn" class="px-2">
+                    <i class="text-white fa-solid fa-xmark"></i>
+                </span>
+            </div>
+            <div class="message-list">
+                <div class="message-item admin">
+                    <div class="message-info" title="11/12/2023 10:20">
+                        <div class="message-avatar">
+                            <i class="message-avatar-icon fa-solid fa-circle-user"></i>
+                        </div>
+                        <div class="message-content">
+                            <span>Đang làm tin nhắn</span>
+                        </div>
+                    </div>
+                    <div class="message-date text-secondary">
+                        <span>11/12/2023 10:20</span>
+                    </div>
+                </div>
+                <div class="message-item user">
+                    <div class="message-info">
+                        <div class="message-avatar">
+                            <i class="message-avatar-icon fa-solid fa-circle-user"></i>
+                        </div>
+                        <div class="message-content">
+                            <span>Chưa xong đâu</span>
+                        </div>
+                    </div>
+                    <div class="message-date text-secondary">
+                        <span>11/12/2023 10:20</span>
+                    </div>
+                </div>
+            </div>
+            <div class="send-message-container">
+                <input class="form-control form-control-sm send-message-input" contenteditable="true"
+                    id="message-content-send">
+                <button class="btn primary-bg btn-sm send-message-btn">
+                    <i class="text-white fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -370,6 +418,24 @@
             catrgoryBox.get(0).style.visibility = 'hidden';
             catrgoryBox.get(0).style.opacity = 0;
         })
+
+        $(".chat-btn").click(function () {
+            event.stopPropagation();
+            $(".chat-content").toggleClass("active");
+        });
+
+        $("#close-chat-btn").click(function () {
+            $(".chat-content").toggleClass("active");
+        });
+
+        $(window).click(function () {
+            $(".chat-content").removeClass("active");
+        });
+
+        $('.chat-content').click(function (event) {
+            event.stopPropagation();
+        });
+
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

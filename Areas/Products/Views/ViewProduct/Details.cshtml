@@ -182,13 +182,13 @@
                     @foreach(var item in otherProduct)
                     {
                         <li class="other-product-item">
-                            <div class="row h-100 gx-0 flex-md-column flex-xl-row justify-content-md-center flex-lg-row">
-                                <div class="col-lg-4 col-4 col-md-12">
+                            <div class="row h-100 w-100 gx-0 flex-md-column flex-xl-row justify-content-md-center flex-lg-row">
+                                <div class="col-lg-5 col-4 col-md-12">
                                     <div class="other-product-item-img">
                                         <img src="/files/Products/@item.Color?.Image" alt="">
                                     </div>
                                 </div>
-                                <div class="col-lg-8 col-8 col-md-12">
+                                <div class="col-lg-7 col-8 col-md-12">
                                     <div class="other-product-item-info">
                                         <a href="@Url.Action("Details", "ViewProduct", new {area = "Products", slug = @item.Color?.Product?.Slug})" class="other-product-item-name text-decoration-none text-dark">@item.Color?.Product?.Name</a>
                                         <span class="other-product-item-price primary-text mt-1">@item.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></span>

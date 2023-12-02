@@ -55,57 +55,7 @@
                 <p class="outstanding-heading mb-2">Sản phẩm nổi bật</p>
                 @if (otherProduct != null)
                 {
-                    <div class="other-product-list">
-                        @foreach (var item in otherProduct)
-                        {
-                            var firstColor = item.Colors?.FirstOrDefault();
-                            var firstCapa = firstColor?.Capacities.FirstOrDefault();
-
-                            var now = DateTime.Now;
-                            item.ProductDiscounts = item.ProductDiscounts.Where(x => x.Discount.StartAt <= now &&
-                            x.Discount.EndAt >= now).ToList();
-
-                            var percentDiscount = item.ProductDiscounts.Sum(x => x.Discount.PercentDiscount);
-                            var moneyDiscount = item.ProductDiscounts.Sum(x => x.Discount.MoneyDiscount);
-
-                            var originPrice = firstCapa?.SellPrice ?? 0;
-                            var sellPrice = originPrice * (100 - percentDiscount) / 100 - moneyDiscount;
-
-                            var rate = item.Reviews.Count > 0 ? item.Reviews.Average(x => x.Rate) : 0;
-
-                            <div class="other-product-item">
-                                <div class="other-product-img col-4">
-                                    <img src="/files/Products/@firstColor?.Image" alt="">
-                                </div>
-                                <div class="other-product-info col-8">
-                                    <p class="other-product-name fw-semibold mb-0">
-                                        @item.Name
-                                    </p>
-                                    <p class="other-product-capacity mb-0">
-                                        @(firstCapa?.Ram)GB/@if (firstCapa?.Rom % 1024 == 0)
-                                        {
-                                            @($"{firstCapa?.Rom % 1024}TB")
-                                        }
-                                        else
-                                        {
-                                            @($"{firstCapa?.Rom}GB")
-                                        }
-                                    </p>
-                                    <p class="other-product-price mb-0">
-                                        <span class="sell-price fw-semibold primary-text">@sellPrice.ToString("N0", new
-                                    CultureInfo("vi-VN"))<sup>đ</sup></span>
-                                        @if (sellPrice != originPrice)
-                                        {
-                                            <del class="origin-price fw-semibold text-secondary">@originPrice.ToString("N0",
-                                    new
-                                    CultureInfo("vi-VN"))<sup>đ</sup></del>
-                                        }
-                                    </p>
-                                    <div class="other-product-rate mb-0" data-rate="@rate"></div>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                    @await Component.InvokeAsync("App.Components.OtherProductComponent", otherProduct)
                 }
             </div>
         </div>

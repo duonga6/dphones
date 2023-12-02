@@ -1,0 +1,131 @@
+#chat-container {
+    position: fixed;
+    bottom: 106px;
+    right: 33px;
+    z-index: 99;
+    // background-color: rgba($color: #000000, $alpha: 0.5);
+
+    .chat-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid $secondary-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        .chat-icon {
+            font-size: 24px;
+            color: $secondary-color;
+        }
+    }
+
+    .chat-content {
+        position: absolute;
+        right: calc(100% + 10px);
+        bottom: calc(-100px - 50% + 20px);
+        width: 280px;
+        height: 400px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: $shadow-sm;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        // display: none;
+
+        &.active {
+            display: flex;
+        }
+
+        .heading {
+            font-size: 14px;
+            background-color: $primary-color;
+            color: white;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            #close-chat-btn {
+                cursor: pointer;
+            }
+        }
+
+        .message-list {
+            flex: 1;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #b0b0b0; /* Màu nền của thanh cuộn */
+                border-radius: 6px; /* Độ cong của viền thanh cuộn */
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1; /* Màu nền của vùng chứa thanh cuộn */
+            }
+
+            .message-item {
+                padding: 2px 12px;
+                .message-info {
+                    display: flex;
+                    align-items: center;
+                    .message-avatar {
+                        .message-avatar-icon {
+                            font-size: 24px;
+                            color: gray;
+                        }
+                    }
+
+                    .message-content {
+                        margin: 0 6px;
+                        font-size: 14px;
+                        background-color: $bg-gray;
+                        padding: 4px 8px;
+                        border-radius: 8px;
+                    }
+                }
+                .message-date {
+                    font-size: 8px;
+                    margin: 2px 36px;
+                }
+
+                &.user {
+                    .message-info {
+                        flex-direction: row-reverse;
+
+                        .message-content {
+                            background-color: $fourth-color;
+                            color: white;
+                        }
+                    }
+
+                    .message-date {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        .send-message-container {
+            padding: 4px 8px;
+            display: flex;
+            .send-message-input {
+                margin-right: 8px;
+                word-wrap: break-word;
+                word-break: break-word;
+                &:focus {
+                    border-color: $primary-color;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+            }
+            .send-message-btn {
+            }
+        }
+    }
+}

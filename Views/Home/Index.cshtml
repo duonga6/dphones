@@ -142,7 +142,7 @@
     <div class="container-xl">
         <h4 class="hot-heading"><a href='@Url.Action("Index", "ViewPost", new {area = "Posts"})'>TIN
                 TỨC</a> <img src="/images/news.png" alt=""></h4>
-        @await Component.InvokeAsync("App.Components.ListPostComponent", posts);
+        @await Component.InvokeAsync("App.Components.ListPostComponent", posts)
     </div>
 }
 
