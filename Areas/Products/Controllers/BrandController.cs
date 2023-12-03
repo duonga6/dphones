@@ -4,6 +4,7 @@ using App.Models.Products;
 using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Areas.Products.Controllers
 {
@@ -28,12 +29,11 @@ namespace App.Areas.Products.Controllers
 
         public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
         {
-            var brands = _context.Brands.Select(b => b);
+            var brands = _context.Brands.Include(b => b.Products).AsNoTracking().AsQueryable();
 
             if (searchString != null)
             {
-                searchString = searchString.ToLower();
-                brands = brands.Where(b => b.Name.ToLower().Contains(searchString) || (b.Description != null && b.Description.ToLower().Contains(searchString)));
+                brands = brands.Where(b => b.Name.Contains(searchString) || (b.Description != null && b.Description.Contains(searchString)));
             }
 
             brands = brands.OrderBy(b => b.Name);

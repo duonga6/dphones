@@ -6,13 +6,16 @@
 
 <div class="product-manager-detail">
     <div class="card">
-        <div class="card-header">
-            Chi tiết sản phẩm
-            <a class="ms-2 text-primary text-decoration-none" asp-action="Edit" asp-controller="Product"
-                asp-area="Products" asp-route-Id="@Model.Id">
+        <div class="card-header d-flex align-items-center">
+            <a class="text-decoration-none btn btn-primary btn-sm">
+                <i class="text-white fa-solid fa-arrow-left"></i>
+            </a>
+            <span class="ms-2">Chi tiết sản phẩm</span>
+            <a class="btn text-primary text-decoration-none"
+                href='@Url.Action("Edit", "Product", new {area = "Products", Model.Id})'>
                 <i class="fa-regular fa-pen-to-square"></i>
             </a>
-            <a class="ms-2 text-primary text-decoration-none"
+            <a class="btn text-primary text-decoration-none"
                 href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = Model.Slug})'>Xem trên
                 web</a>
         </div>

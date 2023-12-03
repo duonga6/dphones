@@ -1,3 +1,4 @@
+using App.Models.Chats;
 using App.Models.Contacts;
 using App.Models.Posts;
 using App.Models.Products;
@@ -130,5 +131,6 @@ namespace App.Models
         public DbSet<Contact> Contacts { set; get; } = null!;
         public DbSet<Discount> Discounts { set; get; } = null!;
         public DbSet<ProductDiscount> ProductDiscounts { set; get; } = null!;
+        public DbSet<Message> Messages { set; get; } = null!;
     }
 }

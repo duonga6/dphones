@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Tin nhắn";
+}
+
+<div class="card h-100">
+    <div class="card-header">
+        @ViewData["Title"]
+    </div>
+    <div class="card-body h-100">
+        <div class="message-container h-100">
+            <div class="row gx-0 h-100">
+                <div class="col-xl-3 col-12 col-md-4 h-100">
+                    <div class="user-list">
+                    </div>
+                </div>
+                <div class="col-xl-9 col-12 col-md-8 h-100">
+                    <div class="message-section h-100" style="display: none;">
+                        <div class="message-header">
+                            <div class="user-img">
+                                <img src="" alt="">
+                            </div>
+                            <p class="user-name"></p>
+                        </div>
+                        <div class="message-list">
+
+                        </div>
+                        <div class="send-message mb-2">
+                            <form>
+                                <div class="d-flex px-2">
+                                    <input class="form-control" type="text" id="send-message-content">
+                                    <button class="btn btn-primary ms-2" id="btn-send-message"><i
+                                            class=" text-white fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/Admin/message.js">  </script>
+}

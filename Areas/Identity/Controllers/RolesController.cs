@@ -41,6 +41,7 @@ namespace App.Areas.Identity.Controllers
                     Claims = claimList
                 });
             }
+
             return View(rolesList);
         }
 
@@ -147,7 +148,7 @@ namespace App.Areas.Identity.Controllers
             if (role is null) return NotFound("Không tìm thấy Role");
 
             ViewBag.Role = role;
-            
+
             return View();
         }
 
@@ -223,7 +224,7 @@ namespace App.Areas.Identity.Controllers
 
             await _context.SaveChangesAsync();
             StatusMessage = "Cập nhật Claim thành công";
-            return RedirectToAction(nameof(Edit), new{role.Id});
+            return RedirectToAction(nameof(Edit), new { role.Id });
         }
 
         [HttpGet("{claimid:int}")]
@@ -234,9 +235,10 @@ namespace App.Areas.Identity.Controllers
             var role = await _roleManager.FindByIdAsync(claim.RoleId);
             if (role is null) return NotFound("Không tìm thấy Role của Claim này");
 
-            var model = new EditClaimModel{
-                ClaimType = claim.ClaimType??"",
-                ClaimValue = claim.ClaimValue??"",
+            var model = new EditClaimModel
+            {
+                ClaimType = claim.ClaimType ?? "",
+                ClaimValue = claim.ClaimValue ?? "",
                 Role = role,
                 Id = claimid
             };
@@ -252,11 +254,11 @@ namespace App.Areas.Identity.Controllers
             var role = await _roleManager.FindByIdAsync(claim.RoleId);
             if (role is null) return NotFound("Không tìm thấy Role của Claim này");
 
-            await _roleManager.RemoveClaimAsync(role, new Claim(claim.ClaimType??"", claim.ClaimValue??""));
+            await _roleManager.RemoveClaimAsync(role, new Claim(claim.ClaimType ?? "", claim.ClaimValue ?? ""));
 
             StatusMessage = $"Xóa thành công Claim {claim.ClaimType} : {claim.ClaimValue}";
 
-            return RedirectToAction(nameof(Edit), new {roleid = role.Id});
+            return RedirectToAction(nameof(Edit), new { roleid = role.Id });
         }
     }
 }

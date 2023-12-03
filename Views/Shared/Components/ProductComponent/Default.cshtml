@@ -8,10 +8,14 @@
     var originPrice = firstCapa?.SellPrice ?? 0.0m;
     var newPrice = firstCapa?.SellPrice ?? 0.0m;
 
-    var percentDiscount = Model.ProductDiscounts.Sum(x => x.Discount.PercentDiscount);
-    var moneyDiscount = Model.ProductDiscounts.Sum(x => x.Discount.MoneyDiscount);
+    var now = DateTime.Now;
 
-    if (Model.ProductDiscounts != null && Model.ProductDiscounts.Count > 0)
+    var discountOfProduct = Model.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.StartAt >= now);
+
+    var percentDiscount = discountOfProduct.Sum(x => x.Discount.PercentDiscount);
+    var moneyDiscount = discountOfProduct.Sum(x => x.Discount.MoneyDiscount);
+
+    if (discountOfProduct != null && discountOfProduct.Count() > 0)
     {
         newPrice -= percentDiscount * originPrice / 100 - moneyDiscount;
     }

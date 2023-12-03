@@ -45,8 +45,7 @@ public class HomeController : Controller
                             .Include(p => p.ProductDiscounts)
                                 .ThenInclude(p => p.Discount)
                             .OrderByDescending(p => p.Colors.SelectMany(c => c.Capacities).Sum(c => c.Sold))
-                            .AsSingleQuery()
-                            .AsQueryable();
+                            .AsSingleQuery();
 
         // SP giảm giá
         ViewBag.Discount = await productQuery

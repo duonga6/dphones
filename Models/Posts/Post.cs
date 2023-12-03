@@ -15,7 +15,6 @@ namespace App.Models.Posts
         [Display(Name = "Nội dung")]
         public string Content { set; get; } = string.Empty;
         [Display(Name = "Url")]
-        [StringLength(50)]
         public string? Slug { set; get; } = string.Empty;
         public string? Image { set; get; }
         public DateTime CreatedAt { set; get; }

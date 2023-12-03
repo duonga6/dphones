@@ -166,6 +166,16 @@ namespace App.Services
             Items.Add(new SidebarItem()
             {
                 Type = SidebarItemType.NavItem,
+                Title = "Tin nhắn",
+                Action = "Index",
+                Controller = "Message",
+                Area = "AdminCP",
+                AwIcon = "fa-solid fa-address-card"
+            });
+
+            Items.Add(new SidebarItem()
+            {
+                Type = SidebarItemType.NavItem,
                 Title = "Liên hệ",
                 Action = "Index",
                 Controller = "Contact",
@@ -178,7 +188,7 @@ namespace App.Services
         {
             SetActive(controller, area, action);
 
-            _logger.LogInformation(controller + " " + area);
+            // _logger.LogInformation(controller + " " + area);
 
             var html = new StringBuilder();
 

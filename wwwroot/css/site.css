@@ -424,6 +424,150 @@ body {
     font-size: 24px;
   }
 }
+.card .card-body {
+  position: relative;
+}
+.card .card-body .message-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+}
+.card .card-body .message-container .user-list {
+  max-height: 100%;
+  border-right: 1px solid #f4f4f4;
+  overflow-y: scroll;
+  padding: 8px;
+}
+.card .card-body .message-container .user-list::-webkit-scrollbar {
+  width: 6px;
+}
+.card .card-body .message-container .user-list::-webkit-scrollbar-thumb {
+  background: #b0b0b0; /* Màu nền của thanh cuộn */
+  border-radius: 6px; /* Độ cong của viền thanh cuộn */
+}
+.card .card-body .message-container .user-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của vùng chứa thanh cuộn */
+}
+.card .card-body .message-container .user-list .user-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.card .card-body .message-container .user-list .user-item.new-message .user-last-message {
+  font-weight: 500;
+}
+.card .card-body .message-container .user-list .user-item.new-message::before {
+  position: absolute;
+  right: 16px;
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #00a9ff;
+}
+.card .card-body .message-container .user-list .user-item.active {
+  background-color: #f4f4f4;
+}
+.card .card-body .message-container .user-list .user-item:hover {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+.card .card-body .message-container .user-list .user-item .user-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  object-fit: contain;
+}
+.card .card-body .message-container .user-list .user-item .user-info {
+  margin-left: 8px;
+}
+.card .card-body .message-container .user-list .user-item .user-info .user-name {
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.card .card-body .message-container .user-list .user-item .user-info .user-last-message {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 16px;
+}
+.card .card-body .message-container .message-section {
+  display: flex;
+  flex-direction: column;
+}
+.card .card-body .message-container .message-section .message-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.card .card-body .message-container .message-section .message-header .user-img img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  object-fit: contain;
+}
+.card .card-body .message-container .message-section .message-header .user-name {
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-left: 8px;
+}
+.card .card-body .message-container .message-section .message-list {
+  flex: 1;
+  padding: 12px;
+  overflow-y: scroll;
+}
+.card .card-body .message-container .message-section .message-list::-webkit-scrollbar {
+  width: 6px;
+}
+.card .card-body .message-container .message-section .message-list::-webkit-scrollbar-thumb {
+  background: #b0b0b0; /* Màu nền của thanh cuộn */
+  border-radius: 6px; /* Độ cong của viền thanh cuộn */
+}
+.card .card-body .message-container .message-section .message-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của vùng chứa thanh cuộn */
+}
+.card .card-body .message-container .message-section .message-list .message-item {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 0;
+}
+.card .card-body .message-container .message-section .message-list .message-item .message-info {
+  display: flex;
+}
+.card .card-body .message-container .message-section .message-list .message-item .message-info .user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+.card .card-body .message-container .message-section .message-list .message-item .message-info .message-content {
+  margin: 0 8px;
+  padding: 8px 12px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+.card .card-body .message-container .message-section .message-list .message-item .message-date {
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+.card .card-body .message-container .message-section .message-list .message-item.admin .message-info {
+  flex-direction: row-reverse;
+}
+.card .card-body .message-container .message-section .message-list .message-item.admin .message-content {
+  background-color: #00a9ff;
+  color: white;
+}
 .login-page .form-check-input:checked {
   background-color: #f94c10 !important;
   border-color: #f94c10 !important;
@@ -1492,9 +1636,6 @@ body {
   margin-left: 16px;
   margin-bottom: 8px;
 }
-.product-details-container .product-info .photo-slide {
-  height: 500px;
-}
 .product-details-container .product-info .photo-slide .carousel-indicators {
   bottom: unset;
   top: calc(100% + 12px);
@@ -1526,7 +1667,7 @@ body {
 }
 .product-details-container .product-info .photo-slide .carousel-inner {
   width: 100%;
-  height: 380px;
+  height: 500px;
   border: 1px solid rgba(249, 76, 16, 0.25);
   border-radius: 8px;
 }
@@ -1536,12 +1677,6 @@ body {
 .product-details-container .product-info .photo-slide .carousel-inner .carousel-item img {
   max-height: 100%;
   max-width: 100%;
-}
-.product-details-container .product-info .product-options .options-price {
-  height: 180px;
-}
-.product-details-container .product-info .product-options .options-color {
-  height: 90px;
 }
 .product-details-container .product-info .product-options .options-color .heading,
 .product-details-container .product-info .product-options .options-price .heading {
@@ -1604,7 +1739,7 @@ body {
 .product-details-container .product-info .product-options .options-price .colors-list .price-item .price-name,
 .product-details-container .product-info .product-options .options-price .prices-list .color-item .price-name,
 .product-details-container .product-info .product-options .options-price .prices-list .price-item .price-name {
-  font-size: 14px;
+  font-size: 12px;
 }
 .product-details-container .product-info .product-options .options-color .colors-list .color-item .color-name,
 .product-details-container .product-info .product-options .options-color .colors-list .price-item .color-name,
@@ -1614,7 +1749,8 @@ body {
 .product-details-container .product-info .product-options .options-price .colors-list .price-item .color-name,
 .product-details-container .product-info .product-options .options-price .prices-list .color-item .color-name,
 .product-details-container .product-info .product-options .options-price .prices-list .price-item .color-name {
-  font-size: 14px;
+  font-size: 12px;
+  text-align: center;
 }
 .product-details-container .product-info .product-options .options-color .colors-list .color-item .color-default-price,
 .product-details-container .product-info .product-options .options-color .colors-list .color-item .price-default,
@@ -1712,7 +1848,7 @@ body {
 .product-details-container .product-info .product-options .options-color .prices-list .color-item,
 .product-details-container .product-info .product-options .options-price .colors-list .color-item,
 .product-details-container .product-info .product-options .options-price .prices-list .color-item {
-  padding: 8px 16px;
+  padding: 4px 12px;
 }
 .product-details-container .product-info .product-options .options-color .colors-list .price-item,
 .product-details-container .product-info .product-options .options-color .prices-list .price-item,
@@ -1801,7 +1937,7 @@ body {
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 8px;
   height: 88px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-img {
   display: flex;
@@ -1837,19 +1973,22 @@ body {
 .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-info .other-product-item-link:hover {
   text-decoration: underline;
 }
-.product-details-container .product-description {
+.product-details-container .desc-configuration {
+  margin-top: 80px;
+}
+.product-details-container .desc-configuration .product-description {
   position: relative;
   padding: 0 16px 120px;
   transition: height 1s linear;
 }
-.product-details-container .product-description .desc-content {
+.product-details-container .desc-configuration .product-description .desc-content {
   height: 600px;
   overflow: hidden;
 }
-.product-details-container .product-description img {
+.product-details-container .desc-configuration .product-description img {
   object-fit: contain !important;
 }
-.product-details-container .product-description .product-description-action {
+.product-details-container .desc-configuration .product-description .product-description-action {
   z-index: 3;
   position: absolute;
   bottom: 40px;
@@ -1858,11 +1997,11 @@ body {
   display: flex;
   justify-content: center;
 }
-.product-details-container .product-description .product-description-action .btn {
+.product-details-container .desc-configuration .product-description .product-description-action .btn {
   border: 1px solid #f94c10;
   color: #f94c10;
 }
-.product-details-container .product-description::after {
+.product-details-container .desc-configuration .product-description::after {
   content: "";
   display: block;
   position: absolute;
@@ -1872,19 +2011,19 @@ body {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.9));
   z-index: 2;
 }
-.product-details-container .product-description.active .desc-content {
+.product-details-container .desc-configuration .product-description.active .desc-content {
   height: unset;
 }
-.product-details-container .product-description.active::after {
+.product-details-container .desc-configuration .product-description.active::after {
   display: none;
 }
-.product-details-container .product-configuration .configuration-table {
+.product-details-container .desc-configuration .product-configuration .configuration-table {
   outline: 1px solid rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
-.product-details-container .product-configuration .configuration-table .configuration-table-row .configuration-readmore-btn {
+.product-details-container .desc-configuration .product-configuration .configuration-table .configuration-table-row .configuration-readmore-btn {
   cursor: pointer;
 }
 .product-details-review {
@@ -1933,8 +2072,11 @@ body {
 }
 
 @media (max-width: 767px) {
-  .product-details-container .product-info .photo-slide {
-    height: 430px;
+  .product-details-container .product-info .photo-slide .carousel-inner {
+    height: 360px;
+  }
+  .product-details-container .product-info .product-options {
+    margin-top: 80px;
   }
   .product-details-container .product-info .product-options .options-color,
   .product-details-container .product-info .product-options .options-price {
@@ -1995,6 +2137,9 @@ body {
     margin-left: 16px;
   }
   .product-details-container .desc-configuration {
+    margin-top: 0;
+  }
+  .product-details-container .desc-configuration .row {
     flex-direction: column-reverse;
   }
   .product-details-container .desc-configuration .product-configuration {
@@ -2005,20 +2150,11 @@ body {
   }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
+  .product-details-container .product-info .photo-slide .carousel-inner {
+    height: 430px;
+  }
   .product-details-container .product-info .product-options .heading {
     margin-bottom: 16px;
-  }
-  .product-details-container .product-info .product-options .options-color {
-    height: 72px;
-  }
-  .product-details-container .product-info .product-options .options-color .colors-list .color-item {
-    padding: 4px 12px;
-  }
-  .product-details-container .product-info .product-options .options-color .colors-list .color-item .color-name {
-    font-size: 12px;
-  }
-  .product-details-container .product-info .product-options .options-price {
-    height: 172px;
   }
   .product-details-container .product-info .product-options .options-price .prices-list .price-item {
     width: calc(33.333333% - 12px);
@@ -2045,12 +2181,11 @@ body {
   .product-details-container .product-info .product-action .btn-add-to-cart {
     height: 44px;
   }
+  .product-details-container .product-info .other-product .other-product-list {
+    margin-top: 12px;
+  }
   .product-details-container .product-info .other-product .other-product-list .other-product-item {
     height: 220px;
-  }
-  .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-img img {
-    width: 100%;
-    height: 100%;
   }
   .product-details-container .desc-configuration {
     flex-direction: column-reverse;
@@ -2063,6 +2198,9 @@ body {
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
+  .product-details-container .product-info .other-product {
+    margin-top: 80px;
+  }
   .product-details-container .product-info .other-product .other-product-list {
     display: flex;
     flex-direction: row;
@@ -2071,7 +2209,7 @@ body {
   .product-details-container .product-info .other-product .other-product-list .other-product-item {
     height: unset;
     width: calc(20% - 12px);
-    margin: 0 6px;
+    margin: 12px 6px;
   }
   .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-img {
     height: 140px;
@@ -2079,6 +2217,7 @@ body {
   }
   .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-img img {
     width: 100%;
+    height: 100%;
     object-fit: contain;
   }
   .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-info {
@@ -2092,6 +2231,12 @@ body {
   }
   .product-details-container .product-info .other-product .other-product-list .other-product-item .other-product-item-info .other-product-item-link {
     margin-bottom: 10px;
+  }
+  .product-details-container .desc-configuration {
+    margin-top: 0;
+  }
+  .product-details-container .desc-configuration .row {
+    flex-direction: column-reverse;
   }
 }
 @media (min-width: 992px) and (max-width: 1023px) {
@@ -2851,40 +2996,40 @@ body {
     font-size: 12px;
   }
 }
-.other-product-list .other-product-item {
+.other-product-list-component .other-product-item {
   display: flex;
   border-radius: 8px;
   transition: all 0.1s linear;
   margin: 8px 0;
 }
-.other-product-list .other-product-item .other-product-img {
+.other-product-list-component .other-product-item .other-product-img {
   padding: 8px;
 }
-.other-product-list .other-product-item .other-product-img img {
+.other-product-list-component .other-product-item .other-product-img img {
   width: 100%;
 }
-.other-product-list .other-product-item .other-product-info {
+.other-product-list-component .other-product-item .other-product-info {
   padding: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.other-product-list .other-product-item .other-product-info .other-product-name {
+.other-product-list-component .other-product-item .other-product-info .other-product-name {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
   -webkit-line-clamp: 1;
 }
-.other-product-list .other-product-item .other-product-info .other-product-capacity {
+.other-product-list-component .other-product-item .other-product-info .other-product-capacity {
   font-size: 14px;
 }
-.other-product-list .other-product-item .other-product-info .other-product-price .origin-price {
+.other-product-list-component .other-product-item .other-product-info .other-product-price .origin-price {
   margin-left: 8px;
 }
-.other-product-list .other-product-item .other-product-info .other-product-rate {
+.other-product-list-component .other-product-item .other-product-info .other-product-rate {
   font-size: 12px;
 }
-.other-product-list .other-product-item:hover {
+.other-product-list-component .other-product-item:hover {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -2907,7 +3052,7 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid #c70039;
+  background-color: #c70039;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2915,13 +3060,13 @@ body {
 }
 #chat-container .chat-btn .chat-icon {
   font-size: 24px;
-  color: #c70039;
+  color: white;
 }
 #chat-container .chat-content {
   position: absolute;
   right: calc(100% + 10px);
   bottom: calc(-100px - 50% + 20px);
-  width: 280px;
+  width: 340px;
   height: 400px;
   background-color: white;
   border-radius: 8px;
@@ -2929,9 +3074,10 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  visibility: hidden;
 }
 #chat-container .chat-content.active {
-  display: flex;
+  visibility: visible;
 }
 #chat-container .chat-content .heading {
   font-size: 14px;
@@ -2948,6 +3094,14 @@ body {
 #chat-container .chat-content .message-list {
   flex: 1;
   overflow-y: scroll;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+#chat-container .chat-content .message-list #alert-must-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 #chat-container .chat-content .message-list::-webkit-scrollbar {
   width: 6px;
@@ -2960,15 +3114,17 @@ body {
   background: #f1f1f1; /* Màu nền của vùng chứa thanh cuộn */
 }
 #chat-container .chat-content .message-list .message-item {
-  padding: 2px 12px;
+  padding: 0 12px;
 }
 #chat-container .chat-content .message-list .message-item .message-info {
   display: flex;
   align-items: center;
 }
-#chat-container .chat-content .message-list .message-item .message-info .message-avatar .message-avatar-icon {
-  font-size: 24px;
-  color: gray;
+#chat-container .chat-content .message-list .message-item .message-info .message-avatar img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: contain;
 }
 #chat-container .chat-content .message-list .message-item .message-info .message-content {
   margin: 0 6px;
@@ -2978,8 +3134,7 @@ body {
   border-radius: 8px;
 }
 #chat-container .chat-content .message-list .message-item .message-date {
-  font-size: 8px;
-  margin: 2px 36px;
+  font-size: 11px;
 }
 #chat-container .chat-content .message-list .message-item.user .message-info {
   flex-direction: row-reverse;
@@ -3004,6 +3159,23 @@ body {
   border-color: #f94c10;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  #chat-container .chat-content {
+    right: calc(100% + 10px);
+    bottom: calc(-100px - 50% + 30px);
+  }
+}
+@media (max-width: 767px) {
+  #chat-container {
+    bottom: 10px;
+    right: 10px;
+  }
+  #chat-container .chat-content {
+    right: 0;
+    bottom: 60px;
+    width: calc(100vw - 100% + 20px);
+  }
 }
 .header-navbar {
   height: 68px;
@@ -3038,10 +3210,10 @@ body {
   padding-right: 12px;
 }
 .header-navbar .navbar-container .left-nav-bar .nav-item .header-item:hover {
-  background-color: rgba(248, 249, 250, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .header-navbar .navbar-container .left-nav-bar .nav-item .header-item.active {
-  background-color: rgba(248, 249, 250, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .header-navbar .navbar-container .left-nav-bar .nav-item-offcanvas {
   display: none;
@@ -3104,10 +3276,10 @@ body {
   line-height: 18px;
 }
 .header-navbar .navbar-container .right-nav-bar .nav-item .header-item:hover {
-  background-color: rgba(248, 249, 250, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .header-navbar .navbar-container .right-nav-bar .nav-item .header-item.active {
-  background-color: rgba(248, 249, 250, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .header-navbar .navbar-container .right-nav-bar .login-section .nav-item {
   margin-left: 0;
@@ -3336,7 +3508,7 @@ body {
   right: 32px;
   width: 44px;
   height: 44px;
-  border: 1px solid #f94c10;
+  background-color: #c70039;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -3344,7 +3516,7 @@ body {
 }
 .contact-btn .contact-icon {
   font-size: 22px;
-  color: #f94c10;
+  color: white;
 }
 
 @media (max-width: 767px) {

@@ -1,25 +1,27 @@
 <div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modal-label">Xóa</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <form method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-label">Xóa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc xóa item này không ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button id="delete-link" class="btn btn-primary" formaction="">Đồng ý</button>
+                </div>
             </div>
-            <div class="modal-body">
-                Bạn có chắc xóa item này không ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <a href='' id="delete-link" class="btn btn-primary">Đồng ý</a>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
 <script>
     const modalDelete = new bootstrap.Modal("#modal-delete");
     const DeleteItem = function (url) {
-        $("#delete-link").attr("href", url);
+        $("#delete-link").attr("formaction", url);
         modalDelete.show();
     }
 </script>

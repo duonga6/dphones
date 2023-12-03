@@ -36,6 +36,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Tên hãng</th>
+                        <th>Sản phẩm có</th>
                         <th>Địa chỉ Url</th>
                         <th>Thao tác</th>
                     </tr>
@@ -43,10 +44,13 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr class="text-center">
                             <td>
                                 <a class="text-decoration-none" asp-action="Details" asp-controller="Brand"
                                     asp-area="Products" asp-route-id="@item.Id">@item.Name</a>
+                            </td>
+                            <td>
+                                @item.Products?.Count
                             </td>
                             <td>
                                 @item.Slug
@@ -57,10 +61,9 @@
                                         asp-area="Products" asp-route-id="@item.Id">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                    <a class="text-danger ms-2" asp-action="Delete" asp-controller="Brand"
-                                        asp-area="Products" asp-route-id="@item.Id">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                    <button class="btn" onclick="DeleteItem('@Url.Action("Delete", "Brand", new {area = "Products", id = item.Id})')">
+                                        <i class="text-danger fa-solid fa-trash-can"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -82,3 +85,8 @@
         <partial name="_AlertMessage" />
     </div>
 </div>
+
+@section Scripts {
+<partial name="_ModalDelete"></partial>
+
+}
