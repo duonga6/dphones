@@ -27,7 +27,7 @@ namespace App.Areas.Products.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly CartService _cart;
         private readonly IEmailSender _emailSender;
-        private readonly int ITEM_PER_PAGE = 10;
+        private readonly int ITEM_PER_PAGE = 9;
         private readonly VnPayService _vnPay;
         private readonly IHttpClientFactory _httpClient;
         private readonly IConfiguration _configuration;
@@ -50,15 +50,17 @@ namespace App.Areas.Products.Controllers
         }
 
         [Route("/dien-thoai")]
-        public IActionResult Index([FromQuery] string hangsx, [FromQuery] string danhmuc, [FromQuery] string mucgia, [FromQuery] string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
+        public async Task<IActionResult> Index([FromQuery] string hangsx, [FromQuery] string danhmuc, [FromQuery] string mucgia, [FromQuery] string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
             var now = DateTime.Now;
             var products = _context.Products.Include(p => p.Brand)
-                                            .Include(p => p.ProductCategories).ThenInclude(c => c.Category)
-                                            .Include(p => p.Colors.OrderBy(c => c.Name)).ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
+                                            .Include(p => p.ProductCategories)
+                                                .ThenInclude(c => c.Category)
+                                            .Include(p => p.Colors.OrderBy(c => c.Name))
+                                                .ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
                                             .Include(p => p.Reviews)
-                                            .Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt >= now && x.Discount.EndAt <= now))
-                                            .ThenInclude(x => x.Discount)
+                                            .Include(p => p.ProductDiscounts)
+                                                .ThenInclude(x => x.Discount)
                                             .OrderByDescending(p => p.ReleaseDate)
                                             .AsSplitQuery();
 
@@ -68,7 +70,7 @@ namespace App.Areas.Products.Controllers
 
             if (searchString != null)
             {
-                products = products.Where(p => p.Name.ToLower().Contains(searchString.ToLower()));
+                products = products.Where(p => p.Name.Contains(searchString));
             }
 
             if (brands != null)
@@ -126,9 +128,9 @@ namespace App.Areas.Products.Controllers
 
 
 
-            ViewBag.Brands = _context.Brands.ToList();
-            ViewBag.Categories = _context.Categories.ToList();
-            ViewBag.PriceLevels = _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToList();
+            ViewBag.Brands = await _context.Brands.ToListAsync();
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            ViewBag.PriceLevels = await _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToListAsync();
             ViewBag.TotalProduct = products.Count();
 
             int countPage = (int)Math.Ceiling((decimal)ViewBag.TotalProduct / ITEM_PER_PAGE);
@@ -143,22 +145,22 @@ namespace App.Areas.Products.Controllers
 
             var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
-            return View(productInPage.ToList());
+            return View(await productInPage.ToListAsync());
         }
 
 
         [Route("/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
-            var product = _context.Products.Where(p => p.Slug == slug)
+            var product = await _context.Products.Where(p => p.Slug == slug)
                                             .Include(p => p.Brand)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
-                                            .ThenInclude(c => c.Capacities)
-                                            .Include(p => p.ProductDiscounts.Where(c => c.Discount.StartAt <= DateTime.Now && c.Discount.EndAt >= DateTime.Now))
-                                            .ThenInclude(p => p.Discount)
+                                                .ThenInclude(c => c.Capacities)
+                                            .Include(p => p.ProductDiscounts)
+                                                .ThenInclude(p => p.Discount)
                                             .AsSplitQuery()
-                                            .FirstOrDefault();
+                                            .FirstOrDefaultAsync();
 
             if (product == null) return NotFound();
 
@@ -168,33 +170,26 @@ namespace App.Areas.Products.Controllers
                 c.Capacities = c.Capacities.OrderBy(ca => ca.Rom).ToList();
             });
 
-            var listOtherProduct = new List<Capacity>();
             decimal currentPrice = product.Colors.First().Capacities.First().SellPrice;
             decimal rangePrice = 3000000.0m;
-            var capacity = _context.Capacities
-                                    .Where(c => c.SellPrice + rangePrice >= currentPrice && c.SellPrice - rangePrice <= currentPrice)
-                                    .Include(c => c.Color!)
-                                    .ThenInclude(c => c.Product!)
-                                    .Where(c => c.Color != null && c.Color.Product != null && c.Color.ProductId != product.Id)
-                                    .AsSplitQuery()
-                                    .GroupBy(c => c.Color!.Product!.Id!)
-                                    .AsEnumerable()
-                                    .Take(5)
-                                    .ToList();
 
-            foreach (var item in capacity)
-            {
-                var capa = item?.OrderBy(c => c.Color?.Name).FirstOrDefault();
-                if (capa != null && capa.Color != null && capa.Color.Product != null)
-                {
-                    listOtherProduct.Add(capa);
-                }
+            var otherProduct = await _context.Products.Include(p => p.ProductDiscounts)
+                                                    .ThenInclude(p => p.Discount)
+                                                .Include(p => p.Colors.OrderBy(c => c.Name))
+                                                    .ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
+                                                .Include(p => p.Reviews)
+                                                .Where(p => Math.Abs(p.Colors.First().Capacities.First().SellPrice - currentPrice) < rangePrice)
+                                                .AsSingleQuery()
+                                                .Take(4)
+                                                .ToListAsync();
+            ViewBag.otherProducts = otherProduct;
 
-            }
+
+            var posts = await _context.Posts.OrderByDescending(x => x.CreatedAt).Take(4).ToListAsync();
+            ViewBag.Posts = posts;
 
             var user = await _userManager.GetUserAsync(User);
             ViewBag.User = user;
-            ViewBag.OtherProduct = listOtherProduct;
 
             return View(product);
         }
@@ -229,9 +224,16 @@ namespace App.Areas.Products.Controllers
         public IActionResult AddToCart([FromBody] AddToCartRequest request)
         {
             var now = DateTime.Now;
-            var product = _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now)).ThenInclude(x => x.Discount).AsNoTracking().FirstOrDefault(p => p.Id == request.productId);
-            var color = _context.Colors.AsNoTracking().FirstOrDefault(c => c.Id == request.colorId && c.ProductId == request.productId);
-            var capa = _context.Capacities.AsNoTracking().FirstOrDefault(c => c.Id == request.capaId && c.ColorId == request.colorId);
+            var product = _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now))
+                                            .ThenInclude(x => x.Discount)
+                                            .AsNoTracking()
+                                            .FirstOrDefault(p => p.Id == request.productId);
+            var color = _context.Colors
+                                    .AsNoTracking()
+                                    .FirstOrDefault(c => c.Id == request.colorId && c.ProductId == request.productId);
+            var capa = _context.Capacities
+                                    .AsNoTracking()
+                                    .FirstOrDefault(c => c.Id == request.capaId && c.ColorId == request.colorId);
 
             if (product == null || color == null || capa == null)
             {

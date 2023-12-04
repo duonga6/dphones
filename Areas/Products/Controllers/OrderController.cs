@@ -103,11 +103,11 @@ namespace App.Areas.Products.Controllers
 
             var order = _context.Orders.Where(o => o.UserId == user.Id)
                                         .Include(o => o.OrderDetails)
-                                        .ThenInclude(o => o.Product)
+                                            .ThenInclude(o => o.Product)
                                         .Include(o => o.OrderDetails)
-                                        .ThenInclude(o => o.Color)
+                                            .ThenInclude(o => o.Color)
                                         .Include(o => o.OrderDetails)
-                                        .ThenInclude(o => o.Capacity)
+                                            .ThenInclude(o => o.Capacity)
                                         .Include(o => o.OrderStatuses.OrderBy(os => os.DateUpdate))
                                         .Include(o => o.PayStatuses)
                                         .OrderByDescending(o => o.OrderDate)
@@ -270,7 +270,7 @@ Xin cảm ơn.";
                         }
                     };
                 }
-                    
+
                 emailHeader = "Đặt hàng thành công";
                 emailContent =
 $@"
@@ -312,7 +312,10 @@ Xin cảm ơn.";
             order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
             order.OrderDetails.ForEach(e =>
             {
-                e.Product = _context.Products.FirstOrDefault(p => p.Id == e.ProductId);
+                e.Product = _context.Products
+                                        .Include(p => p.ProductDiscounts)
+                                            .ThenInclude(p => p.Discount)
+                                        .FirstOrDefault(p => p.Id == e.ProductId);
                 e.Color = _context.Colors.FirstOrDefault(c => c.Id == e.ColorId);
                 e.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == e.CapacityId);
             });
@@ -469,7 +472,7 @@ Xin cảm ơn.";
 
             var user = await _userManager.GetUserAsync(User);
             var dateTimeNow = DateTime.Now;
-            
+
             order.OrderStatuses.Add(new OrderStatus()
             {
                 Code = (int)OrderStatusCode.Delivered,

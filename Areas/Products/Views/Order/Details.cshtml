@@ -104,6 +104,18 @@
                     <p class="mb-3">Sản phẩm mua:</p>
                     @foreach (var item in Model.OrderDetails)
                     {
+                        var now = DateTime.Now;
+                        var discountOfProduct = item.Product!.ProductDiscounts.Where(x => x.Discount.StartAt <= now &&
+                        x.Discount.EndAt >= now);
+
+                        var originPrice = item.Capacity!.SellPrice;
+
+                        var percentDiscount = discountOfProduct.Sum(x => x.Discount.PercentDiscount);
+                        var moneyDiscount = discountOfProduct.Sum(x => x.Discount.MoneyDiscount);
+
+                        var sellPrice = originPrice * (100 - percentDiscount) / 100 - moneyDiscount;
+
+
                         <li class="product-item w-100">
                             <div class="row h-100">
                                 <div class="product-item-img col-3">
@@ -133,14 +145,23 @@
                                         <span>Số lượng: @item.Quantity</span>
                                     </div>
                                     <div class="product-item-price">
-                                        <span>@item.Capacity?.SellPrice.ToString("N0", new
+                                        <span>@sellPrice.ToString("N0", new
                                                    CultureInfo("vi-VN"))</span><sup>đ</sup>
+                                        @if (sellPrice != originPrice)
+                                        {
+                                            <br>
+                                            <del>@originPrice.ToString("N0", new
+                                                        CultureInfo("vi-VN"))</del>
+
+                                            <sup>đ</sup>
+                                        }
                                     </div>
                                 </div>
                                 <div class="product-item-total-price col-3">
                                     <span>Tổng tiền:</span>
                                     <div class="fw-semibold">
-                                        <span>@((item.Capacity!.SellPrice * item.Quantity).ToString("N0", new CultureInfo("vi-VN")))</span><sup>đ</sup>
+                                        <span>@((sellPrice * item.Quantity).ToString("N0", new
+                                              CultureInfo("vi-VN")))</span><sup>đ</sup>
                                     </div>
                                 </div>
                             </div>
@@ -150,99 +171,100 @@
             </div>
         </div>
         @* <div class="row">
-            <div class="col-xl-8">
-                <div class="bill-container">
-                    <div class="heading">
-                        <div class="row">
-                            <div class="col-6 left-section">
-                                <img src="/images/logo-color.png" alt="">
-                            </div>
-                            <div class="col-6 right-section">
-                                <p>Địa chỉ: Số 289, Cầu Diễn, Bắc Từ Liêm, Hà Nội</p>
-                                <p>Số điện thoại: 1800.1789 - 1800.1879</p>
-                                <p>Email: shopdienthoai@gmail.com</p>
-                                <p>Số: @Model.Code</p>
-                            </div>
-                        </div>
-                        <h4 class="text-center mt-4">HÓA ĐƠN BÁN HÀNG</h4>
-                    </div>
-                    <div class="customer-info">
-                        <div class="row">
-                            <div class="col-8">
-                                <p>Tên khách hàng: @Model.FullName</p>
-                            </div>
-                            <div class="col-4">
-                                <p>SDT: @Model.PhoneNumber</p>
-                            </div>
-                        </div>
-                        <p>
-                            Địa chỉ: @(Model.SpecificAddress + ", " +
-                        Model.Commune + ", " + Model.District + ", " + Model.City)
-                        </p>
-                        <p>
-                            Email: @Model.Email
-                        </p>
-                    </div>
-                    <table class="table table-bordered primary-text mt-4">
-                        <tr class="text-center">
-                            <td>STT</td>
-                            <td>Tên hàng</td>
-                            <td>Số lượng</td>
-                            <td>Đơn giá</td>
-                            <td>Thành tiền</td>
-                        </tr>
-                        @{
-                            int stt = 0;
-                            var now = DateTime.Now;
-                        }
-                        @foreach (var item in Model.OrderDetails)
-                        {
-                            stt++;
-                            <tr>
-                                <td class="text-center">@stt</td>
-                                <td>@item.Product!.Name (@item.Color!.Name, @(item.Capacity!.Ram)GB/@(item.Capacity.Rom)GB)</td>
-                                <td class="text-center">@item.Quantity</td>
-                                <td class="text-center">@item.Capacity.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
-                                <td class="text-center">@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new CultureInfo("vi-VN")))<sup>đ</sup></td>
-                            </tr>
-                        }
-                        @if(Model.OrderDetails.Count < 10)
-                        {
-                            for(int i = 1; i <= 10- Model.OrderDetails.Count; i++)
-                            {
-                                <tr>
-                                    <td><span class="opacity-0">abc</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            }
-                        }
-                    </table>
-                    <div class="bill-footer">
-                        <p>Tổng cộng: @Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></p>
-                        <p id="text-total-cost">Viết bằng chữ: </p>
-                        <div class="bill-sign">
-                            <p class="date-time mt-2">Hà Nội, Ngày @now.Day Tháng @now.Month Năm @now.Year</p>
-                            <div class="row mt-2">
-                                <div class="col-6 d-flex justify-content-center align-items-center">
-                                    <div class="customer-sign">
-                                        <p class="fw-semibold">Người mua hàng</p>
-                                        <p><i>(Ký, ghi rõ họ tên)</i></p>
-                                    </div>
-                                </div>
-                                <div class="col-6 d-flex justify-content-center align-items-center">
-                                    <div class="store-sign">
-                                        <p class="fw-semibold">Người bán hàng</p>
-                                        <p><i>(Ký, ghi rõ họ tên)</i></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-xl-8">
+        <div class="bill-container">
+        <div class="heading">
+        <div class="row">
+        <div class="col-6 left-section">
+        <img src="/images/logo-color.png" alt="">
+        </div>
+        <div class="col-6 right-section">
+        <p>Địa chỉ: Số 289, Cầu Diễn, Bắc Từ Liêm, Hà Nội</p>
+        <p>Số điện thoại: 1800.1789 - 1800.1879</p>
+        <p>Email: shopdienthoai@gmail.com</p>
+        <p>Số: @Model.Code</p>
+        </div>
+        </div>
+        <h4 class="text-center mt-4">HÓA ĐƠN BÁN HÀNG</h4>
+        </div>
+        <div class="customer-info">
+        <div class="row">
+        <div class="col-8">
+        <p>Tên khách hàng: @Model.FullName</p>
+        </div>
+        <div class="col-4">
+        <p>SDT: @Model.PhoneNumber</p>
+        </div>
+        </div>
+        <p>
+        Địa chỉ: @(Model.SpecificAddress + ", " +
+        Model.Commune + ", " + Model.District + ", " + Model.City)
+        </p>
+        <p>
+        Email: @Model.Email
+        </p>
+        </div>
+        <table class="table table-bordered primary-text mt-4">
+        <tr class="text-center">
+        <td>STT</td>
+        <td>Tên hàng</td>
+        <td>Số lượng</td>
+        <td>Đơn giá</td>
+        <td>Thành tiền</td>
+        </tr>
+        @{
+        int stt = 0;
+        var now = DateTime.Now;
+        }
+        @foreach (var item in Model.OrderDetails)
+        {
+        stt++;
+        <tr>
+        <td class="text-center">@stt</td>
+        <td>@item.Product!.Name (@item.Color!.Name, @(item.Capacity!.Ram)GB/@(item.Capacity.Rom)GB)</td>
+        <td class="text-center">@item.Quantity</td>
+        <td class="text-center">@item.Capacity.SellPrice.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></td>
+        <td class="text-center">@((item.Capacity.SellPrice*item.Quantity).ToString("N0", new
+        CultureInfo("vi-VN")))<sup>đ</sup></td>
+        </tr>
+        }
+        @if(Model.OrderDetails.Count < 10)
+        {
+        for(int i = 1; i <= 10- Model.OrderDetails.Count; i++)
+        {
+        <tr>
+        <td><span class="opacity-0">abc</span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        }
+        }
+        </table>
+        <div class="bill-footer">
+        <p>Tổng cộng: @Model.TotalCost.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup></p>
+        <p id="text-total-cost">Viết bằng chữ: </p>
+        <div class="bill-sign">
+        <p class="date-time mt-2">Hà Nội, Ngày @now.Day Tháng @now.Month Năm @now.Year</p>
+        <div class="row mt-2">
+        <div class="col-6 d-flex justify-content-center align-items-center">
+        <div class="customer-sign">
+        <p class="fw-semibold">Người mua hàng</p>
+        <p><i>(Ký, ghi rõ họ tên)</i></p>
+        </div>
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+        <div class="store-sign">
+        <p class="fw-semibold">Người bán hàng</p>
+        <p><i>(Ký, ghi rõ họ tên)</i></p>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
         </div> *@
     </div>
     <partial name="_AlertMessage" />
@@ -268,7 +290,7 @@
     </form>
 </div>
 
-@section Scripts 
+@section Scripts
 {
     <script src="~/js/Order/details.js"></script>
 }

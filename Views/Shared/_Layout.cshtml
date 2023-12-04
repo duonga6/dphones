@@ -287,54 +287,54 @@
         </footer>
 
 
-        @* <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Danh mục</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-        <div class="offcanvas-category">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-        <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-        data-bs-target="#flush-collapseOne" aria-expanded="false"
-        aria-controls="flush-collapseOne">
-        Danh mục sản phẩm
-        </span>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse"
-        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body pt-2">
-        @{
-        categoryData.Type = CategoryType.Tablet;
-        @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData)
-        }
-        </div>
-        </div>
-        </div>
-        <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-        <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products"
-        class="tb-mb-check-order accordion-button collapsed">
-        Tra cứu đơn hàng
-        </a>
-        </h2>
-        </div>
-        <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-        <a href='@Url.Action("Create", "Contact", new {area = "Contacts"})'
-        class="tb-mb-check-order accordion-button collapsed">
-        Gửi ý kiến, phản hồi
-        </a>
-        </h2>
-        </div>
-        </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Danh mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="offcanvas-category">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                    Danh mục sản phẩm
+                                </span>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body pt-2">
+                                    @{
+                                        categoryData.Type = CategoryType.Tablet;
+                                        @await Component.InvokeAsync("App.Components.HomeCategorySection", categoryData)
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <a asp-action="OrderCheck" asp-controller="ViewProduct" asp-area="Products"
+                                    class="tb-mb-check-order accordion-button collapsed">
+                                    Tra cứu đơn hàng
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <a href='@Url.Action("Create", "Contact", new {area = "Contacts"})'
+                                    class="tb-mb-check-order accordion-button collapsed">
+                                    Gửi ý kiến, phản hồi
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
         </div>
-        </div>
-        </div> *@
     </div>
 
     <a id="create-contact-btn" href='@Url.Action("Create", "Contact", new {area = "Contacts"})'

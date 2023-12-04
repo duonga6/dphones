@@ -292,7 +292,7 @@
                 width: calc(50% - 8px);
                 margin: 4px;
                 .card {
-                    height: 308px;
+                    height: 304px;
                     .card-img {
                         height: 180px;
                         padding: 0;
@@ -312,7 +312,7 @@
                         .card-title {
                             font-size: 14px;
                             line-height: 16px;
-                            height: 16px;
+                            height: 28px;
                         }
 
                         .product-info {
@@ -325,7 +325,6 @@
                         .card-price {
                             margin: 2px 0;
                             display: flex;
-                            flex-direction: column;
                             .selling-price {
                                 font-size: 16px;
                                 font-weight: 500;
@@ -484,7 +483,7 @@
                 }
 
                 .card {
-                    height: 344px;
+                    height: 324px;
                     .card-img {
                         padding: 0;
                         height: 190px;
@@ -493,7 +492,7 @@
                     .card-body {
                         padding-top: 0;
                         .card-price {
-                            flex-direction: column;
+                            // flex-direction: column;
                             .selling-price {
                                 font-size: 16px;
                                 line-height: 18px;

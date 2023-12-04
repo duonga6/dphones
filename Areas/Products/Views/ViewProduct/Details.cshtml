@@ -4,13 +4,16 @@
 @{
     ViewData["Title"] = Model.Name;
     Layout = "/Views/Shared/_Layout.cshtml";
-    List<Capacity> otherProduct = ViewBag.OtherProduct;
     
-    var percenDiscount = Model.ProductDiscounts.Sum(x => x.Discount.PercentDiscount);
-    var moneyDiscount = Model.ProductDiscounts.Sum(x => x.Discount.MoneyDiscount);
-}
+    List<Post> posts = ViewBag.Posts;
+    List<Product> products = ViewBag.otherProducts;
 
-@* <partial name="_Breadcrumb" model="new List<string>()" /> *@
+    var now = DateTime.Now; 
+    var discountOfProduct = Model.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now);
+    
+    var percenDiscount = discountOfProduct.Sum(x => x.Discount.PercentDiscount);
+    var moneyDiscount = discountOfProduct.Sum(x => x.Discount.MoneyDiscount);
+}
 
 <div class="product-details-container bg-white px-2">
     <div class="product-heading pt-2">
@@ -178,7 +181,7 @@
                 <p class="heading primary-bg text-white py-2 fw-normal my-1 text-center rounded">
                     Có thể bạn quan tâm
                 </p>
-                <ul class="other-product-list">
+                @* <ul class="other-product-list">
                     @foreach(var item in otherProduct)
                     {
                         <li class="other-product-item">
@@ -198,7 +201,8 @@
                             </div>
                         </li>
                     }
-                </ul>
+                </ul> *@
+                @await Component.InvokeAsync("App.Components.OtherProductComponent", products)
             </div>
         </div>
     </div>
@@ -315,6 +319,11 @@
             <p class="mt-4">Chưa có đánh giá</p>
         </ul>
     </div>
+</div>
+
+<div class="post-in-product mt-4">
+    <h5 class="title fw-semibold mb-2">Tin tức nổi bật</h5>
+    @await Component.InvokeAsync("App.Components.ListPostComponent", posts)
 </div>
 
 <div class="toast-container position-fixed bottom-0 end-0 p-3">

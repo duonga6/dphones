@@ -441,6 +441,13 @@
     }
 }
 
+.post-in-product {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: $shadow-sm;
+    padding: 16px;
+}
+
 @include mobile {
     .product-details-container {
         .product-info {

@@ -360,6 +360,19 @@
         var datas = [@string.Join(",", dataRevenure!.Select(c => c.Value))]
         var maxLimits = @dataRevenure!.Count;
         var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == 0 ? 10000000 : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
+        var minColume = @{
+            var min = Math.Ceiling((double)Convert.ToInt32(dataRevenure.Min(c => c.Value) == 0 ? 10000000 : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000;
+            if (min < 0)
+            {
+                @(min)
+                ;
+            }
+            else
+            {
+                @(0)
+                ;
+            }
+        };
     </script>
     <script src="~/js/Admin/dashboard.js"></script>
     <script src="~/js/Helper/index.js"></script>

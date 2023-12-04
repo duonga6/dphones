@@ -18,12 +18,17 @@
         var rate = item.Reviews.Count > 0 ? item.Reviews.Average(x => x.Rate) : 0;
 
         <div class="other-product-item">
-            <div class="other-product-img col-4">
-                <img src="/files/Products/@firstColor?.Image" alt="">
+            <div class="other-product-img col-lg-4">
+                <a class="text-decoration-none text-color w-100 h-100"
+                    href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})'>
+
+                    <img src="/files/Products/@firstColor?.Image" alt="">
+                </a>
             </div>
-            <div class="other-product-info col-8">
+            <div class="other-product-info col-lg-8">
                 <p class="other-product-name fw-semibold mb-0">
-                    @item.Name
+                    <a class="text-decoration-none text-color"
+                        href='@Url.Action("Details", "ViewProduct", new {area = "Products", slug = item.Slug})'>@item.Name</a>
                 </p>
                 <p class="other-product-capacity mb-0">
                     @(firstCapa?.Ram)GB/@if (firstCapa?.Rom % 1024 == 0)
@@ -45,7 +50,7 @@
                     CultureInfo("vi-VN"))<sup>đ</sup></del>
                     }
                 </p>
-                <div class="other-product-rate mb-0" data-rate="@rate"></div>
+                <div class="product-rating other-product-rate mb-0" data-rate="@rate"></div>
             </div>
         </div>
     }

@@ -126,7 +126,7 @@ namespace App.Utilities
                                         <tr>
                                             <td>
                                                 <div>
-                                                    <img src=""https://i.ibb.co/sb3y1zd/logo-color.png"" alt=""""
+                                                    <img src=""https://i.postimg.cc/3Jz0D2Qj/logo-color.png"" alt=""""
                                                         style=""width: 240px; object-fit: contain;"">
                                                 </div>
                                             </td>
@@ -134,7 +134,7 @@ namespace App.Utilities
                                         <tr>
                                             <td style=""background-color: white; border-radius: 8px; overflow: hidden;"">
                                                 <div
-                                                    style=""height: 6px; width: 100%;background-image: url('https://i.ibb.co/kXdGRfN/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
+                                                    style=""height: 6px; width: 100%;background-image: url('https://i.postimg.cc/DfjBHp12/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
                                                 </div>
                                                 <div
                                                     style=""padding: 36px; height: 400px; color: #7c8088;"">
@@ -143,7 +143,7 @@ namespace App.Utilities
                                                     <p style=""font-size: 14px;font-family: 'GOOGLE SANS';"">DPhoneS - {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}</p>
                                                 </div>
                                                 <div
-                                                    style=""height: 6px; width: 100%;background-image: url('https://i.ibb.co/kXdGRfN/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
+                                                    style=""height: 6px; width: 100%;background-image: url('https://i.postimg.cc/DfjBHp12/phong-thu.jpg'); background-repeat: repeat-x; background-size: contain;"">
                                                 </div>
                                             </td>
                                         </tr>

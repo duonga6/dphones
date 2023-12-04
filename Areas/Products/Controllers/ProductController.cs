@@ -40,14 +40,13 @@ namespace App.Areas.Products.Controllers
         {
             var products = _context.Products
             .Include(p => p.Brand)
-            .Include(p => p.Colors)
-            .ThenInclude(c => c.Capacities)
+            .Include(p => p.Colors.OrderBy(x => x.Name))
+            .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))
             .AsSplitQuery();
 
             if (searchString != null)
             {
-                searchString = searchString.ToLower();
-                products = products.Where(p => p.Name.ToLower().Contains(searchString) || (p.Description != null && p.Description.ToLower().Contains(searchString)) || (p.Code != null && p.Code.ToLower().Contains(searchString)));
+                products = products.Where(p => p.Name.Contains(searchString) || (p.Description != null && p.Description.Contains(searchString)) || (p.Code != null && p.Code.Contains(searchString)));
             }
 
             if (string.IsNullOrEmpty(sortOrder))
