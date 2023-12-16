@@ -8,15 +8,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly AppDbContext _context;
-    private readonly IWebHostEnvironment _webHostEnvironment;
 
     private readonly int ITEM_PER_PAGE = 20;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext context, IWebHostEnvironment webHostEnvironment)
+    public HomeController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
         _context = context;
-        _webHostEnvironment = webHostEnvironment;
     }
 
     public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)

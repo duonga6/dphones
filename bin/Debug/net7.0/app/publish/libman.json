@@ -1,14 +1,22 @@
 {
-    "version": "1.0",
-    "defaultProvider": "cdnjs",
-    "libraries": [
-      {
-        "library": "font-awesome@6.4.2",
-        "destination": "wwwroot\\lib\\font-awesome"
-      },
-      {
-        "library": "cropperjs@1.6.1",
-        "destination": "wwwroot\\lib\\cropperjs"
-      }
-    ]
-  }
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "font-awesome@6.4.2",
+      "destination": "wwwroot\\lib\\font-awesome"
+    },
+    {
+      "library": "cropperjs@1.6.1",
+      "destination": "wwwroot\\lib\\cropperjs"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/js/signalr",
+      "files": [
+        "dist/browser/signalr.js"
+      ]
+    }
+  ]
+}

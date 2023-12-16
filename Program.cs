@@ -109,15 +109,6 @@ builder.Services.AddTransient<CartService>();
 builder.Services.AddTransient<HomeCategoryService>();
 
 
-// builder.Services.AddDataProtection()
-//         .PersistKeysToFileSystem("")
-//         .ProtectKeysWithDpapi()
-//         .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
-//         {
-//             EncryptionAlgorithm = EncryptionAlgorithm.AES_256_GCM,
-//             ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
-//         });
-
 //=========================== End Add services to the container.
 
 var app = builder.Build();
@@ -150,6 +141,10 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.MapHub<ChatHub>("/chatHub");
+
+
+
+
 
 using (var scopeService = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {

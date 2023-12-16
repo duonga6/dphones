@@ -69,10 +69,7 @@ J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvata
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\wp1q1dyo.png
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\xb05qxhd.webp
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\Uploads\UserAvatar\zpecizkn.PNG
-J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-12-08-10-25_backup-12-11.bak
-J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-13-06-40-31_back-up-13-11.bak
-J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-11-29-09-08-36_discount.bak
-J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-12-01-04-24-14_disount-update.bak
+J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\BackupDB\backup_file_2023-12-04-09-07-41_Backup.bak
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.dll
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.runtimeconfig.json
 J:\CS\NetCore\Learn\ASP_NET_MVC\bandienthoaivn\App\app\publish\App.pdb

@@ -153,6 +153,10 @@
       "PackagePath": "staticwebassets\\js\\Admin\\dashboard.js"
     },
     {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Admin\\message.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\message.js"
+    },
+    {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Helper\\index.js",
       "PackagePath": "staticwebassets\\js\\Helper\\index.js"
     },
@@ -171,6 +175,10 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Post\\create.js",
       "PackagePath": "staticwebassets\\js\\Post\\create.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Post\\details.js",
+      "PackagePath": "staticwebassets\\js\\Post\\details.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\Products\\CreateProduct.js",
@@ -199,6 +207,14 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\addressData.js",
       "PackagePath": "staticwebassets\\js\\addressData.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\adminchat.js",
+      "PackagePath": "staticwebassets\\js\\adminchat.js"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\js\\scripts.js",
@@ -3431,6 +3447,10 @@
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\jqueryui\\themes\\vader\\theme.min.css",
       "PackagePath": "staticwebassets\\lib\\jqueryui\\themes\\vader\\theme.min.css"
+    },
+    {
+      "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\lib\\signalr\\dist\\browser\\signalr.js",
+      "PackagePath": "staticwebassets\\lib\\signalr\\dist\\browser\\signalr.js"
     },
     {
       "Id": "J:\\CS\\NetCore\\Learn\\ASP_NET_MVC\\bandienthoaivn\\App\\wwwroot\\richtexteditor\\lang\\rte-lang-af.js",

@@ -26,26 +26,16 @@ services:
     volumes:
       - backup-db-volume:/app/BackupDB
 
-  certs:
-    build:
-      context: .
-      dockerfile: cert.Dockerfile
-    container_name: certs
-    volumes:
-      - certs-volume:/etc/nginx/ssl
-
   nginx:
     image: nginx:latest
     container_name: nginx
-    depends_on:
-      - certs
     ports:
       - 80:80
       - 443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./proxy.conf:/etc/nginx/proxy.conf:ro
-      - certs-volume:/etc/nginx/ssl
+      - ./ssl/certificate.pem:/etc/nginx/ssl/certificate.pem
+      - ./ssl/private.pem:/etc/nginx/ssl/private.pem
 volumes:
-  certs-volume:
   backup-db-volume:
