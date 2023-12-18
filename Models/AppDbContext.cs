@@ -113,6 +113,21 @@ namespace App.Models
                 entity.HasIndex(x => x.Slug).IsUnique();
             });
 
+            builder.Entity<Message>(entity =>
+            {
+                entity.HasOne(m => m.Sender)
+                    .WithMany(x => x.SentMessage)
+                    .HasForeignKey(x => x.SenderId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasOne(m => m.Receiver)
+                    .WithMany(u => u.ReceivedMessage)
+                    .HasForeignKey(x => x.ReceiverId)
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired(false);
+            });
+
         }
 
         public DbSet<Product> Products { set; get; } = null!;

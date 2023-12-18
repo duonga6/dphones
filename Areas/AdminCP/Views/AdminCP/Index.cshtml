@@ -10,11 +10,16 @@
 
     decimal TotalRevenue = ViewBag.TotalRevenue;
     decimal RevenureToday = ViewBag.RevenureToday;
+    decimal TotalProfit = ViewBag.TotalProfit;
     var queryRevenue = Context.Request.Query["revenure"].ToString();
     var dataRevenure = ViewBag.DataRevenure as Dictionary<string, decimal>;
+    var dataProfit = ViewBag.DataProfit as Dictionary<string, decimal>;
     var productsBestSeller = _homeCategory.GetData().Products;
     var productsBestSellMonth = ViewBag.ProductBSM as List<AdminCPController.ProductWithSold>
     ?? new List<AdminCPController.ProductWithSold>();
+
+    var currentRevenure = Context.Request.Query["revenure"];
+    var currentProfit = Context.Request.Query["profit"];
 }
 
 <div class="admin-dashboard">
@@ -63,11 +68,13 @@
                                 Tổng doanh thu
                             </div>
                             <div class="content">
-                                @TotalRevenue.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                                @TotalProfit.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
                             </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href='#'></a>
+                            <a class="small text-white stretched-link text-decoration-none fs-6" href='#'>
+                                Lợi nhuận: @TotalRevenue.ToString("N0", new CultureInfo("vi-VN"))<sup>đ</sup>
+                            </a>
                             <div class="small text-white opacity-0"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -262,25 +269,25 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item"
-                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "today"})'>
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "today", profit = currentProfit})'>
                                         Hôm nay
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item"
-                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thisweek"})'>
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thisweek", profit = currentProfit})'>
                                         Tuần này
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item"
-                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thismonth"})'>
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thismonth", profit = currentProfit})'>
                                         Tháng này
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item"
-                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thisyear"})'>
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", revenure = "thisyear", profit = currentProfit})'>
                                         Năm nay
                                     </a>
                                 </li>
@@ -290,6 +297,67 @@
                 </div>
                 <div class="card-body">
                     <canvas id="myBarChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="left-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Doanh thu
+                    </div>
+                    <div class="right-header">
+                        <div class="dropdown">
+                            <a class="btn btn-sm dropdown-toggle" href="#" role="button"
+                                style="border: 1px solid #ced4da; background-color: #fff; min-width: 100px;"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                @switch (queryRevenue)
+                                {
+                                    case "thisweek":
+                                        @("Tuần này")
+                                        break;
+                                    case "thismonth":
+                                        @("Tháng này")
+                                        break;
+                                    case "thisyear":
+                                        @("Năm nay")
+                                        break;
+                                    default:
+                                        @("Hôm nay")
+                                        break;
+                                }
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item"
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", profit = "today", revenure = currentRevenure})'>
+                                        Hôm nay
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", profit = "thisweek", revenure = currentRevenure})'>
+                                        Tuần này
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", profit = "thismonth", revenure = currentRevenure})'>
+                                        Tháng này
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item"
+                                        href='@Url.Action("Index", "AdminCP", new {area = "AdminCP", profit = "thisyear", revenure = currentRevenure})'>
+                                        Năm nay
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="myBarChart2" width="100%" height="40"></canvas>
                 </div>
             </div>
             <div class="best-selling">
@@ -361,10 +429,28 @@
         var maxLimits = @dataRevenure!.Count;
         var maxColumn = @(Math.Ceiling((double)Convert.ToInt32(dataRevenure.Max(c => c.Value) == 0 ? 10000000 : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000);
         var minColume = @{
-            var min = Math.Ceiling((double)Convert.ToInt32(dataRevenure.Min(c => c.Value) == 0 ? 10000000 : dataRevenure.Max(c => c.Value)) / 1000000) * 1000000;
+            var min = Math.Floor((double)Convert.ToInt32(dataRevenure.Min(c => c.Value) == 0 ? 10000000 : dataRevenure.Min(c => c.Value)) / 1000000) * 1000000;
             if (min < 0)
             {
                 @(min)
+                ;
+            }
+            else
+            {
+                @(0)
+                ;
+            }
+        };
+
+        var labels2 = [@Html.Raw(string.Join(",", dataProfit!.Select(c => $"'{c.Key}'")))];
+        var datas2 = [@string.Join(",", dataProfit!.Select(c => c.Value))]
+        var maxLimits2 = @dataProfit!.Count;
+        var maxColumn2 = @(Math.Ceiling((double)Convert.ToInt32(dataProfit.Max(c => c.Value) == 0 ? 10000000 : dataProfit.Max(c => c.Value)) / 1000000) * 1000000);
+        var minColume2 = @{
+            var min2 = Math.Floor((double)Convert.ToInt32(dataProfit.Min(c => c.Value) > 0 ? 10000000 : dataProfit.Min(c => c.Value)) / 1000000) * 1000000;
+            if (min2 < 0)
+            {
+                @(min2)
                 ;
             }
             else

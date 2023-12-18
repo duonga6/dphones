@@ -1,5 +1,6 @@
 using App.Data;
 using App.Models;
+using App.Models.Chats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,39 +34,23 @@ namespace App.Areas.AdminCP.Controllers
         [HttpGet("/admin-get-user-list")]
         public async Task<IActionResult> AdminGetUserListAsync()
         {
-            var query = from m in
-                        (
-                            from mess in _context.Messages.AsEnumerable()
-                            where mess.Sender != "admin"
-                            orderby mess.CreatedAt descending
-                            group mess by mess.Sender into grMess
-                            select grMess.First()
-                        )
-                        join user in _context.Users on m.Sender equals user.Id
-                        select new
-                        {
-                            userId = user.Id,
-                            userName = user.FullName,
-                            userAvatarUrl = $"/files/UserAvatar/{user.UserAvatar ?? "no-image.png"}",
-                            lastMessage = m.Content,
-                            date = m.CreatedAt,
-                            seen = m.Seen
-                        };
+            string adminId = await GetLoggedUserId();
 
-            var userInMessage = (from mess in _context.Messages
-                                 join user in _context.Users on mess.Sender equals user.Id
-                                 select user).ToList().Distinct();
+            var userHasMessage = await _context.Users
+            .AsNoTracking()
+            .Where(x => x.SentMessage.Any(x => x.ReceiverId == null || x.ReceiverId == adminId))
+            .ToListAsync();
 
-            var userList = new List<AdminGetUserListModel>();
+            var userList = new List<AdminGetUserModel>();
 
-            foreach (var item in userInMessage)
+            foreach (var item in userHasMessage)
             {
                 var messages = await _context.Messages.AsNoTracking()
-                                    .Where(x => x.Sender == item.Id || x.Receiver == item.Id)
+                                    .Where(x => x.SenderId == item.Id || x.ReceiverId == item.Id)
                                     .OrderByDescending(x => x.CreatedAt)
                                     .FirstOrDefaultAsync();
 
-                userList.Add(new AdminGetUserListModel
+                userList.Add(new AdminGetUserModel
                 {
                     UserId = item.Id,
                     UserName = string.IsNullOrEmpty(item.FullName) ? item.Email! : item.FullName,
@@ -73,14 +58,14 @@ namespace App.Areas.AdminCP.Controllers
                     LastMessage = messages!.Content,
                     Date = messages!.CreatedAt,
                     Seen = messages!.Seen,
-                    IsLastMessageFromAdmin = messages.Sender == "admin"
+                    IsLastMessageFromAdmin = messages.SenderId == adminId
                 });
             }
 
             return Ok(userList);
         }
 
-        public class AdminGetUserListModel
+        public class AdminGetUserModel
         {
             public string UserId { set; get; } = string.Empty;
             public string UserName { set; get; } = string.Empty;
@@ -93,56 +78,63 @@ namespace App.Areas.AdminCP.Controllers
 
         [Authorize(Roles = RoleName.Administrator)]
         [HttpGet("/admin-get-user/{userId}")]
-        public IActionResult AdminGetUser(string userId)
+        public async Task<IActionResult> AdminGetUser(string userId)
         {
-            var query = from m in
-                        (
-                            from mess in _context.Messages.AsEnumerable()
-                            where mess.Sender == userId
-                            orderby mess.CreatedAt descending
-                            group mess by mess.Sender into grMess
-                            select grMess.First()
-                        )
-                        join user in _context.Users on m.Sender equals user.Id
-                        select new
-                        {
-                            userId = user.Id,
-                            userName = user.FullName,
-                            userAvatarUrl = $"/files/UserAvatar/{user.UserAvatar ?? "no-image.png"}",
-                            lastMessage = m.Content,
-                            date = m.CreatedAt,
-                            seen = m.Seen
-                        };
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return BadRequest();
 
-            return Ok(query.FirstOrDefault());
+            var lastMessage = await _context.Messages.Where(x => x.SenderId == user.Id).OrderByDescending(x => x.CreatedAt).FirstOrDefaultAsync();
+            if (lastMessage == null) return BadRequest();
+
+            var modelRespone = new AdminGetUserModel
+            {
+                UserId = user.Id,
+                UserName = user.FullName,
+                UserAvatarUrl = $"/files/UserAvatar/{user.UserAvatar ?? "no-image.png"}",
+                LastMessage = lastMessage.Content,
+                Date = lastMessage.CreatedAt,
+                Seen = lastMessage.Seen
+            };
+
+            return Ok(modelRespone);
         }
 
         [Authorize(Roles = RoleName.Administrator)]
         [HttpGet("/admin-get-user-message/{userId}")]
         public async Task<IActionResult> AdminGetUserMessage(string userId)
         {
-            var query = from mess in _context.Messages
-                        orderby mess.CreatedAt ascending
-                        where mess.Sender == userId || mess.Receiver == userId
-                        select mess;
+            string adminId = await GetLoggedUserId();
 
-            return Ok(await query.ToListAsync());
+            var messages = await _context.Messages
+                .AsNoTracking()
+                .Where(x => (x.SenderId == userId && (x.ReceiverId == adminId || x.ReceiverId == null)) || (x.SenderId == adminId && x.ReceiverId == userId))
+                .OrderBy(x => x.CreatedAt)
+                .ToListAsync();
+
+            return Ok(messages);
         }
 
         [Authorize(Roles = RoleName.Administrator)]
         [HttpGet("/admin-seen-message/{userId}")]
         public async Task<IActionResult> AdminSeenMessage(string userId)
         {
-            var adminId = (await _userManager.GetUserAsync(User))?.Id;
+            var adminId = await GetLoggedUserId();
 
-            var message = await _context.Messages.Where(x => x.Sender == userId)
+            var message = await _context.Messages
+            .Where(x => x.SenderId == userId)
             .OrderByDescending(x => x.CreatedAt)
             .FirstOrDefaultAsync();
 
-            if (message != null && adminId != null)
+            if (message != null)
             {
-                message.AdminId = adminId;
+                if (message.ReceiverId != null && message.ReceiverId != adminId)
+                {
+                    return BadRequest();
+                }
+
                 message.Seen = true;
+                message.ReceiverId ??= adminId;
+
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -154,29 +146,32 @@ namespace App.Areas.AdminCP.Controllers
         [HttpGet("/client-seen-message")]
         public async Task<IActionResult> ClientSeenMessageAsync()
         {
-            var userId = (await _userManager.GetUserAsync(User))?.Id;
+            var userId = await GetLoggedUserId();
 
-            var message = await _context.Messages.Where(x => x.Receiver == userId)
+            var message = await _context.Messages
+            .Where(x => x.ReceiverId == userId)
             .OrderByDescending(x => x.CreatedAt)
             .FirstOrDefaultAsync();
 
-            if (message != null && userId != null)
+            if (message != null)
             {
                 message.Seen = true;
                 await _context.SaveChangesAsync();
-                return Ok();
             }
 
-            return BadRequest();
+            return Ok();
         }
 
         [HttpGet("/client-get-message")]
         public async Task<IActionResult> ClientGetMessage()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null) return Unauthorized();
+            var userId = await GetLoggedUserId();
 
-            var messages = await _context.Messages.Where(x => x.Sender == user.Id || x.Receiver == user.Id).OrderBy(x => x.CreatedAt).ToListAsync();
+            var messages = await _context.Messages
+                .AsNoTracking()
+                .Where(x => x.SenderId == userId || x.ReceiverId == userId)
+                .OrderBy(x => x.CreatedAt)
+                .ToListAsync();
 
             return Ok(messages);
         }
@@ -185,6 +180,11 @@ namespace App.Areas.AdminCP.Controllers
         public IActionResult Error()
         {
             return View("Error!");
+        }
+
+        private async Task<string> GetLoggedUserId()
+        {
+            return (await _userManager.GetUserAsync(User))?.Id ?? "";
         }
     }
 }

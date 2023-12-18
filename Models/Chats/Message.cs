@@ -7,13 +7,17 @@ namespace App.Models.Chats
     {
         public int Id { set; get; }
         [Required]
-        public string Sender { set; get; } = string.Empty;
-        [Required]
-        public string Receiver { set; get; } = string.Empty;
-        public string? AdminId { set; get; }
+        public string SenderId { set; get; } = string.Empty;
+        public string? ReceiverId { set; get; } = string.Empty;
+        public bool FromAdmin { set; get; }
         [Required]
         public string Content { set; get; } = string.Empty;
         public bool Seen { set; get; }
         public DateTime CreatedAt { set; get; } = DateTime.Now;
+
+        public AppUser Sender { set; get; } = null!;
+        public AppUser Receiver { set; get; } = null!;
+
+
     }
 }

@@ -1,4 +1,6 @@
 var ctx = document.getElementById("myBarChart");
+var ctx2 = document.getElementById("myBarChart2");
+
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -25,8 +27,49 @@ var myLineChart = new Chart(ctx, {
             }],
             yAxes: [{
                 ticks: {
-                    min: -1000000,
+                    min: minColume,
                     max: maxColumn,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+
+var myLineChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: labels2,
+        datasets: [{
+            label: "Lợi nhuận",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: datas2,
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                },
+                gridLines: {
+                    display: true
+                },
+                ticks: {
+                    maxTicksLimit: maxLimits2
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: minColume2,
+                    max: maxColumn2,
                     maxTicksLimit: 5
                 },
                 gridLines: {

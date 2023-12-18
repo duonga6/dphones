@@ -1,7 +1,9 @@
-﻿@using App.Areas.Products.Services;
+﻿@using Microsoft.AspNetCore.Identity;
+@using App.Areas.Products.Services;
 @using App.Services;
 @inject CartService _cart;
 @inject HomeCategoryService _homeCategory;
+@inject UserManager<AppUser> _userManager;
 
 @{
     var categoryData = _homeCategory.GetData();
@@ -403,6 +405,8 @@
             catrgoryBox.get(0).style.visibility = 'hidden';
             catrgoryBox.get(0).style.opacity = 0;
         })
+
+        var userId = "@((await _userManager.GetUserAsync(User))?.Id)";
 
     </script>
 

@@ -66,7 +66,7 @@ const app = {
 
         const fulldate = `${day}/${month}/${year} ${hour}:${minute}`;
 
-        const sender = model.sender == "admin" ? "admin" : "user";
+        const sender = model.fromAdmin ? "admin" : "user";
 
         const avatar = sender == "admin" ? "/images/logo-color.png" : this.currentUserAvatar;
 
@@ -118,7 +118,7 @@ const app = {
 
                     if (index == array.length - 1)
                         flag = true;
-                    else if (item.sender != array[index + 1].sender) {
+                    else if (item.senderId != array[index + 1].senderId) {
                         flag = true;
                     }
                     else {
@@ -184,13 +184,13 @@ const app = {
     TriggerNewMessage: function (message) {
         const _this = this;
 
-        const userElement = $(`.user-item[data-id="${message.sender}"]`);
+        const userElement = $(`.user-item[data-id="${message.senderId}"]`);
 
         if (userElement.get(0)) {
 
-            if (message.sender == this.currentUserId) {
-                this.LoadMessage(message.sender)
-                this.SeenMessage(message.sender);
+            if (message.senderId == this.currentUserId) {
+                this.LoadMessage(message.senderId)
+                this.SeenMessage(message.senderId);
             }
             else {
                 userElement.addClass("new-message");
@@ -199,7 +199,7 @@ const app = {
         } else {
             $.ajax({
                 type: "get",
-                url: `/admin-get-user/${message.sender}`,
+                url: `/admin-get-user/${message.senderId}`,
                 success: function (data) {
                     if (data) {
                         _this.AddUserItem(data, true);

@@ -4,6 +4,7 @@ using App.Models.Chats;
 using App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace SignalRChat.Hubs
 {
@@ -21,30 +22,30 @@ namespace SignalRChat.Hubs
             _context = context;
         }
 
-        private string? userId
+        private string? UserId
         {
             get { return Context.UserIdentifier; }
         }
 
-        private bool isAdmin
+        private bool IsAdmin
         {
             get { return Context.User != null && Context.User.IsInRole(RoleName.Administrator); }
         }
 
-        private string connectionId
+        private string ConnectionId
         {
             get { return Context.ConnectionId; }
         }
 
         public override async Task OnConnectedAsync()
         {
-            if (userId != null)
+            if (UserId != null)
             {
-                _connectionManager.AddConnection(userId, connectionId, isAdmin);
+                _connectionManager.AddConnection(UserId, ConnectionId, IsAdmin);
 
-                var listConnectionId = "\n\tConnectionId list:\n\t\t" + string.Join("\n\t\t", _connectionManager.GetConnectionId(userId));
+                var listConnectionId = "\n\tConnectionId list:\n\t\t" + string.Join("\n\t\t", _connectionManager.GetConnectionId(UserId));
 
-                _logger.LogInformation($"UserID: {userId} connected with connectionId: {connectionId}.{listConnectionId}");
+                _logger.LogInformation($"UserID: {UserId} connected with connectionId: {ConnectionId}.{listConnectionId}");
                 _logger.LogInformation($"Admin logged: {_connectionManager.AdminLogged()}");
 
             }
@@ -53,13 +54,13 @@ namespace SignalRChat.Hubs
 
         public override async Task OnDisconnectedAsync(Exception? ex)
         {
-            if (userId != null)
+            if (UserId != null)
             {
-                _connectionManager.RemoveConnection(userId, connectionId);
+                _connectionManager.RemoveConnection(UserId, ConnectionId);
 
-                var listConnectionId = "\n\tConnectionId list:\n\t\t" + string.Join("\n\t\t", _connectionManager.GetConnectionId(userId));
+                var listConnectionId = "\n\tConnectionId list:\n\t\t" + string.Join("\n\t\t", _connectionManager.GetConnectionId(UserId));
 
-                _logger.LogInformation($"UserID: {userId} disconnected on connectionID: {connectionId}. {listConnectionId}");
+                _logger.LogInformation($"UserID: {UserId} disconnected on connectionID: {ConnectionId}. {listConnectionId}");
                 _logger.LogInformation($"Admin logged: {_connectionManager.AdminLogged()}");
             }
             await base.OnDisconnectedAsync(ex);
@@ -72,12 +73,17 @@ namespace SignalRChat.Hubs
 
         public async Task ClientSendToAdmin(string content)
         {
+            var messageWithAdmin = await _context.Messages
+                                            .AsNoTracking()
+                                            .Where(x => x.SenderId == UserId && x.ReceiverId != null)
+                                            .FirstOrDefaultAsync();
+
             var message = new Message
             {
                 Content = content,
                 CreatedAt = DateTime.Now,
-                Receiver = "admin",
-                Sender = userId!,
+                ReceiverId = messageWithAdmin?.ReceiverId,
+                SenderId = UserId!
             };
 
             await _context.Messages.AddAsync(message);
@@ -89,7 +95,7 @@ namespace SignalRChat.Hubs
                 await Clients.Client(item).SendAsync("NewClientMessage", message);
             }
 
-            var clientConnectionId = _connectionManager.GetConnectionId(userId!);
+            var clientConnectionId = _connectionManager.GetConnectionId(UserId!);
             foreach (var item in clientConnectionId)
             {
                 await Clients.Client(item).SendAsync("ClientSendMessageSuccess", message);
@@ -102,9 +108,9 @@ namespace SignalRChat.Hubs
             {
                 Content = content,
                 CreatedAt = DateTime.Now,
-                Receiver = clientId,
-                Sender = "admin",
-                AdminId = userId
+                ReceiverId = clientId,
+                SenderId = UserId!,
+                FromAdmin = true
             };
 
             await _context.Messages.AddAsync(message);

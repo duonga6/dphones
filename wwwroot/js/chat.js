@@ -65,7 +65,7 @@ btnSendMessage.click(function (event) {
 });
 
 const AddMessage = function (message, flag = true) {
-    const sender = message.sender === "admin" ? "admin" : "user";
+    const sender = message.fromAdmin ? "admin" : "user";
     const avatar = sender == "admin" ? "/images/logo-color.png" : $("#user-avatar").val();
 
     const date = new Date(message.createdAt);
@@ -107,6 +107,7 @@ const LoadMessage = function () {
         url: "/client-get-message",
         success: function (data) {
             if (data.length > 0) {
+                messageList.html("");
 
                 let flag = false;
 
@@ -114,7 +115,7 @@ const LoadMessage = function () {
 
                     if (index == array.length - 1)
                         flag = true;
-                    else if (item.sender != array[index + 1].sender) {
+                    else if (item.senderId != array[index + 1].senderId) {
                         flag = true;
                     }
                     else {
@@ -133,7 +134,7 @@ const LoadMessage = function () {
                     AddMessage(item, flag);
                 });
 
-                if (!data[data.length - 1].seen && data[data.length - 1].sender == "admin" && !chatWindow.hasClass("active")) {
+                if (!data[data.length - 1].seen && data[data.length - 1].senderId != userId && !chatWindow.hasClass("active")) {
                     notiMessage.show();
                 }
             }

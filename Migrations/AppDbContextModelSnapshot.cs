@@ -108,9 +108,6 @@ namespace App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AdminId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -118,18 +115,24 @@ namespace App.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Receiver")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("FromAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("Seen")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Sender")
+                    b.Property<string>("SenderId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
@@ -877,6 +880,24 @@ namespace App.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("App.Models.Chats.Message", b =>
+                {
+                    b.HasOne("App.Models.AppUser", "Receiver")
+                        .WithMany("ReceivedMessage")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("App.Models.AppUser", "Sender")
+                        .WithMany("SentMessage")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("App.Models.Products.Capacity", b =>
                 {
                     b.HasOne("App.Models.Products.Color", "Color")
@@ -1099,7 +1120,11 @@ namespace App.Migrations
                 {
                     b.Navigation("Orders");
 
+                    b.Navigation("ReceivedMessage");
+
                     b.Navigation("Reviews");
+
+                    b.Navigation("SentMessage");
                 });
 
             modelBuilder.Entity("App.Models.Products.Brand", b =>
