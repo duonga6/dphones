@@ -1,6 +1,4 @@
-node_modules
-node_modules
-bin
-bin
-app
-app
+node_modules/
+bin/
+app/
+obj/
