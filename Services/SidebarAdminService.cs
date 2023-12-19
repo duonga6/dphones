@@ -170,7 +170,7 @@ namespace App.Services
                 Action = "Index",
                 Controller = "Message",
                 Area = "AdminCP",
-                AwIcon = "fa-solid fa-address-card"
+                AwIcon = "fa-solid fa-message"
             });
 
             Items.Add(new SidebarItem()
@@ -188,8 +188,6 @@ namespace App.Services
         {
             SetActive(controller, area, action);
 
-            // _logger.LogInformation(controller + " " + area);
-
             var html = new StringBuilder();
 
             foreach (var item in Items)
@@ -206,7 +204,7 @@ namespace App.Services
 
             foreach (var item in Items)
             {
-                if (item.Controller == Controller && item.Area == Area && item.Action == Action)
+                if (item.Controller == Controller && item.Area == Area)
                 {
                     item.IsActive = true;
                     return;
@@ -217,7 +215,7 @@ namespace App.Services
                     {
                         foreach (var subitem in item.Items)
                         {
-                            if (subitem.Controller == Controller && subitem.Area == Area && subitem.Action == Action)
+                            if (subitem.Controller == Controller && subitem.Area == Area)
                             {
                                 subitem.IsActive = true;
                                 item.IsActive = true;

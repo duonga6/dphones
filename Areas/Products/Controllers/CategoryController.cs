@@ -4,6 +4,7 @@ using App.Models.Products;
 using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Areas.Products.Controllers
 {
@@ -26,14 +27,13 @@ namespace App.Areas.Products.Controllers
             _context = context;
         }
 
-        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
+        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
         {
-            var category = _context.Categories.Select(c => c);
+            var category = _context.Categories.AsQueryable();
 
             if (searchString != null)
             {
-                searchString = searchString.ToLower();
-                category = category.Where(c => c.Name.ToLower().Contains(searchString) || (c.Description != null && c.Description.ToLower().Contains(searchString)));
+                category = category.Where(c => c.Name.Contains(searchString) || (c.Description != null && c.Description.Contains(searchString)));
             }
 
             category = category.OrderBy(c => c.Name);
@@ -45,16 +45,16 @@ namespace App.Areas.Products.Controllers
 
             if (currentPage < 1)
                 currentPage = 1;
-            
+
             if (currentPage > totalPage)
                 currentPage = totalPage;
-            
+
             ViewBag.CurrentPage = currentPage;
             ViewBag.CountPage = totalPage;
 
             var categoryInPage = category.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
-            return View(categoryInPage.ToList());
+            return View(await categoryInPage.ToListAsync());
         }
 
         [HttpGet]
@@ -71,19 +71,19 @@ namespace App.Areas.Products.Controllers
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name);
 
-            if (_context.Categories.Where(c => c.Name == model.Name).Any())
+            if (await _context.Categories.AsNoTracking().AnyAsync(c => c.Name == model.Name))
             {
                 ModelState.AddModelError(string.Empty, "Tên này đã được dùng");
                 return View();
             }
 
-            if (_context.Categories.Where(c => c.Slug == model.Slug).Any())
+            if (await _context.Categories.AsNoTracking().AnyAsync(c => c.Slug == model.Slug))
             {
                 ModelState.AddModelError(string.Empty, "Địa chỉ url này đã được dùng");
                 return View();
             }
 
-            _context.Categories.Add(model);
+            await _context.Categories.AddAsync(model);
             await _context.SaveChangesAsync();
 
 
@@ -92,9 +92,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Edit(int Id)
+        public async Task<IActionResult> Edit(int Id)
         {
-            var category = _context.Categories.Where(c => c.Id == Id).FirstOrDefault();
+            var category = await _context.Categories.AsNoTracking().FirstOrDefaultAsync(c => c.Id == Id);
             if (category == null) return NotFound();
 
             return View(category);
@@ -104,12 +104,12 @@ namespace App.Areas.Products.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync(int Id, Category model)
         {
-            var category = _context.Categories.Where(c => c.Id == Id).FirstOrDefault();
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == Id);
             if (category == null) return NotFound();
 
-            if(!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(model);
 
-            if (_context.Categories.Where(c => c.Name == model.Name && c.Id != Id).Any())
+            if (await _context.Categories.AsNoTracking().AnyAsync(c => c.Name == model.Name && c.Id != Id))
             {
                 ModelState.AddModelError(string.Empty, "Tên này đã được dùng");
                 return View(model);
@@ -117,7 +117,7 @@ namespace App.Areas.Products.Controllers
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
 
-            if (_context.Categories.Where(c => c.Slug == model.Slug && c.Id != Id).Any())
+            if (await _context.Categories.AsNoTracking().AnyAsync(c => c.Slug == model.Slug && c.Id != Id))
             {
                 ModelState.AddModelError(string.Empty, "Địa chỉ url này đã được dùng");
                 return View(model);
@@ -126,7 +126,7 @@ namespace App.Areas.Products.Controllers
             category.Name = model.Name;
             category.Slug = model.Slug;
             category.Description = model.Description;
-            
+
             await _context.SaveChangesAsync();
 
             StatusMessage = "Cập nhật thành công";
@@ -134,9 +134,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            var category = _context.Categories.Where(c => c.Id == Id).FirstOrDefault();
+            var category = await _context.Categories.FindAsync(Id);
             if (category == null) return NotFound();
 
             return View(category);
@@ -145,7 +145,7 @@ namespace App.Areas.Products.Controllers
         [HttpPost("{Id}"), ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteAsync(int Id)
         {
-            var category = _context.Categories.Where(c => c.Id == Id).FirstOrDefault();
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == Id);
             if (category == null) return NotFound();
 
             _context.Categories.Remove(category);
@@ -155,12 +155,12 @@ namespace App.Areas.Products.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var category = _context.Categories.Where(c => c.Id == id).FirstOrDefault();
+            var category = await _context.Categories.FindAsync(id);
             if (category == null)
-            return NotFound();
-            
+                return NotFound();
+
             return View(category);
         }
     }

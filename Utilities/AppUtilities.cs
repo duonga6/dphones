@@ -158,6 +158,16 @@ namespace App.Utilities
             return html;
         }
 
+
+        public static string GenerateHtmlEmailVeryfiAccount(string username, string callbackUrl)
+        {
+            string emailContent =
+$@"
+Hãy xác thực tài khoản của bạn bằng cách <a href='{callbackUrl}'>ấn vào đây</a>.
+";
+            return GenerateHtmlEmail(username, emailContent);
+        }
+
         public static async Task<string> GetServerIpAddress()
         {
             string url = "http://ipinfo.io/ip";

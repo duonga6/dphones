@@ -49,18 +49,18 @@ namespace App.Areas.AdminCP.Controllers
             var yearNow = today.Year;
 
 
-            var orderQuery = _context.Orders;
-            var soldQuery = _context.Orders
+            var orderQuery = _context.Orders.AsNoTracking();
+            var soldQuery = orderQuery
             .Where(o => o.PayStatuses.Any(x => x.ResponseCode == "00"));
             // .Where(o => o.Order!.OrderStatuses.OrderBy(os => os.DateUpdate).Last().Code == (int)OrderStatusCode.Delivered);
 
 
             // Thống kê tổng quát
-            ViewBag.ProductCount = _context.Products.Count();
-            ViewBag.BrandCount = _context.Brands.Count();
-            ViewBag.OrderCount = orderQuery.Count();
+            ViewBag.ProductCount = _context.Products.AsNoTracking().Count();
+            ViewBag.BrandCount = _context.Brands.AsNoTracking().Count();
+            ViewBag.OrderCount = orderQuery.AsNoTracking().Count();
             ViewBag.CustomerCount = (await _userManager.GetUsersInRoleAsync("Customer")).Count;
-            ViewBag.ProductTotal = _context.Capacities.Sum(c => c.Quantity);
+            ViewBag.ProductTotal = _context.Capacities.AsNoTracking().Sum(c => c.Quantity);
 
             // Tổng lợi nhuận
             ViewBag.TotalRevenue = soldQuery.SelectMany(o => o.OrderDetails)
@@ -238,7 +238,7 @@ namespace App.Areas.AdminCP.Controllers
             var Year = DateTime.Now.Year;
 
             // Sản phẩm bán chạy tháng
-            var productBSM = _context.OrderDetails
+            var productBSM = _context.OrderDetails.AsNoTracking()
             .Where(od => od.Order!.OrderDate.Month == Month && od.Order.OrderDate.Year == Year && od.Order.OrderStatuses.Any(os => os.Code == (int)OrderStatusCode.Delivered))
             .Include(p => p.Color)
             .GroupBy(od => od.Product)
@@ -309,7 +309,7 @@ namespace App.Areas.AdminCP.Controllers
                 }
                 else if (model.Type == "All")
                 {
-                    var emailUserList = _context.Users.Where(x => x.Email != null).Select(x => x.Email).ToList() as List<string>;
+                    var emailUserList = _context.Users.AsNoTracking().Where(x => x.Email != null).Select(x => x.Email).ToList() as List<string>;
                     foreach (var item in emailUserList)
                     {
                         await _emailSender.SendEmailAsync(item, model.Subject, mailContent);

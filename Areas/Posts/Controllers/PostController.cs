@@ -34,7 +34,7 @@ namespace App.Areas.Posts.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var post = await _context.Posts.OrderByDescending(x => x.CreatedAt).ToListAsync();
+            var post = await _context.Posts.AsNoTracking().OrderByDescending(x => x.CreatedAt).ToListAsync();
             return View(post);
         }
 

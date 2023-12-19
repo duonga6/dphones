@@ -36,9 +36,10 @@ namespace App.Areas.Products.Controllers
 
         private readonly int ITEM_PER_PAGE = 10;
 
-        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "sort")] string? sortString, [FromQuery] string? sortOrder)
+        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "sort")] string? sortString, [FromQuery] string? sortOrder)
         {
             var products = _context.Products
+            .AsNoTracking()
             .Include(p => p.Brand)
             .Include(p => p.Colors.OrderBy(x => x.Name))
             .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))
@@ -75,7 +76,7 @@ namespace App.Areas.Products.Controllers
 
             ViewBag.OrderSort = sortOrder;
 
-            ViewBag.TotalProduct = products.Count();
+            ViewBag.TotalProduct = await products.CountAsync();
 
             int totalPage = (int)Math.Ceiling((decimal)products.Count() / ITEM_PER_PAGE);
             if (totalPage < 1) totalPage = 1;
@@ -91,14 +92,14 @@ namespace App.Areas.Products.Controllers
 
             var productInPage = products.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
-            return View(productInPage.ToList());
+            return View(await productInPage.ToListAsync());
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var category = _context.Categories.ToList();
-            var brand = _context.Brands.ToList();
+            var category = await _context.Categories.ToListAsync();
+            var brand = await _context.Brands.ToListAsync();
             ViewBag.Category = new MultiSelectList(category, "Id", "Name");
             ViewBag.Brand = new SelectList(brand, "Id", "Name");
             return View();
@@ -109,8 +110,8 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> CreateAsync(CreateProductModel model)
         {
             // return Json(model);
-            var category = _context.Categories.ToList();
-            var brand = _context.Brands.ToList();
+            var category = await _context.Categories.AsNoTracking().ToListAsync();
+            var brand = await _context.Brands.AsNoTracking().ToListAsync();
             ViewBag.Category = new MultiSelectList(category, "Id", "Name");
             ViewBag.Brand = new SelectList(brand, "Id", "Name");
 
@@ -121,7 +122,7 @@ namespace App.Areas.Products.Controllers
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
 
-            if (_context.Products.Any(p => p.Slug == model.Slug))
+            if (await _context.Products.AnyAsync(p => p.Slug == model.Slug))
             {
                 ModelState.AddModelError(string.Empty, "Url nãy đã tồn tại, hãy chọn url khác");
                 return View();
@@ -245,9 +246,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Details(int Id)
+        public async Task<IActionResult> Details(int Id)
         {
-            var product = _context.Products.Where(p => p.Id == Id)
+            var product = await _context.Products
                                             .Include(p => p.Brand)
                                             .Include(p => p.Photos)
                                             .Include(p => p.ProductCategories)
@@ -258,7 +259,7 @@ namespace App.Areas.Products.Controllers
                                             .ThenInclude(x => x.Discount)
                                             .AsSplitQuery()
                                             .AsNoTracking()
-                                            .FirstOrDefault();
+                                            .FirstOrDefaultAsync(p => p.Id == Id);
 
             if (product == null) return NotFound();
 
@@ -266,9 +267,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Edit(int Id)
+        public async Task<IActionResult> Edit(int Id)
         {
-            var product = _context.Products.Where(p => p.Id == Id)
+            var product = await _context.Products
                                             .Include(p => p.Photos)
                                             .Include(p => p.Brand)
                                             .Include(p => p.Colors)
@@ -276,7 +277,7 @@ namespace App.Areas.Products.Controllers
                                             .Include(p => p.ProductCategories)
                                             .ThenInclude(p => p.Category)
                                             .AsSplitQuery()
-                                            .FirstOrDefault();
+                                            .FirstOrDefaultAsync(p => p.Id == Id);
 
 
 
@@ -338,7 +339,7 @@ namespace App.Areas.Products.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAsync(int Id, CreateProductModel model)
         {
-            var productUpdate = _context.Products.Where(p => p.Id == Id)
+            var productUpdate = await _context.Products
                                             .Include(p => p.Photos)
                                             .Include(p => p.Brand)
                                             .Include(p => p.Colors)
@@ -346,13 +347,13 @@ namespace App.Areas.Products.Controllers
                                             .Include(p => p.ProductCategories)
                                             .ThenInclude(p => p.Category)
                                             .AsSplitQuery()
-                                            .FirstOrDefault();
+                                            .FirstOrDefaultAsync(p => p.Id == Id);
 
             if (productUpdate == null) return NotFound();
 
-            var category = _context.Categories.ToList();
+            var category = await _context.Categories.AsNoTracking().ToListAsync();
             ViewBag.Categories = new MultiSelectList(category, "Id", "Name");
-            var brand = _context.Brands.ToList();
+            var brand = await _context.Brands.AsNoTracking().ToListAsync();
             ViewBag.Brands = new SelectList(brand, "Id", "Name");
 
             model.Photos = productUpdate.Photos;
@@ -374,7 +375,7 @@ namespace App.Areas.Products.Controllers
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
 
-            if (_context.Products.FirstOrDefault(p => p.Slug == model.Slug && p.Id != Id) != null)
+            if (await _context.Products.AnyAsync(p => p.Slug == model.Slug && p.Id != Id))
             {
                 ModelState.AddModelError(string.Empty, "Url này đã sử dụng, hãy dùng url khác");
                 return View(model);
@@ -606,9 +607,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult Delete(int Id)
+        public async Task<IActionResult> Delete(int Id)
         {
-            var product = _context.Products.Where(p => p.Id == Id).FirstOrDefault();
+            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == Id);
             if (product == null) return NotFound();
 
             return View(product);
@@ -617,12 +618,12 @@ namespace App.Areas.Products.Controllers
         [HttpPost("{Id}"), ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteAsync(int Id)
         {
-            var product = await _context.Products.Where(p => p.Id == Id)
+            var product = await _context.Products
                                             .Include(p => p.ProductCategories)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
                                             .ThenInclude(c => c.Capacities)
-                                            .FirstOrDefaultAsync();
+                                            .FirstOrDefaultAsync(p => p.Id == Id);
 
             if (product == null) return NotFound();
 
@@ -675,9 +676,11 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet]
-        public IActionResult SearchProduct(string name)
+        public async Task<IActionResult> SearchProduct(string name)
         {
-            var product = _context.Products.Where(p => p.Name.Contains(name))
+            var product = await _context.Products
+            .AsNoTracking()
+            .Where(p => p.Name.Contains(name))
             .Include(p => p.Colors)
             .ThenInclude(p => p.Capacities)
             .AsSplitQuery()
@@ -687,18 +690,18 @@ namespace App.Areas.Products.Controllers
                 p.Name,
                 p.Colors
             })
-            .ToList();
+            .ToListAsync();
 
             return Ok(product);
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetProduct(int productId, int colorId, int capaId)
+        public async Task<IActionResult> GetProduct(int productId, int colorId, int capaId)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == productId);
-            var color = _context.Colors.FirstOrDefault(c => c.Id == colorId);
-            var capa = _context.Capacities.FirstOrDefault(ca => ca.Id == capaId);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            var color = await _context.Colors.FirstOrDefaultAsync(c => c.Id == colorId);
+            var capa = await _context.Capacities.FirstOrDefaultAsync(ca => ca.Id == capaId);
 
             if (product == null || color == null || capa == null) return BadRequest();
 

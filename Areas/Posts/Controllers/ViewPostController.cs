@@ -26,15 +26,14 @@ namespace App.Areas.Posts.Controllers
         [Route("/news")]
         public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
-            var posts = _context.Posts.OrderByDescending(x => x.CreatedAt).AsQueryable();
+            var posts = _context.Posts.AsNoTracking().OrderByDescending(x => x.CreatedAt).AsQueryable();
 
             if (searchString != null)
             {
-                searchString = searchString.ToLower();
-                posts = posts.Where(p => p.Title.ToLower().Contains(searchString) || p.Content.ToLower().Contains(searchString));
+                posts = posts.Where(p => p.Title.Contains(searchString) || p.Content.Contains(searchString));
             }
 
-            int totalPosts = posts.Count();
+            int totalPosts = await posts.CountAsync();
             ViewBag.TotalPost = totalPosts;
             int totalPage = (int)Math.Ceiling((decimal)totalPosts / ITEM_PER_PAGE);
 
@@ -48,7 +47,8 @@ namespace App.Areas.Posts.Controllers
             var postInPage = posts.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
             // Sản phẩm nổi bật
-            var outstandingProducts = _context.Products.Include(p => p.ProductDiscounts)
+            var outstandingProducts = _context.Products.AsNoTracking()
+                                                        .Include(p => p.ProductDiscounts)
                                                             .ThenInclude(p => p.Discount)
                                                         .Include(p => p.Colors.OrderBy(x => x.Name))
                                                             .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))
@@ -66,18 +66,22 @@ namespace App.Areas.Posts.Controllers
         [Route("/news/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
-            var post = await _context.Posts.FirstOrDefaultAsync(x => x.Slug == slug);
+            var post = await _context.Posts
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(x => x.Slug == slug);
             if (post == null) return NotFound();
 
             // Bài viết khác
-            var otherPosts = await _context.Posts.OrderBy(x => Guid.NewGuid())
+            var otherPosts = await _context.Posts.AsNoTracking()
+                                            .OrderBy(x => Guid.NewGuid())
                                             .Take(4)
                                             .ToListAsync();
 
             ViewBag.OtherPosts = otherPosts;
 
             // Sản phẩm nổi bật
-            var outstandingProducts = _context.Products.Include(p => p.ProductDiscounts)
+            var outstandingProducts = _context.Products.AsNoTracking()
+                                                        .Include(p => p.ProductDiscounts)
                                                             .ThenInclude(p => p.Discount)
                                                         .Include(p => p.Colors.OrderBy(x => x.Name))
                                                             .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))

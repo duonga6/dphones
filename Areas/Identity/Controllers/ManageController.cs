@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using App.Areas.Identity.Models.Manage;
 using App.Models;
+using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -120,10 +121,8 @@ namespace App.Areas.Identity.Controllers
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
 
-            await _emailSender.SendEmailAsync(
-                user.Email ?? "",
-                "Xác thực tài khoản",
-                $"Hãy xác thực tài khoản {user.UserName} bằng cách <a href='{HtmlEncoder.Default.Encode(callbackUrl ?? "")}'>ấn vào đây</a>.");
+            string emailHtml = AppUtilities.GenerateHtmlEmail(user.FullName, HtmlEncoder.Default.Encode(callbackUrl ?? ""));
+            await _emailSender.SendEmailAsync(user.Email!, "Xác thực tài khoản", emailHtml);
 
             StatusMessage = "Email xác thực đã được gửi, vui lòng kiểm tra email để xác thực.";
             return RedirectToAction(nameof(Index));

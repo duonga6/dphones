@@ -23,38 +23,38 @@
                             lại danh sách</a>
                     </div>
                 </form>
-                @if (Model.Claims != null)
+                @* @if (Model.Claims != null)
                 {
-                    <p>Các đặc tính của Role (Claim): </p>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Kiểu Claim</th>
-                            <th>Giá trị</th>
-                            <th></th>
-                        </tr>
-                        @foreach (var item in Model.Claims)
-                        {
-                            <tr>
-                                <td>@item.ClaimType</td>
-                                <td>@item.ClaimValue</td>
-                                <td>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <a class="text-primary text-decoration-none" asp-action="EditClaim"
-                                            asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a class="text-danger text-decoration-none ms-2" asp-action="DeleteClaim"
-                                            asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </table>
+                <p>Các đặc tính của Role (Claim): </p>
+                <table class="table table-bordered">
+                <tr>
+                <th>Kiểu Claim</th>
+                <th>Giá trị</th>
+                <th></th>
+                </tr>
+                @foreach (var item in Model.Claims)
+                {
+                <tr>
+                <td>@item.ClaimType</td>
+                <td>@item.ClaimValue</td>
+                <td>
+                <div class="d-flex justify-content-center align-items-center">
+                <a class="text-primary text-decoration-none" asp-action="EditClaim"
+                asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
+                <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+                <a class="text-danger text-decoration-none ms-2" asp-action="DeleteClaim"
+                asp-controller="Roles" asp-area="Identity" asp-route-claimid="@item.Id">
+                <i class="fa-solid fa-trash-can"></i>
+                </a>
+                </div>
+                </td>
+                </tr>
+                }
+                </table>
                 }
                 <a class="btn btn-success" asp-action="AddRoleClaim" asp-controller="Roles" asp-area="Identity"
-                    asp-route-roleid="@Model.RoleId">Thêm Claim</a>
+                asp-route-roleid="@Model.RoleId">Thêm Claim</a> *@
             </div>
         </div>
 

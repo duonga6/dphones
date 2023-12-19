@@ -107,41 +107,23 @@ namespace App.Areas.Database.Controllers
 
         // Tạo backup db
         [Route("/database-manager/backup-db")]
-        public IActionResult BackUpDB(string info)
+        public async Task<IActionResult> BackUpDBAsync(string info)
         {
             string now = DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss");
             string path = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB", $"backup_file_{now}_{info}.bak");
-            // var p = new Process
-            // {
-            //     StartInfo =
-            //     {
-            //         FileName = Environment.OSVersion.Platform == PlatformID.Unix ? "/opt/mssql-tools/bin/sqlcmd" : "sqlcmd",
-            //         WorkingDirectory = Directory.GetCurrentDirectory(),
-            //         Arguments = $"-S localhost -U sa -P 12345678Aa -Q \"BACKUP DATABASE dphones TO DISK = '{path}'\""
-            //     }
-            // };
-
-            // p.Start();
-
-            // p.WaitForExit();
-
-            // if (p.ExitCode != 0)
-            // {
-            //     StatusMessage = $"BackUp thất bại \n {p.StandardError.ReadToEnd()}";
-            // }
 
             FormattableString script = $@"
                 BACKUP DATABASE dphones TO DISK = {path}
             ";
 
-            _context.Database.ExecuteSqlInterpolated(script);
+            await _context.Database.ExecuteSqlInterpolatedAsync(script);
 
             return RedirectToAction(nameof(Index));
         }
 
         // Phục hồi DB
         [Route("/database-manager/restore-db/{fileName}")]
-        public IActionResult RestoreDB(string fileName)
+        public async Task<IActionResult> RestoreDBAsync(string fileName)
         {
             string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB"); ;
             var nameList = Directory.GetFiles(backUpPath).Select(n => Path.GetFileName(n)).ToList();
@@ -177,7 +159,7 @@ namespace App.Areas.Database.Controllers
                     ALTER DATABASE dphones
                     SET ONLINE
                 ";
-                _context.Database.ExecuteSqlInterpolated(script);
+                await _context.Database.ExecuteSqlInterpolatedAsync(script);
 
                 StatusMessage = $"Phục hồi thành công";
             }

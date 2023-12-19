@@ -24,7 +24,10 @@ namespace App.Areas.Contacts.Controllers
         [Route("/AdminCP/Contact/[action]")]
         public async Task<IActionResult> Index()
         {
-            var contact = await _context.Contacts.OrderByDescending(x => x.CreatedAt).ToListAsync();
+            var contact = await _context.Contacts
+                                    .AsNoTracking()
+                                    .OrderByDescending(x => x.CreatedAt)
+                                    .ToListAsync();
             return View(contact);
         }
 

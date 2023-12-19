@@ -27,7 +27,7 @@ namespace App.Areas.Products.Controllers
             _context = context;
         }
 
-        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
+        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString)
         {
             var brands = _context.Brands.Include(b => b.Products).AsNoTracking().AsQueryable();
 
@@ -52,7 +52,7 @@ namespace App.Areas.Products.Controllers
 
             var brandInPage = brands.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
 
-            return View(brandInPage.ToList());
+            return View(await brandInPage.ToListAsync());
         }
 
         [HttpGet]
@@ -62,11 +62,11 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpPost, ActionName(nameof(Create))]
-        public IActionResult Create(Brand model)
+        public async Task<IActionResult> CreateAsync(Brand model)
         {
             if (!ModelState.IsValid) return View(model);
 
-            if (_context.Brands.Where(b => b.Name == model.Name).Any())
+            if (await _context.Brands.AsNoTracking().AnyAsync(b => b.Name == model.Name))
             {
                 ModelState.AddModelError(string.Empty, "Hãng này đã tồn tại");
                 return View();
@@ -74,8 +74,8 @@ namespace App.Areas.Products.Controllers
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name);
 
-            _context.Brands.Add(model);
-            _context.SaveChanges();
+            await _context.Brands.AddAsync(model);
+            await _context.SaveChangesAsync();
 
             StatusMessage = "Thêm hãng thành công";
 
@@ -83,9 +83,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
+            var brand = await _context.Brands.Where(b => b.Id == id).FirstOrDefaultAsync();
             if (brand == null) return NotFound("Không tìm thấy hãng này");
 
             return View(brand);
@@ -94,10 +94,10 @@ namespace App.Areas.Products.Controllers
         [HttpPost("{id}"), ActionName(nameof(Edit))]
         public async Task<IActionResult> EditAsync(int id, Brand model)
         {
-            var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
+            var brand = await _context.Brands.Where(b => b.Id == id).FirstOrDefaultAsync();
             if (brand == null) return NotFound("Không tìm thấy hãng này");
 
-            if (_context.Brands.Where(b => b.Name == model.Name && b.Id != id).Any())
+            if (await _context.Brands.AnyAsync(b => b.Name == model.Name && b.Id != id))
             {
                 ModelState.AddModelError(string.Empty, "Đã có hãng này");
                 return View(model);
@@ -114,9 +114,9 @@ namespace App.Areas.Products.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
+            var brand = await _context.Brands.Where(b => b.Id == id).FirstOrDefaultAsync();
             if (brand == null) return NotFound("Không tìm thấy hãng này");
 
             ViewBag.Brand = brand;
@@ -127,7 +127,7 @@ namespace App.Areas.Products.Controllers
         [HttpPost("{id}"), ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
+            var brand = await _context.Brands.Where(b => b.Id == id).FirstOrDefaultAsync();
             if (brand == null) return NotFound("Không tìm thấy hãng này");
 
             _context.Brands.Remove(brand);
@@ -138,9 +138,9 @@ namespace App.Areas.Products.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var brand = _context.Brands.Where(b => b.Id == id).FirstOrDefault();
+            var brand = await _context.Brands.AsNoTracking().Where(b => b.Id == id).FirstOrDefaultAsync();
             if (brand == null) return NotFound();
 
 

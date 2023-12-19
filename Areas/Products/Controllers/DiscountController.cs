@@ -102,6 +102,7 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> Details(int Id)
         {
             var discounts = await _context.Discounts
+            .AsNoTracking()
             .Include(x => x.ProductDiscounts)
             .ThenInclude(x => x.Product)
             .ThenInclude(x => x.Colors.OrderBy(c => c.Name))
@@ -117,6 +118,7 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var discount = await _context.Discounts
+                                    .AsNoTracking()
                                     .Include(x => x.ProductDiscounts)
                                     .ThenInclude(x => x.Product)
                                     .ThenInclude(x => x.Colors)

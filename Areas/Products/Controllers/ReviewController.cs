@@ -30,7 +30,8 @@ namespace App.Areas.Products.Controllers
             if (user == null) return BadRequest();
 
             var review = await _context.Reviews.FirstOrDefaultAsync(r => r.ProductId == model.ProductId && r.UserId == user.Id);
-            if (review != null) return BadRequest(new {
+            if (review != null) return BadRequest(new
+            {
                 status = 0,
                 message = "Bạn đã đánh giá sản phẩm này rồi"
             });
@@ -52,31 +53,34 @@ namespace App.Areas.Products.Controllers
 
         [AllowAnonymous]
         [HttpGet("/review/{productId}")]
-        public IActionResult GetByProduct(int productId)
+        public async Task<IActionResult> GetByProduct(int productId)
         {
-            var reviews = _context.Reviews.Where(r => r.ProductId == productId)
+            var reviews = await _context.Reviews.AsNoTracking()
+            .Where(r => r.ProductId == productId)
             .Include(r => r.User)
             .OrderByDescending(r => r.DateCreated)
-            .ToList();
+            .ToListAsync();
 
             if (reviews == null || reviews.Count == 0) return Ok();
-            
-            var reviewResponse = reviews.Select(r => new ReviewGetAllByProduct.ReviewResponse {
+
+            var reviewResponse = reviews.Select(r => new ReviewGetAllByProduct.ReviewResponse
+            {
                 UserId = r.UserId,
                 Content = r.Content,
                 Rate = r.Rate,
                 UserName = r.User.FullName,
-                Image = r.User.UserAvatar??"no-image.png",
+                Image = r.User.UserAvatar ?? "no-image.png",
                 DateCreated = r.DateCreated.ToString("dd/MM/yyyy HH:mm")
             }).ToList();
 
             var avgRate = reviews.Average(r => r.Rate);
 
-            var result = new ReviewGetAllByProduct {
-                AverageRate = Math.Round(avgRate,1),
+            var result = new ReviewGetAllByProduct
+            {
+                AverageRate = Math.Round(avgRate, 1),
                 Reviews = reviewResponse
             };
-            
+
             return Ok(result);
         }
     }

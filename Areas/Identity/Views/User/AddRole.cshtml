@@ -16,8 +16,12 @@
             <div class="col-xl-4 col-md-6">
                 <form method="post" asp-route-userid="@Model.User.Id">
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    @Html.ListBoxFor(m => m.RolesName, (IEnumerable<SelectListItem>)ViewBag.allRoles, new {@class =
-                    "w-100", id=multipleSelectId})
+                    @Html.ListBoxFor(m => m.RolesName, (IEnumerable<SelectListItem>)ViewBag.allRoles, new
+                        {
+                            @class =
+                             "w-100",
+                            id = multipleSelectId
+                        })
                     <div class="form-group mt-4">
                         <button type="submit" class="btn btn-success">Cập nhật</button>
                         <a class="btn btn-primary" asp-action="Index" asp-controller="User" asp-area="Identity">Quay lại
@@ -25,67 +29,67 @@
                             sách</a>
                     </div>
                 </form>
-                <p class="my-3 fw-semibold">Claim từ Roles:</p>
+                @* <p class="my-3 fw-semibold">Claim từ Roles:</p>
                 @if (Model.ClaimsInRole != null)
                 {
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Kiểu Claim</th>
-                                <th>Giá trị</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var claim in Model.ClaimsInRole)
-                            {
-                                <tr>
-                                    <td>@claim.ClaimType</td>
-                                    <td>@claim.ClaimValue</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>Kiểu Claim</th>
+                <th>Giá trị</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var claim in Model.ClaimsInRole)
+                {
+                <tr>
+                <td>@claim.ClaimType</td>
+                <td>@claim.ClaimValue</td>
+                </tr>
+                }
+                </tbody>
+                </table>
                 }
                 <p class="fw-semibold mb-3">Claim riêng của User:
                 </p>
                 @if (Model.ClaimsInUser != null)
                 {
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Kiểu Claim</th>
-                                <th>Giá trị</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var claim in Model.ClaimsInUser)
-                            {
-                                <tr>
-                                    <td>@claim.ClaimType</td>
-                                    <td>@claim.ClaimValue</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <a class="nav-link" asp-action="EditClaim" asp-controller="User" asp-area="Identity"
-                                                asp-route-claimid="@claim.Id">
-                                                <i class="text-primary fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                            <a class="nav-link" asp-action="DeleteClaim" asp-controller="User"
-                                                asp-area="Identity" asp-route-claimId="@claim.Id">
-                                                <i class="text-danger fa-solid fa-trash-can"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                    <a class="btn btn-primary" asp-action="AddClaim" asp-controller="User" asp-area="Identity"
-                        asp-route-userid="@Model.User.Id">
-                        Thêm
-                    </a>
+                <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>Kiểu Claim</th>
+                <th>Giá trị</th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var claim in Model.ClaimsInUser)
+                {
+                <tr>
+                <td>@claim.ClaimType</td>
+                <td>@claim.ClaimValue</td>
+                <td>
+                <div class="d-flex justify-content-center align-items-center">
+                <a class="nav-link" asp-action="EditClaim" asp-controller="User" asp-area="Identity"
+                asp-route-claimid="@claim.Id">
+                <i class="text-primary fa-regular fa-pen-to-square"></i>
+                </a>
+                <a class="nav-link" asp-action="DeleteClaim" asp-controller="User"
+                asp-area="Identity" asp-route-claimId="@claim.Id">
+                <i class="text-danger fa-solid fa-trash-can"></i>
+                </a>
+                </div>
+                </td>
+                </tr>
                 }
+                </tbody>
+                </table>
+
+                <a class="btn btn-primary" asp-action="AddClaim" asp-controller="User" asp-area="Identity"
+                asp-route-userid="@Model.User.Id">
+                Thêm
+                </a>
+                } *@
             </div>
         </div>
         <partial name="_AlertMessage" />

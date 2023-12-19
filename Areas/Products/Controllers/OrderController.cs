@@ -35,9 +35,10 @@ namespace App.Areas.Products.Controllers
         }
 
         // Trang thống kê
-        public IActionResult Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "f")] int? filter)
+        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string? searchString, [FromQuery(Name = "f")] int? filter)
         {
             var order = _context.Orders
+                                .AsNoTracking()
                                 .OrderByDescending(o => o.OrderDate)
                                 .Include(o => o.OrderStatuses.OrderBy(os => os.DateUpdate))
                                 .Include(o => o.User)
@@ -45,8 +46,7 @@ namespace App.Areas.Products.Controllers
 
             if (searchString != null)
             {
-                searchString = searchString.ToLower();
-                order = order.Where(o => o.FullName.ToLower().Contains(searchString) || o.Code.ToLower().Contains(searchString) || o.Email.ToLower().Contains(searchString));
+                order = order.Where(o => o.FullName.Contains(searchString) || o.Code.Contains(searchString) || o.Email.Contains(searchString));
             }
 
             if (filter != null)
@@ -87,7 +87,7 @@ namespace App.Areas.Products.Controllers
             ViewBag.CurrentPage = currentPage;
             ViewBag.TotalPage = totalPage;
 
-            var orderInPage = order.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).ToList();
+            var orderInPage = await order.Skip((currentPage - 1) * ITEM_PER_PAGE).Take(ITEM_PER_PAGE).ToListAsync();
             ViewBag.TotalOrders = orderInPage.Count;
 
             return View(orderInPage);
@@ -102,6 +102,7 @@ namespace App.Areas.Products.Controllers
             if (user == null) return NotFound();
 
             var order = _context.Orders.Where(o => o.UserId == user.Id)
+                                        .AsNoTracking()
                                         .Include(o => o.OrderDetails)
                                             .ThenInclude(o => o.Product)
                                         .Include(o => o.OrderDetails)
@@ -125,7 +126,7 @@ namespace App.Areas.Products.Controllers
                 }
             }
 
-            return View(order.ToList());
+            return View(await order.ToListAsync());
         }
 
         [HttpGet]
@@ -144,7 +145,9 @@ namespace App.Areas.Products.Controllers
             var totalCost = 0.0m;
             foreach (var item in model.Products)
             {
-                var product = _context.Products.Where(p => p.Id == item.ProductId)
+                var product = _context.Products
+                .AsNoTracking()
+                .Where(p => p.Id == item.ProductId)
                 .Include(p => p.Colors)
                 .ThenInclude(c => c.Capacities)
                 .AsSplitQuery()
@@ -299,25 +302,27 @@ Xin cảm ơn.";
 
         // Trang chi tiết
         [HttpGet("{Id}")]
-        public IActionResult Details(int Id)
+        public async Task<IActionResult> Details(int Id)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
+                                .AsNoTracking()
                                 .Include(o => o.OrderDetails)
                                 .Include(o => o.OrderStatuses)
                                 .Include(o => o.PayStatuses)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null) return NotFound();
             order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
-            order.OrderDetails.ForEach(e =>
+            order.OrderDetails.ForEach(async e =>
             {
-                e.Product = _context.Products
+                e.Product = await _context.Products
+                                        .AsNoTracking()
                                         .Include(p => p.ProductDiscounts)
                                             .ThenInclude(p => p.Discount)
-                                        .FirstOrDefault(p => p.Id == e.ProductId);
-                e.Color = _context.Colors.FirstOrDefault(c => c.Id == e.ColorId);
-                e.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == e.CapacityId);
+                                        .FirstOrDefaultAsync(p => p.Id == e.ProductId);
+                e.Color = await _context.Colors.AsNoTracking().FirstOrDefaultAsync(c => c.Id == e.ColorId);
+                e.Capacity = await _context.Capacities.AsNoTracking().FirstOrDefaultAsync(c => c.Id == e.CapacityId);
             });
 
             return View(order);
@@ -326,11 +331,11 @@ Xin cảm ơn.";
         // Xác nhận đơn hàng
         public async Task<IActionResult> AcceptOrder(int Id)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
                                 .Include(o => o.OrderStatuses.OrderBy(o => o.DateUpdate))
                                 .Include(o => o.PayStatuses)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null) return NotFound();
 
@@ -384,7 +389,7 @@ Xin cảm ơn.";
         // Gửi đơn hàng
         public async Task<IActionResult> Delivery(int Id)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
                                 .Include(o => o.OrderStatuses)
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Product)
@@ -393,7 +398,7 @@ Xin cảm ơn.";
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Capacity)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null) return NotFound();
 
@@ -450,7 +455,7 @@ Xin cảm ơn.";
         // Đã giao
         public async Task<IActionResult> Delivered(int Id)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
                                 .Include(o => o.OrderStatuses)
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Product)
@@ -459,7 +464,7 @@ Xin cảm ơn.";
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Capacity)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null) return NotFound();
 
@@ -526,7 +531,7 @@ Xin cảm ơn.";
         [Authorize(Roles = null)]
         public async Task<IActionResult> CancelOrderAPI(int Id, string? note)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
                                 .Include(o => o.OrderStatuses)
                                 .Include(o => o.PayStatuses)
                                 .Include(o => o.OrderDetails)
@@ -536,7 +541,7 @@ Xin cảm ơn.";
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Capacity)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null)
                 return Json(new
@@ -625,7 +630,7 @@ Xin cảm ơn.";
         [HttpPost]
         public async Task<IActionResult> CancelOrder(int Id, string? note)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders
                                 .Include(o => o.OrderStatuses)
                                 .Include(o => o.PayStatuses)
                                 .Include(o => o.OrderDetails)
@@ -635,7 +640,7 @@ Xin cảm ơn.";
                                 .Include(o => o.OrderDetails)
                                     .ThenInclude(p => p.Capacity)
                                 .AsSplitQuery()
-                                .FirstOrDefault();
+                                .FirstOrDefaultAsync(o => o.Id == Id);
 
             if (order == null) return NotFound();
 
@@ -702,9 +707,9 @@ Xin cảm ơn.";
 
         [HttpGet("{Id}")]
         [AllowAnonymous]
-        public IActionResult GenerateBill(int Id)
+        public async Task<IActionResult> GenerateBill(int Id)
         {
-            var order = _context.Orders.Where(o => o.Id == Id)
+            var order = await _context.Orders.AsNoTracking()
             .Include(o => o.OrderDetails)
             .ThenInclude(od => od.Product)
             .Include(o => o.OrderDetails)
@@ -712,7 +717,8 @@ Xin cảm ơn.";
             .Include(o => o.OrderDetails)
             .ThenInclude(od => od.Color)
             .AsSplitQuery()
-            .FirstOrDefault();
+            .FirstOrDefaultAsync(o => o.Id == Id);
+
             if (order == null)
             {
                 return Json(new

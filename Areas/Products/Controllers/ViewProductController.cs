@@ -62,6 +62,7 @@ namespace App.Areas.Products.Controllers
                                             .Include(p => p.ProductDiscounts)
                                                 .ThenInclude(x => x.Discount)
                                             .OrderByDescending(p => p.ReleaseDate)
+                                            .AsNoTracking()
                                             .AsSplitQuery();
 
             var brands = hangsx?.Split(",", StringSplitOptions.RemoveEmptyEntries);
@@ -81,6 +82,7 @@ namespace App.Areas.Products.Controllers
             if (categories != null)
             {
                 var productCategoryId = _context.ProductCategories
+                                    .AsNoTracking()
                                     .Include(p => p.Category)
                                     .Where(p => p.Category != null && categories.Contains(p.Category.Slug))
                                     .Select(p => p.ProductId);
@@ -131,7 +133,7 @@ namespace App.Areas.Products.Controllers
             ViewBag.Brands = await _context.Brands.ToListAsync();
             ViewBag.Categories = await _context.Categories.ToListAsync();
             ViewBag.PriceLevels = await _context.PriceLevels.OrderBy(p => p.Level).Select(p => p.Level).ToListAsync();
-            ViewBag.TotalProduct = products.Count();
+            ViewBag.TotalProduct = await products.CountAsync();
 
             int countPage = (int)Math.Ceiling((decimal)ViewBag.TotalProduct / ITEM_PER_PAGE);
             if (countPage < 1) countPage = 1;
@@ -152,7 +154,7 @@ namespace App.Areas.Products.Controllers
         [Route("/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
-            var product = await _context.Products.Where(p => p.Slug == slug)
+            var product = await _context.Products.AsNoTracking()
                                             .Include(p => p.Brand)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
@@ -160,7 +162,7 @@ namespace App.Areas.Products.Controllers
                                             .Include(p => p.ProductDiscounts)
                                                 .ThenInclude(p => p.Discount)
                                             .AsSplitQuery()
-                                            .FirstOrDefaultAsync();
+                                            .FirstOrDefaultAsync(p => p.Slug == slug);
 
             if (product == null) return NotFound();
 
@@ -173,13 +175,15 @@ namespace App.Areas.Products.Controllers
             decimal currentPrice = product.Colors.First().Capacities.First().SellPrice;
             decimal rangePrice = 3000000.0m;
 
-            var otherProduct = await _context.Products.Include(p => p.ProductDiscounts)
+            var otherProduct = await _context.Products
+                                                .Include(p => p.ProductDiscounts)
                                                     .ThenInclude(p => p.Discount)
                                                 .Include(p => p.Colors.OrderBy(c => c.Name))
                                                     .ThenInclude(c => c.Capacities.OrderBy(ca => ca.SellPrice))
                                                 .Include(p => p.Reviews)
                                                 .Where(p => Math.Abs(p.Colors.First().Capacities.First().SellPrice - currentPrice) < rangePrice)
                                                 .AsSingleQuery()
+                                                .AsNoTracking()
                                                 .Take(4)
                                                 .ToListAsync();
             ViewBag.otherProducts = otherProduct;
@@ -196,18 +200,18 @@ namespace App.Areas.Products.Controllers
 
         [HttpGet]
         [Route("/get-color")]
-        public IActionResult GetColor(int productId)
+        public async Task<IActionResult> GetColor(int productId)
         {
-            var color = _context.Colors.Where(c => c.ProductId == productId).OrderBy(c => c.Name).ToList();
+            var color = await _context.Colors.Where(c => c.ProductId == productId).OrderBy(c => c.Name).ToListAsync();
 
             return Ok(JsonConvert.SerializeObject(color));
         }
 
         [HttpGet]
         [Route("/get-capacity")]
-        public IActionResult GetCapacity(int colorId)
+        public async Task<IActionResult> GetCapacity(int colorId)
         {
-            var capacity = _context.Capacities.Where(c => c.ColorId == colorId).OrderBy(c => c.Rom).ToList();
+            var capacity = await _context.Capacities.Where(c => c.ColorId == colorId).OrderBy(c => c.Rom).ToListAsync();
             return Ok(JsonConvert.SerializeObject(capacity));
         }
 
@@ -221,19 +225,21 @@ namespace App.Areas.Products.Controllers
 
         [HttpPost]
         [Route("/cart/add-to-cart")]
-        public IActionResult AddToCart([FromBody] AddToCartRequest request)
+        public async Task<IActionResult> AddToCart([FromBody] AddToCartRequest request)
         {
             var now = DateTime.Now;
-            var product = _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now))
+            var product = await _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now))
                                             .ThenInclude(x => x.Discount)
                                             .AsNoTracking()
-                                            .FirstOrDefault(p => p.Id == request.productId);
-            var color = _context.Colors
+                                            .FirstOrDefaultAsync(p => p.Id == request.productId);
+
+            var color = await _context.Colors
                                     .AsNoTracking()
-                                    .FirstOrDefault(c => c.Id == request.colorId && c.ProductId == request.productId);
-            var capa = _context.Capacities
+                                    .FirstOrDefaultAsync(c => c.Id == request.colorId && c.ProductId == request.productId);
+
+            var capa = await _context.Capacities
                                     .AsNoTracking()
-                                    .FirstOrDefault(c => c.Id == request.capaId && c.ColorId == request.colorId);
+                                    .FirstOrDefaultAsync(c => c.Id == request.capaId && c.ColorId == request.colorId);
 
             if (product == null || color == null || capa == null)
             {
@@ -526,9 +532,9 @@ Xin cảm ơn.";
         }
 
         [Route("/thanh-toan/{orderId:int}")]
-        public IActionResult Pay(int orderId)
+        public async Task<IActionResult> Pay(int orderId)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            var order = await _context.Orders.AsNoTracking().FirstOrDefaultAsync(o => o.Id == orderId);
             if (order == null) return NotFound();
 
             string redirectUrl = _vnPay.SendRequest((long)order.TotalCost, order.Code);
@@ -536,7 +542,7 @@ Xin cảm ơn.";
         }
 
         [Route("/ket-qua-thanh-toan")]
-        public IActionResult PaymentResult([FromQuery] PayResponse model)
+        public async Task<IActionResult> PaymentResult([FromQuery] PayResponse model)
         {
             MatchCollection matches = Regex.Matches(model.vnp_OrderInfo ?? "", @"\d{22}");
             string orderId = "";
@@ -547,7 +553,7 @@ Xin cảm ơn.";
                     orderId = item.Value;
                 }
             }
-            var order = _context.Orders.FirstOrDefault(o => o.Code == orderId);
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Code == orderId);
             if (order == null) return NotFound();
             ViewBag.Order = order;
 
@@ -639,38 +645,38 @@ Xin cảm ơn.";
                     break;
             }
 
-            _context.PayStatuses.Add(payStatus);
-            _context.SaveChanges();
+            await _context.PayStatuses.AddAsync(payStatus);
+            await _context.SaveChangesAsync();
 
             return View(payStatus);
         }
 
         [Route("/order-confirmed/{orderId:int}")]
-        public IActionResult OrderConfirmed(int orderId)
+        public async Task<IActionResult> OrderConfirmed(int orderId)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
             if (order == null) return NotFound();
             return View(order);
         }
 
 
         [Route("/order-check")]
-        public IActionResult OrderCheck(string? PhoneNumber, string? Code)
+        public async Task<IActionResult> OrderCheck(string? PhoneNumber, string? Code)
         {
             if (PhoneNumber != null && Code != null)
             {
-                var order = _context.Orders.Where(o => o.PhoneNumber == PhoneNumber && o.Code == Code)
+                var order = await _context.Orders.Where(o => o.PhoneNumber == PhoneNumber && o.Code == Code)
                                             .Include(o => o.OrderDetails)
                                             .Include(o => o.OrderStatuses)
                                             .Include(o => o.PayStatuses)
                                             .AsSplitQuery()
-                                            .FirstOrDefault();
+                                            .FirstOrDefaultAsync();
 
-                order?.OrderDetails.ForEach(o =>
+                order?.OrderDetails.ForEach(async o =>
                 {
-                    o.Product = _context.Products.FirstOrDefault(p => p.Id == o.ProductId);
-                    o.Color = _context.Colors.FirstOrDefault(c => c.Id == o.ColorId);
-                    o.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == o.CapacityId);
+                    o.Product = await _context.Products.FirstOrDefaultAsync(p => p.Id == o.ProductId);
+                    o.Color = await _context.Colors.FirstOrDefaultAsync(c => c.Id == o.ColorId);
+                    o.Capacity = await _context.Capacities.FirstOrDefaultAsync(c => c.Id == o.CapacityId);
                 });
 
                 if (order?.OrderStatuses != null)
