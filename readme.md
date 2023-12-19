@@ -1,6 +1,6 @@
 # E-commerce website that allows users to buy phone products
 
-#### Deploy: https://103.188.82.129
+#### Deploy: https://dphones.store
 
 Default account:
 ```
