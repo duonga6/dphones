@@ -713,6 +713,36 @@ namespace App.Areas.Products.Controllers
             });
         }
 
+        [HttpGet("/check-capacity")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckQuantity(int capaId)
+        {
+            var capacity = await _context.Capacities.FindAsync(capaId);
+            if (capacity == null)
+            {
+                return Json(new
+                {
+                    status = 0,
+                    message = "Không tìm thấy mục này!"
+                });
+            }
+
+            if (capacity.Quantity < 1)
+            {
+                return Json(new
+                {
+                    status = 0,
+                    message = "Sản phẩm này đã hết"
+                });
+            }
+
+            return Json(new
+            {
+                status = 1,
+                message = "OK"
+            });
+
+        }
 
     }
 }

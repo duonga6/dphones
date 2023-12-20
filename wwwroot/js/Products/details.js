@@ -41,23 +41,41 @@ const BuyNow = function () {
     }
 
     $.ajax({
-        type: "post",
-        url: '/cart/add-to-cart',
-        data: JSON.stringify(dataRequest),
-        contentType: "application/json",
+        type: "get",
+        url: `/check-capacity?capaId=${capaId}`,
         processData: false,
         cache: false,
         success: function (data) {
-            if (data.qtt > 0) updateCartQuantity(data.qtt)
+            if (data.status == 0) {
+                showToast(0, data.message);
+                return;
+            }
+            else {
+                $.ajax({
+                    type: "post",
+                    url: '/cart/add-to-cart',
+                    data: JSON.stringify(dataRequest),
+                    contentType: "application/json",
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        if (data.qtt > 0) updateCartQuantity(data.qtt)
 
-            let url = '/order';
-            url += `?cartId=${data.id}`
-            window.location.href = url;
+                        let url = '/order';
+                        url += `?cartId=${data.id}`
+                        window.location.href = url;
+                    },
+                    error: function () {
+                        {
+                            showToast(0, "Có lỗi xảy ra!");
+                        }
+                    }
+                });
+            }
         },
         error: function () {
-            {
-                showToast(0, "Có lỗi xảy ra!");
-            }
+            showToast(0, "Có lỗi xảy ra");
+            return;
         }
     });
 }

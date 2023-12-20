@@ -39,15 +39,13 @@ $("#search-input").on("input", function () {
             data.forEach(e => {
                 e.colors.forEach(c => {
                     c.capacities.forEach(cap => {
-                        if (cap.quantity > 0)
-                        {
+                        if (cap.quantity > 0) {
 
                             html += `
                             <li class="list-group-item" role="button" onclick="selectProduct(${e.id}, ${c.id}, ${cap.id})">${e.name} - ${c.name} - ${cap.ram}GB/${cap.rom}GB - ${cap.sellPrice.toLocaleString()}<sup>đ</sup></li>
                         `;
                         }
-                        else
-                        {
+                        else {
                             html += `
                                         <li class="list-group-item" role="button" onclick="soldOut()">${e.name} - ${c.name} - ${cap.ram}GB/${cap.rom}GB - ${cap.sellPrice.toLocaleString()}<sup>đ</sup></li>
                                     `;
@@ -176,12 +174,12 @@ const checkInput = function () {
 
 }
 
-const createOrder = function() {
+const createOrder = function () {
     const data = checkInput();
     if (!data) return;
 
     let products = [];
-    
+
     $(".product-selected-item").each((i, e) => {
         const Ids = $(e).attr("id").split("-");
         const quantity = $(e).find(".product-quantity").val();
@@ -196,11 +194,11 @@ const createOrder = function() {
 
     const buyType = $("#in-store").is(":checked") ? "store" : "ship";
     const paid = $("#paid").is(":checked");
-    
+
     data["products"] = products;
     data["buyType"] = buyType;
     data["paid"] = paid;
-    
+
     $.ajax({
         type: 'post',
         url: '/OrderManager/Create',
@@ -208,30 +206,36 @@ const createOrder = function() {
         contentType: 'application/json',
         processData: false,
         cache: false,
-        success: function(result)
-        {
-            window.location.href = `/OrderManager/Details/${result.id}`;
+        success: function (result) {
+            if (result.status == 1) {
+                window.location.href = `/OrderManager/Details/${result.id}`;
+            }
+            else {
+                alert(result.message);
+            }
         },
-        error: function()
-        {
-            alert("Có lỗi");
+        error: function (data) {
+            if (data != null) {
+                alert(data.message);
+            }
+            else {
+                alert("Có lỗi");
+            }
         }
     })
-    
+
 };
 
 
-$("#in-ship").on("input", function() {
-    if ($(this).is(":checked"))
-    {
+$("#in-ship").on("input", function () {
+    if ($(this).is(":checked")) {
         $(".pay-status").show();
     }
 });
 
 
-$("#in-store").on("change", function() {
-    if ($(this).is(":checked"))
-    {
+$("#in-store").on("change", function () {
+    if ($(this).is(":checked")) {
         $(".pay-status").hide();
     }
 });

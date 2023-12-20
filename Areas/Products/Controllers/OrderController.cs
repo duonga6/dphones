@@ -146,19 +146,48 @@ namespace App.Areas.Products.Controllers
             foreach (var item in model.Products)
             {
                 var product = _context.Products
-                .AsNoTracking()
                 .Where(p => p.Id == item.ProductId)
                 .Include(p => p.Colors)
                 .ThenInclude(c => c.Capacities)
                 .AsSplitQuery()
                 .FirstOrDefault();
-                if (product == null) return BadRequest();
+                if (product == null)
+                {
+                    return Ok(new
+                    {
+                        status = 0,
+                        message = $"Không tìm thấy sản phẩm này"
+                    });
+                }
 
                 var color = product.Colors.FirstOrDefault(c => c.Id == item.ColorId);
-                if (color == null) return BadRequest();
+                if (color == null)
+                {
+                    return Ok(new
+                    {
+                        status = 0,
+                        message = $"Không tìm thấy sản phẩm này"
+                    });
+                }
 
                 var capacity = color.Capacities.FirstOrDefault(c => c.Id == item.CapaId);
-                if (capacity == null) return BadRequest();
+                if (capacity == null)
+                {
+                    return Ok(new
+                    {
+                        status = 0,
+                        message = $"Không tìm thấy sản phẩm này"
+                    });
+                }
+                if (capacity.Quantity < 1 || capacity.Quantity - item.Quantity < 1)
+                {
+                    return Ok(new
+                    {
+                        status = 0,
+                        message = $"{product.Name}: quá số lượng"
+                    });
+                }
+
 
 
                 orderDetails.Add(new OrderDetail()
@@ -296,6 +325,7 @@ Xin cảm ơn.";
 
             return Ok(new
             {
+                status = 1,
                 newOrder.Id
             });
         }
@@ -314,15 +344,15 @@ Xin cảm ơn.";
 
             if (order == null) return NotFound();
             order.OrderStatuses = order.OrderStatuses.OrderBy(s => s.DateUpdate).ToList();
-            order.OrderDetails.ForEach(async e =>
+            order.OrderDetails.ForEach(e =>
             {
-                e.Product = await _context.Products
+                e.Product = _context.Products
                                         .AsNoTracking()
                                         .Include(p => p.ProductDiscounts)
                                             .ThenInclude(p => p.Discount)
-                                        .FirstOrDefaultAsync(p => p.Id == e.ProductId);
-                e.Color = await _context.Colors.AsNoTracking().FirstOrDefaultAsync(c => c.Id == e.ColorId);
-                e.Capacity = await _context.Capacities.AsNoTracking().FirstOrDefaultAsync(c => c.Id == e.CapacityId);
+                                        .FirstOrDefault(p => p.Id == e.ProductId);
+                e.Color = _context.Colors.AsNoTracking().FirstOrDefault(c => c.Id == e.ColorId);
+                e.Capacity = _context.Capacities.AsNoTracking().FirstOrDefault(c => c.Id == e.CapacityId);
             });
 
             return View(order);
@@ -334,6 +364,12 @@ Xin cảm ơn.";
             var order = await _context.Orders
                                 .Include(o => o.OrderStatuses.OrderBy(o => o.DateUpdate))
                                 .Include(o => o.PayStatuses)
+                                .Include(o => o.OrderDetails)
+                                    .ThenInclude(p => p.Product)
+                                .Include(o => o.OrderDetails)
+                                    .ThenInclude(p => p.Color)
+                                .Include(o => o.OrderDetails)
+                                    .ThenInclude(p => p.Capacity)
                                 .AsSplitQuery()
                                 .FirstOrDefaultAsync(o => o.Id == Id);
 
@@ -367,6 +403,15 @@ Xin cảm ơn.";
                 Note = $"Đơn hàng đã được xác nhận",
 
             });
+
+            order.OrderDetails.ForEach(item =>
+            {
+                if (item.Capacity != null)
+                {
+                    item.Capacity.Quantity -= item.Quantity;
+                }
+            });
+
             await _context.SaveChangesAsync();
 
             string emailContent =
@@ -421,14 +466,6 @@ Xin cảm ơn.";
                 UserId = user?.Id,
                 Note = $"Đơn hàng đã được gửi cho vận chuyển.",
 
-            });
-
-            order.OrderDetails.ForEach(item =>
-            {
-                if (item.Capacity != null)
-                {
-                    item.Capacity.Quantity -= item.Quantity;
-                }
             });
 
             await _context.SaveChangesAsync();
@@ -583,11 +620,10 @@ Xin cảm ơn.";
 
             var dateTimeNow = DateTime.Now;
 
-            if (order.OrderStatuses.Last().Status == OrderStatuses.Delivering)
+            if (order.OrderStatuses.Last().Status == OrderStatuses.Delivering || order.OrderStatuses.Last().Status == OrderStatuses.Accepted)
             {
                 order.OrderDetails.ForEach(item =>
                 {
-                    _logger.LogInformation("ABC");
                     if (item.Capacity != null)
                         item.Capacity.Quantity += item.Quantity;
                 });
@@ -668,7 +704,7 @@ Xin cảm ơn.";
 
             var dateTimeNow = DateTime.Now;
 
-            if (order.OrderStatuses.Last().Status == OrderStatuses.Delivering)
+            if (order.OrderStatuses.Last().Status == OrderStatuses.Delivering || order.OrderStatuses.Last().Status == OrderStatuses.Accepted)
             {
                 order.OrderDetails.ForEach(item =>
                 {

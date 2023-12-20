@@ -174,7 +174,7 @@ namespace App.Areas.AdminCP.Controllers
                             var profitResult = orderQuery
                                 .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                                 .SelectMany(o => o.OrderDetails)
-                                .Sum(od => (od.SellPrice - od.Capacity!.SellPrice) * od.Quantity);
+                                .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
 
                             dataProfit.Add($"{dateFrom.DayOfWeek}", profitResult);
                         }
@@ -197,7 +197,7 @@ namespace App.Areas.AdminCP.Controllers
                             var resultProfit = orderQuery
                             .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                             .SelectMany(o => o.OrderDetails)
-                            .Sum(od => (od.SellPrice - od.Capacity!.SellPrice) * od.Quantity);
+                            .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
                             dataProfit.Add($"{i}-{(i + stepDay > dayOfMonth ? dayOfMonth : i + stepDay)}/{monthNow}", resultProfit);
                         }
                     }
@@ -224,7 +224,7 @@ namespace App.Areas.AdminCP.Controllers
                             var resultProfit = orderQuery
                             .Where(o => o.PayStatuses.Any(ps => ps.ResponseCode == "00" && ps.Date >= dateFrom && ps.Date < dateTo))
                             .SelectMany(o => o.OrderDetails)
-                            .Sum(od => (od.SellPrice - od.Capacity!.SellPrice) * od.Quantity);
+                            .Sum(od => (od.SellPrice - od.Capacity!.EntryPrice) * od.Quantity);
                             dataProfit.Add($"{i}-{i + stepDay}h", resultProfit);
                         }
                     }

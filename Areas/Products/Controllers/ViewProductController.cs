@@ -250,6 +250,15 @@ namespace App.Areas.Products.Controllers
                 });
             }
 
+            if (capa.Quantity < 1)
+            {
+                return Json(new
+                {
+                    status = 0,
+                    message = "Sản phẩm này đã hết hàng"
+                });
+            }
+
             product.Description = null;
 
             var cartItem = new CartItem()
@@ -672,6 +681,12 @@ Xin cảm ơn.";
                                             .AsSplitQuery()
                                             .FirstOrDefaultAsync();
 
+                if (order == null)
+                {
+                    ViewBag.Message = "//Không tìm thấy đơn hàng";
+                    return View();
+                }
+
                 order?.OrderDetails.ForEach(async o =>
                 {
                     o.Product = await _context.Products.FirstOrDefaultAsync(p => p.Id == o.ProductId);
@@ -685,8 +700,10 @@ Xin cảm ơn.";
                 }
                 return View(order);
             }
-
-            return View();
+            else
+            {
+                return View();
+            }
         }
     }
 }

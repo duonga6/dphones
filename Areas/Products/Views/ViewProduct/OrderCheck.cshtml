@@ -7,7 +7,7 @@
 <div class="order-check-container mt-2 mt-xl-4">
     <p class="heading text-center">Tra cứu đơn hàng</p>
     <hr class="primary-text mt-2">
-    <div class="order-input">
+    <div class="order-input mb-2">
         <div class="banner">
             <div class="row h-100 flex-column flex-md-row">
                 <div class="col-12 h-100 col-md-6">
@@ -17,14 +17,14 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="input-form">
-                        <form class="w-75" method="post">
+                        <form class="w-75" method="get">
                             <div class="form-group mb-2">
                                 <label asp-for="PhoneNumber" class="form-label">Số điện thoại (bắt buộc)</label>
-                                <input asp-for="PhoneNumber" class="form-control">
+                                <input asp-for="PhoneNumber" class="form-control" required>
                             </div>
                             <div class="form-group mb-4">
                                 <label asp-for="Code" class="form-label">Mã đơn hàng (bắt buộc)</label>
-                                <input asp-for="Code" class="form-control">
+                                <input asp-for="Code" class="form-control" required>
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn primary-bg text-white">Kiểm tra</button>
@@ -35,6 +35,8 @@
             </div>
         </div>
     </div>
+    <partial name="_Message" />
+
 
     @if (Model != null)
     {
