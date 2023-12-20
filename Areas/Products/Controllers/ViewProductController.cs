@@ -53,7 +53,8 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> Index([FromQuery] string hangsx, [FromQuery] string danhmuc, [FromQuery] string mucgia, [FromQuery] string sort, [FromQuery(Name = "p")] int currentPage, [FromQuery(Name = "s")] string searchString)
         {
             var now = DateTime.Now;
-            var products = _context.Products.Include(p => p.Brand)
+            var products = _context.Products.Where(x => x.Published)
+                                            .Include(p => p.Brand)
                                             .Include(p => p.ProductCategories)
                                                 .ThenInclude(c => c.Category)
                                             .Include(p => p.Colors.OrderBy(c => c.Name))
@@ -154,7 +155,7 @@ namespace App.Areas.Products.Controllers
         [Route("/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
-            var product = await _context.Products.AsNoTracking()
+            var product = await _context.Products.Where(x => x.Published).AsNoTracking()
                                             .Include(p => p.Brand)
                                             .Include(p => p.Photos)
                                             .Include(p => p.Colors)
@@ -228,7 +229,7 @@ namespace App.Areas.Products.Controllers
         public async Task<IActionResult> AddToCart([FromBody] AddToCartRequest request)
         {
             var now = DateTime.Now;
-            var product = await _context.Products.Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now))
+            var product = await _context.Products.Where(x => x.Published).Include(p => p.ProductDiscounts.Where(x => x.Discount.StartAt <= now && x.Discount.EndAt >= now))
                                             .ThenInclude(x => x.Discount)
                                             .AsNoTracking()
                                             .FirstOrDefaultAsync(p => p.Id == request.productId);

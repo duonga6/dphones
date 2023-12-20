@@ -298,14 +298,14 @@ const addOption = function (element) {
                     class="form-label">Số lượng</label>
                 <input required id="ProductColor[${colorIndex}].Capacities[${nextIndex}].Quantity"
                     name="ProductColor[${colorIndex}].Capacities[${nextIndex}].Quantity"
-                    class="form-control">
+                    class="form-control" min="1">
             </div>
             <div class="col-md-3">
                 <label for="ProductColor[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
                     class="form-label">Giá nhập vào</label>
                 <input required id="ProductColor[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
                     name="ProductColor[${colorIndex}].Capacities[${nextIndex}].EntryPrice"
-                    class="form-control">
+                    class="form-control" min="1">
             </div>
             <div class="col-md-3">
                 <label for="ProductColor[${colorIndex}].Capacities[${nextIndex}].SellPrice"
@@ -409,14 +409,14 @@ const addColor = function (element) {
                                         class="form-label">Số lượng</label>
                                     <input required id="ProductColor[${nextIndex}].Capacities[0].Quantity"
                                         name="ProductColor[${nextIndex}].Capacities[0].Quantity"
-                                        value="" class="form-control">
+                                        value="" class="form-control" min="1">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="ProductColor[${nextIndex}].Capacities[0].EntryPrice"
                                         class="form-label">Giá nhập vào</label>
                                     <input required id="ProductColor[${nextIndex}].Capacities[0].EntryPrice"
                                         name="ProductColor[${nextIndex}].Capacities[0].EntryPrice"
-                                        value="" class="form-control">
+                                        value="" class="form-control" min="1">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="ProductColor[${nextIndex}].Capacities[0].SellPrice"

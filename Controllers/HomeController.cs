@@ -19,7 +19,7 @@ public class HomeController : Controller
     {
         var now = DateTime.Now;
 
-        var productQuery = _context.Products
+        var productQuery = _context.Products.Where(x => x.Published)
                             .AsNoTracking()
                             .Include(p => p.Colors.OrderBy(x => x.Name))
                                 .ThenInclude(c => c.Capacities.OrderBy(x => x.SellPrice))

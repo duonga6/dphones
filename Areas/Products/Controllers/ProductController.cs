@@ -360,17 +360,7 @@ namespace App.Areas.Products.Controllers
 
             if (!ModelState.IsValid)
             {
-                string errors = "";
-                foreach (var state in ModelState)
-                {
-                    var key = state.Key; // lấy tên thuộc tính
-
-                    foreach (var error in state.Value.Errors)
-                    {
-                        errors += $"Lỗi tại {key}: {error.ErrorMessage}\n";
-                    }
-                }
-                return Content(errors);
+                return RedirectToAction(nameof(Edit));
             }
 
             model.Slug ??= AppUtilities.GenerateSlug(model.Name, false);
@@ -378,7 +368,7 @@ namespace App.Areas.Products.Controllers
             if (await _context.Products.AnyAsync(p => p.Slug == model.Slug && p.Id != Id))
             {
                 ModelState.AddModelError(string.Empty, "Url này đã sử dụng, hãy dùng url khác");
-                return View(model);
+                return RedirectToAction(nameof(Edit));
             }
 
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

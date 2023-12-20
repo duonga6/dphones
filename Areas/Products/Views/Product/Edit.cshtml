@@ -267,14 +267,14 @@
                                                                         class="form-label">Số lượng</label>
                                                                     <input required id="ProductColor[@index].Capacities[@opIndex].Quantity"
                                                                         name="ProductColor[@index].Capacities[@opIndex].Quantity"
-                                                                        value="@op.Quantity" class="form-control">
+                                                                        value="@op.Quantity" class="form-control" min="1">
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label for="ProductColor[@index].Capacities[@opIndex].EntryPrice"
                                                                         class="form-label">Giá nhập vào</label>
                                                                     <input required id="ProductColor[@index].Capacities[@opIndex].EntryPrice"
                                                                         name="ProductColor[@index].Capacities[@opIndex].EntryPrice"
-                                                                        value="@op.EntryPrice.ToString("#")" class="form-control">
+                                                                        value="@op.EntryPrice.ToString("#")" class="form-control" min="1">
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <label for="ProductColor[@index].Capacities[@opIndex].SellPrice"
