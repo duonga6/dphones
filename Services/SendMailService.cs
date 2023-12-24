@@ -5,12 +5,13 @@ using MimeKit;
 
 namespace App.Services
 {
-    public class MailSettings {
-        public required string Mail {set;get;}
-        public required string DisplayName {set;get;}
-        public required string Password {set;get;}
-        public required string Host {set;get;}
-        public int Port {set;get;}
+    public class MailSettings
+    {
+        public required string Mail { set; get; }
+        public required string DisplayName { set; get; }
+        public required string Password { set; get; }
+        public required string Host { set; get; }
+        public int Port { set; get; }
     }
 
     public class SendMailService : IEmailSender
@@ -19,7 +20,7 @@ namespace App.Services
 
         private readonly ILogger<SendMailService> _logger;
 
-        public SendMailService(IOptions<MailSettings> _mailsettings,ILogger<SendMailService> logger)
+        public SendMailService(IOptions<MailSettings> _mailsettings, ILogger<SendMailService> logger)
         {
             mailSettings = _mailsettings.Value;
             _logger = logger;
@@ -47,7 +48,7 @@ namespace App.Services
                 smtp.Authenticate(mailSettings.Mail, mailSettings.Password);
                 await smtp.SendAsync(message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Directory.CreateDirectory("MailSave");
                 var emailSave = string.Format(@"MailSave/{0}.eml", Guid.NewGuid());

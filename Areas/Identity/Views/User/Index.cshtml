@@ -64,35 +64,35 @@
                                 </td>
                                 <td>@item.PhoneNumber</td>
                                 @* <td>
-                                    <div class="role-container d-flex justify-content-center">
-                                        <div class="role-list text-center">
-                                            @if (item.Roles is not null)
-                                            {
-                                                var classText = "";
-                                                foreach (var role in item.Roles)
-                                                {
-                                                    if (role == RoleName.Administrator)
-                                                    {
-                                                        classText = "role-admin";
-                                                    }
-                                                    else if (role == RoleName.Editor)
-                                                    {
-                                                        classText = "role-editor";
-                                                    }
-                                                    else if (role == RoleName.Staff)
-                                                    {
-                                                        classText = "role-staff";
-                                                    }
-                                                    else if (role == RoleName.Customer)
-                                                    {
-                                                        classText = "role-customer";
-                                                    }
-                                                    <p class="role-item fw-bold mb-0 @(classText)">@role</p>
-                                                }
-                                            }
-                                        </div>
-                                    </div>
-                                </td> *@
+                        <div class="role-container d-flex justify-content-center">
+                        <div class="role-list text-center">
+                        @if (item.Roles is not null)
+                        {
+                        var classText = "";
+                        foreach (var role in item.Roles)
+                        {
+                        if (role == RoleName.Administrator)
+                        {
+                        classText = "role-admin";
+                        }
+                        else if (role == RoleName.Editor)
+                        {
+                        classText = "role-editor";
+                        }
+                        else if (role == RoleName.Staff)
+                        {
+                        classText = "role-staff";
+                        }
+                        else if (role == RoleName.Customer)
+                        {
+                        classText = "role-customer";
+                        }
+                        <p class="role-item fw-bold mb-0 @(classText)">@role</p>
+                        }
+                        }
+                        </div>
+                        </div>
+                        </td> *@
                                 <td>
                                     <div class="more-action">
                                         <div class="dropdown">
@@ -106,6 +106,11 @@
                                                 </li>
                                                 <li><a class="dropdown-item" asp-action="AddRole" asp-controller="User"
                                                         asp-area="Identity" asp-route-userid="@item.Id">Cập nhật vai trò</a>
+                                                </li>
+                                                <li><button class="btn dropdown-item"
+                                                        onclick="DeleteItem('@Url.Action("DeleteUser", "User", new {area = "Identity", id = item.Id})')">
+                                                        Xóa
+                                                    </button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -131,7 +136,8 @@
     </div>
 </div>
 @section Scripts
-    {
+{
+    <partial name="_ModalDelete"></partial>
     <script>
         $(document).ready(function () {
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

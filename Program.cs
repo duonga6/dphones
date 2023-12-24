@@ -75,7 +75,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/login"; // Trang đăng nhập
     options.LogoutPath = "/logout"; // Trang đăng xuất
-    // options.AccessDeniedPath = "/khongduoctruycap.html"; // Trang cấm truy cập
+    options.AccessDeniedPath = "/khongduoctruycap"; // Trang cấm truy cập
 });
 
 builder.Services.AddAuthorization(options =>

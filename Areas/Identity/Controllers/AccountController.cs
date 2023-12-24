@@ -104,6 +104,12 @@ namespace App.Areas.Identity.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet("/khongduoctruycap")]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         [HttpGet("/forgot-password")]
         [AllowAnonymous]
         public IActionResult ForgotPassword()

@@ -20,5 +20,6 @@ namespace App.Models
         public List<Review> Reviews { set; get; } = new();
         public List<Message> SentMessage { set; get; } = new();
         public List<Message> ReceivedMessage { set; get; } = new();
+        public List<OrderStatus> OrderStatuses { set; get; } = new();
     }
 }

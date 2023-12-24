@@ -307,34 +307,13 @@ namespace App.Areas.Products.Controllers
 
         [HttpPut]
         [Route("/cart/plus")]
-        public IActionResult PlusQuantity(string Id)
+        public async Task<IActionResult> PlusQuantityAsync(string Id)
         {
             var cartList = _cart.GetCart();
             var cartItem = cartList?.FirstOrDefault(c => c.Id == Id);
-            if (cartItem != null)
-            {
-                if (cartItem.Quantity >= cartItem.Capacity.Quantity)
-                {
-                    return Ok(new
-                    {
-                        status = 0,
-                        message = "Sản phẩm này đã hết!",
-                        qtt = cartItem.Quantity
-                    });
-                }
-                else
-                {
-                    cartItem.Quantity++;
-                    _cart.SaveCart(cartList);
-                    return Ok(new
-                    {
-                        status = 1,
-                        message = "Đã tăng số lượng!",
-                        qtt = cartItem.Quantity
-                    });
-                }
-            }
-            else
+            var capa = await _context.Capacities.FindAsync(cartItem?.Capacity.Id);
+
+            if (cartItem == null || capa == null)
             {
                 return NotFound(new
                 {
@@ -342,38 +321,38 @@ namespace App.Areas.Products.Controllers
                     message = "Không tìm thấy sản phẩm này!"
                 });
             }
+
+            if (cartItem.Quantity >= capa.Quantity)
+            {
+                return Ok(new
+                {
+                    status = 0,
+                    message = "Sản phẩm này đã hết!",
+                    qtt = cartItem.Quantity
+                });
+            }
+            else
+            {
+                cartItem.Quantity++;
+                _cart.SaveCart(cartList);
+                return Ok(new
+                {
+                    status = 1,
+                    message = "Đã tăng số lượng!",
+                    qtt = cartItem.Quantity
+                });
+            }
         }
 
         [HttpPut]
         [Route("/cart/minus")]
-        public IActionResult MinusQuantity(string Id)
+        public async Task<IActionResult> MinusQuantityAsync(string Id)
         {
             var cartList = _cart.GetCart();
             var cartItem = cartList?.FirstOrDefault(c => c.Id == Id);
-            if (cartItem != null)
-            {
-                if (cartItem.Quantity <= 1)
-                {
-                    return Ok(new
-                    {
-                        status = 0,
-                        message = "Số lượng phải >= 1",
-                        qtt = cartItem.Quantity
-                    });
-                }
-                else
-                {
-                    cartItem.Quantity--;
-                    _cart.SaveCart(cartList);
-                    return Ok(new
-                    {
-                        status = 1,
-                        message = "Đã giảm số lượng",
-                        qtt = cartItem.Quantity
-                    });
-                }
-            }
-            else
+            var capa = await _context.Capacities.FindAsync(cartItem?.Capacity.Id);
+
+            if (cartItem == null || capa == null)
             {
                 return NotFound(new
                 {
@@ -381,16 +360,38 @@ namespace App.Areas.Products.Controllers
                     message = "Không tìm thấy sản phẩm này"
                 });
             }
+
+            if (cartItem.Quantity <= 1)
+            {
+                return Ok(new
+                {
+                    status = 0,
+                    message = "Số lượng phải >= 1",
+                    qtt = cartItem.Quantity
+                });
+            }
+            else
+            {
+                cartItem.Quantity--;
+                _cart.SaveCart(cartList);
+                return Ok(new
+                {
+                    status = 1,
+                    message = "Đã giảm số lượng",
+                    qtt = cartItem.Quantity
+                });
+            }
         }
 
         [HttpDelete]
         [Route("/cart/delete-item")]
-        public IActionResult DeleteCartItem(string Id)
+        public async Task<IActionResult> DeleteCartItemAsync(string Id)
         {
             var cartList = _cart.GetCart();
             var cartItem = cartList?.FirstOrDefault(c => c.Id == Id);
+            var capa = await _context.Capacities.FindAsync(cartItem?.Capacity.Id);
 
-            if (cartItem == null)
+            if (cartItem == null || capa == null)
                 return Json(new
                 {
                     status = 0,
@@ -405,7 +406,7 @@ namespace App.Areas.Products.Controllers
             {
                 status = 1,
                 message = "Đã xóa sản phẩm!",
-                qtt = cartList?.Count()
+                qtt = cartList?.Count
             });
         }
 
@@ -506,12 +507,7 @@ namespace App.Areas.Products.Controllers
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
 
-            cartItemSelected?.ForEach(item =>
-            {
-                cartList?.Remove(item);
-            });
-
-            _cart.SaveCart(cartList);
+            _cart.SaveCartSub(cartItemSelected);
 
             string orderMessage = user == null ? "Chúng tôi sẽ liên lạc với bạn để xác nhận đơn hàng này. Nếu không xác nhận được đơn hàng sẽ bị hủy." : "Đơn hàng của bạn đang được chúng tôi xử lý.";
 
@@ -616,6 +612,19 @@ Xin cảm ơn.";
 
                     });
 
+                    var cartList = _cart.GetCart();
+                    var cartListToRemove = _cart.GetCartSub()?.Select(x => x.Id).ToList();
+                    if (cartList != null && cartListToRemove != null)
+                    {
+                        foreach (var item in cartListToRemove)
+                        {
+                            var cartItemToRemove = cartList?.FirstOrDefault(x => x.Id == item);
+                            if (cartItemToRemove != null)
+                                cartList?.Remove(cartItemToRemove);
+                        }
+                    }
+                    _cart.SaveCart(cartList);
+
                     break;
                 case "07":
                     payStatus.Content = "Trừ tiền thành công. Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường).";
@@ -666,6 +675,20 @@ Xin cảm ơn.";
         {
             var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
             if (order == null) return NotFound();
+
+            var cartList = _cart.GetCart();
+            var cartListToRemove = _cart.GetCartSub()?.Select(x => x.Id).ToList();
+            if (cartList != null && cartListToRemove != null)
+            {
+                foreach (var item in cartListToRemove)
+                {
+                    var cartItemToRemove = cartList?.FirstOrDefault(x => x.Id == item);
+                    if (cartItemToRemove != null)
+                        cartList?.Remove(cartItemToRemove);
+                }
+            }
+            _cart.SaveCart(cartList);
+
             return View(order);
         }
 
@@ -688,11 +711,11 @@ Xin cảm ơn.";
                     return View();
                 }
 
-                order?.OrderDetails.ForEach(async o =>
+                order?.OrderDetails.ForEach(o =>
                 {
-                    o.Product = await _context.Products.FirstOrDefaultAsync(p => p.Id == o.ProductId);
-                    o.Color = await _context.Colors.FirstOrDefaultAsync(c => c.Id == o.ColorId);
-                    o.Capacity = await _context.Capacities.FirstOrDefaultAsync(c => c.Id == o.CapacityId);
+                    o.Product = _context.Products.FirstOrDefault(p => p.Id == o.ProductId);
+                    o.Color = _context.Colors.FirstOrDefault(c => c.Id == o.ColorId);
+                    o.Capacity = _context.Capacities.FirstOrDefault(c => c.Id == o.CapacityId);
                 });
 
                 if (order?.OrderStatuses != null)

@@ -6,8 +6,7 @@ namespace App.Models.Chats
     public class Message
     {
         public int Id { set; get; }
-        [Required]
-        public string SenderId { set; get; } = string.Empty;
+        public string? SenderId { set; get; } = string.Empty;
         public string? ReceiverId { set; get; } = string.Empty;
         public bool FromAdmin { set; get; }
         [Required]

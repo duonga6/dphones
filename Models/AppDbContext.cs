@@ -115,19 +115,32 @@ namespace App.Models
 
             builder.Entity<Message>(entity =>
             {
+                entity.Property(x => x.SenderId).IsRequired(false);
+                entity.Property(x => x.ReceiverId).IsRequired(false);
+
                 entity.HasOne(m => m.Sender)
                     .WithMany(x => x.SentMessage)
                     .HasForeignKey(x => x.SenderId)
-                    .IsRequired()
                     .OnDelete(DeleteBehavior.NoAction);
 
                 entity.HasOne(m => m.Receiver)
                     .WithMany(u => u.ReceivedMessage)
                     .HasForeignKey(x => x.ReceiverId)
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired(false);
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
+            builder.Entity<AppUser>(entity =>
+            {
+                entity.HasMany(x => x.Orders)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasMany(x => x.OrderStatuses)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+            });
         }
 
         public DbSet<Product> Products { set; get; } = null!;

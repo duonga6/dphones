@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System.Security.Claims;
 using App.Areas.Identity.Models.User;
 using App.Data;
@@ -315,6 +316,45 @@ namespace App.Areas.Identity.Controllers
             model.ClaimsInRole = listClaims.ToList();
 
             model.ClaimsInUser = _context.UserClaims.Where(c => c.UserId == model.User.Id).ToList();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return Content("Không tìm thấy user");
+            }
+
+            return View(user);
+        }
+
+        [HttpPost, ActionName(nameof(DeleteUser))]
+        public async Task<IActionResult> DeleteUserConfirmed(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return Content("Không tìm thấy user");
+            }
+
+            try
+            {
+
+                var messages = await _context.Messages.Where(x => x.SenderId == id || x.ReceiverId == id).ToArrayAsync();
+                _context.Messages.RemoveRange(messages);
+                _context.Users.Remove(user);
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                StatusMessage = "Xóa thất bại";
+                return RedirectToAction(nameof(Index));
+            }
+
         }
 
     }

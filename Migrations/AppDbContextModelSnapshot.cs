@@ -125,7 +125,6 @@ namespace App.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SenderId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -885,7 +884,8 @@ namespace App.Migrations
                     b.HasOne("App.Models.AppUser", "Receiver")
                         .WithMany("ReceivedMessage")
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("App.Models.AppUser", "Sender")
                         .WithMany("SentMessage")
@@ -925,7 +925,7 @@ namespace App.Migrations
                     b.HasOne("App.Models.AppUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -968,8 +968,9 @@ namespace App.Migrations
                         .IsRequired();
 
                     b.HasOne("App.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("OrderStatuses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Order");
 
@@ -1118,6 +1119,8 @@ namespace App.Migrations
 
             modelBuilder.Entity("App.Models.AppUser", b =>
                 {
+                    b.Navigation("OrderStatuses");
+
                     b.Navigation("Orders");
 
                     b.Navigation("ReceivedMessage");

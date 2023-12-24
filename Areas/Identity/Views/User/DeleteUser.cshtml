@@ -1,0 +1,16 @@
+@model AppUser
+@{
+    ViewData["Title"] = "Xóa user";
+}
+
+<div class="card table-user-manager mb-4 h-100">
+    <div class="card-header table-heading d-flex justify-content-between align-items-center">
+        <div class="header-left">
+            <i class="fas fa-table me-1"></i>
+            @ViewData["Title"]
+        </div>
+    </div>
+    <div class="card-body table-content mb-4">
+        Bạn có chắc muốn xóa khách hàng @Model.Email không?
+    </div>
+</div>
