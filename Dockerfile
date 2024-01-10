@@ -17,7 +17,10 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./App.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN chmod -R +rwx /app/BackupDB
 ENTRYPOINT ["dotnet", "App.dll"]

@@ -15,6 +15,7 @@ services:
       - dphones-backup-volume:/app/BackupDB
 volumes:
   dphones-backup-volume:
+    external: true
 networks:
   deployment_network:
     external: true
