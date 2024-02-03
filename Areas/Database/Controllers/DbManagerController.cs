@@ -127,7 +127,8 @@ namespace App.Areas.Database.Controllers
         {
             string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB"); ;
             var nameList = Directory.GetFiles(backUpPath).Select(n => Path.GetFileName(n)).ToList();
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB", fileName);
+            // string path = Path.Combine("BackupDB", fileName);
+            string path = "/BackupDB/" + fileName;
 
             if (!nameList.Contains(fileName))
             {
@@ -163,6 +164,7 @@ namespace App.Areas.Database.Controllers
 
                 StatusMessage = $"Phục hồi thành công";
             }
+
 
             return RedirectToAction(nameof(Index));
         }
