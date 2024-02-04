@@ -5,7 +5,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: dphones
+    container_name: duonga6/dphones
     ports:
       - 8090:8090
     restart: always
