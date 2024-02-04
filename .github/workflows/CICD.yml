@@ -21,6 +21,7 @@ jobs:
 
       - name: Build with compose
         run: |
+          docker-compose build
           docker-compose up -d
       
       - name: Add tag

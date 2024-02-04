@@ -10,9 +10,9 @@ services:
       - 8090:8090
     restart: always
     image: duonga6/dphones
+    
   nginx:
     image: nginx:latest
-    container_name: nginx
     ports:
       - 80:80
       - 443:443
