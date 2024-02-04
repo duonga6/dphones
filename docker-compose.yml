@@ -5,10 +5,11 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: duonga6/dphones
+    container_name: dphones
     ports:
       - 8090:8090
     restart: always
+    image: duonga6/dphones
   nginx:
     image: nginx:latest
     container_name: nginx
