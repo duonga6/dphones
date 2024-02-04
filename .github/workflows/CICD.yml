@@ -36,23 +36,23 @@ jobs:
         run: |
           docker ps -a
           
-  # update_server:
-  #   name: Updating prod environment
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Replacing container
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.SERVER_HOSTNAME }}
-  #         username: ${{ secrets.SERVER_USERNAME }}
-  #         password: ${{ secrets.SERVER_PASSWORD }}
-  #         script: |
-  #           docker image pull duonga6/facebook.api
-  #           docker image pull duonga6/nginx-facebook.api
-  #           docker container stop facebook.api
-  #           docker container stop nginx-facebook.api
-  #           docker container prune -f
-  #           docker run -d --network nginx-facebook --name facebook.api --restart unless-stopped -p 9999:9999 duonga6/facebook.api
-  #           docker run -d --network nginx-facebook --name nginx-facebook.api -p 1111:1111 duonga6/nginx-facebook.api
-  #           docker image prune -f
+  update_server:
+    name: Updating prod environment
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Replacing container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOSTNAME }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            docker image pull duonga6/dphones
+            docker image pull duonga6/nginx-dphones
+            docker container stop dphones
+            docker container stop nginx-dphones
+            docker container prune -f
+            docker run -d --network nginx-dphones --name dphones --restart unless-stopped -p 8089:8090 duonga6/dphones
+            docker run -d --network nginx-dphones --name nginx-dphones -p 80:80 443:443 duonga6/nginx-dphones
+            docker image prune -f
