@@ -1,0 +1,58 @@
+name: CICD-Docker
+
+on: 
+  push: 
+    branches: 
+      - master
+
+jobs:
+  build:
+    name: Building image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: DockerHub login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build with compose
+        run: |
+          docker-compose up -d
+      
+      - name: Add tag
+        run: |
+          docker tag nginx duonga6/nginx-dphones
+
+      - name: Push images to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/dphones
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dphones
+
+      - name: Test container
+        run: |
+          docker ps -a
+          
+  # update_server:
+  #   name: Updating prod environment
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Replacing container
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.SERVER_HOSTNAME }}
+  #         username: ${{ secrets.SERVER_SN_API_USERNAME }}
+  #         password: ${{ secrets.SERVER_SN_API_PASSWORD }}
+  #         script: |
+  #           docker image pull duonga6/facebook.api
+  #           docker image pull duonga6/nginx-facebook.api
+  #           docker container stop facebook.api
+  #           docker container stop nginx-facebook.api
+  #           docker container prune -f
+  #           docker run -d --network nginx-facebook --name facebook.api --restart unless-stopped -p 9999:9999 duonga6/facebook.api
+  #           docker run -d --network nginx-facebook --name nginx-facebook.api -p 1111:1111 duonga6/nginx-facebook.api
+  #           docker image prune -f
