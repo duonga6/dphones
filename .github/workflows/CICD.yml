@@ -23,16 +23,11 @@ jobs:
         run: |
           docker-compose build
           docker-compose up -d
-          docker images
-
-      - name: Tag nginx
-        run: |
-          docker tag nginx duonga6/nginx-dphones
 
       - name: Push images to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/dphones
-          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dphones
+          #docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dphones
 
       - name: Test container
         run: |
