@@ -16,8 +16,8 @@ services:
   app:
     build: 
       context: .
-      dockerfile: appasp.Dockerfile
-    container_name: app
+      dockerfile: Dockerfile
+    container_name: dphones
     depends_on:
       - sqlserver
     ports:
