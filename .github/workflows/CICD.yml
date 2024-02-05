@@ -46,5 +46,5 @@ jobs:
             docker image pull duonga6/dphones
             docker container stop dphones
             docker container prune -f
-            docker run -d --name dphones --restart unless-stopped -p 8089:8090 duonga6/dphones
+            docker run -d --name dphones --restart unless-stopped -p 8090:8090 duonga6/dphones
             docker image prune -f
