@@ -35,6 +35,7 @@ jobs:
       - name: Test container
         run: |
           docker ps -a
+          docker images
           
   update_server:
     name: Updating prod environment
