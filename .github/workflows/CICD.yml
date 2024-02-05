@@ -59,3 +59,4 @@ jobs:
             docker run -d --network dphones-network --name dphones --restart unless-stopped -p 8090:8090 duonga6/dphones
             docker run -d --network dphones-network --name nginx-dphones -p 80:80 -p 443:443 duonga6/nginx-dphones
             docker image prune -f
+            ufw-docker allow nginx-dphones
