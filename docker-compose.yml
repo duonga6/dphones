@@ -10,6 +10,8 @@ services:
       - 8090:8090
     restart: always
     image: duonga6/dphones
+    networks:
+      - dphones-network
     
   nginx:
     build:
@@ -20,3 +22,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - dphones-network
+networks:
+  dphones-network:
+    external: true  
