@@ -21,11 +21,17 @@ jobs:
 
       - name: Build with compose
         run: |
+          docker-compose build
           docker-compose up -d
+
+      - name: Tag nginx
+        run: |
+          docker tag nginx duonga6/nginx-dphones
 
       - name: Push images to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/dphones
+          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dphones
 
       - name: Test container
         run: |
@@ -44,7 +50,10 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             docker image pull duonga6/dphones
+            docker image pull duonga6/nginx-dphones
             docker container stop dphones
+            docker container stop nginx-dphones
             docker container prune -f
             docker run -d --name dphones --restart unless-stopped -p 8090:8090 duonga6/dphones
+            docker run -d --name nginx-dphones -p 80:80 -p 443:443 duonga6/nginx-dphones
             docker image prune -f
