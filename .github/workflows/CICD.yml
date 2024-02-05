@@ -24,9 +24,6 @@ jobs:
           docker-compose build
           docker-compose up -d
 
-      - name: Commit nginx
-        run: docker commit nginx-dphones duonga6/nginx-dphones
-
       - name: Push images to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/dphones
@@ -35,7 +32,6 @@ jobs:
       - name: Test container
         run: |
           docker ps -a
-          docker images
           
   update_server:
     name: Updating prod environment
