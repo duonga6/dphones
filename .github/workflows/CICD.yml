@@ -55,7 +55,7 @@ jobs:
             docker container stop nginx-dphones
             docker container prune -f
             docker network rm dphones-network
-            docker network create --ip-masq --icc dphones-network
+            docker network create dphones-network
             docker run -d --network dphones-network --name dphones --restart unless-stopped -p 8090:8090 duonga6/dphones
             docker run -d --network dphones-network --name nginx-dphones -p 80:80 -p 443:443 duonga6/nginx-dphones
             docker image prune -f
