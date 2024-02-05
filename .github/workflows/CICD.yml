@@ -23,6 +23,7 @@ jobs:
         run: |
           docker-compose build
           docker-compose up -d
+          docker images
 
       - name: Tag nginx
         run: |
@@ -36,7 +37,6 @@ jobs:
       - name: Test container
         run: |
           docker ps -a
-          docker images
           
   update_server:
     name: Updating prod environment
