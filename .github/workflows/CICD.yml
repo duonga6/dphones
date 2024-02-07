@@ -19,19 +19,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create network
+      - name: Build and run
         run: |
-          docker network create dphones-network
-
-      - name: Build with compose
-        run: |
-          docker-compose build
-          docker-compose up -d
+          docker build . -t ${{ secrets.DOCKER_USERNAME }}/dphones
 
       - name: Push images to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/dphones
-          docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dphones
 
       - name: Test container
         run: |
@@ -49,14 +43,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            docker image pull duonga6/dphones
-            docker image pull duonga6/nginx-dphones
+            docker image pull ${{ secrets.DOCKER_USERNAME }}/dphones
             docker container stop dphones
-            docker container stop nginx-dphones
             docker container prune -f
-            docker network rm dphones-network
-            docker network create dphones-network
-            docker run -d --network dphones-network --name dphones --restart unless-stopped -p 8090:8090 duonga6/dphones
-            docker run -d --network dphones-network --name nginx-dphones -p 80:80 -p 443:443 duonga6/nginx-dphones
+            docker run -d --network nginx-network --name dphones --restart unless-stopped -p 8090:8090 ${{ secrets.DOCKER_USERNAME }}/dphones
             docker image prune -f
-            ufw-docker allow nginx-dphones
