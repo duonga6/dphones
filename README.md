@@ -1,6 +1,6 @@
 # E-commerce website that allows users to buy phone products
 
-#### Deploy: https://dphones.store
+#### Deploy: https://dphones.duonga6.top
 
 Default account:
 ```
