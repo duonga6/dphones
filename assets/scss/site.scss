@@ -32,6 +32,10 @@
     background-color: $fourth-color !important;
 }
 
+.primary-border {
+    border: 1px solid $primary-color;
+}
+
 html {
     font-size: 14px;
 }

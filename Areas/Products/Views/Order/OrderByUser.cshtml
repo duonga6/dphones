@@ -22,7 +22,8 @@
             Đơn hàng
             @if (Model.Count > 0)
             {
-                <span class="order-count position-absolute top-0 start-100  badge rounded-pill primary-bg">@Model.Count</span>
+                <span
+                    class="order-count position-absolute top-0 start-100  badge rounded-pill primary-bg">@Model.Count</span>
 
             }
         </p>
@@ -82,7 +83,8 @@
                 <p class="order-status">
                     <span>@item.OrderStatuses.Last().Status</span>
 
-                    @if (item.PayType == "Online" && !item.PayStatuses.Any(p => p.ResponseCode == "00") && item.OrderStatuses.Last().Code == (int)OrderStatusCode.WaitAccept)
+                    @if (item.PayType == "Online" && !item.PayStatuses.Any(p => p.ResponseCode == "00") &&
+                   item.OrderStatuses.Last().Code == (int)OrderStatusCode.WaitAccept)
                     {
                         <span>Chưa thanh toán - <a
                                 href='@Url.Action("Pay", "ViewProduct", new {area = "Products", orderId = item.Id})'>Nhấn vào
@@ -120,6 +122,13 @@
                         CultureInfo("vi-VN"))<sup>đ</sup></span>
                     </div>
                     <div class="order-action">
+                        @if (item.OrderStatuses.Last().Code == (int)OrderStatusCode.Delivering)
+                        {
+                            <a class="btn primary-bg text-white"
+                                href='@Url.Action("Delivered", "Order", new {area="Products", id=item.Id})'>Đã nhận được
+                                hàng</a>
+                        }
+
                         @if (item.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered &&
                        item.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
                         {
@@ -146,21 +155,23 @@
     }
 </div>
 
-<div class="modal fade" id="cancel-order-modal" tabindex="-1" aria-labelledby="cancel-order-modalLabel" aria-hidden="true">
+<div class="modal fade" id="cancel-order-modal" tabindex="-1" aria-labelledby="cancel-order-modalLabel"
+    aria-hidden="true">
     <form class="modal-dialog modal-dialog-centered" method="post">
         <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-6" id="cancel-order-modalLabel">Lý do hủy đơn hàng</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
+            <div class="modal-header">
+                <h1 class="modal-title fs-6" id="cancel-order-modalLabel">Lý do hủy đơn hàng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <input type="hidden" name="Id" id="orderId-canceled" value="">
-                <textarea name="note" class="form-control w-100" id="canceled-note" rows="5" placeholder="Vui lòng nhập lý do hủy"></textarea>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary" onclick="sendRequsetDelete()">Xác nhận</button>
-        </div>
+                <textarea name="note" class="form-control w-100" id="canceled-note" rows="5"
+                    placeholder="Vui lòng nhập lý do hủy"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="sendRequsetDelete()">Xác nhận</button>
+            </div>
         </div>
     </form>
 </div>

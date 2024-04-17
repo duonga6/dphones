@@ -2,16 +2,16 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
 using System.Transactions;
 using App.Areas.Products.Models;
 using App.Data;
 using App.Models;
 using App.Models.Products;
+using App.Models.Reports;
+using App.Services;
 using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,14 +24,16 @@ namespace App.Areas.Products.Controllers
     {
         private readonly AppDbContext _context;
         private readonly ILogger<ProductController> _logger;
+        private readonly ExcelReportService _excel;
 
         [TempData]
         public string? StatusMessage { set; get; }
 
-        public ProductController(ILogger<ProductController> logger, AppDbContext context)
+        public ProductController(ILogger<ProductController> logger, AppDbContext context, ExcelReportService excelReportService)
         {
             _logger = logger;
             _context = context;
+            _excel = excelReportService;
         }
 
         private readonly int ITEM_PER_PAGE = 10;
@@ -734,5 +736,52 @@ namespace App.Areas.Products.Controllers
 
         }
 
+        [HttpGet("/generate-product-report")]
+        public async Task<IActionResult> GenerateReport()
+        {
+            List<ProductReport> data = await _context.Capacities
+                                        .AsNoTracking()
+                                        .Include(x => x.Color)
+                                        .Include(x => x.Color!.Product)
+                                        .Include(x => x.Color!.Product!.Brand)
+                                        .Select(x => new ProductReport
+                                        {
+                                            Code = x.Color.Product.Code,
+                                            Brand = x.Color.Product.Brand.Name,
+                                            Color = x.Color.Name,
+                                            EntryDate = x.Color.Product.EntryDate.ToString("dd/MM/yyyy"),
+                                            EntryPrice = (double)x.EntryPrice,
+                                            Name = x.Color.Product.Name,
+                                            Quantity = x.Quantity,
+                                            Ram = x.Ram,
+                                            Rom = x.Rom,
+                                            SellPrice = (double)x.SellPrice,
+                                            Sold = x.Sold,
+                                            Status = x.Color.Product.Published ? "Hiển thị" : "Ẩn",
+                                            SellStatus = x.Quantity == 0 ? "Hết hàng" : "Còn hàng"
+                                        })
+                                        .ToListAsync();
+
+            try
+            {
+                string fileName = await _excel.GenerateExcel<ProductReport>("Data", data, "Danh sách mặt hàng đang bán");
+                string path = "/files/Reports/" + fileName;
+
+                return Json(new
+                {
+                    success = true,
+                    data = path,
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Có lỗi khi xuất file",
+                });
+            }
+
+        }
     }
 }

@@ -19,6 +19,7 @@ builder.Services.AddOptions();
 builder.Services.AddHttpClient();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<ConnectionManagerService>();
+builder.Services.AddSingleton<ExcelReportService>();
 
 builder.WebHost.UseUrls("http://0.0.0.0:8090");
 

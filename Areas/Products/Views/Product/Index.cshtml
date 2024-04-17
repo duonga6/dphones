@@ -18,6 +18,12 @@
         </div>
         <div class="right-header d-flex align-items-center justify-content-end mt-2 mt-md-0">
             <div class="form-group d-flex align-items-center justify-content-end me-3">
+                <div class="col-auto">
+                    <button class="btn" id="btn-export-excel">
+                        Xuất
+                        <i class="fa-solid fa-table text-primary"></i>
+                    </button>
+                </div>
                 <div class="col-auto gx-0">
                     <label class="form-label mb-0 me-1 ms-2 ms-md-0 ">Sắp xếp</label>
                 </div>
@@ -165,6 +171,13 @@
     </div>
 </div>
 
+@* Toast *@
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+    </div>
+</div>
+
 @section Scripts
 {
+    <script type="module" src="/js/Products/adminIndex.js"></script>
 }

@@ -31,6 +31,10 @@
   background-color: #00a9ff !important;
 }
 
+.primary-border {
+  border: 1px solid #f94c10;
+}
+
 html {
   font-size: 14px;
 }

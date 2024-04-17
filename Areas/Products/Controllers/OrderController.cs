@@ -2,6 +2,8 @@ using App.Areas.Products.Models;
 using App.Data;
 using App.Models;
 using App.Models.Products;
+using App.Models.Reports;
+using App.Services;
 using App.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,18 +22,20 @@ namespace App.Areas.Products.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly ExcelReportService _excel;
 
         private readonly int ITEM_PER_PAGE = 10;
 
         [TempData]
         public string? StatusMessage { set; get; }
 
-        public OrderController(IEmailSender emailSender, UserManager<AppUser> userManager, ILogger<ProductController> logger, AppDbContext context)
+        public OrderController(IEmailSender emailSender, UserManager<AppUser> userManager, ILogger<ProductController> logger, AppDbContext context, ExcelReportService excelReportService)
         {
             _emailSender = emailSender;
             _userManager = userManager;
             _logger = logger;
             _context = context;
+            _excel = excelReportService;
         }
 
         // Trang thống kê
@@ -490,7 +494,7 @@ Xin cảm ơn.";
         }
 
         // Đã giao
-        public async Task<IActionResult> Delivered(int Id)
+        public async Task<IActionResult> Delivered(int Id, string? returnUrl)
         {
             var order = await _context.Orders
                                 .Include(o => o.OrderStatuses)
@@ -560,6 +564,11 @@ Xin cảm ơn.";
             string emailHtml = AppUtilities.GenerateHtmlEmail(order.FullName, emailContent);
 
             await _emailSender.SendEmailAsync(order.Email, "Đơn hàng giao thành công", emailHtml);
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
 
             return RedirectToAction(nameof(Details), new { Id });
         }
@@ -781,6 +790,46 @@ Xin cảm ơn.";
                 status = 1,
                 message = result
             });
+
+        }
+
+        [HttpGet("/generate-order-report")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GenerateOrderReport()
+        {
+            var data = await _context.Orders.AsNoTracking()
+                                .Select(x => new OrderReport
+                                {
+                                    OrderCode = x.Code,
+                                    Customter = x.FullName,
+                                    Email = x.Email,
+                                    PhoneNumber = x.PhoneNumber,
+                                    OrderDate = x.OrderDate.ToString("dd/MM/yyyy"),
+                                    OrderRecived = x.OrderStatuses.OrderByDescending(od => od.DateUpdate).FirstOrDefault()!.Code == (int)OrderStatusCode.Delivered ? x.OrderStatuses.FirstOrDefault()!.DateUpdate.ToString("dd/MM/yyyy") : "-",
+                                    Status = x.OrderStatuses.OrderByDescending(od => od.DateUpdate).FirstOrDefault()!.Status,
+                                    Total = (double)x.TotalCost
+                                })
+                                .ToListAsync();
+            try
+            {
+
+                string fileName = await _excel.GenerateExcel<OrderReport>("Data", data, "Báo cáo đơn hàng");
+                string filePath = "/files/Reports/" + fileName;
+                return Json(new
+                {
+                    success = true,
+                    data = filePath,
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    messages = "Có lỗi khi tạo báo cáo: " + ex.Message
+                });
+            }
 
         }
     }

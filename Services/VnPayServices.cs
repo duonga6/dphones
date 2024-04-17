@@ -4,11 +4,12 @@ using Microsoft.Extensions.Options;
 
 namespace App.Services
 {
-    public class VnPaySettings {
-        public required string Vnp_Returnurl {set;get;}
-        public required string Vnp_Url {set;get;}
-        public required string Vnp_TmnCode {set;get;}
-        public required string Vnp_HashSecret {set;get;}
+    public class VnPaySettings
+    {
+        public required string Vnp_Returnurl { set; get; }
+        public required string Vnp_Url { set; get; }
+        public required string Vnp_TmnCode { set; get; }
+        public required string Vnp_HashSecret { set; get; }
     }
     public class VnPayService
     {
@@ -28,10 +29,6 @@ namespace App.Services
         public string SendRequest(long amount, string orderCode)
         {
             string vnp_Returnurl = _vnPaySettings.Vnp_Returnurl; //URL nhan ket qua tra ve (Url của website bán hàng trả về kết quả cho người dùng)
-            if (_environment.IsDevelopment())
-            {
-                vnp_Returnurl = "http://localhost:8090/ket-qua-thanh-toan";
-            }
             string vnp_Url = _vnPaySettings.Vnp_Url; //URL thanh toan cua VNPAY 
             string vnp_TmnCode = _vnPaySettings.Vnp_TmnCode; //Ma định danh merchant kết nối (Terminal Id) (Lấy trên Mail đăng ký test Vnpay)
             string vnp_HashSecret = _vnPaySettings.Vnp_HashSecret; //Secret Key (Lấy trên Mail đăng ký test Vnpay)
@@ -49,7 +46,7 @@ namespace App.Services
             vnpay.AddRequestData("vnp_Command", "pay");
             vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
             vnpay.AddRequestData("vnp_Amount", (order.Amount * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
-            
+
             vnpay.AddRequestData("vnp_CreateDate", order.CreatedDate.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
             vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress(_httpContext));

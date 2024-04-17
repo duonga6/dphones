@@ -7,7 +7,8 @@
 }
 
 <div class="card h-100">
-    <div class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
+    <div
+        class="card-header d-flex flex-md-row justify-content-md-between align-items-md-center flex-column align-items-start">
         <div class="left-header">
             <i class="fas fa-table me-1"></i>
             @ViewData["Title"] (@ViewBag.TotalOrders)
@@ -17,14 +18,20 @@
         </div>
         <div class="header-right d-flex align-items-center mt-2 mt-md-0 ms-2 ms-md-0">
             <div class="form-group row align-items-center me-3">
+                <div class="col-auto">
+                    <button class="btn" id="btn-export-excel">
+                        Xuất
+                        <i class="fa-solid fa-table text-primary"></i>
+                    </button>
+                </div>
                 <div class="col-auto gx-2">
                     <label class="form-label mb-0">Lọc</label>
                 </div>
                 <div class="col-auto gx-2 d-flex justify-content-center align-items-center">
                     <div class="dropdown">
                         <a class="btn btn-sm dropdown-toggle" href="#" role="button"
-                            style="border: 1px solid #ced4da; background-color: #fff; min-width: 100px;" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                            style="border: 1px solid #ced4da; background-color: #fff; min-width: 100px;"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             @switch (queryFilter)
                             {
                                 case "-1":
@@ -97,13 +104,17 @@
                         </ul>
                     </div>
                     @* <div style="font-size: 12px;">
-                        @{
-                            string orderSort = ViewBag.OrderSort == "desc" ? "asc" : "desc";
-                        }
-                        <a class="text-dark sort-order d-flex flex-column ms-3 text-decoration-none" href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = @orderSort})'>    
-                            <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) && Context.Request.Query["sortOrder"] == "asc") {@("text-primary")}'></i>
-                            <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) || Context.Request.Query["sortOrder"] == "desc") {@("text-primary")}'></i>
-                        </a>
+                    @{
+                    string orderSort = ViewBag.OrderSort == "desc" ? "asc" : "desc";
+                    }
+                    <a class="text-dark sort-order d-flex flex-column ms-3 text-decoration-none"
+                    href='@Url.Action("Index", "Product", new { area = "Products", s = Context.Request.Query["s"], sort
+                    = Context.Request.Query["sort"], sortOrder = @orderSort})'>
+                    <i class='fa-solid fa-angle-up @if(!string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) &&
+                    Context.Request.Query["sortOrder"] == "asc") {@("text-primary")}'></i>
+                    <i class='fa-solid fa-angle-down @if(string.IsNullOrEmpty(Context.Request.Query["sortOrder"]) ||
+                    Context.Request.Query["sortOrder"] == "desc") {@("text-primary")}'></i>
+                    </a>
                     </div> *@
                 </div>
             </div>
@@ -136,11 +147,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     <tr class="text-center">
                         <td>
-                            <a class="text-decoration-none" asp-action="Details" asp-controller="Order" asp-area="Products" asp-route-Id="@item.Id">@item.Code</a>
+                            <a class="text-decoration-none" asp-action="Details" asp-controller="Order" asp-area="Products"
+                                asp-route-Id="@item.Id">@item.Code</a>
                         </td>
                         <td>@item.FullName</td>
                         <td>@item.User?.UserName</td>
@@ -159,10 +171,29 @@
             {
                 CurrentPage = ViewBag.CurrentPage,
                 CountPage = ViewBag.TotalPage,
-                GenerateUrl = p => Url.Action("Index", "Order", new { area = "Products", p, s = Context.Request.Query["s"], sort = Context.Request.Query["sort"], sortOrder = Context.Request.Query["sortOrder"]}) ?? ""
+                GenerateUrl = p => Url.Action("Index", "Order", new
+                {
+                    area = "Products",
+                    p,
+                    s = Context.Request.Query["s"],
+                    sort
+                = Context.Request.Query["sort"],
+                    sortOrder = Context.Request.Query["sortOrder"]
+                }) ?? ""
             };
         }
         <partial name="_Paging" model="@pagingModel"></partial>
         <partial name="_AlertMessage"></partial>
     </div>
 </div>
+
+@* Toast *@
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="module" src="/js/Order/index.js"></script>
+}
