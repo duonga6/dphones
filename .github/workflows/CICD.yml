@@ -46,5 +46,5 @@ jobs:
             docker image pull ${{ secrets.DOCKER_USERNAME }}/dphones
             docker container stop dphones
             docker container prune -f
-            docker run -d --network nginx-network --name dphones -v dphones_volume --restart unless-stopped -p 8090:8090 ${{ secrets.DOCKER_USERNAME }}/dphones
+            docker run -d --network nginx-network --name dphones -v dphones_volume:/app/BackupDB --restart unless-stopped -p 8090:8090 ${{ secrets.DOCKER_USERNAME }}/dphones
             docker image prune -f
