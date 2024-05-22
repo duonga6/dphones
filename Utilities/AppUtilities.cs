@@ -126,7 +126,7 @@ namespace App.Utilities
                                         <tr>
                                             <td>
                                                 <div>
-                                                    <img src=""https://i.postimg.cc/43f45DSk/logo-color.png"" alt=""""
+                                                    <img src=""https://i.postimg.cc/KvW5qGcb/logo-color.png"" alt=""""
                                                         style=""width: 240px; object-fit: contain;"">
                                                 </div>
                                             </td>
