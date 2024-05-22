@@ -125,7 +125,8 @@
                         @if (item.OrderStatuses.Last().Code == (int)OrderStatusCode.Delivering)
                         {
                             <a class="btn primary-bg text-white"
-                                href='@Url.Action("Delivered", "Order", new {area="Products", id=item.Id})'>Đã nhận được
+                                href='@Url.Action("Delivered", "Order", new {area="Products", id=item.Id, returnUrl="/user/order"})'>Đã
+                                nhận được
                                 hàng</a>
                         }
 

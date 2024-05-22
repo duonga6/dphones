@@ -125,9 +125,9 @@ namespace App.Areas.Database.Controllers
         [Route("/database-manager/restore-db/{fileName}")]
         public async Task<IActionResult> RestoreDBAsync(string fileName)
         {
-            string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB"); ;
+            string backUpPath = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB");
             var nameList = Directory.GetFiles(backUpPath).Select(n => Path.GetFileName(n)).ToList();
-            string path = "/BackupDB/" + fileName;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "BackupDB", fileName);
 
             if (!nameList.Contains(fileName))
             {

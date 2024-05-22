@@ -226,22 +226,22 @@ Hãy xác thực tài khoản của bạn bằng cách <a href='{callbackUrl}'>�
                 XStringFormats.Center);
 
                 gfx.DrawString(
-                "Tên khách hàng: Dương Phạm", font, XBrushes.Black,
+                $"Tên khách hàng: {order.FullName}", font, XBrushes.Black,
                 new XRect(20, 140, page.Width / 2, 14),
                 XStringFormats.TopLeft);
 
                 gfx.DrawString(
-                "Số điện thoại: 0123456789", font, XBrushes.Black,
+                $"Số điện thoại: {order.PhoneNumber}", font, XBrushes.Black,
                 new XRect(page.Width / 2, 140, page.Width / 2, 14),
                 XStringFormats.TopLeft);
 
                 gfx.DrawString(
-                "Địa chỉ: SN 6, Ngõ 5, TDP 3, Phường Phúc Xá, Quận Ba Đình, Thành phố Hà Nội", font, XBrushes.Black,
+                $"Địa chỉ: {order.SpecificAddress}, {order.Commune}, {order.District}, {order.City}", font, XBrushes.Black,
                 new XRect(20, 140 + 20, page.Width - 40, 30),
                 XStringFormats.TopLeft);
 
                 gfx.DrawString(
-                    "Email: abc@gmail.com", font, XBrushes.Black,
+                    $"Email: {order.Email}", font, XBrushes.Black,
                     new XRect(20, 140 + 20 * 2, page.Width - 40, 30),
                     XStringFormats.TopLeft);
 

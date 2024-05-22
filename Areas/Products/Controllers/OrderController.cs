@@ -494,6 +494,8 @@ Xin cảm ơn.";
         }
 
         // Đã giao
+        [AllowAnonymous]
+        [Authorize(Roles = RoleName.Customer)]
         public async Task<IActionResult> Delivered(int Id, string? returnUrl)
         {
             var order = await _context.Orders
