@@ -576,7 +576,8 @@ Xin cảm ơn.";
         }
 
         [HttpPost]
-        [Authorize(Roles = null)]
+        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> CancelOrderAPI(int Id, string? note)
         {
             var order = await _context.Orders

@@ -130,11 +130,11 @@
                                 hàng</a>
                         }
 
-                        @if (item.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered &&
-                       item.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
-                        {
-                            <button class="btn primary-bg text-white" onclick="openModal('@item.Id')">Hủy đơn hàng</button>
-                        }
+                        @* @if (item.OrderStatuses.Last().Code != (int)OrderStatusCode.Delivered &&
+                    item.OrderStatuses.Last().Code != (int)OrderStatusCode.Canceled)
+                    {
+                    <button class="btn primary-bg text-white" onclick="openModal('@item.Id')">Hủy đơn hàng</button>
+                    } *@
                     </div>
                 </div>
             </li>
