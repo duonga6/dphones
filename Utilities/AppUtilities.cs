@@ -217,7 +217,9 @@ Hãy xác thực tài khoản của bạn bằng cách <a href='{callbackUrl}'>�
                     new XRect(16, 20 + 18 * 2, page.Width - 40, 14),
                     XStringFormats.TopRight);
 
-                XImage image = XImage.FromFile("wwwroot\\images\\logo-color.png");
+                string imagePath = Path.Combine("wwwroot", "images", "logo-color.png");
+
+                XImage image = XImage.FromFile(imagePath);
                 gfx.DrawImage(image, 20, 23, 200, 50);
 
                 gfx.DrawString(
